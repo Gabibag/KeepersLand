@@ -9,17 +9,23 @@ import java.lang.*;
 import java.lang.instrument.Instrumentation;
 
 public class Main {
+    public static List<Enviorment> allPlaces = new ArrayList<Enviorment>();
+    public static Enviorment currentPlace;
+    public static List<Enemy> allEnemies = new ArrayList<Enemy>();
+    public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<Interactable>(); //adds everything that can be talked to(interacted) to an arraylist
     public static void main(String[] args){
         s = new Scanner(System.in);
-        Random r = new Random();
+         r = new Random();
         initTypes();
         System.out.println("Press ctrl + c to quit ;)");
         //defaults for player
         
-        player = new Player(Prompt("Welcome \n Enter your players name:"),100, 1, new ArrayList<Item>());
+        player = new Player(Prompt("Welcome \nEnter your players name:"),100, 1, new ArrayList<Item>());
         player.addMoney(50);
+        getNewPlace();
         while(true){
+            System.out.println(currentPlace.getClass().getName());
             //get 3 random interacts 
             //TODO make an enviroment class that gets the list, current envviroment that can change
             System.out.println("chose one option");
@@ -40,6 +46,12 @@ public class Main {
             return getInput(msg);    
             }
             
+    }
+    public static void getNewPlace(){
+        currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
+        while(!currentPlace.isVaild(player)){
+            currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
+        }
     }
     public static Player player;
     public static Scanner s;
