@@ -5,7 +5,9 @@
     * [Shops](#shops)
     * [Battles](#battles)
     * [Locations](#locations)
-    * [Mob types](#mob-types)
+    * [Enemy types](#enemy-types)
+    * [Status effects](#status-effects)
+    * [Location modifiers](#location-modifiers)
 <!-- TOC -->
 ### Shops
   - There are 2 different shops, 1 is the regular shop, which allows you to purchase things with coins.
