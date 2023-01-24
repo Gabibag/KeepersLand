@@ -9,9 +9,6 @@ public abstract class Interactable {
         //this makes it so we know this is a usable interactable
         //WITHOUT THIS IT WILL NOT BE USABLE, MAKE SURE TO ADD IT TO OTHER CONSTRUCTORS
     }
-    //like a construct but a custom method so the above works
-    public void startup(){
-    }
     //the message sent at the start
     public abstract String getStartMessage(Player p);
     

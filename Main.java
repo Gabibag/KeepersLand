@@ -1,5 +1,6 @@
 import java.security.AllPermission;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -16,19 +17,18 @@ public class Main {
         System.out.println("Press ctrl + c to quit ;)");
         //defaults for player
         
-        player = new Player(Prompt("Welcome \nEnter a name for your player:"),100, 1, new Item[10]);
+        player = new Player(Prompt("Welcome \n Enter your players name:"),100, 1, new ArrayList<Item>());
+        player.addMoney(50);
         while(true){
             //get 3 random interacts 
-            //TODO: make an enviroment class that gets the list, current envviroment that can change
-            Interactable[] choices ={  allInteracts.get(r.nextInt(0, allInteracts.size())), allInteracts.get(r.nextInt(0, allInteracts.size())), allInteracts.get(r.nextInt(0, allInteracts.size())) };
-            // line above creates a choices list with all the choices, but randomized
+            //TODO make an enviroment class that gets the list, current envviroment that can change
             System.out.println("chose one option");
-            for(int i = 0; i < choices.length; i ++){
-                System.out.println("[" + (i + 1) +"] " + choices[i].getClass().getName());
+            for(int i = 0; i < allInteracts.size(); i ++){
+                System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getClass().getName());
             }
             int choice = -1 + getInput("Make your choice: ");
             //TODO choice vaildation
-            choices[choice].OnChoose(player);
+            allInteracts.get(choice).OnChoose(player);
         }
     }
     //read one int from user
@@ -58,6 +58,7 @@ public class Main {
                 try{
                     Class<?> s = Class.forName(listOfFiles[i].getName().substring(0, listOfFiles[i].getName().indexOf(".java")));
                     s.newInstance();
+                    
                 }
                 catch(Exception e){
                     continue;
