@@ -1,3 +1,3 @@
-public class Npc extends Interactable{
-
+public abstract class Npc extends Interactable{
+    //TODO
 }

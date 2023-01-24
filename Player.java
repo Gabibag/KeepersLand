@@ -2,9 +2,9 @@ public class Player {
     private String name;
     private int hp;
     private int dmg;
-    private String[] inventory;
+    private Item[] inventory;
 
-    public Player(String name, int hp, int dmg, String[] inventory) {
+    public Player(String name, int hp, int dmg, Item[] inventory) {
         this.name = name;
         this.hp = hp;
         this.dmg = dmg;
@@ -39,11 +39,11 @@ public class Player {
         this.dmg = dmg;
     }
 
-    public String[] getInventory() {
+    public Item[] getInventory() {
         return inventory;
     }
 
-    public void setInventory(String[] inventory) {
+    public void setInventory(Item[] inventory) {
         this.inventory = inventory;
     }
 }
