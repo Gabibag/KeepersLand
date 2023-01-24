@@ -9,7 +9,7 @@ import java.lang.*;
 import java.lang.instrument.Instrumentation;
 
 public class Main {
-    public static List<Interactable> allInteracts = new ArrayList<Interactable>();
+    public static List<Interactable> allInteracts = new ArrayList<Interactable>(); //adds everything that can be talked to(interacted) to an arraylist
     public static void main(String[] args){
         s = new Scanner(System.in);
         Random r = new Random();
@@ -48,6 +48,8 @@ public class Main {
         System.out.println(msg);
         return s.nextLine();
     }
+    //looks through files in current directory, then checks if they're java files, if they are,
+    //it tries to create a new instance of the class given by the file and using that [to do something]
     public static void initTypes(){
         File folder = new File(".");
         File[] listOfFiles = folder.listFiles();
