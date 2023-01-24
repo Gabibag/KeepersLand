@@ -1,3 +1,4 @@
 
-public abstract class Enemy extends Interactable {
+public abstract class Enemy{ 
+    
 }

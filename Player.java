@@ -1,10 +1,23 @@
+import java.util.*;
 public class Player {
+    private int money;
     private String name;
     private int hp;
     private int dmg;
-    private Item[] inventory;
-
-    public Player(String name, int hp, int dmg, Item[] inventory) {
+    private List<Item> inventory;
+    public int getMoney(){
+        return money;
+    }
+    public void setMoney(int val){
+        money = val;
+    }
+    public void addMoney(int amount){
+        this.money += amount;
+    }
+    public void chargeMoney(int amount) {
+        this.money -= amount;
+    }
+    public Player(String name, int hp, int dmg, List<Item> inventory) {
         this.name = name;
         this.hp = hp;
         this.dmg = dmg;
@@ -39,11 +52,11 @@ public class Player {
         this.dmg = dmg;
     }
 
-    public Item[] getInventory() {
+    public List<Item> getInventory() {
         return inventory;
     }
 
-    public void setInventory(Item[] inventory) {
+    public void setInventory(List<Item> inventory) {
         this.inventory = inventory;
     }
 }
