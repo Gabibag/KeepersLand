@@ -2,21 +2,23 @@
 
 we should also have locations, and make them so that each location gives a different modifier
 
-but we want it to scale infinitely , so we can have the first 5 or 6 be hardcoded, 
-such as "poisoned realm," which, say drops your health by a certain amount
-after the first few hardcoded elements, we can have each location be modified slightly using modifiers.
+But we want it to scale infinitely , so we can have the first 5 or 6 be hardcoded, 
+such as "poisoned realm," which, say drops your health by a certain amount.
+After the first few hardcoded elements, we can have each location be modified slightly using modifiers.
 such as
 - slightly
 - increased
 - decreased
 - extra
-things such as this.
+
+Things such as this.
 then we can have a main area element
 - poison
 - heal
 - revive
 - scale
-and make then finally an element that affects only mobs
+
+And make then finally an element that affects only mobs
 - immune
 - resistant
 - stronger
