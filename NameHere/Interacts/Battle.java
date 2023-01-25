@@ -57,7 +57,7 @@ public class Battle extends Interactable {
                 System.out.println("[3] Info"+ Colors.RESET);
                 int choice = Helper.getInput(Colors.RESET + "\nPlayer " + p.getBattleHp() + "hp: ", 3);
                 switch (choice) {
-                    case 1 -> {
+                    case 1: {
                         System.out.println(Colors.CLEAR);
                         for(int i = 0; i < enemies.size(); i ++){
                             System.out.println(Colors.PURPLE + "[" + (i + 1) +"] " + enemies.get(i).getName());
@@ -76,8 +76,8 @@ public class Battle extends Interactable {
                         Sleep(1);
                     }
 
-                    case 2 -> System.out.println("Defend"); //TODO add Defend
-                    case 3 -> System.out.println("Info");   //TODO get location + opponent info
+                    case 2 : System.out.println("Defend"); //TODO add Defend
+                    case 3 : System.out.println("Info");   //TODO get location + opponent info
                 }
 
             Actions--;
@@ -131,7 +131,7 @@ public class Battle extends Interactable {
 
     @Override
     public String getName() {
-        return null;
+        return "Battle";
     }
 
 
