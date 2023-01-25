@@ -3,13 +3,14 @@ public abstract class Enemy{
     protected int damage;
     protected String name;
 
-    public Enemy(int baseHp, int damage, String name) {
-        this.baseHp = baseHp;
-        this.damage = damage;
-        this.name = name;
+    public Enemy() {
         Main.allEnemies.add((this)); //adds all enemies to a list
     }
 
     public abstract boolean canSpawn(Player p);
-    public abstract void Attack(Player p);
+    public  void Attack(Player p){
+        //by default, just hits for its damage
+        System.out.println("A " + name + " attacks for " +damage  );
+        p.setHp( p.getHp() - this.damage);
+    }
 }
