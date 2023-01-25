@@ -8,6 +8,7 @@ import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 
 public class Battle extends Interactable{
+    final int NUM_MOVES = 3;//must be updated 
     @Override public String getName(){
         return "Battle";
     } 
@@ -23,7 +24,7 @@ public class Battle extends Interactable{
             System.out.println("[1] Attack");
             System.out.println("[2] Defend");
             System.out.println("[3] Use Item");
-            int choice = Main.getInput("Your Choice: ");
+            int choice = Helper.getInput("Your Choice: ", NUM_MOVES);
             //TODO implement
             switch(choice){
                 case 1:

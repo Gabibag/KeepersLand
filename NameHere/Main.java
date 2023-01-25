@@ -28,7 +28,7 @@ public class Main {
         initTypes();
         System.out.println("Press ctrl + c to quit ;)");
         //defaults for player
-        player = new Player(Prompt("Welcome \nEnter your players name:"),100, 1, new ArrayList<Item>());
+        player = new Player(Helper.Prompt("Welcome \nEnter your players name:"),100, 1, new ArrayList<Item>());
         player.addMoney(50);
         getNewPlace();
         while(true){
@@ -36,13 +36,13 @@ public class Main {
             for(int i = 0; i < allInteracts.size(); i ++){
                 System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getName());
             }
-            int choice = -1 + getInput("Make your choice: ");
+            int choice = -1 + Helper.getInput("Make your choice: ", allInteracts.size() + 1);
             //TODO choice vaildation
             allInteracts.get(choice).OnChoose(player);
         }
     }
     //read one int from user
-    public static int getInput(String msg){
+    /*     public static int getInput(String msg){
         try{
             return Integer.parseInt(Prompt(msg));
             }catch(Exception e){
@@ -50,7 +50,8 @@ public class Main {
             return getInput(msg);    
             }
             
-    }
+    } */
+    //0-top
     public static void getNewPlace(){
         currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
         while(!currentPlace.isVaild(player)){
@@ -61,10 +62,7 @@ public class Main {
 
     public static Scanner s;
     //says a prompt then returns the next line, advances the stream by the length of the line
-    public static String Prompt(String msg){
-        System.out.println(msg);
-        return s.nextLine();
-    }
+
     //looks through files in current directory, then checks if they're java files, if they are,
     //it tries to create a new instance of the class given by the file and using that [to do something]
     public static void initTypes(){
