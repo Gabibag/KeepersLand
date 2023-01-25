@@ -19,20 +19,19 @@ public class Main {
          s = new Scanner(System.in);
          r = new Random();
         initTypes();
-        System.out.println("Press ctrl + c to quit ;)");
+        System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        player = new Player(Prompt("Welcome \nEnter your players name:"),100, 1, new ArrayList<Item>());
+        player = new Player(Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET),100, 1, new ArrayList<Item>());
         player.addMoney(50);
         getNewPlace();
         while(true){
-            System.out.println(currentPlace.getClass().getName());
+            System.out.println(Colors.CLEAR + currentPlace.getClass().getName());
             //get 3 random interacts 
             //TODO make an enviroment class that gets the list, current envviroment that can change
-            System.out.println("chose one option");
             for(int i = 0; i < allInteracts.size(); i ++){
-                System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getClass().getName());
+                System.out.println(Colors.PURPLE + "[" + (i + 1) +"] " + allInteracts.get(i).getClass().getName());
             }
-            int choice = -1 + getInput("Make your choice: ");
+            int choice = -1 + getInput(Colors.RESET + "\nPlayer: ");
             //TODO choice vaildation
             allInteracts.get(choice).OnChoose(player);
         }

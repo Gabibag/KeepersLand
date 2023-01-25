@@ -14,4 +14,6 @@ public class BountyHunter extends Enemy{
     public boolean canSpawn(Player p) {
         return true;
     }
+
+
 }
