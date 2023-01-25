@@ -1,11 +1,20 @@
+package NameHere.Interacts;
+
+import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Interactable;
+import NameHere.Colors;
+import NameHere.Helper;
+import NameHere.Main;
+import NameHere.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
-public class Battle extends Interactable{
+public class Battle extends Interactable {
     @Override
-    public void OnChoose(Player p) {
+    public void onChoose(Player p) {
 
         int Actions = p.getActionAmount();
         List<Enemy> spawns =getEnemies(p);
@@ -17,26 +26,26 @@ public class Battle extends Interactable{
         } catch (Exception e) {
             // TODO: handle exception
         }
-        System.out.println(Colors.CLEAR);
-        System.out.println(Colors.RED);
+        System.out.print(Colors.CLEAR);
+        System.out.print(Colors.RED);
         Main.slowPrint("A battle is starting!");
-        System.out.println(Colors.RESET);
+        System.out.print(Colors.RESET);
         Sleep(1);
-        System.out.println(Colors.CLEAR);
+        System.out.print(Colors.CLEAR);
         while(enemies.size() > 0){
             while(Actions > 0){
                 for (Enemy enemy : enemies){
-                    System.out.print(Colors.RED + enemy.getClass().getName() + "  ");
+                    System.out.print(Colors.RED + enemy.getName() + "  ");
                 }
                 System.out.println();
                 //TODO: add a check if the health excedes the text length of the char so the names spread out
                 for (Enemy enemy : enemies){
-                    for(int i =0; i < enemy.getClass().getName().length(); i++){
-                        if((enemy.getClass().getName().length() - (Integer.toString(enemy.getBattleHp()).length() + 2))/2 <1){
+                    for(int i =0; i < enemy.getName().length(); i++){
+                        if((enemy.getName().length() - (Integer.toString(enemy.getBattleHp()).length() + 2))/2 <1){
                             System.out.print(" "+enemy.getBattleHp()+"hp" + " ");
                             break;
                         }
-                        else if(i == (((enemy.getClass().getName().length()) - (Integer.toString(enemy.getBattleHp()).length() + 2))/2)){
+                        else if(i == (((enemy.getName().length()) - (Integer.toString(enemy.getBattleHp()).length() + 2))/2)){
                             System.out.print(enemy.getBattleHp()+"hp");
                             i+=4;
                         }
@@ -50,7 +59,7 @@ public class Battle extends Interactable{
                                    "[1] Attack");
                 System.out.println("[2] Heal" );
                 System.out.println("[3] Use Item"+ Colors.RESET);
-                int choice = Main.getInput("\nPlayer " + p.getBattleHp() + "hp: ");
+                int choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", 3);
                 //TODO implement
                 switch (choice) {
                     case 1 -> {
@@ -62,7 +71,7 @@ public class Battle extends Interactable{
                         }
 
                         System.out.println(Colors.RESET);
-                        choice = Main.getInput("\nPlayer " + p.getBattleHp() + "hp: ");
+                        choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
                         System.out.println(Colors.CLEAR);
                         enemies.get(choice-1).setBattleHp(enemies.get(choice-1).getBattleHp() - p.getDmg());
                         Main.slowPrint("Dealt " + p.getDmg() + " damage to " + enemies.get(choice-1).getClass().getName());
@@ -125,4 +134,13 @@ public class Battle extends Interactable{
         }
         return returned;
     }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+
+
+
 }

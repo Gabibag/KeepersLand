@@ -8,8 +8,9 @@ public class Helper {
      * @return the users next line
      */
     public static String Prompt(String msg){
-        System.out.println(msg);
+        System.out.println(Colors.PURPLE+msg+Colors.RESET);
         return s.nextLine();
+
     }
     /**
      * returns an items rarity as a word from a number following this chart 
@@ -79,12 +80,13 @@ public class Helper {
             if(r > 0 && r <= top){
                 return r;
             }
-            System.out.println("Not an option");
+            System.out.println(Colors.RED + "Not an option" + Colors.RESET);
             return getInput(msg, top);
-            }catch(Exception e){
-            System.out.println("Bad input, try again");
+        }
+        catch(Exception e){
+            System.out.println(Colors.RED + "Bad input, try again" + Colors.RESET);
             return getInput(msg, top);    
-            }
+        }
             
     }
     /**

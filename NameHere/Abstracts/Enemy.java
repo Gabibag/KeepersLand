@@ -1,8 +1,19 @@
+package NameHere.Abstracts;
+
+import NameHere.Item;
+import NameHere.Main;
+import NameHere.Player;
+
 import java.util.List;
 
 public abstract class Enemy{
     protected int baseHp;
     protected int damage;
+
+    public String getName() {
+        return name;
+    }
+
     protected String name;
     protected int xp;
     protected List<Item> drops;
@@ -38,4 +49,6 @@ public abstract class Enemy{
         System.out.println();
         p.setBattleHp( p.getBattleHp() - this.damage);
     }
+
+
 }
