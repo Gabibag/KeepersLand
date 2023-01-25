@@ -2,13 +2,9 @@ package NameHere.Interacts;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
-import NameHere.Colors;
-import NameHere.Helper;
-import NameHere.Main;
-import NameHere.Player;
+import NameHere.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
