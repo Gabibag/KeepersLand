@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.function.Function;
 import java.io.File;
 import java.lang.*;
 import java.lang.instrument.Instrumentation;
@@ -20,7 +21,6 @@ public class Main {
         initTypes();
         System.out.println("Press ctrl + c to quit ;)");
         //defaults for player
-        
         player = new Player(Prompt("Welcome \nEnter your players name:"),100, 1, new ArrayList<Item>());
         player.addMoney(50);
         getNewPlace();

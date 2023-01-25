@@ -1,3 +1,5 @@
+import java.util.function.Function;
+
 public class Item {
     private int dmgIncr;
     private int hpIncr;
@@ -13,7 +15,7 @@ public class Item {
     1000 - legendary
      */
     private int cost;
-
+    public Function<Player, Void> use;
     public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost) {
         this.dmgIncr = dmgIncr;
         this.hpIncr = hpIncr;
