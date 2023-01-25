@@ -4,6 +4,7 @@ public class Slime extends Enemy{
         super();
         this.baseHp = 25;
         this.damage = 2;
+        this.xp = 20;
         this.name = "Slime";
     }
 

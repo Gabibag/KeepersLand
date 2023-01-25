@@ -5,6 +5,7 @@ public class Warrior extends Enemy{
         super();
         this.baseHp = 15;
         this.damage = 5;
+        this.xp = 20;
         this.name = "Warrior";
     }
 
