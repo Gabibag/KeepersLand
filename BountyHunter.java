@@ -1,7 +1,7 @@
 public class BountyHunter extends Enemy{
 
-    public BountyHunter(int baseHp, int damage, String name) {
-        super(baseHp, damage, name);
+    public BountyHunter() {
+        super();
         this.baseHp = 20;
         this.damage = 3;
         this.name = "Bounty Hunter";

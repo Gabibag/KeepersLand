@@ -1,8 +1,8 @@
 import java.util.Random;
 public class Warrior extends Enemy{
     Random r = new Random();
-    public Warrior(int baseHp, int damage, String name) {
-        super(baseHp, damage, name);
+    public Warrior() {
+        super();
         this.baseHp = 15;
         this.damage = 5;
         this.name = "Warrior";
