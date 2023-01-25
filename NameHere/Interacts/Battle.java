@@ -51,7 +51,7 @@ public class Battle extends Interactable {
                     System.out.print(Colors.RED + enemy.getName() + "  ");
                 }
                 System.out.println();
-                //TODO: add a check if the health excedes the text length of the char so the names spread out
+                //TODO: add a check if the health exceeds the text length of the char so the names spread out
                 for (Enemy enemy : enemies) {
                     for (int i = 0; i < enemy.getName().length(); i++) {
                         if ((enemy.getName().length() - (Integer.toString(enemy.getBattleHp()).length() + 2)) / 2 < 1) {
@@ -91,6 +91,8 @@ public class Battle extends Interactable {
                         Sleep(0.5);
                         if (enemies.get(choice - 1).getBattleHp() <= 0) {
                             System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
+                            enemies.get(choice-1).randDrops(p);
+                            p.addMoney(enemies.get(choice-1).getCoins());
                             enemies.remove(choice - 1);
                         }
                         Sleep(1);

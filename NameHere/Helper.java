@@ -25,25 +25,24 @@ public class Helper {
      */
     public static String getWordRarity(Item i){
         int rarity = i.getRarity();
-        if( rarity < 750){
+        if( rarity < 10){
             return "common";
         }
-        else if (rarity < 850){
+        else if (rarity < 20){
             return " uncommon";
         } 
-        else if (rarity < 925){
+        else if (rarity < 30){
             return "rare";
         }
-        else if (rarity < 975) {
+        else if (rarity < 40) {
             return "epic";
         }
-        else if (rarity <= 999){
+        else if (rarity <= 60){
             return "super epic";
         }
-        else if (rarity  > 1000){
+        else {
             return "legendary";
         }
-        return "unknown";
     }
     /**
      * Dont do it

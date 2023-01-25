@@ -112,6 +112,9 @@ public class Player {
     public void setInventory(List<Item> inventory) {
         this.inventory = inventory;
     }
+    public void addInventory(Item item){
+        this.inventory.add(item);
+    }
     public void setActionAmount(int amount){
         this.actionAmount = amount;
     }

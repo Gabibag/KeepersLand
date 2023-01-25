@@ -1,20 +1,23 @@
 package NameHere.Enemies;
-import java.util.Random;
 
-import NameHere.Main;
-import NameHere.Player;
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.LavaEnv;
+import NameHere.Main;
+import NameHere.Player;
+
+import java.util.Random;
 
 public class Demon extends Enemy{
     Random r = new Random();
     public Demon() {
         super();
         this.baseHp = 10;
-        this.damage = 7;
+        this.damage = 10;
         this.xp = 20;
         this.name = "Demon";
         this.battleHp = baseHp;
+        this.dropRate = 30;
+        this.coins = 10;
     }
 
     @Override
