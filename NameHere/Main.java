@@ -1,20 +1,14 @@
 package NameHere;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.function.Function;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Abstracts.Interactable;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.*;
-import java.lang.instrument.Instrumentation;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<Enviorment>();
@@ -33,15 +27,13 @@ public class Main {
                             new ArrayList<Item>());
         player.addMoney(50);
         getNewPlace();
-        System.out.println(Colors.CLEAR);
         while(true){
-            System.out.println(Colors.PURPLE);
+            System.out.print(Colors.RESET+ Colors.PURPLE + Colors.CLEAR);
             for(int i = 0; i < allInteracts.size(); i ++){
                 System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getName());
             }
-            System.out.println(Colors.RESET);
             int choice = -1 + Helper.getInput(Colors.RESET + "\nPlayer: ", allInteracts.size() + 1);
-            //TODO choice vaildation
+            //TODO choice validation
             allInteracts.get(choice).onChoose(player);
         }
     }
@@ -94,11 +86,11 @@ public class Main {
             try {
                 if (currentPlace.charAt(i) == '.' || currentPlace.charAt(i) == '!'
                     || currentPlace.charAt(i) == '?') {
-                    TimeUnit.MILLISECONDS.sleep(400);
+                    Thread.sleep(400);
                 } else if (currentPlace.charAt(i) == ',') {
-                    TimeUnit.MILLISECONDS.sleep(200);
+                    Thread.sleep(200);
                 } else {
-                    TimeUnit.MILLISECONDS.sleep(15);
+                    Thread.sleep(15);
                 }
             } catch (Exception e) {
                 System.out.println("Error occured sleeping main thread\n" + e);

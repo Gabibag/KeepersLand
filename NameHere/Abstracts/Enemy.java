@@ -1,8 +1,19 @@
+package NameHere.Abstracts;
+
+import NameHere.Item;
+import NameHere.Main;
+import NameHere.Player;
+
 import java.util.List;
 
 public abstract class Enemy{
     protected int baseHp;
     protected int damage;
+
+    public String getName() {
+        return name;
+    }
+
     protected String name;
     protected int xp;
     protected List<Item> drops;
@@ -34,8 +45,9 @@ public abstract class Enemy{
     public abstract boolean canSpawn(Player p);
     public  void Attack(Player p){
         //by default, just hits for its damage
-        Main.slowPrint(name + " deals " +damage  + " damage");
-        System.out.println();
+        System.out.println(name + " deals " +damage  + " damage");
         p.setBattleHp( p.getBattleHp() - this.damage);
     }
+
+
 }

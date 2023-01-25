@@ -13,7 +13,6 @@ public class Inventory extends Interactable{
         }
         int input = Helper.getInput("Enter an item number for more info or 0 to quit", 0, p.getInventory().size());
         if(input == 0){
-            return;
         }
         else{
             Item inspect = p.getInventory().get(input -1);
