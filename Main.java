@@ -15,13 +15,13 @@ public class Main {
     public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<Interactable>(); //adds everything that can be talked to(interacted) to an arraylist
     public static void main(String[] args){
-        s = new Scanner(System.in);
+         s = new Scanner(System.in);
          r = new Random();
         initTypes();
         System.out.println("Press ctrl + c to quit ;)");
         //defaults for player
         
-        player = new Player(Prompt("Welcome \nEnter your players name:"),100, 1, new ArrayList<Item>());
+        player = new Player(Prompt("Welcome \nEnter your players name:"),100, 10, new ArrayList<Item>());
         player.addMoney(50);
         getNewPlace();
         while(true){
@@ -54,6 +54,7 @@ public class Main {
         }
     }
     public static Player player;
+
     public static Scanner s;
     //says a prompt then returns the next line, advances the stream by the length of the line
     public static String Prompt(String msg){
