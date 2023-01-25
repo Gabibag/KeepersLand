@@ -7,8 +7,12 @@ public class Player {
     private int dmg;
     private List<Item> inventory;
     private int actionAmount = 2;//num of moves in a turn
+    private int battleHp;
+    private int xp = 0;
+    private int level = 1;
 
     //set can be down via the get, since its a refrence type
+
     public int getMoney(){
         return money;
     }
@@ -26,12 +30,37 @@ public class Player {
         this.hp = hp;
         this.dmg = dmg;
         this.inventory = inventory;
+        this.battleHp = hp;
 
     }
     public Player(String name, int hp, int dmg) {
         this.name = name;
         this.hp = hp;
         this.dmg = dmg;
+        this.battleHp = hp;
+    }
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getBattleHp() {
+        return battleHp;
+    }
+
+    public void setBattleHp(int battleHp) {
+        this.battleHp = battleHp;
     }
     public String getName() {
         return name;

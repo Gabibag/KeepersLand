@@ -1,13 +1,8 @@
-import java.security.AllPermission;
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.function.Function;
-import java.io.File;
-import java.lang.*;
-import java.lang.instrument.Instrumentation;
 
 public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<Enviorment>();
@@ -21,7 +16,7 @@ public class Main {
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        player = new Player(Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET),100, 1, new ArrayList<Item>());
+        player = new Player(Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET),40, 5, new ArrayList<Item>());
         player.addMoney(50);
         getNewPlace();
         while(true){

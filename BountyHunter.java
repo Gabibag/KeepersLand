@@ -8,6 +8,7 @@ public class BountyHunter extends Enemy{
         this.damage = 3;
         this.xp = 20;
         this.name = "Bounty Hunter";
+        this.battleHp = baseHp;
     }
 
     @Override

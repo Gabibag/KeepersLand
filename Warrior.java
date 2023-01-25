@@ -7,6 +7,7 @@ public class Warrior extends Enemy{
         this.damage = 5;
         this.xp = 20;
         this.name = "Warrior";
+        this.battleHp = baseHp;
     }
 
     @Override

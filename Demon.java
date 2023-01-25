@@ -2,12 +2,13 @@ import java.util.Random;
 
 public class Demon extends Enemy{
     Random r = new Random();
-    public Demon(int baseHp, int damage, String name, int xp) {
-        super(baseHp, damage, name,xp);
+    public Demon() {
+        super();
         this.baseHp = 10;
         this.damage = 7;
         this.xp = 20;
         this.name = "Demon";
+        this.battleHp = baseHp;
     }
 
     @Override

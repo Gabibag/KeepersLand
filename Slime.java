@@ -6,6 +6,7 @@ public class Slime extends Enemy{
         this.damage = 2;
         this.xp = 20;
         this.name = "Slime";
+        this.battleHp = baseHp;
     }
 
     @Override
