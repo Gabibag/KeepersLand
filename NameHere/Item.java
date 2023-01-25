@@ -8,7 +8,7 @@ public class Item {
     private String description;
     private int rarity;
     /*make this a number from 1-1000, for drop chance, also doubles as epic, common, etc.
-    10-750  - common
+    1-750  - common
     751-850 - uncommon
     851-925 - rare
     926-975 - not epic but still cool
@@ -74,5 +74,9 @@ public class Item {
         this.cost = cost;
     }
 
-
+    //Items
+    public static Item woodenSword = new Item(1,0,"Wooden Sword", "I mean it kinda helps?", 1, 10);
+    public static Item warriorSword = new Item(3, 0, "Warrior's Sword", "He's not really a warrior.", 10, 125);
+    public static Item bountyHunterSword = new Item(2,0,"Bounty Hunter's Sword", "Why was he hunting you? Don't ask me.", 5, 100);
+    public static Item slimeShield = new Item(0,5,"Slime Shield", "Is it really a shield if it's permeable?", 5, 100);
 }

@@ -67,6 +67,8 @@ public class Main {
 
             }
         }
+        //Items?
+
     }
     public static void initDirc(File Dirc, String path){
         File[] listOfFiles = Dirc.listFiles();

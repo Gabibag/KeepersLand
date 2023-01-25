@@ -24,7 +24,7 @@ public class Battle extends Interactable {
 
     @Override
     public void onChoose(Player p) {
-        for(NameHere.Item i : p.getInventory()){
+        for (NameHere.Item i : p.getInventory()) {
             p.setHp(p.getHp() + i.getHpIncr());
             p.setDmg(p.getDmg() + i.getDmgIncr());
         }
@@ -83,68 +83,69 @@ public class Battle extends Interactable {
                             System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
                             System.out.print(Colors.RESET);
                         }
-                            choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
-                            System.out.println(Colors.CLEAR);
-                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - p.getDmg());
-                            System.out.println("Dealt " + Colors.RED_BOLD + p.getDmg() + Colors.RESET + " damage to " +
-                                               enemies.get(choice - 1).getName());
-                            Sleep(0.5);
-                            if (enemies.get(choice - 1).getBattleHp() <= 0) {
-                                System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
-                                enemies.remove(choice - 1);
-                            }
-                            Sleep(1);
-                            break;
+                        choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
+                        System.out.println(Colors.CLEAR);
+                        enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - p.getDmg());
+                        System.out.println("Dealt " + Colors.RED_BOLD + p.getDmg() + Colors.RESET + " damage to " +
+                                           enemies.get(choice - 1).getName());
+                        Sleep(0.5);
+                        if (enemies.get(choice - 1).getBattleHp() <= 0) {
+                            System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
+                            enemies.remove(choice - 1);
+                        }
+                        Sleep(1);
+                        break;
                     //#endregion
                     //#region case2
-                            case 2:
+                    case 2:
 
-                                System.out.println("Heal"); //TODO add heal
-                                int healAmount = p.getHealAmount() + r.nextInt(p.getHealVariance())  * (r.nextInt(2) == 0 ? -1 : 1);
-                                p.setBattleHp(p.getBattleHp() + healAmount);
-                                System.out.print(Colors.CLEAR + "");
-                                break;
+                        System.out.println("Heal"); //TODO add heal
+                        int healAmount =
+                                p.getHealAmount() + r.nextInt(p.getHealVariance()) * (r.nextInt(2) == 0 ? -1 : 1);
+                        p.setBattleHp(p.getBattleHp() + healAmount);
+                        System.out.print(Colors.CLEAR + "");
+                        break;
                     //#endregion
                     //#region case3
-                            case 3:
-                                inv(enemies);
-                                continue;
-                    //#endregion
-                        }
-
-                    Actions--;
-                    System.out.println(Colors.CLEAR);
+                    case 3:
+                        inv(enemies);
+                        continue;
+                        //#endregion
                 }
 
-                System.out.println(Colors.CLEAR + Colors.RED);
-                for (Enemy enemy : enemies) {
-
-                    enemy.Attack(p);
-                    Sleep((double) enemies.size() / 3);
-
-                }
-                if (p.getBattleHp() <= 0) {
-                    System.out.println("You lost!");
-                    IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
-                            enemies::remove); //the magic of intellij
-
-
-                }
-                Sleep(1.4);
-                System.out.println(Colors.RESET + Colors.CLEAR);
-
-                Actions = p.getActionAmount();
+                Actions--;
+                System.out.println(Colors.CLEAR);
             }
-            if (p.getBattleHp() > 0) {
-                //TODO drops
-                System.out.println("You won!");
+
+            System.out.println(Colors.CLEAR + Colors.RED);
+            for (Enemy enemy : enemies) {
+
+                enemy.Attack(p);
+                Sleep((double) enemies.size() / 3);
+
             }
-            p.setBattleHp(p.getHp());
+            if (p.getBattleHp() <= 0) {
+                System.out.println("You lost!");
+                IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
+                        enemies::remove); //the magic of intellij
 
 
-            Sleep(1);
+            }
+            Sleep(1.4);
+            System.out.println(Colors.RESET + Colors.CLEAR);
 
+            Actions = p.getActionAmount();
         }
+        if (p.getBattleHp() > 0) {
+            //TODO drops
+            System.out.println("You won!");
+        }
+        p.setBattleHp(p.getHp());
+
+
+        Sleep(1);
+
+    }
 
     public void inv(List<Enemy> enemies) {
 
@@ -163,9 +164,11 @@ public class Battle extends Interactable {
         }
         else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
             System.out.println(enemies.get(choiceInfo - 1).getName() + ":");
-            System.out.println(Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
-            System.out.println(Colors.RED_BOLD + "Damage: " + enemies.get(choiceInfo - 1).getDamage()+ Colors.RESET);
-            System.out.println(Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
+            System.out.println(
+                    Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "Damage: " + enemies.get(choiceInfo - 1).getDamage() + Colors.RESET);
+            System.out.println(
+                    Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
             Helper.Prompt(Colors.PURPLE + "\nPress Enter" + Colors.RESET);
         }
         inv(enemies);
