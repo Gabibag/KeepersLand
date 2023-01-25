@@ -23,7 +23,7 @@ public class Main {
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 40, 5,
+        player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 30, 5,
                             new ArrayList<Item>());
         player.addMoney(50);
         getNewPlace();
@@ -32,7 +32,7 @@ public class Main {
             for(int i = 0; i < allInteracts.size(); i ++){
                 System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getName());
             }
-            int choice = -1 + Helper.getInput(Colors.RESET + "\nPlayer: ", allInteracts.size() + 1);
+            int choice = -1 + Helper.getInput(Colors.RESET, allInteracts.size() + 1);
             //TODO choice validation
             allInteracts.get(choice).onChoose(player);
         }
@@ -59,6 +59,14 @@ public class Main {
     public static void initTypes() {
         File folder = new File(".");
         initDirc(folder, "");
+        for(Interactable i: allInteracts){
+            if(i.getName().equalsIgnoreCase("quit")){
+                Interactable temp = allInteracts.get(0);
+                allInteracts.set(allInteracts.indexOf(i), temp);
+                allInteracts.set(0, i);
+
+            }
+        }
     }
     public static void initDirc(File Dirc, String path){
         File[] listOfFiles = Dirc.listFiles();

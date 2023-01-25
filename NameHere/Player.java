@@ -1,6 +1,6 @@
 package NameHere;
-import java.util.*;
-import java.util.function.Function;
+
+import java.util.List;
 public class Player {
     private int money;
     private String name;
@@ -11,7 +11,25 @@ public class Player {
     private int battleHp;
     private int xp = 0;
     private int level = 1;
+    private int healAmount = 5;
 
+    public int getHealAmount() {
+        return healAmount;
+    }
+
+    public void setHealAmount(int healAmount) {
+        this.healAmount = healAmount;
+    }
+
+    public int getHealVariance() {
+        return healVariance;
+    }
+
+    public void setHealVariance(int healVariance) {
+        this.healVariance = healVariance;
+    }
+
+    private int healVariance = 4;
     //set can be down via the get, since its a refrence type
 
     public int getMoney(){

@@ -76,7 +76,8 @@ public class Helper {
      */
     public static int getInput(String msg, int top){
         try{
-            int r = Integer.parseInt(Prompt(msg));
+            System.out.println(msg);
+            int r = Integer.parseInt(Prompt(Colors.CYAN + "Player: "));
             if(r > 0 && r <= top){
                 System.out.print(Colors.CLEAR);
                 return r;
@@ -100,7 +101,8 @@ public class Helper {
      */
     public static int getInput(String msg, int bottom, int top){
         try{
-            int r =  Integer.parseInt(Prompt(msg));
+            System.out.println(msg);
+            int r =  Integer.parseInt(Prompt(Colors.CYAN + "Player: "));
             if(r >= bottom && r <= top){
                 System.out.print(Colors.CLEAR);
                 return r;
