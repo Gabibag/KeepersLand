@@ -26,4 +26,5 @@ public abstract class Enemy{
     }
 
     public abstract boolean canSpawn(Player p);
+    public abstract void Attack(Player p);
 }
