@@ -34,7 +34,8 @@ public abstract class Enemy{
     public abstract boolean canSpawn(Player p);
     public  void Attack(Player p){
         //by default, just hits for its damage
-        System.out.println(name + " deals " +damage  + " damage");
+        Main.slowPrint(name + " deals " +damage  + " damage");
+        System.out.println();
         p.setBattleHp( p.getBattleHp() - this.damage);
     }
 }
