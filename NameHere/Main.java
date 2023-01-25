@@ -1,8 +1,19 @@
+package NameHere;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.function.Function;
+
+import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Enviorment;
+import NameHere.Abstracts.Interactable;
+
+import java.io.File;
+import java.io.IOException;
+import java.lang.*;
+import java.lang.instrument.Instrumentation;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -18,33 +29,24 @@ public class Main {
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        player = new Player(Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 40, 5,
+        player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 40, 5,
                             new ArrayList<Item>());
         player.addMoney(50);
         getNewPlace();
-        while (true) {
-            System.out.println(Colors.CLEAR + currentPlace.getClass().getName());
-            //get 3 random interacts 
-            //TODO make an enviroment class that gets the list, current envviroment that can change
-            for (int i = 0; i < allInteracts.size(); i++) {
-                System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + allInteracts.get(i).getClass().getName());
+        System.out.println(Colors.CLEAR);
+        while(true){
+            System.out.println(Colors.PURPLE);
+            for(int i = 0; i < allInteracts.size(); i ++){
+                System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getName());
             }
-            int choice = -1 + getInput(Colors.RESET + "\nPlayer: ");
+            System.out.println(Colors.RESET);
+            int choice = -1 + Helper.getInput(Colors.RESET + "\nPlayer: ", allInteracts.size() + 1);
             //TODO choice vaildation
-            allInteracts.get(choice).OnChoose(player);
+            allInteracts.get(choice).onChoose(player);
         }
     }
 
-    //read one int from user
-    public static int getInput(String msg) {
-        try {
-            return Integer.parseInt(Prompt(msg));
-        } catch (Exception e) {
-            System.out.println("Bad input, try again");
-            return getInput(msg);
-        }
 
-    }
 
     public static void getNewPlace() {
         currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
@@ -57,22 +59,22 @@ public class Main {
 
     public static Scanner s;
 
-    //says a prompt then returns the next line, advances the stream by the length of the line
-    public static String Prompt(String msg) {
-        System.out.println(msg);
-        return s.nextLine();
-    }
 
-    //looks through files in current directory, then checks if they're java files, if they are,
-    //it tries to create a new instance of the class given by the file and using that [to do something]
+
+    /**
+     * peforms black magic to get all of the types
+    **/
     public static void initTypes() {
         File folder = new File(".");
-        File[] listOfFiles = folder.listFiles();
+        initDirc(folder, "");
+    }
+    public static void initDirc(File Dirc, String path){
+        File[] listOfFiles = Dirc.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile() && listOfFiles[i].getName().endsWith(".java")) {
                 try {
                     Class<?> s = Class.forName(
-                            listOfFiles[i].getName().substring(0, listOfFiles[i].getName().indexOf(".java")));
+                            path + listOfFiles[i].getName().substring(0, listOfFiles[i].getName().indexOf(".java")));
                     s.newInstance();
 
                 } catch (Exception e) {
@@ -80,7 +82,7 @@ public class Main {
                 }
             }
             else if (listOfFiles[i].isDirectory()) {
-                //Will do later if needed
+                initDirc(listOfFiles[i],   path +   listOfFiles[i].getName() +  ".");
             }
         }
     }

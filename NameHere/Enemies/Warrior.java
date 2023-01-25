@@ -1,4 +1,8 @@
+package NameHere.Enemies;
 import java.util.Random;
+
+import NameHere.Player;
+import NameHere.Abstracts.Enemy;
 public class Warrior extends Enemy{
     Random r = new Random();
     public Warrior() {

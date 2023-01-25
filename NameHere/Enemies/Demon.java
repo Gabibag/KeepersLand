@@ -1,4 +1,10 @@
+package NameHere.Enemies;
 import java.util.Random;
+
+import NameHere.Main;
+import NameHere.Player;
+import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.LavaEnv;
 
 public class Demon extends Enemy{
     Random r = new Random();

@@ -1,3 +1,8 @@
+package NameHere.Enemies;
+
+import NameHere.Player;
+import NameHere.Abstracts.Enemy;
+
 public class Slime extends Enemy{
 
     public Slime() {
