@@ -24,6 +24,10 @@ public class Battle extends Interactable {
 
     @Override
     public void onChoose(Player p) {
+        for(NameHere.Item i : p.getInventory()){
+            p.setHp(p.getHp() + i.getHpIncr());
+            p.setDmg(p.getDmg() + i.getDmgIncr());
+        }
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
@@ -96,8 +100,8 @@ public class Battle extends Interactable {
                             case 2:
 
                                 System.out.println("Heal"); //TODO add heal
-                                p.setBattleHp(p.getBattleHp() + (r.nextInt(p.getHealAmount() - p.getHealVariance(),
-                                                                           p.getHealAmount() + p.getHealVariance())));
+                                int healAmount = p.getHealAmount() + r.nextInt(p.getHealVariance())  * (r.nextInt(2) == 0 ? -1 : 1);
+                                p.setBattleHp(p.getBattleHp() + healAmount);
                                 System.out.print(Colors.CLEAR + "");
                                 break;
                     //#endregion
