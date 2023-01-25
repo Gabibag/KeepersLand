@@ -1,4 +1,12 @@
+package NameHere.Interacts;
 import java.util.*;
+
+import NameHere.Helper;
+import NameHere.Main;
+import NameHere.Player;
+import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Interactable;
+
 public class Battle extends Interactable{
     @Override
     public void OnChoose(Player p) {

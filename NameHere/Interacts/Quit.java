@@ -1,3 +1,8 @@
+package NameHere.Interacts;
+
+import NameHere.Player;
+import NameHere.Abstracts.Interactable;
+
 public class Quit extends Interactable{
 
     @Override

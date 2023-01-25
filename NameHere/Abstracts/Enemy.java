@@ -1,4 +1,9 @@
+package NameHere.Abstracts;
 import java.util.List;
+
+import NameHere.Item;
+import NameHere.Main;
+import NameHere.Player;
 
 public abstract class Enemy{
     protected int baseHp;

@@ -1,5 +1,11 @@
+package NameHere.Interacts;
 import java.util.Arrays;
 import java.util.List;
+
+import NameHere.Item;
+import NameHere.Main;
+import NameHere.Player;
+import NameHere.Abstracts.Interactable;
 
 public class Shop extends Interactable {
     public void OnChoose(Player player) {
