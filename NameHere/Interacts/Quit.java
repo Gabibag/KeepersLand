@@ -4,7 +4,7 @@ import NameHere.Player;
 import NameHere.Abstracts.Interactable;
 
 public class Quit extends Interactable{
-
+    @Override public String getName(){return "Quit";}
     @Override
     public void OnChoose(Player p) {
        System.out.println("Goodbye");

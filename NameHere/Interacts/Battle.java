@@ -8,6 +8,9 @@ import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 
 public class Battle extends Interactable{
+    @Override public String getName(){
+        return "Battle";
+    } 
     @Override
     public void OnChoose(Player p) {
         int Actions = p.getActionAmount();
@@ -36,7 +39,7 @@ public class Battle extends Interactable{
             Actions--;
         }
         for (Enemy enemy : enemies) {
-            System.out.println(enemy.getClass().getName() + " attacks!");
+            System.out.println(enemy.getName() + " attacks!");
             enemy.Attack(p);
         }
         Actions = p.getActionAmount();

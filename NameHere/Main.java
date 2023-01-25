@@ -34,7 +34,7 @@ public class Main {
         while(true){
             System.out.println("chose one option");
             for(int i = 0; i < allInteracts.size(); i ++){
-                System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getClass().getName());
+                System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getName());
             }
             int choice = -1 + getInput("Make your choice: ");
             //TODO choice vaildation
@@ -81,7 +81,6 @@ public class Main {
                     
                 }
                 catch(Exception e){
-                    System.out.println("failed to create " + e);
                     continue;
                 }
             } else if (listOfFiles[i].isDirectory()) {

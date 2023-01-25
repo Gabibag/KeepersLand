@@ -11,7 +11,7 @@ public abstract class Enemy{
     protected String name;
     protected int xp;
     protected List<Item> drops;
-
+    public String getName(){ return name;}
     public Enemy(int baseHp, int damage, String name, int xp) {
         this.baseHp = baseHp;
         this.damage = damage;

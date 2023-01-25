@@ -8,6 +8,7 @@ import NameHere.Player;
 import NameHere.Abstracts.Interactable;
 
 public class Shop extends Interactable {
+    @Override public String getName(){return "Shop";}
     public void OnChoose(Player player) {
         System.out.println("Welcome to the shop, " + player.getName() + ". \nYou have " + player.getMoney() + " Coins");
         while (true) {
