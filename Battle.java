@@ -37,7 +37,7 @@ public class Battle extends Interactable{
     public List<Enemy> getEnemies(Player p){
         List<Enemy> returned = new ArrayList<Enemy>();
         for(Enemy e: Main.allEnemies){
-            if(e.canSpawn(Main.player)){
+            if(e.canSpawn(p)){
                 returned.add((e));
             }
         }
