@@ -111,7 +111,7 @@ public class Helper {
             return getInput(msg, bottom, top);
             }catch(Exception e){
             System.out.println("Bad input, try again");
-            return getInput(msg, bottom, top);    
+                return getInput(msg, bottom, top);    
             }
             
     }

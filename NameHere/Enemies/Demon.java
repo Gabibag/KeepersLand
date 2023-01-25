@@ -20,7 +20,7 @@ public class Demon extends Enemy{
     @Override
     public boolean canSpawn(Player p) {
 
-        return (Main.currentPlace instanceof LavaEnv)&&(r.nextInt(0,5) == 2); //only spawns in lava Environments with a 20% chance
+        return (Main.currentPlace instanceof LavaEnv)&&(r.nextInt(5) == 2); //only spawns in lava Environments with a 20% chance
 
     }
 }
