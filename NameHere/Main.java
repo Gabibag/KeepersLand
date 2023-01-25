@@ -38,20 +38,9 @@ public class Main {
             }
             int choice = -1 + Helper.getInput("Make your choice: ", allInteracts.size() + 1);
             //TODO choice vaildation
-            allInteracts.get(choice).OnChoose(player);
+            allInteracts.get(choice).onChoose(player);
         }
     }
-    //read one int from user
-    /*     public static int getInput(String msg){
-        try{
-            return Integer.parseInt(Prompt(msg));
-            }catch(Exception e){
-            System.out.println("Bad input, try again");
-            return getInput(msg);    
-            }
-            
-    } */
-    //0-top
     public static void getNewPlace(){
         currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
         while(!currentPlace.isVaild(player)){
@@ -61,10 +50,10 @@ public class Main {
     public static Player player;
 
     public static Scanner s;
-    //says a prompt then returns the next line, advances the stream by the length of the line
 
-    //looks through files in current directory, then checks if they're java files, if they are,
-    //it tries to create a new instance of the class given by the file and using that [to do something]
+    /** 
+     * peforms black magic to get all of the types
+    **/
     public static void initTypes(){
         File folder = new File(".");
         initDirc(folder, "");

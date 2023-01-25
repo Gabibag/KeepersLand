@@ -13,10 +13,17 @@ public class Battle extends Interactable{
         return "Battle";
     } 
     @Override
-    public void OnChoose(Player p) {
+    public void onChoose(Player p) {
         int Actions = p.getActionAmount();
         List<Enemy> spawns =getEnemies(p);
         List<Enemy> enemies = Helper.getRandomElements(spawns, 3);//Maybe make an amount of enemies in environment?
+        try {
+        for(int i = 0; i < enemies.size();i++){
+            enemies.set(i, enemies.get(i).getClass().newInstance());
+        }   
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         System.out.println("You enter a battle against " + enemies.size() + " enemies");
         while(enemies.size() > 0){
             while(Actions > 0){

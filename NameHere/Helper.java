@@ -12,6 +12,39 @@ public class Helper {
         return s.nextLine();
     }
     /**
+     * returns an items rarity as a word from a number following this chart 
+     * 10-750  - common
+    *751-850 - uncommon
+    * 851-925 - rare
+    * 926-975 - not epic but still cool
+    * 976-999 - super cool
+    * 1000 - legendary
+     * @param i item in question
+     * @return rarity as a word
+     */
+    public static String getWordRarity(Item i){
+        int rarity = i.getRarity();
+        if( rarity < 750){
+            return "common";
+        }
+        else if (rarity < 850){
+            return " uncommon";
+        } 
+        else if (rarity < 925){
+            return "rare";
+        }
+        else if (rarity < 975) {
+            return "epic";
+        }
+        else if (rarity <= 999){
+            return "super epic";
+        }
+        else if (rarity  > 1000){
+            return "legendary";
+        }
+        return "unknown";
+    }
+    /**
      * Dont do it
      * @throws Exception skill issue
      */

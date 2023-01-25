@@ -14,5 +14,5 @@ public abstract class Interactable {
         //WITHOUT THIS IT WILL NOT BE USABLE, MAKE SURE TO ADD IT TO OTHER CONSTRUCTORS
     }
     public abstract String getName();
-    public abstract void OnChoose(Player p);
+    public abstract void onChoose(Player p);
 }
