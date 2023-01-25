@@ -1,7 +1,14 @@
+package NameHere.Interacts;
 import java.util.Arrays;
 import java.util.List;
 
+import NameHere.Item;
+import NameHere.Main;
+import NameHere.Player;
+import NameHere.Abstracts.Interactable;
+
 public class Shop extends Interactable {
+    @Override public String getName(){return "Shop";}
     public void OnChoose(Player player) {
         System.out.println("Welcome to the shop, " + player.getName() + ". \nYou have " + player.getMoney() + " Coins");
         while (true) {

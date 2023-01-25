@@ -1,4 +1,9 @@
+package NameHere.Enemies;
 import java.util.List;
+
+import NameHere.Player;
+import NameHere.Abstracts.Enemy;
+
 
 public class BountyHunter extends Enemy{
 

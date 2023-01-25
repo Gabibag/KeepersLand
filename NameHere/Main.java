@@ -1,3 +1,4 @@
+package NameHere;
 import java.security.AllPermission;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -5,7 +6,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.function.Function;
+
+import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Enviorment;
+import NameHere.Abstracts.Interactable;
+
 import java.io.File;
+import java.io.IOException;
 import java.lang.*;
 import java.lang.instrument.Instrumentation;
 
@@ -25,12 +32,9 @@ public class Main {
         player.addMoney(50);
         getNewPlace();
         while(true){
-            System.out.println(currentPlace.getClass().getName());
-            //get 3 random interacts 
-            //TODO make an enviroment class that gets the list, current envviroment that can change
             System.out.println("chose one option");
             for(int i = 0; i < allInteracts.size(); i ++){
-                System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getClass().getName());
+                System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getName());
             }
             int choice = -1 + getInput("Make your choice: ");
             //TODO choice vaildation
@@ -65,11 +69,14 @@ public class Main {
     //it tries to create a new instance of the class given by the file and using that [to do something]
     public static void initTypes(){
         File folder = new File(".");
-        File[] listOfFiles = folder.listFiles();
+        initDirc(folder, "");
+    }
+    public static void initDirc(File Dirc, String path){
+        File[] listOfFiles = Dirc.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile() && listOfFiles[i].getName().endsWith(".java")) {
                 try{
-                    Class<?> s = Class.forName(listOfFiles[i].getName().substring(0, listOfFiles[i].getName().indexOf(".java")));
+                    Class<?> s = Class.forName(path + listOfFiles[i].getName().substring(0, listOfFiles[i].getName().indexOf(".java")));
                     s.newInstance();
                     
                 }
@@ -77,7 +84,7 @@ public class Main {
                     continue;
                 }
             } else if (listOfFiles[i].isDirectory()) {
-                //Will do later if needed
+                initDirc(listOfFiles[i],   path +   listOfFiles[i].getName() +  ".");
             }
           }
     }
