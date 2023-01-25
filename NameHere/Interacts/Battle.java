@@ -139,9 +139,12 @@ public class Battle extends Interactable {
                 //TODO drops
                 System.out.println("You won!");
             }
+            for(NameHere.Item i : p.getInventory()){
+                p.setHp(p.getHp() - i.getHpIncr());
+                p.setDmg(p.getDmg() - i.getDmgIncr());
+            }
+            
             p.setBattleHp(p.getHp());
-
-
             Sleep(1);
 
         }

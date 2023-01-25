@@ -10,9 +10,6 @@ public class Inventory extends Interactable{
     public void onChoose(Player p){
         System.out.println(p.getName() + "'s inventory: \n");
         for(int i = 0; i < p.getInventory().size(); i++){
-            if(p.getInventory().size() >=0){
-                System.out.println("That's a lot of empty");
-            }
             System.out.println("[" + (i + 1) +"] " + p.getInventory().get(i).getName());
         }
         int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info or 0 to quit" + Colors.RESET, 0, p.getInventory().size());
