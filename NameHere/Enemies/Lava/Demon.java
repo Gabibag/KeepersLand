@@ -1,4 +1,4 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Lava;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.LavaZone;
@@ -24,7 +24,7 @@ public class Demon extends Enemy{
     @Override
     public boolean canSpawn(Player p) {
 
-        return (Main.currentPlace instanceof LavaZone) && (r.nextInt(5) == 2); //only spawns in lava Environments with a 20% chance
+        return (Main.currentPlace instanceof LavaZone); //only spawns in lava Environments with a 20% chance
 
     }
 }

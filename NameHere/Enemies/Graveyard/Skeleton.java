@@ -1,4 +1,4 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Graveyard;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Item;

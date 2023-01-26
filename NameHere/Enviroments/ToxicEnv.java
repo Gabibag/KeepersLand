@@ -12,7 +12,8 @@ import java.util.List;
 public class ToxicEnv extends Enviorment{
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(new Item(1, 0, "Toxic Fang", "A strange toxic fang of some creature.", 10, 15),
+        return Arrays.asList(new Item(3, 2, "Doran's Blade", "A blade forged in the heart of Doran", 80, 55),
+            new Item(1, 0, "Toxic Fang", "A strange toxic fang of some creature.", 10, 15),
                              new Item(2, 2, "Swamp Potion","A mystery potion created by a witch in the swamp.", 40, 45));
     }
     public String getDescription(){
@@ -22,13 +23,19 @@ public class ToxicEnv extends Enviorment{
         return "Toxic Swamp";
     }
     public int modifyPlayerDamage(int preChange){
-        return preChange;
+        int dmgInc = Main.r.nextInt(3);
+        if(dmgInc == 0) { 
+            return preChange;
+        }
+        System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + dmgInc)+"!");
+        return preChange + dmgInc;
+    
     }
     public void playerAction(Player p){
 
     }
     public void turnEnd(Player p){
-
+        
     }
     public int modifyEnemyDamage(int preChange){
         //TODO scaling

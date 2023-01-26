@@ -1,4 +1,4 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Player;
@@ -9,12 +9,12 @@ public class Giant extends Enemy{
     Random r = new Random();
     public Giant() {
         super();
-        this.baseHp = 60;
-        this.damage = 1;
+        this.baseHp = 50;
+        this.damage = 2;
         this.xp = 20;
         this.name = "Giant";
         this.battleHp = baseHp;
-        this.coins = 8;
+        this.coins = 15;
     }
 
 

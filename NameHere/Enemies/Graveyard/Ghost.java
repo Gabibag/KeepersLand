@@ -1,8 +1,9 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Graveyard;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.Graveyard;
+import NameHere.Main;
 import NameHere.Player;
-
 import java.util.Random;
 
 public class Ghost extends Enemy {
@@ -22,7 +23,7 @@ public class Ghost extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextInt(10) == 2); //10% spawn chance
+        return (r.nextInt(10) == 2) && Main.currentPlace instanceof Graveyard; //10% spawn chance
 
     }
 }

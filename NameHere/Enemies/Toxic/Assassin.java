@@ -1,6 +1,8 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Toxic;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.ToxicEnv;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -22,7 +24,7 @@ public class Assassin extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(10)==2; //10% spawn chance
+        return r.nextInt(10)==2 && Main.currentPlace instanceof ToxicEnv; //10% spawn chance
 
     }
 }

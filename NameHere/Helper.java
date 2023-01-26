@@ -14,13 +14,13 @@ public class Helper {
 
     }
     /**
-     * returns an items rarity as a word from a number following this chart 
-     * 10-750  - common
-    *751-850 - uncommon
-    * 851-925 - rare
-    * 926-975 - not epic but still cool
-    * 976-999 - super cool
-    * 1000 - legendary
+     * returns an items rarity as a word from a number following this chart
+     * 10 - common
+     * 20 - uncommon
+     * 30 - rare
+     * 40 - epic
+     * 60 - super epic
+     * 61+ - legendary
      * @param i item in question
      * @return rarity as a word
      */

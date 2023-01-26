@@ -1,8 +1,9 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Graveyard;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.Graveyard;
 import NameHere.Item;
-import NameHere.Player;
+import NameHere.*;
 
 
 public class BountyHunter extends Enemy{
@@ -21,7 +22,7 @@ public class BountyHunter extends Enemy{
 
     @Override
     public boolean canSpawn(Player p) {
-        return true;
+        return Main.currentPlace instanceof Graveyard;
     }
 
 
