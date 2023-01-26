@@ -1,6 +1,7 @@
 package NameHere;
 import java.util.*;
 public class Helper {
+    
     static Scanner s = new Scanner(System.in);
     /**
      * Sends a message, then returns the next line

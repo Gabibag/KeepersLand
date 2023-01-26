@@ -26,7 +26,12 @@ public class Main {
         player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 30, 5,
                             new ArrayList<Item>());
         player.addMoney(50);
+        player.setHealAmount(3);
+        player.setHealVariance(1);
         getNewPlace();
+        if(player.getName().equals("among us")){
+            player.setDmg(500);
+        }
         while(true){
             System.out.print(Colors.RESET+ Colors.CLEAR);
             System.out.println("You are currently in the " + currentPlace.getName() + Colors.PURPLE);

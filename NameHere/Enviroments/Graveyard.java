@@ -4,18 +4,24 @@ import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
 import NameHere.Player;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Graveyard extends Enviorment{
 
     @Override
     public String getDescription() {
-        return null;
+        return "A spooky Graveyard full of enemies";
     }
 
     @Override
     public List<Item> getShopItems() {
-        return null;
+        Item i = new Item(1, 0,"Tombstone", "Wait,how does that work?", 15, 25);
+        i.setHealIncrease(1);
+        return Arrays.asList(new Item[]{
+            i,
+            new Item(0, 5,"GraveFlower", "A Flower said to cure sickness", 30, 50)
+        });
     }
 
     @Override

@@ -3,8 +3,10 @@ package NameHere;
 import java.util.function.Function;
 
 public class Item {
+    private int healIncrease = 0;
     private int dmgIncr;
     private int hpIncr;
+    private int HealVariance = 0;
     private String name;
     private String description;
     private int rarity;
@@ -18,7 +20,7 @@ public class Item {
      */
     private int cost;
     public String toString(){
-        String r =  this.getName() + ":" + "\n" + this.getDescription() + "\n" + "Damage Increase: " + this.getDmgIncr() + "\n" + "Health Increase: " + this.getHpIncr() + "\n" + "Rarity: "+ Helper.getWordRarity(this);
+        String r =  this.getName() + ":" + "\n" + this.getDescription() + "\n" + "Damage Increase: " + this.getDmgIncr() + "\n" + "Health Increase: " + this.getHpIncr() + "\nHeal Increase: "+ this.healIncrease + "\nHeal Vairences Increase: "+ HealVariance + "\n" + "Rarity: "+ Helper.getWordRarity(this);
         return r;
     }
     public Function<Player, Void> use;
@@ -30,7 +32,12 @@ public class Item {
         this.rarity = rarity;
         this.cost = cost;
     }
-
+    public int getHealVariance(){return HealVariance;}
+    public void setHealVariance(int v){HealVariance = v;}
+    public void setHealIncrease(int s){
+        this.healIncrease = s;
+    }
+    public int getHealIncrease(){return this.healIncrease;}
     public static Item getWoodenSword() {
         return woodenSword;
     }
