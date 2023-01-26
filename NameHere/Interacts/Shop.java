@@ -40,9 +40,7 @@ public class Shop extends Interactable {
 
     public List<Item> getItems(Player p) {
         //TODO logic
-        return Arrays.asList(
-                Item.warriorSword,
-                Item.bountyHunterSword, Item.slimeShield, Item.warriorSword);
+        return Arrays.asList(Item.warriorSword,Item.bountyHunterSword, Item.slimeShield, Item.giantSkin, Item.bloodStone);
 
     }
 }

@@ -22,6 +22,7 @@ public class Inventory extends Interactable{
             System.out.println("Rarity: "+ Helper.getWordRarity(inspect));
             Helper.Prompt("Press enter when done");
             onChoose(p);
+            System.out.println(Colors.CLEAR);
         }
     }
     public String getName(){return "Inventory";}

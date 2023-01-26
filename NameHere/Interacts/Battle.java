@@ -24,10 +24,12 @@ public class Battle extends Interactable {
 
     @Override
     public void onChoose(Player p) {
+        int tempDmg = p.getDmg();
         for (NameHere.Item i : p.getInventory()) {
-            p.setHp(p.getHp() + i.getHpIncr());
-            p.setDmg(p.getDmg() + i.getDmgIncr());
+            p.setBattleHp(p.getHp() + i.getHpIncr());
+            tempDmg += i.getDmgIncr();
         }
+
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
@@ -85,27 +87,34 @@ public class Battle extends Interactable {
                         }
                         choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
                         System.out.println(Colors.CLEAR);
-                        enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - p.getDmg());
-                        System.out.println("Dealt " + Colors.RED_BOLD + p.getDmg() + Colors.RESET + " damage to " +
-                                           enemies.get(choice - 1).getName());
-                        Sleep(0.5);
-                        if (enemies.get(choice - 1).getBattleHp() <= 0) {
-                            System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
-                            enemies.get(choice-1).randDrops(p);
-                            p.addMoney(enemies.get(choice-1).getCoins());
-                            enemies.remove(choice - 1);
+                        if (r.nextInt(20/enemies.get(choice-1).getDodgeRate())!=1) {
+                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - tempDmg);
+                            System.out.println("Dealt " + Colors.RED_BOLD + tempDmg + Colors.RESET + " damage to " +
+                                               enemies.get(choice - 1).getName());
+                            Sleep(0.5);
+                            if (enemies.get(choice - 1).getBattleHp() <= 0) {
+                                System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
+                                enemies.get(choice - 1).randDrops(p);
+                                p.addMoney(enemies.get(choice - 1).getCoins());
+                                System.out.println(
+                                        "You gained " + enemies.get(choice - 1).getCoins() + Colors.CYAN + "◊" +
+                                        Colors.RESET);
+                                enemies.remove(choice - 1);
+                            }
+                            Sleep(2);
+                            break;
+                        }else{
+                            System.out.println(enemies.get(choice-1).getName() + " dodged your attack!");
                         }
-                        Sleep(1);
-                        break;
                     //#endregion
                     //#region case2
                     case 2:
 
-                        System.out.println("Heal"); //TODO add heal
                         int healAmount =
-                                p.getHealAmount() + r.nextInt(p.getHealVariance()) * (r.nextInt(2) == 0 ? -1 : 1);
+                                p.getHealAmount() + (p.getHealVariance() * (r.nextInt(2) == 1 ? -1 : 1));
                         p.setBattleHp(p.getBattleHp() + healAmount);
-                        System.out.print(Colors.CLEAR + "");
+                        System.out.print(Colors.CYAN + "You healed for "+ healAmount);
+                        Sleep(1);
                         break;
                     //#endregion
                     //#region case3
@@ -114,8 +123,12 @@ public class Battle extends Interactable {
                         continue;
                         //#endregion
                 }
+                if(enemies.size() > 0){
+                    Actions--;
+                }else{
+                    break;
+                }
 
-                Actions--;
                 System.out.println(Colors.CLEAR);
             }
 

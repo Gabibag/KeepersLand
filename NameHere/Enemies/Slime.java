@@ -14,7 +14,6 @@ public class Slime extends Enemy{
         this.name = "Slime";
         this.battleHp = baseHp;
         this.drops.add(Item.slimeShield);
-        this.dropRate = 10;
         this.coins = 2;
     }
 

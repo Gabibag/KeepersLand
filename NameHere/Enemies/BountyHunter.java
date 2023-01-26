@@ -16,7 +16,6 @@ public class BountyHunter extends Enemy{
         this.battleHp = baseHp;
         this.drops.add(Item.bountyHunterSword);
         this.drops.add(Item.woodenSword);
-        this.dropRate = 30;
         this.coins = 2;
     }
 

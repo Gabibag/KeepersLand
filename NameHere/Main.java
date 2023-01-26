@@ -28,7 +28,7 @@ public class Main {
         player.addMoney(50);
         getNewPlace();
         while(true){
-            System.out.print(Colors.RESET+ Colors.PURPLE + Colors.CLEAR);
+            System.out.println(Colors.RESET+ Colors.CLEAR + "Hello " + player.getName() + ", choose an option:"+ Colors.PURPLE  );
             for(int i = 0; i < allInteracts.size(); i ++){
                 System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getName());
             }
@@ -61,9 +61,9 @@ public class Main {
         initDirc(folder, "");
         for(Interactable i: allInteracts){
             if(i.getName().equalsIgnoreCase("quit")){
-                Interactable temp = allInteracts.get(0);
-                allInteracts.set(allInteracts.indexOf(i), temp);
-                allInteracts.set(0, i);
+                allInteracts.remove(i);
+                allInteracts.add(i);
+                break;
 
             }
         }

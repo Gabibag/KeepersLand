@@ -15,7 +15,6 @@ public class Warrior extends Enemy{
         this.name = "Warrior";
         this.battleHp = baseHp;
         this.drops.add(Item.warriorSword);
-        this.dropRate = 30;
         this.coins = 3;
     }
 

@@ -13,10 +13,19 @@ public abstract class Enemy {
     protected int baseHp;
     protected int damage;
     protected String name;
+
+    public int getDodgeRate() {
+        return dodgeRate;
+    }
+
+    public void setDodgeRate(int dodgeRate) {
+        this.dodgeRate = dodgeRate;
+    }
+
+    protected int dodgeRate = 1;
     protected int xp;
     protected List<Item> drops = new ArrayList<>();
     protected int battleHp;
-    protected int dropRate;
 
     public int getCoins() {
         return coins;
