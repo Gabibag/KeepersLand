@@ -6,24 +6,24 @@ import NameHere.Player;
 
 import java.util.Random;
 
-public class Skeleton extends Enemy {
+public class DeathMinion extends Enemy {
     Random r = new Random();
 
-    public Skeleton() {
+    public DeathMinion() {
         super();
-        this.baseHp = 30;
-        this.damage = 2;
+        this.baseHp = 20;
+        this.damage = 3;
         this.xp = 10;
-        this.name = "Skeleton";
+        this.name = "Death's Minion";
         this.battleHp = baseHp;
         this.coins = 3;
-        drops.add(Item.skeletonBone);
+        drops.add(Item.soul);
     }
 
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextBoolean()); //(r.nextInt([spawnchance]) == 2)
+        return (r.nextInt(10) ==2); //(r.nextInt([spawnchance]) == 2)
 
     }
 }

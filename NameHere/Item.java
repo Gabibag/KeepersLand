@@ -88,7 +88,7 @@ public class Item {
     public static Item bloodStone = new Item(0,5,"Blood Stone", "Not made of blood.", 10, 80);
     public static Item demonSword = new Item(10,0,"Demon Sword", "Where did it come from?", 10, 90);
     public static Item skeletonBone = new Item(5,0,"Skeleton Bone", "Why does a ribcage deal more damage than a sword?", 7, 35);
-
+    public static Item soul = new Item(1,20,"Soul", "I-it's just a soul why does it give you health?", 10, 90);
 
 
 }

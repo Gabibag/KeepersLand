@@ -1,29 +1,27 @@
 package NameHere.Enemies;
 
 import NameHere.Abstracts.Enemy;
-import NameHere.Item;
 import NameHere.Player;
 
 import java.util.Random;
 
-public class Skeleton extends Enemy {
+public class Ogre extends Enemy {
     Random r = new Random();
 
-    public Skeleton() {
+    public Ogre() {
         super();
-        this.baseHp = 30;
+        this.baseHp = 40;
         this.damage = 2;
         this.xp = 10;
-        this.name = "Skeleton";
+        this.name = "Ogre";
         this.battleHp = baseHp;
-        this.coins = 3;
-        drops.add(Item.skeletonBone);
+        this.coins = 5;
     }
 
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextBoolean()); //(r.nextInt([spawnchance]) == 2)
+        return true; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

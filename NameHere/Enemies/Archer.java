@@ -1,23 +1,21 @@
 package NameHere.Enemies;
 
 import NameHere.Abstracts.Enemy;
-import NameHere.Item;
 import NameHere.Player;
 
 import java.util.Random;
 
-public class Goblin extends Enemy {
+public class Archer extends Enemy {
     Random r = new Random();
 
-    public Goblin() {
+    public Archer() {
         super();
-        this.baseHp = 10;
-        this.damage = 15;
-        this.xp = 5;
-        this.name = "Goblin";
+        this.baseHp = 5;
+        this.damage = 7;
+        this.xp = 4;
+        this.name = "Archer";
         this.battleHp = baseHp;
-        this.coins = 3;
-        this.drops.add(Item.giantSkin);
+        this.coins = 1;
     }
 
     @Override
