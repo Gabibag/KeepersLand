@@ -1,15 +1,18 @@
 package NameHere.Enviroments;
-import NameHere.*;
+
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
+import NameHere.Player;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class LavaZone extends Enviorment{
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(Item.empty);
+        Item i = new Item(3, 0, "Lava Vial", "A vial of molten lava.", 15, 15);
+        List<Item> r = new ArrayList<Item>();
+        r.add(i);
+        return r;
     }
     public String getName(){
         return "Lava Zone";
@@ -27,7 +30,7 @@ public class LavaZone extends Enviorment{
         return preChange;
     }
     public String getDescription(){
-        return "A lava zone";
+        return "A lava zone full of lava...";
     }
 
 }

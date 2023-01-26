@@ -3,8 +3,10 @@ package NameHere;
 import java.util.function.Function;
 
 public class Item {
+    private int healIncrease = 0;
     private int dmgIncr;
     private int hpIncr;
+    private int HealVariance = 0;
     private String name;
     private String description;
     private int rarity;
@@ -37,7 +39,12 @@ public class Item {
         this.rarity = rarity;
         this.cost = cost;
     }
-
+    public int getHealVariance(){return HealVariance;}
+    public void setHealVariance(int v){HealVariance = v;}
+    public void setHealIncrease(int s){
+        this.healIncrease = s;
+    }
+    public int getHealIncrease(){return this.healIncrease;}
     public static Item getWoodenSword() {
         return woodenSword;
     }

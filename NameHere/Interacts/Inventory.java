@@ -12,7 +12,7 @@ public class Inventory extends Interactable{
         for(int i = 0; i < p.getInventory().size(); i++){
             System.out.println("[" + (i + 1) +"] " + p.getInventory().get(i).getName());
         }
-        int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info or 0 to quit" + Colors.RESET, 0, p.getInventory().size());
+        int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info \n[0] Quit" + Colors.RESET, 0, p.getInventory().size());
         if(input != 0){
             Item inspect = p.getInventory().get(input -1);
             System.out.println(inspect);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Helper {
+    
     static Scanner s = new Scanner(System.in);
 
     /**

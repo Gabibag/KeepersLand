@@ -74,7 +74,7 @@ public abstract class Enemy {
 
     public void randDrops(Player p) {
         for (Item drop : this.drops) {
-            if (r.nextInt(0, drop.getRarity()) == drop.getRarity() - 1) {
+            if (r.nextInt( drop.getRarity()) == drop.getRarity() - 1) {
                 p.addInventory(drop);
                 System.out.println(Colors.CYAN + "You found a " + drop.getName() + "!" + Colors.RESET);
                 break;
