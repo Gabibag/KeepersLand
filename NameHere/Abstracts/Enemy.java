@@ -9,11 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Enemy{
+public abstract class Enemy {
     protected int baseHp;
     protected int damage;
-    public int getBaseHp(){return baseHp;}
-    public int getDamage(){return damage;}
+
+    public int getBaseHp() {
+        return baseHp;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
     public String getName() {
         return name;
     }
@@ -43,21 +50,6 @@ public abstract class Enemy{
 
     protected int coins;
     Random r = new Random();
-    public Enemy() {
-        Main.allEnemies.add((this)); //adds all enemies to a list
-    }
-
-    public int getBaseHp() {
-        return baseHp;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public int getBattleHp() {
         return battleHp;
@@ -67,16 +59,16 @@ public abstract class Enemy{
         this.battleHp = battleHp;
     }
 
-    protected int battleHp;
 
     public Enemy() {
         Main.allEnemies.add((this)); //adds all enemies to a list
     }
 
     public abstract boolean canSpawn(Player p);
-    public  int Attack(Player p, List<Enemy> allies){
+
+    public int Attack(Player p, List<Enemy> allies) {
         //by default, just hits for its damage
-        System.out.println(name + " deals " +damage  + " damage");
+        System.out.println(name + " deals " + damage + " damage");
         return damage;
     }
 

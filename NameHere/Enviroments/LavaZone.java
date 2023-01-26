@@ -1,12 +1,11 @@
 package NameHere.Enviroments;
-import java.util.*;
 import NameHere.*;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
 
 import java.util.List;
 
-public class PoisonLand extends Enviorment{
+public class LavaZone extends Enviorment{
     @Override
     public List<Item> getShopItems() {
         return null;

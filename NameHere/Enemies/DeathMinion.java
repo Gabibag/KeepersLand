@@ -23,7 +23,7 @@ public class DeathMinion extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextInt(10) ==2); //(r.nextInt([spawnchance]) == 2)
+        return (r.nextInt(10) == 2); //(r.nextInt([spawnchance]) == 2)
 
     }
 }

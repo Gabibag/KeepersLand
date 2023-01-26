@@ -1,19 +1,19 @@
 package NameHere.Enviroments;
-import java.util.Arrays;
-import java.util.List;
-import NameHere.Player;
+
+import NameHere.Abstracts.Enviorment;
 import NameHere.Colors;
 import NameHere.Item;
 import NameHere.Main;
-import NameHere.Abstracts.Enviorment;
+import NameHere.Player;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ToxicEnv extends Enviorment{
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(new Item[]{
-            new Item(1, 0, "Toxic Fang", "A strange toxic fang of some creature.", 100, 15),
-            new Item(2, 2, "Swamp Potion","A mystery potion created by a witch in the swamp.", 400, 45)
-        });
+        return Arrays.asList(new Item(1, 0, "Toxic Fang", "A strange toxic fang of some creature.", 100, 15),
+                             new Item(2, 2, "Swamp Potion","A mystery potion created by a witch in the swamp.", 400, 45));
     }
     public String getDescription(){
         return "A toxic swamp that makes attack do more damage.";

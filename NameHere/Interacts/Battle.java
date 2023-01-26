@@ -1,11 +1,8 @@
 package NameHere.Interacts;
 
+import NameHere.*;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
-import NameHere.Colors;
-import NameHere.Helper;
-import NameHere.Main;
-import NameHere.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +21,7 @@ public class Battle extends Interactable {
 
     @Override
     public void onChoose(Player p) {
-        for(NameHere.Item i : p.getInventory()){
+        for (Item i : p.getInventory()) {
             p.setHp(p.getHp() + i.getHpIncr());
             p.setDmg(p.getDmg() + i.getDmgIncr());
         }
@@ -85,9 +82,9 @@ public class Battle extends Interactable {
                         }
                         choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
                         System.out.println(Colors.CLEAR);
-                        if (r.nextInt(20/enemies.get(choice-1).getDodgeRate())!=1) {
-                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - tempDmg);
-                            System.out.println("Dealt " + Colors.RED_BOLD + tempDmg + Colors.RESET + " damage to " +
+                        if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 1) {
+                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - p.getDmg());
+                            System.out.println("Dealt " + Colors.RED_BOLD + p.getDmg() + Colors.RESET + " damage to " +
                                                enemies.get(choice - 1).getName());
                             Sleep(0.5);
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
@@ -101,66 +98,71 @@ public class Battle extends Interactable {
                             }
                             Sleep(1);
                             break;
-                        }else{
-                            System.out.println(enemies.get(choice-1).getName() + " dodged your attack!");
                         }
-                    //#endregion
-                    //#region case2
-                            case 2:
+                        else {
+                            System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
+                            break;
+                        }
+                        //#endregion
+                        //#region case2
+                    case 2:
 
                         int healAmount =
-                                p.getHealAmount() + (p.getHealVariance() * (r.nextInt(2) == 1 ? -1 : 1));
+                                p.getHealAmount() + ((r.nextInt(p.getHealVariance()) == 1 ? -1 : 1));
+                        if (p.getBattleHp() + healAmount>p.getBattleHp()){
+                            healAmount = 0;
+                        }
                         p.setBattleHp(p.getBattleHp() + healAmount);
-                        System.out.print(Colors.CYAN + "You healed for "+ healAmount);
+                        System.out.print(Colors.CYAN + "You healed for " + healAmount);
                         Sleep(1);
                         break;
                     //#endregion
                     //#region case3
-                            case 3:
-                                inv(enemies);
-                                continue;
-                    //#endregion
-                        }
-                    Main.currentPlace.playerAction(p);
-                    if(enemies.size() > 0){
-                        Actions--;
-                    }else{
-                        break;
-                    }
-                    System.out.println(Colors.CLEAR);
+                    case 3:
+                        inv(enemies);
+                        continue;
+                        //#endregion
                 }
-
-                System.out.println(Colors.CLEAR + Colors.RED);
-                for (Enemy enemy : enemies) {
-                    int damage =  enemy.Attack(p, enemies);
-                    System.out.println("HP:" + p.getBattleHp());
-                    p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
-                    Sleep((double) enemies.size() / 3);
-
+                Main.currentPlace.playerAction(p);
+                if (enemies.size() > 0) {
+                    Actions--;
                 }
-                if (p.getBattleHp() <= 0) {
-                    System.out.println("You lost!");
-                    IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
-                            enemies::remove); //the magic of intellij
+                else {
+                    break;
                 }
-                Sleep(1.4);
-                System.out.println(Colors.RESET + Colors.CLEAR);
-                Main.currentPlace.turnEnd(p);
-                Actions = p.getActionAmount();
-            }
-            if (p.getBattleHp() > 0) {
-                //TODO drops
-                System.out.println("You won!");
-            }
-            for(NameHere.Item i : p.getInventory()){
-                p.setHp(p.getHp() - i.getHpIncr());
-                p.setDmg(p.getDmg() - i.getDmgIncr());
+                System.out.println(Colors.CLEAR);
             }
 
-            p.setBattleHp(p.getHp());
-            Sleep(1);
+            System.out.println(Colors.CLEAR + Colors.RED);
+            for (Enemy enemy : enemies) {
+                int damage = enemy.Attack(p, enemies);
+                p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
+                Sleep((double) enemies.size() / 3);
 
+            }
+            if (p.getBattleHp() <= 0) {
+                System.out.println("You lost!");
+                IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
+                        enemies::remove); //the magic of intellij
+            }
+            Sleep(1.4);
+            System.out.println(Colors.RESET + Colors.CLEAR);
+            Main.currentPlace.turnEnd(p);
+            Actions = p.getActionAmount();
         }
+        if (p.getBattleHp() > 0) {
+            //TODO drops
+            System.out.println("You won!");
+        }
+        for (Item i : p.getInventory()) {
+            p.setHp(p.getHp() - i.getHpIncr());
+            p.setDmg(p.getDmg() - i.getDmgIncr());
+        }
+
+        p.setBattleHp(p.getHp());
+        Sleep(1);
+
+    }
 
     public void inv(List<Enemy> enemies) {
 
@@ -175,7 +177,8 @@ public class Battle extends Interactable {
             return;
         }
         else if (choiceInfo == (enemies.size() + 1)) {
-            System.out.println("Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
+            System.out.println(
+                    "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
             Helper.Prompt("Press Enter");
         }
         else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {

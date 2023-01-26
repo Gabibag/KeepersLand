@@ -1,6 +1,7 @@
 package NameHere;
 
 import java.util.List;
+
 public class Player {
     private int money;
     private String name;
@@ -11,12 +12,9 @@ public class Player {
     private int battleHp;
     private int xp = 0;
     private int level = 1;
-    private int healAmount = 5;
-    public void takeDamage(int a){
-        this.battleHp -= a;
-    }
     private int healAmount = 2;
     private int healVariance = 2;
+
 
     public Player(String name, int hp, int dmg, List<Item> inventory) {
         this.name = name;
@@ -24,6 +22,7 @@ public class Player {
         this.dmg = dmg;
         this.inventory = inventory;
         this.battleHp = hp;
+
     }
 
     public Player(String name, int hp, int dmg) {
@@ -33,6 +32,11 @@ public class Player {
         this.battleHp = hp;
     }
 
+    public void takeDamage(int a) {
+        this.battleHp -= a;
+    }
+    //set can be down via the get, since its a refrence type
+
     public int getHealAmount() {
         return healAmount;
     }
@@ -40,7 +44,6 @@ public class Player {
     public void setHealAmount(int healAmount) {
         this.healAmount = healAmount;
     }
-    //set can be down via the get, since its a refrence type
 
     public int getHealVariance() {
         return healVariance;
@@ -61,23 +64,11 @@ public class Player {
     public void addMoney(int amount) {
         this.money += amount;
     }
+
     public void chargeMoney(int amount) {
         this.money -= amount;
     }
-    public Player(String name, int hp, int dmg, List<Item> inventory){
-        this.name = name;
-        this.hp = hp;
-        this.dmg = dmg;
-        this.inventory = inventory;
-        this.battleHp = hp;
 
-    }
-    public Player(String name, int hp, int dmg) {
-        this.name = name;
-        this.hp = hp;
-        this.dmg = dmg;
-        this.battleHp = hp;
-    }
     public int getXp() {
         return xp;
     }
@@ -101,6 +92,7 @@ public class Player {
     public void setBattleHp(int battleHp) {
         this.battleHp = battleHp;
     }
+
     public String getName() {
         return name;
     }
