@@ -74,7 +74,7 @@ public class Battle extends Interactable {
                 int choice = Helper.getInput(Colors.RESET + "Current Health: " + p.getBattleHp(), 3);
                 switch (choice) {
                     //#region case1
-                    case 1:
+                    case 1://attack
                         System.out.println(Colors.CLEAR);
                         for (int i = 0; i < enemies.size(); i++) {
                             System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
@@ -83,8 +83,9 @@ public class Battle extends Interactable {
                         choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
                         System.out.println(Colors.CLEAR);
                         if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 1) {
-                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - p.getDmg());
-                            System.out.println("Dealt " + Colors.RED_BOLD + p.getDmg() + Colors.RESET + " damage to " +
+                            int pDamage = Main.currentPlace.modifyPlayerDamage(p.getDmg());
+                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() -pDamage );
+                            System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
                                                enemies.get(choice - 1).getName());
                             Sleep(0.5);
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {

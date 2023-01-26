@@ -35,11 +35,11 @@ public class Graveyard extends Enviorment{
 
     @Override
     public int modifyPlayerDamage(int preChange) {
-        return 0;
+        return preChange;
     }
 
     @Override
     public int modifyEnemyDamage(int preChange) {
-        return 0;
+        return preChange;
     }
 }
