@@ -120,6 +120,7 @@ public class Battle extends Interactable {
                 System.out.println(Colors.CLEAR + Colors.RED);
                 for (Enemy enemy : enemies) {
                     int damage =  enemy.Attack(p, enemies);
+                    System.out.println("HP:" + p.getBattleHp());
                     p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
                     Sleep((double) enemies.size() / 3);
 
@@ -161,7 +162,8 @@ public class Battle extends Interactable {
             return;
         }
         else if (choiceInfo == (enemies.size() + 1)) {
-            System.out.println("Enviroment Info: TODO");//TODO
+            System.out.println("Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
+            Helper.Prompt("Press Enter");
         }
         else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
             System.out.println(enemies.get(choiceInfo - 1).getName() + ":");
