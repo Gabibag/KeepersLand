@@ -10,6 +10,9 @@ public class ToxicEnv extends Enviorment{
     public List<Item> getShopItems() {
         return null;
     }
+    public String getDescription(){
+        return "A toxic swamp that makes attack do more damage.";
+    }
     public String getName(){
         return "Toxic Swamp";
     }
@@ -23,7 +26,7 @@ public class ToxicEnv extends Enviorment{
 
     }
     public int modifyEnemyDamage(int preChange){
-        System.out.println(Colors.RED + "The lava's heat increases the damage!");
+        System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + 5)+"!");
         return preChange + 5;
     }
 }

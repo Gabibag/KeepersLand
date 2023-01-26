@@ -13,7 +13,7 @@ public class Player {
     private int level = 1;
     private int healAmount = 5;
     public void takeDamage(int a){
-        this.hp -= a;
+        this.battleHp -= a;
     }
     public int getHealAmount() {
         return healAmount;

@@ -23,5 +23,8 @@ public class LavaEnv extends Enviorment{
     public int modifyPlayerDamage(int preChange){
         return preChange;
     }
+    public String getDescription(){
+        return "A lava zone";
+    }
 
 }
