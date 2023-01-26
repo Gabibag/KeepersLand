@@ -3,12 +3,13 @@ import NameHere.*;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class LavaZone extends Enviorment{
     @Override
     public List<Item> getShopItems() {
-        return null;
+        return Arrays.asList(Item.empty);
     }
     public String getName(){
         return "Lava Zone";

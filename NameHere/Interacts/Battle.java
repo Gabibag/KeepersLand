@@ -22,7 +22,7 @@ public class Battle extends Interactable {
     @Override
     public void onChoose(Player p) {
         for (Item i : p.getInventory()) {
-            p.setHp(p.getHp() + i.getHpIncr());
+            p.setBattleHp(p.getHp() + i.getHpIncr());
             p.setDmg(p.getDmg() + i.getDmgIncr());
         }
         Random r = new Random();
@@ -154,12 +154,11 @@ public class Battle extends Interactable {
             //TODO drops
             System.out.println("You won!");
         }
-        for (Item i : p.getInventory()) {
-            p.setHp(p.getHp() - i.getHpIncr());
-            p.setDmg(p.getDmg() - i.getDmgIncr());
-        }
+//        for (Item i : p.getInventory()) {
+//            p.setBattleHp(p.getHp() - i.getHpIncr());
+//            p.setDmg(p.getDmg() - i.getDmgIncr());
+//        }
 
-        p.setBattleHp(p.getHp());
         Sleep(1);
 
     }

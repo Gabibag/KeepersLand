@@ -12,8 +12,8 @@ import java.util.List;
 public class ToxicEnv extends Enviorment{
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(new Item(1, 0, "Toxic Fang", "A strange toxic fang of some creature.", 100, 15),
-                             new Item(2, 2, "Swamp Potion","A mystery potion created by a witch in the swamp.", 400, 45));
+        return Arrays.asList(new Item(1, 0, "Toxic Fang", "It's just a poisonous tooth.", 1, 15),
+                             new Item(2, 2, "Swamp Potion","It's a potion that gives you an effect if you DON'T drink it?.", 5, 30));
     }
     public String getDescription(){
         return "A toxic swamp that makes attack do more damage.";

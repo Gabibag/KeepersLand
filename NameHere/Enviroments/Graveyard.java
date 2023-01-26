@@ -4,6 +4,7 @@ import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
 import NameHere.Player;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Graveyard extends Enviorment{
@@ -15,7 +16,7 @@ public class Graveyard extends Enviorment{
 
     @Override
     public List<Item> getShopItems() {
-        return null;
+        return Arrays.asList(Item.skeletonBone);
     }
 
     @Override
