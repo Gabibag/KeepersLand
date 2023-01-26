@@ -29,6 +29,7 @@ public class Main {
         getNewPlace();
         while(true){
             System.out.print(Colors.RESET+ Colors.PURPLE + Colors.CLEAR);
+            System.out.println("You are currently in the " + currentPlace.getName());
             for(int i = 0; i < allInteracts.size(); i ++){
                 System.out.println("[" + (i + 1) +"] " + allInteracts.get(i).getName());
             }

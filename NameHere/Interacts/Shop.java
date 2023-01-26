@@ -32,7 +32,7 @@ public class Shop extends Interactable {
             else {
                 player.getInventory().add(i);
                 player.chargeMoney(i.getCost());
-                System.out.println("Bought " + i.getName() + " for " + i.getCost() + " \n new bal: " + player.getMoney());
+                System.out.println("Bought " + i.getName() + " for " + i.getCost() + " \n new balance: " + player.getMoney());
             }
         }
     }
