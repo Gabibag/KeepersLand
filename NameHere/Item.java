@@ -16,6 +16,10 @@ public class Item {
     1000 - legendary
      */
     private int cost;
+    public String toString(){
+        String r =  this.getName() + ":" + "\n" + this.getDescription() + "\n" + "Damage Increase: " + this.getDmgIncr() + "\n" + "Health Increase: " + this.getHpIncr() + "\n" + "Rarity: "+ Helper.getWordRarity(this);
+        return r;
+    }
     public Function<Player, Void> use;
     public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost) {
         this.dmgIncr = dmgIncr;
