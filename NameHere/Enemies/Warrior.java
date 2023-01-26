@@ -1,8 +1,10 @@
 package NameHere.Enemies;
-import java.util.Random;
 
-import NameHere.Player;
 import NameHere.Abstracts.Enemy;
+import NameHere.Item;
+import NameHere.Player;
+
+import java.util.Random;
 public class Warrior extends Enemy{
     Random r = new Random();
     public Warrior() {
@@ -12,6 +14,8 @@ public class Warrior extends Enemy{
         this.xp = 20;
         this.name = "Warrior";
         this.battleHp = baseHp;
+        this.drops.add(Item.warriorSword);
+        this.coins = 3;
     }
 
     @Override

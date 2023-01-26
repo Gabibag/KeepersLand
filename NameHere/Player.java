@@ -15,6 +15,24 @@ public class Player {
     public void takeDamage(int a){
         this.battleHp -= a;
     }
+    private int healAmount = 2;
+    private int healVariance = 2;
+
+    public Player(String name, int hp, int dmg, List<Item> inventory) {
+        this.name = name;
+        this.hp = hp;
+        this.dmg = dmg;
+        this.inventory = inventory;
+        this.battleHp = hp;
+    }
+
+    public Player(String name, int hp, int dmg) {
+        this.name = name;
+        this.hp = hp;
+        this.dmg = dmg;
+        this.battleHp = hp;
+    }
+
     public int getHealAmount() {
         return healAmount;
     }
@@ -22,6 +40,7 @@ public class Player {
     public void setHealAmount(int healAmount) {
         this.healAmount = healAmount;
     }
+    //set can be down via the get, since its a refrence type
 
     public int getHealVariance() {
         return healVariance;
@@ -31,16 +50,15 @@ public class Player {
         this.healVariance = healVariance;
     }
 
-    private int healVariance = 4;
-    //set can be down via the get, since its a refrence type
-
-    public int getMoney(){
+    public int getMoney() {
         return money;
     }
-    public void setMoney(int val){
+
+    public void setMoney(int val) {
         money = val;
     }
-    public void addMoney(int amount){
+
+    public void addMoney(int amount) {
         this.money += amount;
     }
     public void chargeMoney(int amount) {
@@ -114,10 +132,16 @@ public class Player {
     public void setInventory(List<Item> inventory) {
         this.inventory = inventory;
     }
-    public void setActionAmount(int amount){
-        this.actionAmount = amount;
+
+    public void addInventory(Item item) {
+        this.inventory.add(item);
     }
+
     public int getActionAmount() {
         return actionAmount;
+    }
+
+    public void setActionAmount(int amount) {
+        this.actionAmount = amount;
     }
 }

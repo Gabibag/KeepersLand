@@ -1,8 +1,8 @@
 package NameHere.Enemies;
-import java.util.List;
 
-import NameHere.Player;
 import NameHere.Abstracts.Enemy;
+import NameHere.Item;
+import NameHere.Player;
 
 
 public class BountyHunter extends Enemy{
@@ -14,6 +14,9 @@ public class BountyHunter extends Enemy{
         this.xp = 20;
         this.name = "Bounty Hunter";
         this.battleHp = baseHp;
+        this.drops.add(Item.bountyHunterSword);
+        this.drops.add(Item.woodenSword);
+        this.coins = 2;
     }
 
     @Override

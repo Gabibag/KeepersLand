@@ -2,6 +2,7 @@
 
 <!-- TOC -->
 * [About This Game](#about-this-game)
+    * [Todo](#todo)
     * [Shops](#shops)
     * [Battles](#battles)
     * [Locations](#locations)
@@ -9,13 +10,23 @@
     * [Status effects](#status-effects)
     * [Location modifiers](#location-modifiers)
 <!-- TOC -->
+### Todo
+
+- Status Effects
+  - Location modifiers
+- Bosses
+- Token Shop
+- Stages
+- Storage
+
 ### Shops
-  - There are 2 different shops, 1 is the regular shop, which allows you to purchase things with coins.
+  - There are 2 different shops, 1 is the regular shop, which allows you to purchase things with coins (◊).
   - The other is a special shop, unlocked after buying the shop key [^1]
-    - This shop allows purchasing legendary items, (0.01% drop rate) with tokens (coins that are dropped by bosses).
+    - This shop allows purchasing legendary items, (0.01% drop rate) with tokens(₪) (coins that are dropped by bosses).
 ### Battles
   - The player can choose to battle when in "home screen", and they must survive all the battles until they reach the boss or escape. 
-    - Players can escape, but have a chance to lose what they earned during battle(all their other items will be safe).
+    - Players can escape, but have a chance to lose what they carry with them in battle.
+    - All items they have in their inventory will be lost, items can be put in storage before the game. 
   - Their health will gain 20% [^1] of what they currently have(does not exceed max hp) and the game continues.
   - Each turn there will be 3 enemies fighting you, and you can deal two attacks per turn[^2], choosing to attack two enemies, or attacking one enemy.
     - There is a small chance to dodge attacks, mean you take 0 damage.

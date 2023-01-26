@@ -62,12 +62,14 @@ public class Main {
         initDirc(folder, "");
         for(Interactable i: allInteracts){
             if(i.getName().equalsIgnoreCase("quit")){
-                Interactable temp = allInteracts.get(0);
-                allInteracts.set(allInteracts.indexOf(i), temp);
-                allInteracts.set(0, i);
+                allInteracts.remove(i);
+                allInteracts.add(i);
+                break;
 
             }
         }
+        //Items?
+
     }
     public static void initDirc(File Dirc, String path){
         File[] listOfFiles = Dirc.listFiles();

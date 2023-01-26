@@ -17,11 +17,12 @@ public class Inventory extends Interactable{
             Item inspect = p.getInventory().get(input -1);
             System.out.println(inspect.getName() + ":");
             System.out.println(inspect.getDescription());
-            System.out.println("Damage Increase: " + inspect.getDmgIncr());
-            System.out.println("Health Increase: " + inspect.getHpIncr());
+            System.out.println(Colors.RED + "Damage Increase: " + inspect.getDmgIncr());
+            System.out.println("Health Increase: " + inspect.getHpIncr()+ Colors.RESET);
             System.out.println("Rarity: "+ Helper.getWordRarity(inspect));
-            Helper.Prompt("Press a enter when done...");
+            Helper.Prompt("Press enter when done");
             onChoose(p);
+            System.out.println(Colors.CLEAR);
         }
     }
     public String getName(){return "Inventory";}
