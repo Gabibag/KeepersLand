@@ -15,14 +15,10 @@ public class Inventory extends Interactable{
         int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info or 0 to quit" + Colors.RESET, 0, p.getInventory().size());
         if(input != 0){
             Item inspect = p.getInventory().get(input -1);
-            System.out.println(inspect.getName() + ":");
-            System.out.println(inspect.getDescription());
-            System.out.println(Colors.RED + "Damage Increase: " + inspect.getDmgIncr());
-            System.out.println("Health Increase: " + inspect.getHpIncr()+ Colors.RESET);
-            System.out.println("Rarity: "+ Helper.getWordRarity(inspect));
-            Helper.Prompt("Press enter when done");
-            onChoose(p);
+            System.out.println(inspect);
+            Helper.Prompt("Press a enter when done");
             System.out.println(Colors.CLEAR);
+            onChoose(p);
         }
     }
     public String getName(){return "Inventory";}
