@@ -47,6 +47,7 @@ public class Battle extends Interactable {
         System.out.print(Colors.CLEAR);
         while (enemies.size() > 0) {
             while (Actions > 0) {
+                
                 for (Enemy enemy : enemies) {
                     System.out.print(Colors.RED + enemy.getName() + "  ");
                 }
@@ -111,15 +112,15 @@ public class Battle extends Interactable {
                                 continue;
                     //#endregion
                         }
-
+                    Main.currentPlace.playerAction(p);
                     Actions--;
                     System.out.println(Colors.CLEAR);
                 }
 
                 System.out.println(Colors.CLEAR + Colors.RED);
                 for (Enemy enemy : enemies) {
-
-                    enemy.Attack(p);
+                    int damage =  enemy.Attack(p, enemies);
+                    p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
                     Sleep((double) enemies.size() / 3);
 
                 }
@@ -127,12 +128,10 @@ public class Battle extends Interactable {
                     System.out.println("You lost!");
                     IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                             enemies::remove); //the magic of intellij
-
-
                 }
                 Sleep(1.4);
                 System.out.println(Colors.RESET + Colors.CLEAR);
-
+                Main.currentPlace.turnEnd(p);
                 Actions = p.getActionAmount();
             }
             if (p.getBattleHp() > 0) {

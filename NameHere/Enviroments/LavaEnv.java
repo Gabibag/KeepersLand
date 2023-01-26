@@ -1,7 +1,6 @@
 package NameHere.Enviroments;
 import java.util.*;
-
-import NameHere.Item;
+import NameHere.*;
 import NameHere.Abstracts.Enviorment;
 public class LavaEnv extends Enviorment{
 
@@ -9,4 +8,20 @@ public class LavaEnv extends Enviorment{
     public List<Item> getShopItems() {
         return null;
     }
+    public String getName(){
+        return "Lava Zone";
+    }
+    public void playerAction(Player p){
+
+    }
+    public void turnEnd(Player p){
+        
+    }
+    public int modifyEnemyDamage(int preChange){
+        return preChange;
+    }
+    public int modifyPlayerDamage(int preChange){
+        return preChange;
+    }
+
 }
