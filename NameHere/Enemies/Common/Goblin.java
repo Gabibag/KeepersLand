@@ -2,6 +2,7 @@ package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.Random;
@@ -17,7 +18,7 @@ public class Goblin extends Enemy {
         this.name = "Goblin";
         this.battleHp = baseHp;
         this.coins = 3;
-        this.drops.add(Item.giantSkin);
+        this.drops.add(ItemData.giantSkin);
     }
 
     @Override

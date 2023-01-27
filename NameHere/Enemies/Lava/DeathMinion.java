@@ -3,6 +3,7 @@ package NameHere.Enemies.Lava;
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -19,7 +20,7 @@ public class DeathMinion extends Enemy {
         this.name = "Death's Minion";
         this.battleHp = baseHp;
         this.coins = 3;
-        drops.add(Item.soul);
+        drops.add(ItemData.soul);
     }
 
     @Override

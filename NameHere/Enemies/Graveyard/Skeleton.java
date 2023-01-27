@@ -2,6 +2,7 @@ package NameHere.Enemies.Graveyard;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.Random;
@@ -17,7 +18,7 @@ public class Skeleton extends Enemy {
         this.name = "Skeleton";
         this.battleHp = baseHp;
         this.coins = 3;
-        drops.add(Item.skeletonBone);
+        drops.add(ItemData.skeletonBone);
     }
 
     @Override

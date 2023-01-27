@@ -2,6 +2,7 @@ package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.Random;
@@ -14,7 +15,7 @@ public class Warrior extends Enemy{
         this.xp = 20;
         this.name = "Warrior";
         this.battleHp = baseHp;
-        this.drops.add(Item.warriorSword);
+        this.drops.add(ItemData.warriorSword);
         this.coins = 3;
     }
 

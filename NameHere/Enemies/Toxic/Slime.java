@@ -1,6 +1,7 @@
 package NameHere.Enemies.Toxic;
 
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Main;
 import NameHere.Player;
 import NameHere.Abstracts.Enemy;
@@ -15,7 +16,7 @@ public class Slime extends Enemy{
         this.xp = 20;
         this.name = "Slime";
         this.battleHp = baseHp;
-        this.drops.add(Item.slimeShield);
+        this.drops.add(ItemData.slimeShield);
         this.coins = 2;
     }
 

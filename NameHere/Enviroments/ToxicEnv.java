@@ -3,6 +3,7 @@ package NameHere.Enviroments;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Colors;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -12,9 +13,11 @@ import java.util.List;
 public class ToxicEnv extends Enviorment{
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(new Item(3, 2, "Doran's Blade", "A blade forged in the heart of Doran", 80, 55),
-            new Item(1, 0, "Toxic Fang", "A strange toxic fang of some creature.", 10, 15),
-                             new Item(2, 2, "Swamp Potion","A mystery potion created by a witch in the swamp.", 40, 45));
+        return Arrays.asList(new Item[]{
+            ItemData.toxicFang,
+            ItemData.doransBlade,
+            ItemData.swampPot
+        });
     }
     public String getDescription(){
         return "A toxic swamp that makes attack do more damage.";
