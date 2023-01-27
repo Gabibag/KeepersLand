@@ -34,7 +34,8 @@ public class Shop extends Interactable {
             else if (choice == items.size() + 1) {
                 for (int i = 0; i < items.size(); i++)
                     System.out.println(
-                            "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() + "◊" +
+                            "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
+                            "◊" +
                             Colors.PURPLE);
                 int sC = Helper.getInput(Colors.RESET + "Enter an item to inspect", 1, items.size());
                 System.out.println(items.get(sC - 1));

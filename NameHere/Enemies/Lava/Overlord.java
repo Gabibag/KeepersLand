@@ -23,7 +23,7 @@ public class Overlord extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(50)==2 && Main.currentPlace instanceof LavaZone; //(r.nextInt([spawnchance]) == 2)
+        return r.nextInt(50) == 2 && Main.currentPlace instanceof LavaZone; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

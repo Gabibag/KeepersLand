@@ -8,8 +8,9 @@ import NameHere.Player;
 
 import java.util.Random;
 
-public class Demon extends Enemy{
+public class Demon extends Enemy {
     Random r = new Random();
+
     public Demon() {
         super();
         this.baseHp = 10;

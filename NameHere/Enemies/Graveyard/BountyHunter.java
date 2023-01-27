@@ -5,7 +5,7 @@ import NameHere.Enviroments.Graveyard;
 import NameHere.*;
 
 
-public class BountyHunter extends Enemy{
+public class BountyHunter extends Enemy {
 
     public BountyHunter() {
         super();

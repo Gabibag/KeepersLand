@@ -1,7 +1,9 @@
 package NameHere;
+
 import java.util.*;
+
 public class Helper {
-    
+
     static Scanner s = new Scanner(System.in);
 
     /**
@@ -67,13 +69,14 @@ public class Helper {
      * @return
      */
     public static <T> List<T> getRandomElements(List<T> list, int amount) {
-        List<T> r = new ArrayList<T>();
+        List<T> r = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             r.add(list.get(Main.r.nextInt(list.size())));
         }
 
         return r;
     }
+
     /**
      * prompts the user with a message then gets the next int they type, as long as its 1-top (inclusive both ways)
      * will keep asking until a valid input is obtained
@@ -91,13 +94,13 @@ public class Helper {
             }
             System.out.println(Colors.RED + "Not an option" + Colors.RESET);
             return getInput(msg, top);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println(Colors.RED + "Bad input, try again" + Colors.RESET);
-            return getInput(msg, top);    
+            return getInput(msg, top);
         }
-            
+
     }
+
     /**
      * prompts the user with a message then gets the next int they type, as long as its bottom-top (inclusive both ways)
      * will keep asking until a valid input is obtained

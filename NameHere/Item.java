@@ -45,12 +45,22 @@ public class Item {
         this.healIncrease = heal;
         this.HealVariance = healvair;
     }
-    public int getHealVariance(){return HealVariance;}
-    public void setHealVariance(int v){HealVariance = v;}
-    public void setHealIncrease(int s){
+
+    public int getHealVariance() {
+        return HealVariance;
+    }
+
+    public void setHealVariance(int v) {
+        HealVariance = v;
+    }
+
+    public void setHealIncrease(int s) {
         this.healIncrease = s;
     }
-    public int getHealIncrease(){return this.healIncrease;}
+
+    public int getHealIncrease() {
+        return this.healIncrease;
+    }
 
     public int getDmgIncr() {
         return dmgIncr;

@@ -5,8 +5,10 @@ import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.Random;
-public class Warrior extends Enemy{
+
+public class Warrior extends Enemy {
     Random r = new Random();
+
     public Warrior() {
         super();
         this.baseHp = 15;
@@ -21,7 +23,8 @@ public class Warrior extends Enemy{
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextBoolean()||r.nextBoolean()); //25% chance of not spawning, kinda rare as it deals quite a bit damage
+        return (r.nextBoolean() ||
+                r.nextBoolean()); //25% chance of not spawning, kinda rare as it deals quite a bit damage
 
     }
 }

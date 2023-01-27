@@ -12,7 +12,7 @@ import NameHere.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public class Graveyard extends Enviorment{
+public class Graveyard extends Enviorment {
 
     @Override
     public String getDescription() {

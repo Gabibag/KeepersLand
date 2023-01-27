@@ -5,8 +5,9 @@ import NameHere.Player;
 
 import java.util.Random;
 
-public class Giant extends Enemy{
+public class Giant extends Enemy {
     Random r = new Random();
+
     public Giant() {
         super();
         this.baseHp = 50;

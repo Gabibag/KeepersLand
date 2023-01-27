@@ -4,12 +4,13 @@ import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.Graveyard;
 import NameHere.Main;
 import NameHere.Player;
+
 import java.util.Random;
 
 public class Ghost extends Enemy {
     Random r = new Random();
 
-    public Ghost()  {//TODO: Add a higher miss rate
+    public Ghost() {//TODO: Add a higher miss rate
         super();
         this.baseHp = 10;
         this.damage = 4;
