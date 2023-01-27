@@ -99,6 +99,7 @@ public class Battle extends Interactable {
                                                enemies.get(choice - 1).getName());
                             Sleep(0.5);
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
+                                enemies.get(choice - 1).onDeath(p, enemies);
                                 System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
                                 enemies.get(choice - 1).randDrops(p);
                                 p.addMoney(enemies.get(choice - 1).getCoins());

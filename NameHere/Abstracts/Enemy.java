@@ -71,7 +71,9 @@ public abstract class Enemy {
         System.out.println(name + " deals " + damage + " damage");
         return damage;
     }
-
+    public void onDeath(Player p, List<Enemy> allies){
+        
+    }
     public void randDrops(Player p) {
         for (Item drop : this.drops) {
             if (r.nextInt(drop.getRarity()) == drop.getRarity() - 1) {

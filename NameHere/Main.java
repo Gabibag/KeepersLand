@@ -3,6 +3,8 @@ package NameHere;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Abstracts.Interactable;
+import NameHere.Enviroments.LavaZone;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,7 @@ public class Main {
             player.addMoney(99999);
             player.setDmg(500);
             System.out.println("sus");
+            Main.currentPlace = new LavaZone();
         }
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
