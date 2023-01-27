@@ -24,7 +24,7 @@ public class Assassin extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(10)==2 && Main.currentPlace instanceof ToxicEnv; //10% spawn chance
+        return r.nextInt(10) == 2 && Main.currentPlace instanceof ToxicEnv; //10% spawn chance
 
     }
 }

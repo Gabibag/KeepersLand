@@ -53,7 +53,15 @@ public class Battle extends Interactable {
                 //TODO: add a check if the health exceeds the text length of the char so the names spread out
                 for (Enemy enemy : enemies) {
                     for (int i = 0; i < enemy.getName().length(); i++) {
-                        if ((enemy.getName().length() - (Integer.toString(enemy.getBattleHp()).length() + 2)) / 2 < 1) {
+                        if ((enemy.getName().length() <= 4)) {
+                            System.out.print(enemy.getBattleHp() + "hp");
+                            for(int j = 0; j < enemy.getName().length()-4;){
+                                System.out.print(" ");
+                            }
+                            break;
+                        }
+                        else if ((enemy.getName().length() - (Integer.toString(enemy.getBattleHp()).length() + 2)) / 2 <
+                                 1) {
                             System.out.print(" " + enemy.getBattleHp() + "hp" + " ");
                             break;
                         }
@@ -84,9 +92,9 @@ public class Battle extends Interactable {
                         }
                         choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
                         System.out.println(Colors.CLEAR);
-                        if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 1) {
+                        if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getDmg());
-                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() -pDamage );
+                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
                             System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
                                                enemies.get(choice - 1).getName());
                             Sleep(0.5);
@@ -104,6 +112,7 @@ public class Battle extends Interactable {
                         }
                         else {
                             System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
+                            Sleep(1);
                             break;
                         }
                         //#endregion
@@ -112,7 +121,7 @@ public class Battle extends Interactable {
 
                         int healAmount =
                                 p.getHealAmount() + ((r.nextInt(p.getHealVariance()) == 1 ? -1 : 1));
-                        if (p.getBattleHp() + healAmount>p.getHp()){
+                        if (p.getBattleHp() + healAmount > p.getHp()) {
                             healAmount = 0;
                         }
                         p.setBattleHp(p.getBattleHp() + healAmount);
@@ -198,7 +207,7 @@ public class Battle extends Interactable {
     }  //TODO get location + opponent info
 
     public List<Enemy> getEnemies(Player p) {
-        List<Enemy> returned = new ArrayList<Enemy>();
+        List<Enemy> returned = new ArrayList<>();
         for (Enemy e : Main.allEnemies) {
             if (e.canSpawn(p)) {
                 returned.add((e));

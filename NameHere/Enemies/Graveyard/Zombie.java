@@ -4,6 +4,7 @@ import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.Graveyard;
 import NameHere.Player;
 import NameHere.Main;
+
 import java.util.Random;
 
 public class Zombie extends Enemy {
@@ -22,7 +23,7 @@ public class Zombie extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(4)==2 && Main.currentPlace instanceof Graveyard; //(r.nextInt([spawnchance]) == 2)
+        return r.nextInt(4) == 2 && Main.currentPlace instanceof Graveyard; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

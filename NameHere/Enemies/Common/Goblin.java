@@ -1,7 +1,6 @@
 package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
-import NameHere.Item;
 import NameHere.ItemData;
 import NameHere.Player;
 
@@ -12,7 +11,7 @@ public class Goblin extends Enemy {
 
     public Goblin() {
         super();
-        this.baseHp = 10;
+        this.baseHp = 5;
         this.damage = 15;
         this.xp = 5;
         this.name = "Goblin";

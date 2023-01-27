@@ -10,43 +10,47 @@ import NameHere.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public class ToxicEnv extends Enviorment{
+public class ToxicEnv extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(new Item[]{
-            ItemData.toxicFang,
-            ItemData.doransBlade,
-            ItemData.swampPot
-        });
+        return Arrays.asList(ItemData.toxicFang,
+                             ItemData.doransBlade,
+                             ItemData.swampPot);
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return "A toxic swamp that makes attack do more damage.";
     }
-    public String getName(){
+
+    public String getName() {
         return "Toxic Swamp";
     }
-    public int modifyPlayerDamage(int preChange){
+
+    public int modifyPlayerDamage(int preChange) {
         int dmgInc = Main.r.nextInt(3);
-        if(dmgInc == 0) {
+        if (dmgInc == 0) {
             return preChange;
         }
-        System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + dmgInc)+"!");
+        System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + dmgInc) + "!");
         return preChange + dmgInc;
 
     }
+
     public void playerAction(Player p){
 
     }
+
     public void turnEnd(Player p){
 
     }
-    public int modifyEnemyDamage(int preChange){
+
+    public int modifyEnemyDamage(int preChange) {
         //TODO scaling
         int dmgInc = Main.r.nextInt(3);
-        if(dmgInc == 0) { 
+        if (dmgInc == 0) {
             return preChange;
         }
-        System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + dmgInc)+"!");
+        System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + dmgInc) + "!");
         return preChange + dmgInc;
     }
 }

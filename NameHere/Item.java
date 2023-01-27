@@ -28,7 +28,9 @@ public class Item {
                 Helper.getWordRarity(this);
         return r;
     }
+
     public Function<Player, Void> use;
+
     public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost, int heal, int healvair) {
         this.dmgIncr = dmgIncr;
         this.hpIncr = hpIncr;
@@ -39,12 +41,31 @@ public class Item {
         this.healIncrease = heal;
         this.HealVariance = healvair;
     }
-    public int getHealVariance(){return HealVariance;}
-    public void setHealVariance(int v){HealVariance = v;}
-    public void setHealIncrease(int s){
+
+    public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost) {
+        this.dmgIncr = dmgIncr;
+        this.hpIncr = hpIncr;
+        this.name = name;
+        this.description = description;
+        this.rarity = rarity;
+        this.cost = cost;
+    }
+
+    public int getHealVariance() {
+        return HealVariance;
+    }
+
+    public void setHealVariance(int v) {
+        HealVariance = v;
+    }
+
+    public void setHealIncrease(int s) {
         this.healIncrease = s;
     }
-    public int getHealIncrease(){return this.healIncrease;}
+
+    public int getHealIncrease() {
+        return this.healIncrease;
+    }
 
     public int getDmgIncr() {
         return dmgIncr;

@@ -8,7 +8,7 @@ import NameHere.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public class Graveyard extends Enviorment{
+public class Graveyard extends Enviorment {
 
     @Override
     public String getDescription() {
@@ -18,10 +18,8 @@ public class Graveyard extends Enviorment{
     @Override
     public List<Item> getShopItems() {
 
-        return Arrays.asList(new Item[]{
-            ItemData.tombStone,
-            ItemData.GraveFlower
-        });
+        return Arrays.asList(ItemData.tombStone,
+                             ItemData.GraveFlower);
     }
 
     @Override

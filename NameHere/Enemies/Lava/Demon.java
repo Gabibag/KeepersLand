@@ -2,15 +2,15 @@ package NameHere.Enemies.Lava;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.LavaZone;
-import NameHere.Item;
 import NameHere.ItemData;
 import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
 
-public class Demon extends Enemy{
+public class Demon extends Enemy {
     Random r = new Random();
+
     public Demon() {
         super();
         this.baseHp = 10;

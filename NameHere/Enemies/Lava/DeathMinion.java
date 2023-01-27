@@ -2,7 +2,6 @@ package NameHere.Enemies.Lava;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.LavaZone;
-import NameHere.Item;
 import NameHere.ItemData;
 import NameHere.Main;
 import NameHere.Player;
