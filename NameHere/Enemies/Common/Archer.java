@@ -1,4 +1,4 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Player;
@@ -21,7 +21,7 @@ public class Archer extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return true; //(r.nextInt([spawnchance]) == 2)
+        return r.nextInt(5) == 2; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

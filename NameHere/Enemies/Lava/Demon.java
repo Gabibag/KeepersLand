@@ -1,8 +1,9 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Lava;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -18,13 +19,13 @@ public class Demon extends Enemy{
         this.name = "Demon";
         this.battleHp = baseHp;
         this.coins = 10;
-        this.drops.add(Item.demonSword);
+        this.drops.add(ItemData.demonSword);
     }
 
     @Override
     public boolean canSpawn(Player p) {
 
-        return (Main.currentPlace instanceof LavaZone) && (r.nextInt(5) == 2); //only spawns in lava Environments with a 20% chance
+        return (Main.currentPlace instanceof LavaZone); //only spawns in lava Environments with a 20% chance
 
     }
 }

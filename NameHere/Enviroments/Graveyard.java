@@ -2,6 +2,7 @@ package NameHere.Enviroments;
 
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.Arrays;
@@ -16,12 +17,12 @@ public class Graveyard extends Enviorment{
 
     @Override
     public List<Item> getShopItems() {
-        Item i = new Item(1, 0,"Tombstone", "Wait,how does that work?", 15, 25);
-        i.setHealIncrease(1);
+        
         return Arrays.asList(new Item[]{
-            i,
-            new Item(0, 5,"GraveFlower", "A Flower said to cure sickness", 30, 50)
+            ItemData.tombStone,
+            ItemData.GraveFlower
         });
+
     }
 
     @Override
