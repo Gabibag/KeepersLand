@@ -3,9 +3,16 @@ package NameHere;
 import java.util.*;
 
 public class Helper {
-
+    /**
+    *returns the scale factor
+    */
+    public static int getScaleFactor(){
+        if(Main.player == null){
+            return 1;
+        }
+        return 1 + Math.round(Main.player.getStageNum() / 10f);
+    }
     static Scanner s = new Scanner(System.in);
-
     /**
      * Dont do it
      *

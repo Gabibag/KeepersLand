@@ -9,13 +9,11 @@ import java.util.Random;
 public class Goblin extends Enemy {
     Random r = new Random();
 
-    public Goblin() {
-        super();
+    public void setBaseStats() {
         this.baseHp = 5;
         this.damage = 15;
         this.xp = 5;
         this.name = "Goblin";
-        this.battleHp = baseHp;
         this.coins = 3;
         this.drops.add(ItemData.giantSkin);
     }

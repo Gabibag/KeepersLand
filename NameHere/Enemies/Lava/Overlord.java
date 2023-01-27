@@ -9,14 +9,11 @@ import java.util.Random;
 
 public class Overlord extends Enemy {
     Random r = new Random();
-
-    public Overlord() {
-        super();
+public void setBaseStats(){
         this.baseHp = 100;
         this.damage = 20;
         this.xp = 100;
         this.name = "Overlord";
-        this.battleHp = baseHp;
         this.coins = 100;
     }
 

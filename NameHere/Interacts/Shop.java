@@ -18,11 +18,12 @@ public class Shop extends Interactable {
             List<Item> items = getItems(player);
             System.out.println(Colors.PURPLE + "[0] Quit");
             try {
-                for (int i = 0; i < items.size(); i++)
+                for (int i = 0; i < items.size(); i++){
                     System.out.println(
                             "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
                             "◊" +
                             Colors.PURPLE);
+                }
             } catch (Exception e) {
                 //items.add(Item.empty);
             }

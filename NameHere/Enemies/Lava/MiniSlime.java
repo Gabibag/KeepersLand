@@ -5,8 +5,7 @@ import NameHere.Abstracts.Enemy;
 
 public class MiniSlime extends Enemy{
     public boolean canSpawn(Player p){return false;}
-    public MiniSlime(){
-        super();
+    public void setBaseStats(){
         this.damage = 3;
         this.baseHp = this.battleHp = 6;
         this.coins = 3;

@@ -1,7 +1,6 @@
 # About This Game
 
 <!-- TOC -->
-
 * [About This Game](#about-this-game)
     * [Todo](#todo)
     * [Shops](#shops)
@@ -10,7 +9,6 @@
     * [Enemy types](#enemy-types)
     * [Status effects](#status-effects)
     * [Location modifiers](#location-modifiers)
-
 <!-- TOC -->
 
 ### Todo
@@ -157,8 +155,7 @@ etc.
     - swift (dodge attacks more)
     - armour deficient (buffs by armour are halved)
     - revive-able (come back to life with health 10% health)
-    -
 
 <hr />
-[^1] May change
+[^1] May change \
 [^2] May change due to status effects or other parameters 

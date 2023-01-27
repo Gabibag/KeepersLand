@@ -8,9 +8,7 @@ import java.util.Random;
 
 public class Skeleton extends Enemy {
     Random r = new Random();
-
-    public Skeleton() {
-        super();
+public void setBaseStats(){
         this.baseHp = 30;
         this.damage = 2;
         this.xp = 10;

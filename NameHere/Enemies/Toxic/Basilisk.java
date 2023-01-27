@@ -9,9 +9,7 @@ import java.util.Random;
 
 public class Basilisk extends Enemy {
     Random r = new Random();
-
-    public Basilisk() {
-        super();
+public void setBaseStats(){
         this.baseHp = 30;
         this.damage = 4;
         this.xp = 10;

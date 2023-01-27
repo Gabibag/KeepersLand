@@ -9,14 +9,11 @@ import java.util.Random;
 
 public class Ogre extends Enemy {
     Random r = new Random();
-
-    public Ogre() {
-        super();
+public void setBaseStats(){
         this.baseHp = 40;
         this.damage = 2;
         this.xp = 10;
         this.name = "Ogre";
-        this.battleHp = baseHp;
         this.coins = 5;
     }
 

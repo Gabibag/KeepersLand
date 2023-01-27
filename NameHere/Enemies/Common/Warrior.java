@@ -9,13 +9,11 @@ import java.util.Random;
 public class Warrior extends Enemy {
     Random r = new Random();
 
-    public Warrior() {
-        super();
+    public void setBaseStats() {
         this.baseHp = 15;
         this.damage = 5;
         this.xp = 20;
         this.name = "Warrior";
-        this.battleHp = baseHp;
         this.drops.add(ItemData.warriorSword);
         this.coins = 3;
     }

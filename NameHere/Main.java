@@ -31,6 +31,8 @@ public class Main {
         player.setHealVariance(1);
         getNewPlace();
         if(player.getName().equals("among us")){
+            player.incStageNum(900);
+            System.out.println(Helper.getScaleFactor());
             player.setHealAmount(100);
             player.addMoney(99999);
             player.setDmg(500);
@@ -91,6 +93,7 @@ public class Main {
                     s.newInstance();
 
                 } catch (Exception ignored) {
+                    System.out.println(ignored);
                 }
             }
             else if (listOfFile.isDirectory()) {

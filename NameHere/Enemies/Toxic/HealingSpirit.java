@@ -1,20 +1,18 @@
 package NameHere.Enemies.Toxic;
 
-import java.util.List;
-
-import NameHere.Player;
 import NameHere.Abstracts.Enemy;
-import NameHere.Enviroments.ToxicEnv;
 import NameHere.Colors;
+import NameHere.Enviroments.ToxicEnv;
 import NameHere.Helper;
 import NameHere.Main;
+import NameHere.Player;
+
+import java.util.List;
 
 public class HealingSpirit extends Enemy {
-    public HealingSpirit() {
-        super();
+    public void setBaseStats(){
         this.baseHp = 10;
         this.coins = 5;
-        this.battleHp = baseHp;
         this.dodgeRate = 1;
         this.xp = 5;
         this.name = "Healing Spirit";

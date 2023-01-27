@@ -8,8 +8,7 @@ import NameHere.Enviroments.ToxicEnv;
 
 public class Slime extends Enemy {
 
-    public Slime() {
-        super();
+public void setBaseStats(){
         this.baseHp = 25;
         this.damage = 2;
         this.xp = 20;

@@ -4,8 +4,7 @@ import NameHere.Player;
 import NameHere.Abstracts.Enemy;
 
 public class SkeletonHand extends Enemy {
-    public SkeletonHand(){
-        super();
+    public void setBaseStats(){
         this.baseHp = 1;
         this.battleHp = this.baseHp;
         this.damage = 1;

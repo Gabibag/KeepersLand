@@ -21,13 +21,11 @@ public class Graveyard extends Enviorment {
 
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(new Item[]{
-            ItemData.tombStone,
-            ItemData.GraveFlower,
-            ItemData.GhostSpirit,
-            ItemData.DullSkull,
-            ItemData.GlowingSkull
-        });
+        return Arrays.asList(ItemData.tombStone,
+                             ItemData.GraveFlower,
+                             ItemData.GhostSpirit,
+                             ItemData.DullSkull,
+                             ItemData.GlowingSkull);
     }
 
     @Override

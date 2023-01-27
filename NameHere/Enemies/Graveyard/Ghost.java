@@ -9,9 +9,7 @@ import java.util.Random;
 
 public class Ghost extends Enemy {
     Random r = new Random();
-
-    public Ghost() {//TODO: Add a higher miss rate
-        super();
+public void setBaseStats(){
         this.baseHp = 10;
         this.damage = 4;
         this.xp = 10;

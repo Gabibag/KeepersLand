@@ -10,9 +10,7 @@ import java.util.Random;
 
 public class Demon extends Enemy {
     Random r = new Random();
-
-    public Demon() {
-        super();
+public void setBaseStats(){
         this.baseHp = 10;
         this.damage = 10;
         this.xp = 20;

@@ -9,9 +9,7 @@ import java.util.Random;
 
 public class Zombie extends Enemy {
     Random r = new Random();
-
-    public Zombie() {
-        super();
+public void setBaseStats(){
         this.baseHp = 20;
         this.damage = 4;
         this.xp = 10;

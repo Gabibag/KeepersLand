@@ -3,6 +3,7 @@ package NameHere;
 import java.util.List;
 
 public class Player {
+    private int stageNum = 0;
     private int money;
     private String name;
     private int hp;
@@ -14,8 +15,6 @@ public class Player {
     private int level = 1;
     private int healAmount = 2;
     private int healVariance = 2;
-
-
     public Player(String name, int hp, int dmg, List<Item> inventory) {
         this.name = name;
         this.hp = hp;
@@ -24,12 +23,23 @@ public class Player {
         this.battleHp = hp;
 
     }
-
     public Player(String name, int hp, int dmg) {
         this.name = name;
         this.hp = hp;
         this.dmg = dmg;
         this.battleHp = hp;
+    }
+
+    public int getStageNum() {
+        return stageNum;
+    }
+
+    public void setStageNum(int stageNum) {
+        this.stageNum = stageNum;
+    }
+
+    public void incStageNum(int amount) {
+        this.stageNum += amount;
     }
 
     public void takeDamage(int a) {

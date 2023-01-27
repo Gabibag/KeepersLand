@@ -8,13 +8,11 @@ import java.util.Random;
 public class Giant extends Enemy {
     Random r = new Random();
 
-    public Giant() {
-        super();
+    public void setBaseStats() {
         this.baseHp = 50;
         this.damage = 2;
         this.xp = 20;
         this.name = "Giant";
-        this.battleHp = baseHp;
         this.coins = 15;
     }
 

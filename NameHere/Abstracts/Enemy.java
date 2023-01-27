@@ -1,5 +1,5 @@
 package NameHere.Abstracts;
-
+import NameHere.Helper;
 import NameHere.Colors;
 import NameHere.Item;
 import NameHere.Main;
@@ -12,7 +12,6 @@ import java.util.Random;
 public abstract class Enemy {
     protected int baseHp;
     protected int damage;
-
     public int getBaseHp() {
         return baseHp;
     }
@@ -58,12 +57,20 @@ public abstract class Enemy {
     public void setBattleHp(int battleHp) {
         this.battleHp = battleHp;
     }
-
-
-    public Enemy() {
-        Main.allEnemies.add((this)); //adds all enemies to a list
+    public void scaleStats(){
+        this.baseHp *= Helper.getScaleFactor();
+        this.damage *= Helper.getScaleFactor();
+        this.coins *= Helper.getScaleFactor();
+        this.xp *= Helper.getScaleFactor();
     }
-
+    public Enemy() {
+        this.setBaseStats();
+        scaleStats();
+        System.out.println("Scaling stats");
+        Main.allEnemies.add((this)); //adds all enemies to a list
+        this.battleHp = this.baseHp;
+    }
+    public abstract void setBaseStats();
     public abstract boolean canSpawn(Player p);
 
     public int Attack(Player p, List<Enemy> allies) {
