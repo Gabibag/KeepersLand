@@ -1,5 +1,6 @@
 package NameHere.Enviroments;
 
+import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Colors;
 import NameHere.Item;
@@ -37,7 +38,7 @@ public class ToxicEnv extends Enviorment{
     public void playerAction(Player p){
 
     }
-    public void turnEnd(Player p){
+    public void turnEnd(Player p, List<Enemy> enemies){
 
     }
     public int modifyEnemyDamage(int preChange){

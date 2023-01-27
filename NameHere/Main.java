@@ -3,7 +3,6 @@ package NameHere;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Abstracts.Interactable;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,10 @@ public class Main {
         player.setHealVariance(1);
         getNewPlace();
         if(player.getName().equals("among us")){
+            player.setHealAmount(100);
+            player.addMoney(99999);
             player.setDmg(500);
+            System.out.println("sus");
         }
         while(true){
             System.out.print(Colors.RESET+ Colors.CLEAR);

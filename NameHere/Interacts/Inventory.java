@@ -8,7 +8,8 @@ import NameHere.Abstracts.Interactable;
 
 public class Inventory extends Interactable{
     public void onChoose(Player p){
-        System.out.println(p.getName() + "'s inventory: \n");
+        System.out.println(p.getName() + "'s inventory: ");
+        System.out.println("Current Balance " +Colors.CYAN+ p.getMoney() + "◊");
         for(int i = 0; i < p.getInventory().size(); i++){
             System.out.println("[" + (i + 1) +"] " + p.getInventory().get(i).getName());
         }

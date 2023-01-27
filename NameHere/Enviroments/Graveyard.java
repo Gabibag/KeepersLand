@@ -1,8 +1,12 @@
 package NameHere.Enviroments;
 
+import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
+import NameHere.Enemies.Graveyard.SkeletonHand;
+import NameHere.Colors;
 import NameHere.Item;
 import NameHere.ItemData;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Arrays;
@@ -12,15 +16,17 @@ public class Graveyard extends Enviorment{
 
     @Override
     public String getDescription() {
-        return "A spooky Graveyard full of enemies";
+        return "A spooky Graveyard full of enemies and graves \nSometimes the dead join in on ongoing battles";
     }
 
     @Override
     public List<Item> getShopItems() {
-
         return Arrays.asList(new Item[]{
             ItemData.tombStone,
-            ItemData.GraveFlower
+            ItemData.GraveFlower,
+            ItemData.GhostSpirit,
+            ItemData.DullSkull,
+            ItemData.GlowingSkull
         });
     }
 
@@ -35,7 +41,11 @@ public class Graveyard extends Enviorment{
     }
 
     @Override
-    public void turnEnd(Player p) {
+    public void turnEnd(Player p, List<Enemy> enemies) {
+        if(Main.r.nextFloat() > 0.90f &&  !enemies.isEmpty()){
+            System.out.println(Colors.RED_BRIGHT + "A hand crawls from a grave and joins the battle!");
+            enemies.add(new SkeletonHand());
+        }
 
     }
 

@@ -1,6 +1,5 @@
 package NameHere;
 
-import java.util.function.Function;
 
 public class Item {
     private int healIncrease = 0;
@@ -24,11 +23,18 @@ public class Item {
         String r =
                 this.getName() + ":" + "\n" + this.getDescription() + Colors.RED + "\nDamage Increase: " +
                 this.getDmgIncr() +
-                "\nHealth Increase: " + this.getHpIncr() + "\n" + Colors.RESET + "Rarity: " +
+                "\nHealth Increase: " + this.getHpIncr() + "\nHealing Increase: " + this.healIncrease + "\nHeal Variance: " + this.HealVariance + "\n" + Colors.RESET + "Rarity: " +
                 Helper.getWordRarity(this);
         return r;
     }
-    public Function<Player, Void> use;
+    public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost) {
+        this.dmgIncr = dmgIncr;
+        this.hpIncr = hpIncr;
+        this.name = name;
+        this.description = description;
+        this.rarity = rarity;
+        this.cost = cost;
+    }
     public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost, int heal, int healvair) {
         this.dmgIncr = dmgIncr;
         this.hpIncr = hpIncr;

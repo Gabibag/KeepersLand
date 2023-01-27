@@ -36,7 +36,7 @@ public class Battle extends Interactable {
                 enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
             }
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("Failed to create a new enemy object, check your cnstr");
         }
         System.out.print(Colors.CLEAR);
         System.out.print(Colors.RED);
@@ -150,7 +150,7 @@ public class Battle extends Interactable {
             }
             Sleep(1.4);
             System.out.println(Colors.RESET + Colors.CLEAR);
-            Main.currentPlace.turnEnd(p);
+            Main.currentPlace.turnEnd(p, enemies);
             Actions = p.getActionAmount();
         }
         if (p.getBattleHp() > 0) {
@@ -160,6 +160,8 @@ public class Battle extends Interactable {
         for (Item i : p.getInventory()) {
             p.setHp(p.getHp() - i.getHpIncr());
             p.setDmg(p.getDmg() - i.getDmgIncr());
+            p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
+            p.setHealVariance(p.getHealVariance() - i.getHealVariance());
         }
         Main.getNewPlace();
         p.setBattleHp(p.getHp());

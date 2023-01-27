@@ -1,7 +1,6 @@
 package NameHere.Enemies.Graveyard;
 
 import NameHere.Abstracts.Enemy;
-import NameHere.Item;
 import NameHere.ItemData;
 import NameHere.Player;
 
@@ -24,7 +23,7 @@ public class Skeleton extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextBoolean()); //(r.nextInt([spawnchance]) == 2)
+        return (r.nextBoolean()); 
 
     }
 }

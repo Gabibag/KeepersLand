@@ -1,7 +1,6 @@
 package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
-import NameHere.Item;
 import NameHere.ItemData;
 import NameHere.Player;
 
@@ -24,7 +23,7 @@ public class Goblin extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(3) == 2; //(r.nextInt([spawnchance]) == 2)
+        return r.nextInt(3) == 2; 
 
     }
 }

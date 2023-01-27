@@ -10,7 +10,6 @@ public abstract class Enviorment {
     }
     public abstract String getDescription();
     public abstract List<Item> getShopItems();
-    //TODO status effects
     public boolean isVaild(Player p){
         return true;
     }
@@ -24,7 +23,7 @@ public abstract class Enviorment {
      * called after the player has used all their actions for a turn
      * @param p the player
      */
-    public abstract void turnEnd(Player p);
+    public abstract void turnEnd(Player p, List<Enemy> enemies);
     /**
      * alllows changing the players damage to an enemy
      * @param preChange the damage before being changed

@@ -1,5 +1,6 @@
 package NameHere.Enviroments;
 import NameHere.*;
+import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
 
@@ -18,8 +19,7 @@ public class LavaZone extends Enviorment{
     public void playerAction(Player p){
 
     }
-    public void turnEnd(Player p){
-
+    public void turnEnd(Player p, List<Enemy> enemies){
     }
     public int modifyEnemyDamage(int preChange){
         return preChange;
