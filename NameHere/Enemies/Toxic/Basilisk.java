@@ -1,6 +1,8 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Toxic;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.ToxicEnv;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -21,7 +23,7 @@ public class Basilisk extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return true; //(r.nextInt([spawnchance]) == 2)
+        return Main.currentPlace instanceof ToxicEnv; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

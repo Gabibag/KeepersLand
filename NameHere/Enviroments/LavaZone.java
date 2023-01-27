@@ -1,18 +1,16 @@
 package NameHere.Enviroments;
-
+import NameHere.*;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
-import NameHere.Player;
 
 import java.util.*;
 
 public class LavaZone extends Enviorment{
     @Override
     public List<Item> getShopItems() {
-        Item i = new Item(3, 0, "Lava Vial", "A vial of molten lava.", 15, 15);
-        List<Item> r = new ArrayList<Item>();
-        r.add(i);
-        return r;
+        return Arrays.asList(new Item[]{
+            ItemData.LavaVial
+        });
     }
     public String getName(){
         return "Lava Zone";

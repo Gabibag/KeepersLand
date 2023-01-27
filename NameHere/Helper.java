@@ -1,9 +1,5 @@
 package NameHere;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-
+import java.util.*;
 public class Helper {
     
     static Scanner s = new Scanner(System.in);
@@ -31,12 +27,12 @@ public class Helper {
 
     /**
      * returns an items rarity as a word from a number following this chart
-     * 10-750  - common
-     * 751-850 - uncommon
-     * 851-925 - rare
-     * 926-975 - not epic but still cool
-     * 976-999 - super cool
-     * 1000 - legendary
+     * 10- common
+     * 20 - uncommon
+     * 30 - rare
+     * 40 - epic
+     * 60 - super epic
+     * 61+ - legendary
      *
      * @param i item in question
      * @return rarity as a word
@@ -65,9 +61,8 @@ public class Helper {
 
     /**
      * gets some random elements from an list. Can get the same thing more than one time
-     *
-     * @param <T>    type of objects in the array
-     * @param list   the list to choose from
+     * @param <T> type of objects in the array
+     * @param list the list to choose from
      * @param amount the size of the returned array
      * @return
      */
@@ -79,11 +74,9 @@ public class Helper {
 
         return r;
     }
-
     /**
      * prompts the user with a message then gets the next int they type, as long as its 1-top (inclusive both ways)
      * will keep asking until a valid input is obtained
-     *
      * @param msg what to ask
      * @param top max(inclusive) val for a input
      * @return the first valid int typed
@@ -98,20 +91,19 @@ public class Helper {
             }
             System.out.println(Colors.RED + "Not an option" + Colors.RESET);
             return getInput(msg, top);
-        } catch (Exception e) {
-            System.out.println(Colors.RED + "Bad input, try again" + Colors.RESET);
-            return getInput(msg, top);
         }
-
+        catch(Exception e){
+            System.out.println(Colors.RED + "Bad input, try again" + Colors.RESET);
+            return getInput(msg, top);    
+        }
+            
     }
-
     /**
      * prompts the user with a message then gets the next int they type, as long as its bottom-top (inclusive both ways)
      * will keep asking until a valid input is obtained
-     *
-     * @param msg    what to ask
-     * @param bottom lowest valid value
-     * @param top    highest valid value
+     * @param msg what to ask
+     * @param bottom lowest valid value 
+     * @param top highest valid value
      * @return
      */
     public static int getInput(String msg, int bottom, int top) {

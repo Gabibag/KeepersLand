@@ -1,11 +1,13 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Toxic;
 
 import java.util.List;
 
 import NameHere.Player;
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.ToxicEnv;
 import NameHere.Colors;
 import NameHere.Helper;
+import NameHere.Main;
 
 public class HealingSpirit extends Enemy{
         public HealingSpirit(){
@@ -18,7 +20,7 @@ public class HealingSpirit extends Enemy{
             this.name = "Healing Spirit";
         }
         public boolean canSpawn(Player p){
-            return true;
+            return Main.currentPlace instanceof ToxicEnv;
         }
         @Override
         public int Attack(Player p, List<Enemy> allies){

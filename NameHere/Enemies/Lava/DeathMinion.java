@@ -1,7 +1,10 @@
-package NameHere.Enemies;
+package NameHere.Enemies.Lava;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.LavaZone;
 import NameHere.Item;
+import NameHere.ItemData;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -17,13 +20,13 @@ public class DeathMinion extends Enemy {
         this.name = "Death's Minion";
         this.battleHp = baseHp;
         this.coins = 3;
-        drops.add(Item.soul);
+        drops.add(ItemData.soul);
     }
 
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextInt(10) == 2); //(r.nextInt([spawnchance]) == 2)
+        return (r.nextInt(10) == 2) && Main.currentPlace instanceof LavaZone; //(r.nextInt([spawnchance]) == 2)
 
     }
 }
