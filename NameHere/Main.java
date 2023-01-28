@@ -15,6 +15,7 @@ public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<>();
     public static Enviorment currentPlace;
     public static List<Enemy> allEnemies = new ArrayList<>();
+
     public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
 
@@ -24,14 +25,15 @@ public class Main {
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 30, 5,
+        player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 40, 5,
                             new ArrayList<>());
         player.addMoney(50);
         player.setHealAmount(3);
         player.setHealVariance(1);
+
         getNewPlace();
         if(player.getName().equals("among us")){
-            player.incStageNum(900);
+            player.incStageNum(11);
             System.out.println(Helper.getScaleFactor());
             player.setHealAmount(100);
             player.addMoney(99999);
@@ -41,7 +43,7 @@ public class Main {
         }
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
-            System.out.println("You are currently in the " + currentPlace.getName() + Colors.PURPLE);
+            System.out.println("You are currently in the " + currentPlace.getName() + ", on stage " + player.getStageNum() + Colors.PURPLE);
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }

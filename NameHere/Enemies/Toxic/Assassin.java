@@ -22,7 +22,7 @@ public void setBaseStats(){
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(10) == 2 && Main.currentPlace instanceof ToxicEnv; //10% spawn chance
+        return r.nextInt(10) == 2 && Main.currentPlace instanceof ToxicEnv&&(p.getStageNum() % 10 != 0); //10% spawn chance
 
     }
 }

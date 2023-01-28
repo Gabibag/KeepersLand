@@ -1,16 +1,25 @@
 package NameHere;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class Helper {
+    public static void Sleep(double s) {
+        try {
+            TimeUnit.MILLISECONDS.sleep((long) s * 1000);
+        } catch (InterruptedException e) {
+            System.out.println(Colors.RED_BOLD + "You cannot quit at this time." + Colors.RESET);
+        }
+    }
     /**
     *returns the scale factor
     */
+
     public static int getScaleFactor(){
         if(Main.player == null){
             return 1;
         }
-        return 1 + Math.round(Main.player.getStageNum() / 10f);
+        return 1 + Math.round(Main.player.getStageNum() / 20f);
     }
     static Scanner s = new Scanner(System.in);
     /**
@@ -33,7 +42,10 @@ public class Helper {
         return s.nextLine();
 
     }
-
+    public static void contiuePrompt(){
+        System.out.print(Colors.PURPLE + "Press enter to continue" + Colors.RESET);
+        s.nextLine();
+    }
     /**
      * returns an items rarity as a word from a number following this chart
      * 10- common

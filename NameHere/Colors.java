@@ -4,7 +4,7 @@ public class Colors {
 
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset
-    public static final String CLEAR = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\033[H\033[2J"; //clears text (supposedly). spam \n cuz ide dont support exc char
+    public static final String CLEAR = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\033[H\033[2J"; //clears text (supposedly). spam \n cuz ide dont support exc char
     // Regular NameHere.Colors
     public static final String BLACK = "\033[0;30m";   // BLACK
     public static final String RED = "\033[0;31m";     // RED

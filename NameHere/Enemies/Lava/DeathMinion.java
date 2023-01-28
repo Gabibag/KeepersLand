@@ -23,7 +23,7 @@ public void setBaseStats(){
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextInt(10) == 2) && Main.currentPlace instanceof LavaZone; //(r.nextInt([spawnchance]) == 2)
+        return (r.nextInt(10) == 2) && Main.currentPlace instanceof LavaZone&&(p.getStageNum() % 10 != 0); //(r.nextInt([spawnchance]) == 2)
 
     }
 }

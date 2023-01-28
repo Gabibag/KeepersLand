@@ -21,7 +21,7 @@ public void setBaseStats(){
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(4) == 2 && Main.currentPlace instanceof Graveyard; //(r.nextInt([spawnchance]) == 2)
+        return r.nextInt(4) == 2 && Main.currentPlace instanceof Graveyard&&(p.getStageNum() % 10 != 0); //(r.nextInt([spawnchance]) == 2)
 
     }
 }

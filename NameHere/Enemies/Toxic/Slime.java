@@ -20,6 +20,6 @@ public void setBaseStats(){
 
     @Override
     public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof ToxicEnv;
+        return Main.currentPlace instanceof ToxicEnv&&(p.getStageNum() % 10 != 0);
     }
 }

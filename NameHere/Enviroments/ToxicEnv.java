@@ -46,7 +46,7 @@ public class ToxicEnv extends Enviorment {
 
     public int modifyEnemyDamage(int preChange) {
         //TODO scaling
-        int dmgInc = Main.r.nextInt(3);
+        int dmgInc = Main.r.nextInt(2);
         if (dmgInc == 0) {
             return preChange;
         }

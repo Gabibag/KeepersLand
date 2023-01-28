@@ -21,7 +21,7 @@ public void setBaseStats(){
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextBoolean()); 
+        return (r.nextBoolean())&&(p.getStageNum() % 10 != 0);
 
     }
 }

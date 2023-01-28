@@ -21,6 +21,7 @@ public class Player {
         this.dmg = dmg;
         this.inventory = inventory;
         this.battleHp = hp;
+        this.stageNum = 1;
 
     }
     public Player(String name, int hp, int dmg) {
@@ -28,6 +29,7 @@ public class Player {
         this.hp = hp;
         this.dmg = dmg;
         this.battleHp = hp;
+        this.stageNum = 1;
     }
 
     public int getStageNum() {
