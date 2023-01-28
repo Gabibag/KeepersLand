@@ -21,7 +21,6 @@ public abstract class Enemy {
     public Enemy() {
         this.setBaseStats();
         scaleStats();
-        System.out.println("Scaling stats");
         Main.allEnemies.add((this)); //adds all enemies to a list
         this.battleHp = this.baseHp;
     }

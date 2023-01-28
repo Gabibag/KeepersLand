@@ -1,5 +1,6 @@
 package NameHere;
 
+import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Abstracts.Interactable;
@@ -15,7 +16,7 @@ public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<>();
     public static Enviorment currentPlace;
     public static List<Enemy> allEnemies = new ArrayList<>();
-
+    public static List<Boss> allBosses = new ArrayList<>();
     public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
 
@@ -32,8 +33,8 @@ public class Main {
         player.setHealVariance(1);
 
         getNewPlace();
-        if(player.getName().equals("among us")){
-            player.incStageNum(11);
+        if(player.getName().equals("among us")||player.getName().equals("test")){
+            player.incStageNum(9);
             System.out.println(Helper.getScaleFactor());
             player.setHealAmount(100);
             player.addMoney(99999);

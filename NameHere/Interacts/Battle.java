@@ -1,6 +1,7 @@
 package NameHere.Interacts;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
 
@@ -29,10 +30,8 @@ public class Battle extends Interactable {
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
         List<Enemy> enemies;
-        enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 ==0 ? 1 : 3) );//only spawns 1 boss
-        if(p.getStageNum() % 10 == 0){
-            System.out.println("boss mode");
-        }
+        enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3) );//only spawns 1 boss
+
 
         try {
             for (int i = 0; i < enemies.size(); i++) {
@@ -44,6 +43,13 @@ public class Battle extends Interactable {
         System.out.println(Colors.RED+"A battle is starting!" + Colors.RESET);
         Helper.Sleep(1);
         System.out.print(Colors.CLEAR);
+        if(p.getStageNum()%10 == 0){
+            try {
+                ((Boss)enemies.get(0)).bossOnSpawn(enemies);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
         while (enemies.size() > 0) {
             while (Actions > 0) {
                 for (Enemy enemy : enemies) {

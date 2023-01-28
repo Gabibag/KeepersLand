@@ -2,7 +2,8 @@ package NameHere.Enemies.Bosses;
 
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-
+import NameHere.Colors;
+import NameHere.Helper;
 import NameHere.Player;
 
 import java.util.List;
@@ -30,5 +31,33 @@ public class DemonLord extends Boss {
 
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
+        System.out.println("\n" +Colors.CLEAR +
+                           " ▄▀▀▀█▄    ▄▀▀█▄   ▄▀▄▄▄▄   ▄▀▀█▄▄▄▄ \n" +
+                           "█  ▄▀  ▀▄ ▐ ▄▀ ▀▄ █ █    ▌ ▐  ▄▀   ▐ \n" +
+                           "▐ █▄▄▄▄     █▄▄▄█ ▐ █        █▄▄▄▄▄  \n" +
+                           " █    ▐    ▄▀   █   █        █    ▌  \n" +
+                           " █        █   ▄▀   ▄▀▄▄▄▄▀  ▄▀▄▄▄▄   \n" +
+                           "█         ▐   ▐   █     ▐   █    ▐   \n" +
+                           "▐                 ▐         ▐        "  );
+        Helper.Sleep(1.5);
+        System.out.println("\n" + Colors.CLEAR +
+                           " ▄▀▀▀█▀▀▄  ▄▀▀▄ ▄▄   ▄▀▀█▄▄▄▄ \n" +
+                           "█    █  ▐ █  █   ▄▀ ▐  ▄▀   ▐ \n" +
+                           "▐   █     ▐  █▄▄▄█    █▄▄▄▄▄  \n" +
+                           "   █         █   █    █    ▌  \n" +
+                           " ▄▀         ▄▀  ▄▀   ▄▀▄▄▄▄   \n" +
+                           "█          █   █     █    ▐   \n" +
+                           "▐          ▐   ▐     ▐         ");
+        Helper.Sleep(1.5);
+        System.out.println("\n" +Colors.CLEAR + Colors.BLACK +
+                           " ▄▀▀█▄▄   ▄▀▀█▄▄▄▄  ▄▀▀▄ ▄▀▄  ▄▀▀▀▀▄   ▄▀▀▄ ▀▄     ▄▀▀▀▀▄    ▄▀▀▀▀▄   ▄▀▀▄▀▀▀▄  ▄▀▀█▄▄  \n" +
+                           "█ ▄▀   █ ▐  ▄▀   ▐ █  █ ▀  █ █      █ █  █ █ █    █    █    █      █ █   █   █ █ ▄▀   █ \n" +
+                           "▐ █    █   █▄▄▄▄▄  ▐  █    █ █      █ ▐  █  ▀█    ▐    █    █      █ ▐  █▀▀█▀  ▐ █    █ \n" +
+                           "  █    █   █    ▌    █    █  ▀▄    ▄▀   █   █         █     ▀▄    ▄▀  ▄▀    █    █    █ \n" +
+                           " ▄▀▄▄▄▄▀  ▄▀▄▄▄▄   ▄▀   ▄▀     ▀▀▀▀   ▄▀   █        ▄▀▄▄▄▄▄▄▀ ▀▀▀▀   █     █    ▄▀▄▄▄▄▀ \n" +
+                           "█     ▐   █    ▐   █    █             █    ▐        █                ▐     ▐   █     ▐  \n" +
+                           "▐         ▐        ▐    ▐             ▐             ▐                          ▐        ");
+        Helper.Sleep(2);
+        System.out.println(Colors.CLEAR);
     }
 }

@@ -20,6 +20,7 @@ public class MegaLavaSlime extends Boss{
     @Override
     public boolean canSpawn(Player p) {
         return (p.getStageNum() % 10 == 0);
+//        return false;
     }
     @Override
     public void onDeath(Player p, List<Enemy> allies){
