@@ -30,7 +30,7 @@ public class Battle extends Interactable {
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
         List<Enemy> enemies;
-        enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3) );//only spawns 1 boss
+        enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3));//only spawns 1 boss
 
 
         try {
@@ -107,7 +107,7 @@ public class Battle extends Interactable {
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
                                 System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
-                                enemies.get(choice - 1).randDrops(p);
+                                enemies.get(choice - 1).randDrops(p, enemies.get(choice-1));
                                 p.addMoney(enemies.get(choice - 1).getCoins());
                                 System.out.println(
                                         "You gained " + enemies.get(choice - 1).getCoins() + Colors.CYAN + "◊" +
@@ -210,7 +210,7 @@ public class Battle extends Interactable {
 
     }  //TODO get location + opponent info
 
-    public List<Enemy> getEnemies(Player p) {
+    public static List<Enemy> getEnemies(Player p) {
         List<Enemy> returned = new ArrayList<>();
         for (Enemy e : Main.allEnemies) {
             if (e.canSpawn(p)) {

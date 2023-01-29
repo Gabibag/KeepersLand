@@ -1,6 +1,7 @@
 package NameHere;
 
 import NameHere.Abstracts.Boss;
+import NameHere.Interacts.Battle;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Abstracts.Interactable;
@@ -40,6 +41,23 @@ public class Main {
             player.addMoney(99999);
             player.setDmg(500);
             System.out.println("sus");
+            Main.currentPlace = new LavaZone();
+        }
+        else if(player.getName().equalsIgnoreCase("playtest")||player.getName().equalsIgnoreCase("ptest")){
+            List<Enemy> spawns;
+            List<Enemy> tempenemies;
+            for (int i = 0; i < 9; i++) {
+                spawns = Battle.getEnemies(player);
+                tempenemies = Helper.getRandomElements(spawns, 3);
+
+                for(Enemy e: tempenemies){
+                    e.randDrops(player,e);
+                }
+                getNewPlace();
+            }
+            player.incStageNum(9);
+            System.out.println(Helper.getScaleFactor());
+            System.out.println("sussy");
             Main.currentPlace = new LavaZone();
         }
         while (true) {

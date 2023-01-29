@@ -86,7 +86,7 @@ public abstract class Enemy {
 
     }
 
-    public void randDrops(Player p) {
+    public void randDrops(Player p, Enemy e) {
         for (Item drop : this.drops) {
             if (r.nextInt(drop.getRarity()) == drop.getRarity() - 1) {
                 p.addInventory(drop);
@@ -94,6 +94,6 @@ public abstract class Enemy {
                 break;
             }
         }
-
+        p.addMoney(e.getCoins());
     }
 }
