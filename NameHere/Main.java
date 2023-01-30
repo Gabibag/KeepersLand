@@ -46,7 +46,7 @@ public class Main {
         else if(player.getName().equalsIgnoreCase("playtest")||player.getName().equalsIgnoreCase("ptest")){
             List<Enemy> spawns;
             List<Enemy> tempenemies;
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 90; i++) {
                 spawns = Battle.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
 
@@ -55,7 +55,7 @@ public class Main {
                 }
                 getNewPlace();
             }
-            player.incStageNum(9);
+            player.incStageNum(90);
             System.out.println(Helper.getScaleFactor());
             System.out.println("sussy");
             Main.currentPlace = new LavaZone();

@@ -9,8 +9,8 @@ import java.util.List;
 
 public class MegaLavaSlime extends Boss{
     public void setBaseStats() {
-        this.baseHp = 100;
-        this.damage = 5;
+        this.baseHp = 25;
+        this.damage = 3;
         this.xp = 100;
         this.name = "Mega Lava Slime";
         this.coins = 50;

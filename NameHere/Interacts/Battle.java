@@ -13,19 +13,28 @@ import java.util.stream.IntStream;
 public class Battle extends Interactable {
 
 
-    private static void updateItems(Player p) {
-        for (Item i : p.getInventory()) {
-            p.setBattleHp(p.getBattleHp() + i.getHpIncr());
-            p.setDmg(p.getDmg() + i.getDmgIncr());
-            p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
-            p.setHealVariance(p.getHealVariance() + i.getHealVariance());
+    private static void updateItems(Player p, boolean battleEnd) {
+        if (!battleEnd) {
+            for (Item i : p.getInventory()) {
+                p.setBattleHp(p.getBattleHp() + i.getHpIncr());
+                p.setDmg(p.getDmg() + i.getDmgIncr());
+                p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
+                p.setHealVariance(p.getHealVariance() + i.getHealVariance());
+            }
+        }else  {
+            for (Item i : p.getInventory()) {
+                p.setBattleHp(p.getHp() - i.getHpIncr());
+                p.setDmg(p.getDmg() - i.getDmgIncr());
+                p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
+                p.setHealVariance(p.getHealVariance() - i.getHealVariance());
+            }
         }
     }
 
     @Override
     public void onChoose(Player p) {
         p.setBattleHp(p.getHp());
-        updateItems(p);
+        updateItems(p,false);
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
@@ -178,7 +187,7 @@ public class Battle extends Interactable {
             p.incStageNum(1);
 
         }
-        updateItems(p);
+        updateItems(p,true);
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
