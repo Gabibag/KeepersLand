@@ -9,7 +9,7 @@ import java.util.*;
 public class LavaZone extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Collections.singletonList(ItemData.LavaVial);
+        return Arrays.asList(ItemData.LavaVial, ItemData.TougherTimes);
     }
 
     public String getName() {
