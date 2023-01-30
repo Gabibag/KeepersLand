@@ -21,6 +21,6 @@ public class LavaSlime extends Enemy{
         }
     }
     public boolean canSpawn(Player p){
-        return Main.currentPlace instanceof LavaZone&&(p.getStageNum() % 10 != 0);
+        return Main.currentPlace instanceof LavaZone;
     }
 }

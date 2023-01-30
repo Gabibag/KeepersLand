@@ -15,14 +15,14 @@ public class Death extends Boss{
         this.baseHp = 100;
         this.damage = 10;
         this.xp = 100;
-        this.name = "DEATH";
+        this.name = Colors.BLACK + "DEATH" + Colors.RESET;
         this.coins = 50;
         this.tokens = 1;
     }
 
     @Override
     public boolean canSpawn(Player p) {
-        return (p.getStageNum() % 10 == 0);
+        return true;
 //        return false;
     }
     @Override

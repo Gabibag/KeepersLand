@@ -22,7 +22,7 @@ public class Warrior extends Enemy {
     public boolean canSpawn(Player p) {
 
         return (r.nextBoolean() ||
-                r.nextBoolean())&&(p.getStageNum() % 10 != 0); //25% chance of not spawning, kinda rare as it deals quite a bit damage
+                r.nextBoolean()); //25% chance of not spawning, kinda rare as it deals quite a bit damage
 
     }
 }

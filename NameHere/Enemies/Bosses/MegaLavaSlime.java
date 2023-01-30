@@ -19,7 +19,7 @@ public class MegaLavaSlime extends Boss{
 
     @Override
     public boolean canSpawn(Player p) {
-        return (p.getStageNum() % 10 == 0);
+        return true;
 //        return false;
     }
     @Override

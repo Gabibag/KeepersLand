@@ -19,7 +19,7 @@ public class BountyHunter extends Enemy {
 
     @Override
     public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof Graveyard&&(p.getStageNum() % 10 != 0);
+        return Main.currentPlace instanceof Graveyard;
     }
 
 
