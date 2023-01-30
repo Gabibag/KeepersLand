@@ -1,17 +1,30 @@
 package NameHere.Abstracts;
-import NameHere.Helper;
-import NameHere.Colors;
-import NameHere.Item;
-import NameHere.Main;
-import NameHere.Player;
+
+import NameHere.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public abstract class Enemy {
-    protected int baseHp;
     protected int damage;
+    protected int baseHp;
+    protected String name;
+    protected int dodgeRate = 1;
+    protected int xp;
+    protected List<Item> drops = new ArrayList<>();
+    protected int battleHp;
+    protected int coins;
+    protected int tokens;
+    Random r = new Random();
+
+    public Enemy() {
+        this.setBaseStats();
+        scaleStats();
+        Main.allEnemies.add((this)); //adds all enemies to a list
+        this.battleHp = this.baseHp;
+    }
+
     public int getBaseHp() {
         return baseHp;
     }
@@ -20,11 +33,13 @@ public abstract class Enemy {
         return damage;
     }
 
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
     public String getName() {
         return name;
     }
-
-    protected String name;
 
     public int getDodgeRate() {
         return dodgeRate;
@@ -34,11 +49,6 @@ public abstract class Enemy {
         this.dodgeRate = dodgeRate;
     }
 
-    protected int dodgeRate = 1;
-    protected int xp;
-    protected List<Item> drops = new ArrayList<>();
-    protected int battleHp;
-
     public int getCoins() {
         return coins;
     }
@@ -47,9 +57,6 @@ public abstract class Enemy {
         this.coins = coins;
     }
 
-    protected int coins;
-    Random r = new Random();
-
     public int getBattleHp() {
         return battleHp;
     }
@@ -57,20 +64,16 @@ public abstract class Enemy {
     public void setBattleHp(int battleHp) {
         this.battleHp = battleHp;
     }
-    public void scaleStats(){
+
+    public void scaleStats() {
         this.baseHp *= Helper.getScaleFactor();
         this.damage *= Helper.getScaleFactor();
         this.coins *= Helper.getScaleFactor();
         this.xp *= Helper.getScaleFactor();
     }
-    public Enemy() {
-        this.setBaseStats();
-        scaleStats();
-        System.out.println("Scaling stats");
-        Main.allEnemies.add((this)); //adds all enemies to a list
-        this.battleHp = this.baseHp;
-    }
+
     public abstract void setBaseStats();
+
     public abstract boolean canSpawn(Player p);
 
     public int Attack(Player p, List<Enemy> allies) {
@@ -78,10 +81,12 @@ public abstract class Enemy {
         System.out.println(name + " deals " + damage + " damage");
         return damage;
     }
-    public void onDeath(Player p, List<Enemy> allies){
-        
+
+    public void onDeath(Player p, List<Enemy> allies) {
+
     }
-    public void randDrops(Player p) {
+
+    public void randDrops(Player p, Enemy e) {
         for (Item drop : this.drops) {
             if (r.nextInt(drop.getRarity()) == drop.getRarity() - 1) {
                 p.addInventory(drop);
@@ -89,6 +94,6 @@ public abstract class Enemy {
                 break;
             }
         }
-
+        p.addMoney(e.getCoins());
     }
 }

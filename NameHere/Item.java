@@ -20,12 +20,10 @@ public class Item {
     private int cost;
 
     public String toString() {
-        String r =
-                this.getName() + ":" + "\n" + this.getDescription() + Colors.RED + "\nDamage Increase: " +
-                this.getDmgIncr() +
-                "\nHealth Increase: " + this.getHpIncr() + "\nHealing Increase: " + this.healIncrease + "\nHeal Variance: " + this.HealVariance + "\n" + Colors.RESET + "Rarity: " +
-                Helper.getWordRarity(this);
-        return r;
+        return this.getName() + ":" + "\n" + this.getDescription() + Colors.RED + "\nDamage Increase: " +
+               this.getDmgIncr() +
+               "\nHealth Increase: " + this.getHpIncr() + "\nHealing Increase: " + this.healIncrease + "\nHeal Variance: " + this.HealVariance + "\n" + Colors.RESET + "Rarity: " +
+               Helper.getWordRarity(this);
     }
     public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost) {
         this.dmgIncr = dmgIncr;

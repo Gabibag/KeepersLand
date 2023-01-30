@@ -1,5 +1,7 @@
 package NameHere;
 
+import NameHere.Abstracts.Boss;
+import NameHere.Interacts.Battle;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Abstracts.Interactable;
@@ -15,6 +17,7 @@ public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<>();
     public static Enviorment currentPlace;
     public static List<Enemy> allEnemies = new ArrayList<>();
+    public static List<Boss> allBosses = new ArrayList<>();
     public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
 
@@ -24,14 +27,15 @@ public class Main {
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 30, 5,
+        player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 40, 5,
                             new ArrayList<>());
         player.addMoney(50);
         player.setHealAmount(3);
         player.setHealVariance(1);
+
         getNewPlace();
-        if(player.getName().equals("among us")){
-            player.incStageNum(900);
+        if(player.getName().equals("among us")||player.getName().equals("test")){
+            player.incStageNum(9);
             System.out.println(Helper.getScaleFactor());
             player.setHealAmount(100);
             player.addMoney(99999);
@@ -39,9 +43,26 @@ public class Main {
             System.out.println("sus");
             Main.currentPlace = new LavaZone();
         }
+        else if(player.getName().equalsIgnoreCase("playtest")||player.getName().equalsIgnoreCase("ptest")){
+            List<Enemy> spawns;
+            List<Enemy> tempenemies;
+            for (int i = 0; i < 9; i++) {
+                spawns = Battle.getEnemies(player);
+                tempenemies = Helper.getRandomElements(spawns, 3);
+
+                for(Enemy e: tempenemies){
+                    e.randDrops(player,e);
+                }
+                getNewPlace();
+            }
+            player.incStageNum(9);
+            System.out.println(Helper.getScaleFactor());
+            System.out.println("sussy");
+            Main.currentPlace = new LavaZone();
+        }
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
-            System.out.println("You are currently in the " + currentPlace.getName() + Colors.PURPLE);
+            System.out.println("You are currently in the " + currentPlace.getName() + ", on stage " + player.getStageNum() + Colors.PURPLE);
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }
