@@ -18,7 +18,7 @@ public class HealingSpirit extends Enemy {
     }
 
     public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof ToxicEnv&&(p.getStageNum() % 10 != 0);
+        return Main.currentPlace instanceof ToxicEnv;
     }
 
     @Override

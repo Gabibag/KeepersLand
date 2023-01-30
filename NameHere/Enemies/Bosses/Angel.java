@@ -22,7 +22,7 @@ public class Angel extends Boss {
 
     @Override
     public boolean canSpawn(Player p) {
-        return (p.getStageNum() % 10 == 0)&&(Main.r.nextBoolean()||Main.r.nextBoolean()); //75% spawn chance
+        return (Main.r.nextBoolean()||Main.r.nextBoolean()); //75% spawn chance
     }
 
     @Override

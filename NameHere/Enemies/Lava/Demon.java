@@ -23,7 +23,7 @@ public void setBaseStats(){
     @Override
     public boolean canSpawn(Player p) {
 
-        return (Main.currentPlace instanceof LavaZone)&&(p.getStageNum() % 10 != 0); //only spawns in lava Environments with a 20% chance
+        return (Main.currentPlace instanceof LavaZone); //only spawns in lava Environments with a 20% chance
 
     }
 }

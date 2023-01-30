@@ -11,7 +11,7 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 public class Battle extends Interactable {
-    
+
 
     private static void updateItems(Player p) {
         for (Item i : p.getInventory()) {
@@ -30,8 +30,6 @@ public class Battle extends Interactable {
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
         List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3));//only spawns 1 boss
-
-
         try {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
@@ -46,7 +44,6 @@ public class Battle extends Interactable {
             try {
                 ((Boss)(enemies.get(0))).bossOnSpawn(enemies);
             } catch (Exception e) {
-                throw new RuntimeException(e);
             }
         }
         while (enemies.size() > 0) {
@@ -219,11 +216,21 @@ public class Battle extends Interactable {
         List<Enemy> returned = new ArrayList<>();
         for (Enemy e : Main.allEnemies) {
             if (e.canSpawn(p)) {
+                if (p.getStageNum() % 10 == 0){
+                    if (e instanceof Boss) {
+                        returned.add(e);
+                    }
+                }
+                else if (!(e instanceof Boss)) {
                 returned.add((e));
             }
+            }
+
         }
+
         return returned;
     }
+
 
 
     @Override

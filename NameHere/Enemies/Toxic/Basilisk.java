@@ -21,7 +21,7 @@ public void setBaseStats(){
     @Override
     public boolean canSpawn(Player p) {
 
-        return Main.currentPlace instanceof ToxicEnv&&(p.getStageNum() % 10 != 0); //(r.nextInt([spawnchance]) == 2)
+        return Main.currentPlace instanceof ToxicEnv; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

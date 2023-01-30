@@ -19,7 +19,7 @@ public class Archer extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(5) == 2&&(p.getStageNum() % 10 != 0); //(r.nextInt([spawnchance]) == 2)
+        return r.nextInt(5) == 2; //(r.nextInt([spawnchance]) == 2)
 
     }
 }
