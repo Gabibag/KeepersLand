@@ -30,6 +30,8 @@ public class Battle extends Interactable {
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
         List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3));//only spawns 1 boss
+
+
         try {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
@@ -44,6 +46,7 @@ public class Battle extends Interactable {
             try {
                 ((Boss)(enemies.get(0))).bossOnSpawn(enemies);
             } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
         while (enemies.size() > 0) {

@@ -15,7 +15,7 @@ public class Angel extends Boss {
         this.baseHp = 50;
         this.damage = 3;
         this.xp = 120;
-        this.name = "Angel";
+        this.name = Colors.YELLOW + "Angel" + Colors.RESET;
         this.coins = 50;
         this.tokens = 1;
     }
