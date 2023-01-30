@@ -45,9 +45,8 @@ public class ToxicEnv extends Enviorment {
     }
 
     public int modifyEnemyDamage(int preChange) {
-        //TODO scaling
         int dmgInc = Main.r.nextInt(3);
-        if (dmgInc == 0) {
+        if ((dmgInc == 0) || (preChange == 0)) {
             return preChange;
         }
         System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + dmgInc) + "!");
