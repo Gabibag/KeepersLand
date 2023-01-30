@@ -1,7 +1,7 @@
 package NameHere.Interacts;
 
-import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Boss;
+import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
 
@@ -29,8 +29,7 @@ public class Battle extends Interactable {
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
-        List<Enemy> enemies;
-        enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3));//only spawns 1 boss
+        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3));//only spawns 1 boss
 
 
         try {
@@ -45,7 +44,7 @@ public class Battle extends Interactable {
         System.out.print(Colors.CLEAR);
         if(p.getStageNum()%10 == 0){
             try {
-                ((Boss)enemies.get(0)).bossOnSpawn(enemies);
+                ((Boss)(enemies.get(0))).bossOnSpawn(enemies);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -92,11 +91,14 @@ public class Battle extends Interactable {
                     //#region case1
                     case 1://attack
                         System.out.println(Colors.CLEAR);
-                        for (int i = 0; i < enemies.size(); i++) {
-                            System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
-                            System.out.print(Colors.RESET);
+                        if (enemies.size()>1) {
+                            for (int i = 0; i < enemies.size(); i++) {
+                                System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
+                                System.out.print(Colors.RESET);
+                            }
+                            choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
                         }
-                        choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
+
                         System.out.println(Colors.CLEAR);
                         if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getDmg());
@@ -154,13 +156,16 @@ public class Battle extends Interactable {
             for (Enemy enemy : enemies) {
                 int damage = enemy.Attack(p, enemies);
                 p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
-                Helper.Sleep(1);
+                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
             }
+
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");
                 IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                         enemies::remove); //the magic of intellij
+            }else{
+                Helper.contiuePrompt();
             }
             Helper.Sleep(1.4);
             System.out.println(Colors.RESET + Colors.CLEAR);

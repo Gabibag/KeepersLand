@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DemonLord extends Boss {
     public void setBaseStats() {
-        this.baseHp = 100;
+        this.baseHp = 120;
         this.damage = 20;
         this.xp = 100;
         this.name = "Demon Lord";
@@ -21,6 +21,7 @@ public class DemonLord extends Boss {
     @Override
     public boolean canSpawn(Player p) {
         return (p.getStageNum() % 10 == 0);
+//        return false;
     }
 
     @Override

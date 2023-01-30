@@ -42,9 +42,9 @@ public class Helper {
         return s.nextLine();
 
     }
-    public static void contiuePrompt(){
+    public static String contiuePrompt(){
         System.out.print(Colors.PURPLE + "Press enter to continue" + Colors.RESET);
-        s.nextLine();
+        return s.nextLine();
     }
     /**
      * returns an items rarity as a word from a number following this chart

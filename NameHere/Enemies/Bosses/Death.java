@@ -13,7 +13,7 @@ import java.util.List;
 public class Death extends Boss{
     public void setBaseStats() {
         this.baseHp = 100;
-        this.damage = 20;
+        this.damage = 10;
         this.xp = 100;
         this.name = "DEATH";
         this.coins = 50;
@@ -23,6 +23,7 @@ public class Death extends Boss{
     @Override
     public boolean canSpawn(Player p) {
         return (p.getStageNum() % 10 == 0);
+//        return false;
     }
     @Override
     public void onDeath(Player p, List<Enemy> allies){

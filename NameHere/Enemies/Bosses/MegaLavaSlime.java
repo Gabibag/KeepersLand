@@ -10,7 +10,7 @@ import java.util.List;
 public class MegaLavaSlime extends Boss{
     public void setBaseStats() {
         this.baseHp = 100;
-        this.damage = 20;
+        this.damage = 5;
         this.xp = 100;
         this.name = "Mega Lava Slime";
         this.coins = 50;
@@ -24,8 +24,8 @@ public class MegaLavaSlime extends Boss{
     }
     @Override
     public void onDeath(Player p, List<Enemy> allies){
-        System.out.println("The Mega Lava Slime splits into 4 Lava Slimes");
-        for (int i = 0; i < 4; i++) {
+        System.out.println("The Mega Lava Slime splits into 3 Lava Slimes");
+        for (int i = 0; i < 3; i++) {
             allies.add(new LavaSlime());
         }
     }
