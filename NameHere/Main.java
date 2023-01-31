@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.InputMap;
+
 public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<>();
     public static Enviorment currentPlace;
@@ -27,12 +29,19 @@ public class Main {
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
+        
+        int saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
+        if(saves == 1){
+            player = loadSave();
+        }
+        else{
         player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 40, 5,
                             new ArrayList<>());
         player.addMoney(50);
         player.setHealAmount(3);
         player.setHealVariance(1);
-
+        player.Save(player.getName() + ".plr");
+        }
         getNewPlace();
         if(player.getName().equals("among us")||player.getName().equals("test")){
             player.incStageNum(9);
@@ -70,6 +79,22 @@ public class Main {
             //TODO choice validation
             allInteracts.get(choice).onChoose(player);
         }
+    }
+
+
+    private static Player loadSave() {
+        List<String> saves = new ArrayList<String>();
+        for (File f : new File(".").listFiles()) {
+            if(f.getName().endsWith(".plr")){
+                saves.add(f.getName());
+            }
+            
+        }
+        for (int  i =0; i < saves.size(); i++) {
+            System.out.println("[" + i + "] " +  saves.get(i));
+        }
+       
+        return Player.loadFromFile((saves.get(Helper.getInput("Choose a save:", 0, saves.size() - 1))));
     }
 
 

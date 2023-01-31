@@ -42,6 +42,11 @@ public class Helper {
         return s.nextLine();
 
     }
+    public static <t> void AddArrayToList(List<t> add, t[] added){
+        for (t ts : added) {
+            add.add(ts);
+        }
+    }
     public static String contiuePrompt(){
         System.out.print(Colors.PURPLE + "Press enter to continue" + Colors.RESET);
         return s.nextLine();

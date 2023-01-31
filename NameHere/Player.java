@@ -1,6 +1,20 @@
 package NameHere;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.BaseStream;
+import java.util.stream.Stream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Player {
     private int stageNum = 0;
@@ -31,7 +45,32 @@ public class Player {
         this.battleHp = hp;
         this.stageNum = 1;
     }
-
+    public static Player loadFromFile(String file){
+        try {
+            byte[] allBytes = Files.readAllBytes(Paths.get(file));
+            int num = ByteBuffer.wrap(Arrays.copyOfRange(allBytes, 0, 4)).getInt();
+            System.out.println("num " + num);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
+    public void Save(String file){
+        try (FileOutputStream fos = new FileOutputStream(file))
+        {
+            fos.write(this.name.length());
+            fos.write(this.name.getBytes(StandardCharsets.UTF_8));
+            fos.write(this.stageNum);
+            fos.write(this.actionAmount);
+            fos.write(this.dmg);
+            fos.write(this.money);
+            System.out.println("Successfully saved to " + file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public int getStageNum() {
         return stageNum;
     }
