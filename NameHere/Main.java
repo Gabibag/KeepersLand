@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import javax.swing.InputMap;
 
 public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<>();
@@ -40,7 +39,6 @@ public class Main {
         player.addMoney(50);
         player.setHealAmount(3);
         player.setHealVariance(1);
-        player.Save(player.getName() + ".plr");
         }
         getNewPlace();
         if(player.getName().equals("among us")||player.getName().equals("test")){
