@@ -68,7 +68,7 @@ public class Main {
             System.out.println(Helper.getScaleFactor());
             player.setHealAmount(100);
             player.addMoney(99999);
-            player.setDmg(500);
+            player.setDamage(500);
             System.out.println("sus");
             Main.currentPlace = new LavaZone();
         }

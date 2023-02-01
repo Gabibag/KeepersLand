@@ -21,9 +21,9 @@ public class DebuffSpirit extends Spirit {
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
-        //remove 10% of the player's dmg (the variable damage is named dmg)
-        p.setDmg((int)(p.getDmg() - (p.getDmg()*0.1)));
-        System.out.println("The Debuff Spirit debuffs the player for 10% of their damage");
+        //remove an action from the player
+        p.setActionAmount(p.getActionAmount() - 1);
+        System.out.println("Debuff Spirit removes an action from you");
         return 0;
     }
 }

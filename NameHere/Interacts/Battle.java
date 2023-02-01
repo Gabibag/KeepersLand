@@ -19,14 +19,14 @@ public class Battle extends Interactable {
         if (!battleEnd) {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getBattleHp() + i.getHpIncr());
-                p.setDmg(p.getDmg() + i.getDmgIncr());
+                p.setDamage(p.getDamage() + i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() + i.getHealVariance());
             }
         }else  {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getHp() - i.getHpIncr());
-                p.setDmg(p.getDmg() - i.getDmgIncr());
+                p.setDamage(p.getDamage() - i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() - i.getHealVariance());
             }
@@ -112,11 +112,10 @@ public class Battle extends Interactable {
 
                         System.out.println(Colors.CLEAR);
                         if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 0) {
-                            int pDamage = Main.currentPlace.modifyPlayerDamage(p.getDmg());
+                            int pDamage = Main.currentPlace.modifyPlayerDamage(p.getDamage());
                             enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
-                            System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
-                                               enemies.get(choice - 1).getName());
-                            Helper.Sleep(0.3);
+                            System.out.println("You dealt " + pDamage + " damage to " + enemies.get(choice - 1).getName());
+                            Helper.Sleep(0.5);
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
                                 System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
@@ -130,8 +129,9 @@ public class Battle extends Interactable {
                         }
                         else {
                             System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
+                            Helper.Sleep(1);
                         }
-                        Helper.Sleep(1);
+
                         break;
                     //#endregion
                         //#region case2
@@ -144,7 +144,7 @@ public class Battle extends Interactable {
                         }
                         p.setBattleHp(p.getBattleHp() + healAmount);
                         System.out.print(Colors.CYAN + "You healed for " + healAmount);
-                        Helper.Sleep(1);
+                        Helper.Sleep(0.4);
                         break;
                     //#endregion
                     //#region case3
@@ -167,16 +167,15 @@ public class Battle extends Interactable {
             for (Enemy enemy : enemies) {
                 int damage = enemy.Attack(p, enemies);
                 p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
-                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
+//                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
             }
-
+            Helper.contiuePrompt();
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");
                 IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                         enemies::remove); //the magic of intellij
-            }else{
-                Helper.contiuePrompt();
+                Helper.Sleep(1)
             }
             System.out.println(Colors.RESET + Colors.CLEAR);
             Main.currentPlace.turnEnd(p, enemies);

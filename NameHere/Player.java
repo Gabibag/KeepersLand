@@ -198,11 +198,11 @@ public class Player {
         this.hp = hp;
     }
 
-    public int getDmg() {
+    public int getDamage() {
         return dmg;
     }
 
-    public void setDmg(int dmg) {
+    public void setDamage(int dmg) {
         this.dmg = dmg;
     }
 
