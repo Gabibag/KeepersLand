@@ -114,8 +114,9 @@ public class Battle extends Interactable {
                         if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getDamage());
                             enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
-                            System.out.println("You dealt " + pDamage + " damage to " + enemies.get(choice - 1).getName());
-                            Helper.Sleep(0.5);
+                            System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
+                                               enemies.get(choice - 1).getName());
+                            Helper.Sleep(0.3);
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
                                 System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
