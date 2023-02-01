@@ -239,7 +239,7 @@ public class Player {
         for(Item i : this.inventory) {
             invDisplay = invDisplay.concat(i.getName() + ", ");
         }
-        return "Name: " + this.name + "\nHP: " + this.hp + "\nDamage: " + this.dmg + "\nMoney: " + this.money + "\nHeal Variance: " + this.healVariance + "\nHeal Amount: " + this.healAmount + "\nLevel: " + this.level +"\nXp: " + this.xp + "\nStage Number: " + this.stageNum + "\nInventory: " + invDisplay;
+        return "Name: " + this.name + "\nHP: " + this.hp + "\nDamage: " + this.dmg + "\nMoney: " + this.money + "\nHeal Variance: " + this.healVariance + "\nHeal Amount: " + this.healAmount + "\nLevel: " + this.level +"\nXp: " + this.xp +  "\nLevel Requirement: " + this.xpToLevel +  "\nStage Number: " + this.stageNum + "\nInventory: " + invDisplay;
 
     }
 }
