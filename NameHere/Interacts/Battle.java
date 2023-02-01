@@ -68,21 +68,20 @@ public class Battle extends Interactable {
                 for (Enemy enemy : enemies) {
                     for (int i = 0; i < enemy.getName().length(); i++) {
                         if ((enemy.getName().length() <= 4)) {
-                            System.out.print(" " + enemy.getBattleHp() + "hp");
+                            System.out.print(" " + enemy.displayBattleHp());
                             for (int j = 0; j < enemy.getName().length() - 4; ) {
                                 System.out.print(" ");
                             }
                             break;
                         }
-                        else if ((enemy.getName().length() - (Integer.toString(enemy.getBattleHp()).length() + 2)) / 2 <
+                        else if ((enemy.getName().length() - (enemy.displayBattleHp().length() + 2)) / 2 <
                                  1) {
-                            System.out.print(enemy.getBattleHp() + "hp" + " ");
+                            System.out.print(enemy.displayBattleHp() + " ");
                             break;
                         }
                         else if (i ==
-                                 (((enemy.getName().length()) - (Integer.toString(enemy.getBattleHp()).length() + 2)) /
-                                  2)) {
-                            System.out.print(enemy.getBattleHp() + "hp");
+                                 (((enemy.getName().length()) - (enemy.displayBattleHp()).length() + 2)) / 2) {
+                            System.out.print(enemy.displayBattleHp());
                             i += 4;
                         }
                         System.out.print(" ");

@@ -60,7 +60,9 @@ public abstract class Enemy {
     public int getBattleHp() {
         return battleHp;
     }
-
+    public String displayBattleHp() {
+        return battleHp + "hp";
+    }
     public void setBattleHp(int battleHp) {
         this.battleHp = battleHp;
     }

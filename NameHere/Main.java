@@ -71,8 +71,6 @@ public class Main {
             allInteracts.get(choice).onChoose(player);
         }
     }
-
-
     public static void getNewPlace() {
         currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
         while (!currentPlace.isVaild(player)) {
