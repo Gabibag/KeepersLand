@@ -7,6 +7,7 @@ import NameHere.Helper;
 import NameHere.Main;
 import NameHere.Player;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class SpiritLord extends Boss {
@@ -28,7 +29,12 @@ public class SpiritLord extends Boss {
     public void onDeath(Player p, List<Enemy> allies) {
         for (int i = 0; i < 5; i++) {
             //add random elements of the list allSpirits in main to allies
-            allies.add(Main.allSpirits.get(Main.r.nextInt(0, Main.allSpirits.size() - 1)));
+            try {
+                allies.add(Main.allSpirits.get(Main.r.nextInt(0, Main.allSpirits.size() - 1)).getClass().getDeclaredConstructor().newInstance());
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

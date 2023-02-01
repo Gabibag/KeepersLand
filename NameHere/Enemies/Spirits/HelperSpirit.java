@@ -25,9 +25,11 @@ public class HelperSpirit extends Spirit {
         if (allies.size() == 1) {
             p.setBattleHp(p.getBattleHp() - 100000);
             System.out.println("The Helper Spirit deals 100000 damage to the player");
-        } else if (allies != (Enemy)this){
+        } else{
             for (Enemy target : allies) {
-                target.setBattleHp(target.getBattleHp() - 1);
+                if (allies != (Enemy)this) {
+                    target.setBattleHp(target.getBattleHp() - 1);
+                }
             }
             System.out.println("The Helper Spirit removes 1 health from each enemy in the party");
         }
