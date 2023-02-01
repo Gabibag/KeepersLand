@@ -233,4 +233,13 @@ public class Player {
     public void setXpToLevel(int xpToLevel) {
         this.xpToLevel = xpToLevel;
     }
+    public String toString(){
+        //return all variables in player
+        String invDisplay= "";
+        for(Item i : this.inventory) {
+            invDisplay = invDisplay.concat(i.getName() + ", ");
+        }
+        return "Name: " + this.name + "\nHP: " + this.hp + "\nDamage: " + this.dmg + "\nMoney: " + this.money + "\nHeal Variance: " + this.healVariance + "\nHeal Amount: " + this.healAmount + "\nLevel: " + this.level +"\nXp: " + this.xp + "\nStage Number: " + this.stageNum + "\nInventory: " + invDisplay;
+
+    }
 }
