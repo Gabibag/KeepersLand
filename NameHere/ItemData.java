@@ -5,15 +5,15 @@ public class ItemData {
     public ItemData() throws Exception{
         throw new Exception("Do not create objects of data classes");
     }
-    public static Item TougherTimes = new Item(0, 6, "Tougher Times", "It's a refrences", 8, 25);
+    public static Item TougherTimes = new Item(0, 6, "Tougher Times", "Someones old teddy bear, I heard theres a chance of rain today", 8, 25);
     public static Item DullSkull = new Item(0, 0, "Dull Skull", "You really bought a skull from a shop in a graveyard", 1, 5);
     public static Item GlowingSkull = new Item(0, 8, "Glowing Skull", "A skull that glows faintly green, it feels much heavier then it should", 20, 30, 4,3);
     public static Item GraveFlower = new Item(0, 5, "Grave Flower", "A Flower said to cure sickness", 3, 50);
-    public static Item tombStone = new Item(1, 0, "Tombstone", "Wait,how does that work?", 1, 25);
-    public static Item LavaVial = new Item(3, 0, "Lava Vial", "A vial of molten lava.", 4, 15);
+    public static Item tombStone = new Item(1, 2, "Tombstone", "Wait,how does that work?", 1, 25, 1, 0);
+    public static Item LavaVial = new Item(2, 0, "Lava Vial", "A vial of molten lava.", 4, 15);
     public static Item swampPot = new Item(2, 2, "Swamp Potion", "A mystery potion created by a witch in the swamp.",
                                            4, 45);
-    public static Item toxicFang = new Item(1, 0, "Toxic Fang", "A strange toxic fang of some creature.", 1, 15);
+    public static Item toxicFang = new Item(1, 0, "Toxic Fang", "A strange toxic fang of some creature.", 1, 8);
     public static Item doransBlade = new Item(3, 2, "Doran's Blade", "A blade forged in the heart of Doran", 3, 55);
     public static Item woodenSword = new Item(1, 0, "Wooden Sword", "I mean it kinda helps?", 3, 10);
     public static Item warriorSword = new Item(4, 0, "Warrior's Sword", "He's not really a warrior.", 6, 20);

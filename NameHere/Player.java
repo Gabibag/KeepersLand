@@ -1,6 +1,22 @@
 package NameHere;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
+import java.util.stream.BaseStream;
+import java.util.stream.Stream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Player {
     private int stageNum = 0;
@@ -31,7 +47,76 @@ public class Player {
         this.battleHp = hp;
         this.stageNum = 1;
     }
+    public static Player loadFromFile(String file){
+        try{
+        File f = new File( file);
+        Scanner r = new Scanner(f);
+        Player p = new Player(r.nextLine(),r.nextInt(), r.nextInt(), new ArrayList<Item>());
+        p.setMoney(r.nextInt());
+        p.setActionAmount(r.nextInt());
+        p.setHealVariance(r.nextInt());
+        p.setHealAmount(r.nextInt());
+        p.setLevel(r.nextInt());
+        p.setStageNum(r.nextInt());
+        int invSize = r.nextInt();
+        for(int i = 0; i < invSize; i++){
+            r.nextLine();//idk why this is needed but it breaks if you remove it soooo
+        String name = r.nextLine();
+        System.out.println("name " + name);
+        int cost = Integer.parseInt(r.nextLine());
+        Item is = new Item(0,0, name,null, 0,cost);
+        is.setDmgIncr(r.nextInt());
+        r.nextLine(); //again, don't ask me :)
+        is.setDescription(r.nextLine().replace("*n", "\n"));
+        is.setHealIncrease(r.nextInt());
+        is.setHealVariance(r.nextInt());
+        is.setHpIncr(r.nextInt());
+        is.setRarity(r.nextInt());
+        p.inventory.add(is);
+        }
+        r.close();
+        return p;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
 
+    }
+
+    public void Save(String file){
+        //File f = new File(file);
+        try {
+            FileWriter f = new FileWriter(file);
+            f.write(this.name+ "\n");
+            f.write(this.hp + "\n");
+            f.write(this.dmg + "\n");
+            f.write(this.money + "\n");
+            f.write(this.actionAmount + "\n");
+            f.write(this.healVariance+ "\n");
+            f.write(this.healAmount+ "\n");
+            f.write(this.level+ "\n");
+            f.write(this.stageNum+ "\n");
+            f.write(this.inventory.size() + "\n");
+            for (Item item : inventory) {
+                f.write(item.getName() +"\n");
+                f.write(item.getCost() + "\n");
+                f.write(item.getDmgIncr()+ "\n");
+                f.write( item.getDescription().replace("\n", "*n")+ "\n");
+                f.write( item.getHealIncrease()+ "\n");
+                f.write( item.getHealVariance()+ "\n");
+                f.write( item.getHpIncr()+ "\n");
+                f.write( item.getRarity()+ "\n");
+
+            } 
+            f.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
     public int getStageNum() {
         return stageNum;
     }
