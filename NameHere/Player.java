@@ -3,11 +3,13 @@ package NameHere;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.BaseStream;
 import java.util.stream.Stream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.CharsetEncoder;
@@ -46,30 +48,71 @@ public class Player {
         this.stageNum = 1;
     }
     public static Player loadFromFile(String file){
+        try{
+        File f = new File( file);
+        Scanner r = new Scanner(f);
+        Player p = new Player(r.nextLine(),r.nextInt(), r.nextInt(), new ArrayList<Item>());
+        p.setMoney(r.nextInt());
+        p.setActionAmount(r.nextInt());
+        p.setHealVariance(r.nextInt());
+        p.setHealAmount(r.nextInt());
+        p.setLevel(r.nextInt());
+        p.setStageNum(r.nextInt());
+        int invSize = r.nextInt();
+        for(int i = 0; i < invSize; i++){
+            p.inventory.add(readItem(r));
+        }
+        return p;
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+    private static Item readItem(Scanner r) {
+        Item i = new Item(0,0, r.nextLine(),null, 0,r.nextInt() );
+        i.setDmgIncr(r.nextInt());
+        i.setDescription(r.nextLine().replace("*n", "\n"));
+        i.setHealIncrease(r.nextInt());
+        i.setHealVariance(r.nextInt());
+        i.setHpIncr(r.nextInt());
+        i.setRarity(r.nextInt());
+        return i;
+    }
+    public void Save(String file){
+        //File f = new File(file);
         try {
-            byte[] allBytes = Files.readAllBytes(Paths.get(file));
-            int num = ByteBuffer.wrap(Arrays.copyOfRange(allBytes, 0, 4)).getInt();
-            System.out.println("num " + num);
+            FileWriter f = new FileWriter(file);
+            f.write(this.name+ "\n");
+            f.write(this.hp + "\n");
+            f.write(this.dmg + "\n");
+            f.write(this.money + "\n");
+            f.write(this.actionAmount + "\n");
+            f.write(this.healVariance+ "\n");
+            f.write(this.healAmount+ "\n");
+            f.write(this.level+ "\n");
+            f.write(this.stageNum+ "\n");
+            f.write(this.inventory.size() + "\n");
+            for (Item item : inventory) {
+                f.write(item.getCost() + "\n");
+                f.write(item.getName() + "\n");
+                f.write(item.getCost()+ "\n");
+                f.write( item.getDmgIncr()+ "\n");
+                f.write( item.getDescription().replace("\n", "*n")+ "\n");
+               f.write( item.getHealIncrease()+ "\n");
+                f.write( item.getHealVariance()+ "\n");
+                f.write( item.getHpIncr()+ "\n");
+                f.write( item.getRarity()+ "\n");
+
+            } 
+            f.close();
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
-        return null;
-    }
-    public void Save(String file){
-        try (FileOutputStream fos = new FileOutputStream(file))
-        {
-            fos.write(this.name.length());
-            fos.write(this.name.getBytes(StandardCharsets.UTF_8));
-            fos.write(this.stageNum);
-            fos.write(this.actionAmount);
-            fos.write(this.dmg);
-            fos.write(this.money);
-            System.out.println("Successfully saved to " + file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
     public int getStageNum() {
         return stageNum;
