@@ -20,7 +20,7 @@ public class Giant extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextInt(5) == 2); //20% chance of spawning
+        return true; //20% chance of spawning
 
     }
 }

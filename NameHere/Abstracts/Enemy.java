@@ -96,6 +96,8 @@ public abstract class Enemy {
                 break;
             }
         }
+        
         p.addMoney(e.getCoins());
+        p.addXp(e.xp);
     }
 }

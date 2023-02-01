@@ -19,8 +19,8 @@ public class MegaLavaSlime extends Boss{
 
     @Override
     public boolean canSpawn(Player p) {
-//        return true;
-        return false;
+        return true;
+//        return false;
     }
     @Override
     public void onDeath(Player p, List<Enemy> allies){

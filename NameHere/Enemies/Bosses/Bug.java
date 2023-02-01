@@ -22,8 +22,8 @@ public class Bug extends Boss {
 
     @Override
     public boolean canSpawn(Player p) {
-//        return (Main.r.nextBoolean() || Main.r.nextBoolean()); //75% spawn chance
-        return false;
+        return (Main.r.nextBoolean() || Main.r.nextBoolean()); //75% spawn chance
+//        return false;
     }
 
     @Override
