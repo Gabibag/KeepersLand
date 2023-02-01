@@ -60,6 +60,7 @@ public class Main {
         player.setHealVariance(1);
         }
         getNewPlace();
+
         if(player.getName().equals("among us")||player.getName().equals("test")){
             player.incStageNum(9);
             System.out.println(Helper.getScaleFactor());
@@ -72,7 +73,7 @@ public class Main {
         else if(player.getName().equalsIgnoreCase("playtest")||player.getName().equalsIgnoreCase("ptest")){
             List<Enemy> spawns;
             List<Enemy> tempenemies;
-            for (int i = 0; i < 90; i++) {
+            for (int i = 0; i < 9; i++) {
                 spawns = Battle.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
 
@@ -81,7 +82,7 @@ public class Main {
                 }
                 getNewPlace();
             }
-            player.incStageNum(90);
+            player.incStageNum(9);
             System.out.println(Helper.getScaleFactor());
             System.out.println("sussy");
             Main.currentPlace = new LavaZone();
