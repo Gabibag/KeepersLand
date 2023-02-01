@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 
 public class Main {
@@ -21,6 +22,7 @@ public class Main {
     public static List<Boss> allBosses = new ArrayList<>();
     public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
+    //make a method to return the meaning of life
 
     public static void main(String[] args) {
         s = new Scanner(System.in);
@@ -31,10 +33,27 @@ public class Main {
         
         int saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
         if(saves == 1){
-            player = loadSave();
+            try {
+                player = loadSave();
+                if(player == null){
+                    System.out.println("Corrupted Save, creating new player instead");
+                    saves = 0;
+                }
+            } catch (Exception e) {
+                saves = 0;
+            }
+            
         }
-        else{
-        player = new Player(Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET), 40, 5,
+        if(saves == 0){
+        List<String> takenNames = allPlayerFiles();
+        for(int i = 0; i < takenNames.size(); i++){
+            takenNames.set(i,takenNames.get(i).substring(0, takenNames.get(i).length() - 4));
+        }
+        String name = Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET);
+        while(takenNames.contains(name)){
+            name = Helper.Prompt(Colors.RED + "That name is already taken, please enter a new name: " + Colors.RESET);
+        }
+        player = new Player(name, 40, 5,
                             new ArrayList<>());
         player.addMoney(50);
         player.setHealAmount(3);
@@ -74,13 +93,10 @@ public class Main {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }
             int choice = -1 + Helper.getInput(Colors.RESET, allInteracts.size() + 1);
-            //TODO choice validation
             allInteracts.get(choice).onChoose(player);
         }
     }
-
-
-    private static Player loadSave() {
+    public static List<String> allPlayerFiles(){
         List<String> saves = new ArrayList<String>();
         for (File f : new File(".").listFiles()) {
             if(f.getName().endsWith(".plr")){
@@ -88,10 +104,18 @@ public class Main {
             }
             
         }
+        return saves;
+    }
+
+    private static Player loadSave() throws Exception{
+        List<String> saves = allPlayerFiles();
+        if(saves.size() == 0){
+            System.out.println("No saves could be found");
+            throw new Exception("no saves");
+        }
         for (int  i =0; i < saves.size(); i++) {
             System.out.println("[" + i + "] " +  saves.get(i));
         }
-       
         return Player.loadFromFile((saves.get(Helper.getInput("Choose a save:", 0, saves.size() - 1))));
     }
 

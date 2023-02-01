@@ -60,8 +60,21 @@ public class Player {
         p.setStageNum(r.nextInt());
         int invSize = r.nextInt();
         for(int i = 0; i < invSize; i++){
-            p.inventory.add(readItem(r));
+            r.nextLine();//idk why this is needed but it breaks if you remove it soooo
+        String name = r.nextLine();
+        System.out.println("name " + name);
+        int cost = Integer.parseInt(r.nextLine());
+        Item is = new Item(0,0, name,null, 0,cost);
+        is.setDmgIncr(r.nextInt());
+        r.nextLine(); //again, don't ask me :)
+        is.setDescription(r.nextLine().replace("*n", "\n"));
+        is.setHealIncrease(r.nextInt());
+        is.setHealVariance(r.nextInt());
+        is.setHpIncr(r.nextInt());
+        is.setRarity(r.nextInt());
+        p.inventory.add(is);
         }
+        r.close();
         return p;
         }
         catch(Exception e){
@@ -70,16 +83,7 @@ public class Player {
         }
 
     }
-    private static Item readItem(Scanner r) {
-        Item i = new Item(0,0, r.nextLine(),null, 0,r.nextInt() );
-        i.setDmgIncr(r.nextInt());
-        i.setDescription(r.nextLine().replace("*n", "\n"));
-        i.setHealIncrease(r.nextInt());
-        i.setHealVariance(r.nextInt());
-        i.setHpIncr(r.nextInt());
-        i.setRarity(r.nextInt());
-        return i;
-    }
+
     public void Save(String file){
         //File f = new File(file);
         try {
@@ -95,12 +99,11 @@ public class Player {
             f.write(this.stageNum+ "\n");
             f.write(this.inventory.size() + "\n");
             for (Item item : inventory) {
+                f.write(item.getName() +"\n");
                 f.write(item.getCost() + "\n");
-                f.write(item.getName() + "\n");
-                f.write(item.getCost()+ "\n");
-                f.write( item.getDmgIncr()+ "\n");
+                f.write(item.getDmgIncr()+ "\n");
                 f.write( item.getDescription().replace("\n", "*n")+ "\n");
-               f.write( item.getHealIncrease()+ "\n");
+                f.write( item.getHealIncrease()+ "\n");
                 f.write( item.getHealVariance()+ "\n");
                 f.write( item.getHpIncr()+ "\n");
                 f.write( item.getRarity()+ "\n");

@@ -34,10 +34,15 @@ public class HealingSpirit extends Enemy {
         target.setBattleHp(target.getBattleHp()+ (int) (target.getBaseHp()*0.05));
         target2.setBattleHp(target2.getBattleHp() + (int)(target.getBaseHp()*0.05));
         return 0;*/
+        if(allies.size() > 1){
         for(Enemy target: allies){
             target.setBattleHp(target.getBattleHp()+ (int) (target.getBaseHp()*0.1));
         }
         System.out.println(Colors.GREEN + "The Healing Spirit heals heals its party for 10% of it's hp");
         return 0;
+    }
+    System.out.println("The healing spirit is alone and instead attacks for 1");
+    return 1;
+        
     }
 }
