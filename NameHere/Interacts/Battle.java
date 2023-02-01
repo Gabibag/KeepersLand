@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+import static NameHere.Main.player;
+
 public class Battle extends Interactable {
 
 
@@ -59,6 +61,7 @@ public class Battle extends Interactable {
             }
         }
         while (enemies.size() > 0) {
+            removeDead(enemies);
             while (Actions > 0) {
                 for (Enemy enemy : enemies) {
                     System.out.print(Colors.RED + enemy.getName() + "  ");
@@ -217,7 +220,9 @@ public class Battle extends Interactable {
             System.out.println(Colors.RED_BOLD + "Damage: " + enemies.get(choiceInfo - 1).getDamage() + Colors.RESET);
             System.out.println(
                     Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
-            Helper.Prompt(Colors.PURPLE + "\nPress Enter" + Colors.RESET);
+            System.out.println(
+                    Colors.RED_BRIGHT + "Dodge Rate: " + enemies.get(choiceInfo - 1).getDodgeRate() + Colors.RESET);
+            Helper.contiuePrompt();
         }
         inv(enemies);
 
@@ -242,7 +247,21 @@ public class Battle extends Interactable {
         return returned;
     }
 
-
+    //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
+    public static void removeDead(List<Enemy> enemies) {
+        for (Enemy choice : enemies) {
+            if (choice.getBattleHp() <= 0) {
+                choice.onDeath(player, enemies);
+                System.out.println(choice.getName() + " has been killed!");
+                choice.randDrops(player, choice);
+                player.addMoney(choice.getCoins());
+                System.out.println(
+                        "You gained " + choice.getCoins() + Colors.CYAN + "◊" +
+                        Colors.RESET);
+                enemies.remove(choice);
+            }
+        }
+    }
 
     @Override
     public String getName() {

@@ -3,7 +3,7 @@ package NameHere.Enemies.Bosses;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Colors;
-import NameHere.Enemies.Toxic.HealingSpirit;
+import NameHere.Enemies.Spirits.HealingSpirit;
 import NameHere.Helper;
 import NameHere.Player;
 

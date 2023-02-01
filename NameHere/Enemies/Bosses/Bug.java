@@ -3,6 +3,8 @@ package NameHere.Enemies.Bosses;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 
+import NameHere.Colors;
+import NameHere.Helper;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -20,7 +22,8 @@ public class Bug extends Boss {
 
     @Override
     public boolean canSpawn(Player p) {
-        return (Main.r.nextBoolean() || Main.r.nextBoolean()); //75% spawn chance
+//        return (Main.r.nextBoolean() || Main.r.nextBoolean()); //75% spawn chance
+        return false;
     }
 
     @Override
@@ -31,7 +34,46 @@ public class Bug extends Boss {
 
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
-
+        System.out.println(
+                           " /$$$$$$$            /$$             /$$              \n" +
+                           "| $$__  $$          | $$            | $$              \n" +
+                           "| $$  \\ $$  /$$$$$$ | $$  /$$$$$$  /$$$$$$    /$$$$$$ \n" +
+                           "| $$  | $$ /$$__  $$| $$ /$$__  $$|_  $$_/   /$$__  $$\n" +
+                           "| $$  | $$| $$$$$$$$| $$| $$$$$$$$  | $$    | $$$$$$$$\n" +
+                           "| $$  | $$| $$_____/| $$| $$_____/  | $$ /$$| $$_____/\n" +
+                           "| $$$$$$$/|  $$$$$$$| $$|  $$$$$$$  |  $$$$/|  $$$$$$$\n" +
+                           "|_______/  \\_______/|__/ \\_______/   \\___/   \\_______/\n" +
+                           "                                                      \n" +
+                           "                                                      \n" +
+                           "                                                      ");
+        Helper.Sleep(1);
+        System.out.println("\n" + Colors.CLEAR +
+                           " /$$$$$$$$/$$                \n" +
+                           "|__  $$__/ $$                \n" +
+                           "   | $$  | $$$$$$$   /$$$$$$ \n" +
+                           "   | $$  | $$__  $$ /$$__  $$\n" +
+                           "   | $$  | $$  \\ $$| $$$$$$$$\n" +
+                           "   | $$  | $$  | $$| $$_____/\n" +
+                           "   | $$  | $$  | $$|  $$$$$$$\n" +
+                           "   |__/  |__/  |__/ \\_______/\n" +
+                           "                             \n" +
+                           "                             \n" +
+                           "                             ");
+        Helper.Sleep(1);
+        System.out.println("\n" + Colors.CLEAR +
+                           " /$$$$$$$                     \n" +
+                           "| $$__  $$                    \n" +
+                           "| $$  \\ $$ /$$   /$$  /$$$$$$ \n" +
+                           "| $$$$$$$ | $$  | $$ /$$__  $$\n" +
+                           "| $$__  $$| $$  | $$| $$  \\ $$\n" +
+                           "| $$  \\ $$| $$  | $$| $$  | $$\n" +
+                           "| $$$$$$$/|  $$$$$$/|  $$$$$$$\n" +
+                           "|_______/  \\______/  \\____  $$\n" +
+                           "                     /$$  \\ $$\n" +
+                           "                    |  $$$$$$/\n" +
+                           "                     \\______/ ");
+        Helper.Sleep(1.5);
+        System.out.println(Colors.CLEAR);
     }
     @Override
     //override the attack command in enemy
