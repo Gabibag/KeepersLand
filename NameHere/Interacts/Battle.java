@@ -138,7 +138,7 @@ public class Battle extends Interactable {
                     case 2:
 
                         int healAmount =
-                                p.getHealAmount() + (r.nextInt(p.getHealVariance()) * (r.nextInt(0, 1)  == 0 ? -1 : 1));
+                                p.getHealAmount() + (r.nextInt(p.getHealVariance()));
                         if (p.getBattleHp() + healAmount > p.getHp()) {
                             healAmount = 0;
                         }

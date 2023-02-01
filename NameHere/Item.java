@@ -43,7 +43,6 @@ public class Item {
         this.healIncrease = heal;
         this.HealVariance = healvair;
     }
-
     public int getHealVariance() {
         return HealVariance;
     }

@@ -1,5 +1,6 @@
 package NameHere.Interacts;
 
+import NameHere.Main;
 import NameHere.Player;
 import NameHere.Abstracts.Interactable;
 
@@ -12,7 +13,8 @@ public class Quit extends Interactable {
 
     @Override
     public void onChoose(Player p) {
-        System.out.println("Goodbye");
+        Main.player.Save(p.getName() + ".plr");
+        System.out.println("Save created \nGoodbye");
         System.exit(0);
     }
 }

@@ -31,7 +31,7 @@ public class Death extends Boss{
 
         System.out.println(Colors.CLEAR + Colors.BLACK + "NO, YOU " + Colors.RED + "CANNOT DEFEAT ME!" + Colors.BLACK + " I SHALL " + Colors.RED + "BRING YOU DOWN " + Colors.BLACK + " EVEN IF I SACRIFICE " + Colors.BLACK_BACKGROUND + Colors.RED_BOLD + "MY SELF" +
                            Colors.RESET);
-        for (int i = 0; i < Main.r.nextInt(4, 6); i++) {
+        for (int i = 0; i < Main.r.nextInt(3) + 4; i++) {
             allies.add(new DeathMinion());
         }
         Helper.contiuePrompt();
@@ -39,15 +39,13 @@ public class Death extends Boss{
     }
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
-        System.out.println("""
-
-                                     _____\s
-                                    |_   _|
-                                      | | \s
-                                      | | \s
-                                     _| |_\s
-                                    |_____|\
-                                   """);
+        System.out.println(
+                                     "_____\n"
+                                    +"|_   _|\n"
+                                    + " | | \n"
+                                   +"   | | \n"
+                                    +" _| |_\n"
+                                    +"|_____|\n" );
         Helper.Sleep(1);
         System.out.println("\n" + Colors.CLEAR +
                            "                       \n" +
