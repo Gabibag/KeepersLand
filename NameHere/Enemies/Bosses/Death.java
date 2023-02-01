@@ -22,8 +22,8 @@ public class Death extends Boss{
 
     @Override
     public boolean canSpawn(Player p) {
-//        return true;
-        return false;
+        return true;
+//        return false;
     }
     @Override
     public void onDeath(Player p, List<Enemy> allies){
@@ -40,10 +40,10 @@ public class Death extends Boss{
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
         System.out.println(
-                                     "_____\n"
+                                     "______\n"
                                     +"|_   _|\n"
-                                    + " | | \n"
-                                   +"   | | \n"
+                                    +"  | | \n"
+                                    +"  | | \n"
                                     +" _| |_\n"
                                     +"|_____|\n" );
         Helper.Sleep(1);

@@ -20,8 +20,8 @@ public class DemonLord extends Boss {
 
     @Override
     public boolean canSpawn(Player p) {
-//        return true;
-        return false;
+        return true;
+//        return false;
     }
 
     @Override

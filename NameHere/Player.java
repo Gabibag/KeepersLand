@@ -1,22 +1,11 @@
 package NameHere;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.BaseStream;
-import java.util.stream.Stream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Player {
     private int stageNum = 0;
@@ -31,6 +20,7 @@ public class Player {
     private int level = 1;
     private int healAmount = 2;
     private int healVariance = 2;
+    private int xpToLevel = 100;
     public Player(String name, int hp, int dmg, List<Item> inventory) {
         this.name = name;
         this.hp = hp;
@@ -137,7 +127,9 @@ public class Player {
     public int getHealAmount() {
         return healAmount;
     }
-
+    public void addXp(int i){
+        this.xp += i;
+    }
     public void setHealAmount(int healAmount) {
         this.healAmount = healAmount;
     }
@@ -232,5 +224,22 @@ public class Player {
 
     public void setActionAmount(int amount) {
         this.actionAmount = amount;
+    }
+
+    public int getXpToLevel() {
+        return xpToLevel;
+    }
+
+    public void setXpToLevel(int xpToLevel) {
+        this.xpToLevel = xpToLevel;
+    }
+    public String toString(){
+        //return all variables in player
+        String invDisplay= "";
+        for(Item i : this.inventory) {
+            invDisplay = invDisplay.concat(i.getName() + ", ");
+        }
+        return "Name: " + this.name + "\nHP: " + this.hp + "\nDamage: " + this.dmg + "\nMoney: " + this.money + "\nHeal Variance: " + this.healVariance + "\nHeal Amount: " + this.healAmount + "\nLevel: " + this.level +"\nXp: " + this.xp +  "\nLevel Requirement: " + this.xpToLevel +  "\nStage Number: " + this.stageNum + "\nInventory: " + invDisplay;
+
     }
 }

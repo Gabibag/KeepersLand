@@ -5,6 +5,7 @@ import NameHere.Abstracts.Enemy;
 import NameHere.Colors;
 import NameHere.Enemies.Spirits.HealingSpirit;
 import NameHere.Helper;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.List;
@@ -21,8 +22,8 @@ public class Angel extends Boss {
 
     @Override
     public boolean canSpawn(Player p) {
-//        return (Main.r.nextBoolean()||Main.r.nextBoolean()); //75% spawn chance
-        return false;
+        return (Main.r.nextBoolean() || Main.r.nextBoolean()); //75% spawn chance
+//        return false;
     }
 
     @Override
