@@ -15,15 +15,15 @@ public class Death extends Boss{
         this.baseHp = 100;
         this.damage = 10;
         this.xp = 100;
-        this.name = Colors.BLACK + "DEATH" + Colors.RESET;
+        this.name = "DEATH";
         this.coins = 50;
         this.tokens = 1;
     }
 
     @Override
     public boolean canSpawn(Player p) {
-        return true;
-//        return false;
+//        return true;
+        return false;
     }
     @Override
     public void onDeath(Player p, List<Enemy> allies){

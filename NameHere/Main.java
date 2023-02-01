@@ -1,6 +1,6 @@
 package NameHere;
 
-import NameHere.Abstracts.Boss;
+import NameHere.Abstracts.*;
 import NameHere.Interacts.Battle;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
@@ -19,6 +19,8 @@ public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<>();
     public static Enviorment currentPlace;
     public static List<Enemy> allEnemies = new ArrayList<>();
+    public static List<Spirit> allSpirits = new ArrayList<>();
+
     public static List<Boss> allBosses = new ArrayList<>();
     public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
@@ -30,7 +32,7 @@ public class Main {
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        
+
         int saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
         if(saves == 1){
             try {
@@ -43,7 +45,7 @@ public class Main {
 
                 saves = 0;
             }
-            
+
         }
         if(saves == 0){
         List<String> takenNames = allPlayerFiles();
@@ -74,7 +76,7 @@ public class Main {
         else if(player.getName().equalsIgnoreCase("playtest")||player.getName().equalsIgnoreCase("ptest")){
             List<Enemy> spawns;
             List<Enemy> tempenemies;
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 19; i++) {
                 spawns = Battle.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
 
@@ -83,7 +85,7 @@ public class Main {
                 }
                 getNewPlace();
             }
-            player.incStageNum(9);
+            player.incStageNum(19);
             System.out.println(Helper.getScaleFactor());
             System.out.println("sussy");
             Main.currentPlace = new LavaZone();
@@ -104,7 +106,7 @@ public class Main {
             if(f.getName().endsWith(".plr")){
                 saves.add(f.getName());
             }
-            
+
         }
         return saves;
     }
