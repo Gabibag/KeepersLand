@@ -5,6 +5,7 @@ public class ItemData {
     public ItemData() throws Exception{
         throw new Exception("Do not create objects of data classes");
     }
+    public static Item MoltenGem = new Item(0, 0, "Molten Gem", "A gem made of molten lava", 8, 20, 1, 0);
     public static Item TougherTimes = new Item(0, 6, "Tougher Times", "Someones old teddy bear, I heard theres a chance of rain today", 8, 25);
     public static Item DullSkull = new Item(0, 0, "Dull Skull", "You really bought a skull from a shop in a graveyard", 1, 5);
     public static Item GlowingSkull = new Item(0, 8, "Glowing Skull", "A skull that glows faintly green, it feels much heavier then it should", 20, 30, 4,3);

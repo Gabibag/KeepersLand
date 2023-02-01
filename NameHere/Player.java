@@ -47,32 +47,32 @@ public class Player {
         this.battleHp = hp;
         this.stageNum = 1;
     }
+
     public static Player loadFromFile(String file){
         try{
-        File f = new File( file);
-        Scanner r = new Scanner(f);
-        Player p = new Player(r.nextLine(),r.nextInt(), r.nextInt(), new ArrayList<Item>());
-        p.setMoney(r.nextInt());
-        p.setActionAmount(r.nextInt());
-        p.setHealVariance(r.nextInt());
-        p.setHealAmount(r.nextInt());
-        p.setLevel(r.nextInt());
-        p.setStageNum(r.nextInt());
-        int invSize = r.nextInt();
-        for(int i = 0; i < invSize; i++){
-            r.nextLine();//idk why this is needed but it breaks if you remove it soooo
-        String name = r.nextLine();
-        System.out.println("name " + name);
-        int cost = Integer.parseInt(r.nextLine());
-        Item is = new Item(0,0, name,null, 0,cost);
-        is.setDmgIncr(r.nextInt());
-        r.nextLine(); //again, don't ask me :)
-        is.setDescription(r.nextLine().replace("*n", "\n"));
-        is.setHealIncrease(r.nextInt());
-        is.setHealVariance(r.nextInt());
-        is.setHpIncr(r.nextInt());
-        is.setRarity(r.nextInt());
-        p.inventory.add(is);
+            File f = new File( file);
+            Scanner r = new Scanner(f);
+            Player p = new Player(r.nextLine(),r.nextInt(), r.nextInt(), new ArrayList<Item>());
+            p.setMoney(r.nextInt());
+            p.setActionAmount(r.nextInt());
+            p.setHealVariance(r.nextInt());
+            p.setHealAmount(r.nextInt());
+            p.setLevel(r.nextInt());
+            p.setStageNum(r.nextInt());
+            int invSize = r.nextInt();
+            for(int i = 0; i < invSize; i++){
+                r.nextLine();//idk why this is needed but it breaks if you remove it soooo
+                String name = r.nextLine();
+                int cost = Integer.parseInt(r.nextLine());
+                Item is = new Item(0,0, name,null, 0,cost);
+                is.setDmgIncr(r.nextInt());
+                r.nextLine(); //again, don't ask me :)
+                is.setDescription(r.nextLine().replace("*n", "\n"));
+                is.setHealIncrease(r.nextInt());
+                is.setHealVariance(r.nextInt());
+                is.setHpIncr(r.nextInt());
+                is.setRarity(r.nextInt());
+                p.inventory.add(is);
         }
         r.close();
         return p;

@@ -40,6 +40,7 @@ public class Main {
                     saves = 0;
                 }
             } catch (Exception e) {
+
                 saves = 0;
             }
             
@@ -108,7 +109,7 @@ public class Main {
         return saves;
     }
 
-    private static Player loadSave() throws Exception{
+    public static Player loadSave() throws Exception{
         List<String> saves = allPlayerFiles();
         if(saves.size() == 0){
             System.out.println("No saves could be found");
