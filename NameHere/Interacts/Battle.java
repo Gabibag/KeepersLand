@@ -62,6 +62,8 @@ public class Battle extends Interactable {
         }
         while (enemies.size() > 0) {
             removeDead(enemies);
+            //tell user their stage number and enviorment
+            System.out.println("You are in the " + Main.currentPlace.getName() + Colors.RESET);
             while (Actions > 0) {
                 for (Enemy enemy : enemies) {
                     System.out.print(Colors.RED + enemy.getName() + "  ");
