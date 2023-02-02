@@ -1,6 +1,7 @@
 package NameHere.Abstracts;
 
 import NameHere.Main;
+import NameHere.Player;
 
 import java.util.List;
 
@@ -18,6 +19,10 @@ public abstract class Boss extends Enemy {
 
     public void setTokens(int tokens) {
         this.tokens = tokens;
+    }
+
+    public int BossAttack(Player p, List<Enemy> enemies) {
+        return super.Attack(p, enemies);
     }
 
 

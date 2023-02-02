@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 public class Helper {
     public static void Sleep(double s) {
         try {
-            TimeUnit.MILLISECONDS.sleep((long) s * 1000);
+            TimeUnit.MILLISECONDS.sleep((long) (s * 1000));
         } catch (InterruptedException e) {
             System.out.println(Colors.RED_BOLD + "You cannot quit at this time." + Colors.RESET);
         }
