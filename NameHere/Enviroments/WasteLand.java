@@ -3,6 +3,7 @@ package NameHere.Enviroments;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.Arrays;
@@ -11,7 +12,9 @@ import java.util.List;
 public class WasteLand extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList();
+        return Arrays.asList(ItemData.GhostSpirit,
+                             ItemData.doransBlade,
+                             ItemData.bloodStone);
     }
 
     public String getDescription() {

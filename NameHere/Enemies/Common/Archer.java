@@ -10,7 +10,7 @@ public class Archer extends Enemy {
 
     public void setBaseStats() {
         this.baseHp = 5;
-        this.damage = 7;
+        this.damage = 10;
         this.xp = 4;
         this.name = "Archer";
         this.coins = 1;

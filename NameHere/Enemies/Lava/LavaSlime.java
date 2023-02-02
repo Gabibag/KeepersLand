@@ -7,7 +7,7 @@ import java.util.*;
 public class LavaSlime extends Enemy{
     public void setBaseStats(){
         this.damage = 3;
-        this.baseHp = this.battleHp = 20;
+        this.baseHp = this.battleHp = 8;
         this.coins = 10;
         this.dodgeRate = 1;
         this.xp = 5;

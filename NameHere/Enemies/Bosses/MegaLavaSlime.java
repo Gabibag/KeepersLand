@@ -2,15 +2,17 @@ package NameHere.Enemies.Bosses;
 
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
 import NameHere.Enemies.Lava.LavaSlime;
+import NameHere.Helper;
 import NameHere.Player;
 
 import java.util.List;
 
 public class MegaLavaSlime extends Boss{
     public void setBaseStats() {
-        this.baseHp = 25;
-        this.damage = 3;
+        this.baseHp = 20;
+        this.damage = 4;
         this.xp = 100;
         this.name = "Mega Lava Slime";
         this.coins = 50;
@@ -31,6 +33,17 @@ public class MegaLavaSlime extends Boss{
     }
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
-        
+        System.out.println("\n" +
+                           "    _____                       __            __        __  __  __        __   __     \n" +
+                           "   |     \\                     |  \\          |  \\      |  \\|  \\|  \\      |  \\ |  \\    \n" +
+                           "    \\$$$$$ __    __   _______ _| $$_         | $$   __  \\$$| $$| $$       \\$$_| $$_   \n" +
+                           "      | $$|  \\  |  \\ /       \\   $$ \\        | $$  /  \\|  \\| $$| $$      |  \\   $$ \\  \n" +
+                           " __   | $$| $$  | $$|  $$$$$$$\\$$$$$$        | $$_/  $$| $$| $$| $$      | $$\\$$$$$$  \n" +
+                           "|  \\  | $$| $$  | $$ \\$$    \\  | $$ __       | $$   $$ | $$| $$| $$      | $$ | $$ __ \n" +
+                           "| $$__| $$| $$__/ $$ _\\$$$$$$\\ | $$|  \\      | $$$$$$\\ | $$| $$| $$      | $$ | $$|  \\\n" +
+                           " \\$$    $$ \\$$    $$|       $$  \\$$  $$      | $$  \\$$\\| $$| $$| $$      | $$  \\$$  $$\n" +
+                           "  \\$$$$$$   \\$$$$$$  \\$$$$$$$    \\$$$$        \\$$   \\$$ \\$$ \\$$ \\$$       \\$$   \\$$$$ ");
+        Helper.Sleep(1.5);
+        System.out.println(Colors.CLEAR);
     }
 }

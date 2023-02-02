@@ -10,8 +10,8 @@ public class Goblin extends Enemy {
     Random r = new Random();
 
     public void setBaseStats() {
-        this.baseHp = 5;
-        this.damage = 15;
+        this.baseHp = 10;
+        this.damage = 7;
         this.xp = 5;
         this.name = "Goblin";
         this.coins = 3;

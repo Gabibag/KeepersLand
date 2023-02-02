@@ -31,4 +31,6 @@ public class ItemData {
     public static Item empty = new Item(0, 0, "Empty", "Nothing to see here.", 1000000, 0);
     public static Item GhostSpirit = new Item(0,1, "Ghost Spirit in a Bottle", "A bottle with a ghost trapped inside. It seems to be trying to say something",10, 25, 3,0);
     public static Item toxicWaste = new Item(10, 0, "Toxic Waste", "Where did it come from?", 6, 90);
+    public static Item starDust = new Item(10, 0, "Toxic Waste", "Where did it come from?", 6, 90);
+
 }

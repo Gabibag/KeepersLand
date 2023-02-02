@@ -90,7 +90,6 @@ public class Main {
             Main.currentPlace = new LavaZone();
         }
         else if (player.getName().equalsIgnoreCase("runThrough") || player.getName().equalsIgnoreCase("rtest")) {
-            player.setHp(100000);
             int lvl = Helper.getInput("What level would you like to be at?", 99999999);
             List<Enemy> spawns;
             List<Enemy> tempenemies;

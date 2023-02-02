@@ -235,9 +235,21 @@ public class Player {
     }
     public String toString(){
         //return all variables in player
-        String invDisplay= "";
-        for(Item i : this.inventory) {
-            invDisplay = invDisplay.concat(i.getName() + ", ");
+        ArrayList<Item> inventoryTrunk = new ArrayList<>();
+        for(Item i : Main.player.getInventory()){
+            if(inventoryTrunk.contains(i)){
+                inventoryTrunk.get(inventoryTrunk.indexOf(i)).addCount();
+            }else{
+                inventoryTrunk.add(i);
+            }
+        }
+        String invDisplay = "";
+        for (int i = 0; i < inventoryTrunk.size(); i++) {
+        //concat the name of each item in the inventory
+            invDisplay = invDisplay.concat(inventoryTrunk.get(i).getName() + " x" + inventoryTrunk.get(i).getCount());
+            if(i != inventoryTrunk.size() - 1){
+                invDisplay = invDisplay.concat(", ");
+            }
         }
         return "Name: " + this.name + "\nHP: " + this.hp + "\nDamage: " + this.dmg + "\nMoney: " + this.money + "\nHeal Variance: " + this.healVariance + "\nHeal Amount: " + this.healAmount + "\nLevel: " + this.level +"\nXp: " + this.xp +  "\nLevel Requirement: " + this.xpToLevel +  "\nStage Number: " + this.stageNum + "\nInventory: " + invDisplay;
 

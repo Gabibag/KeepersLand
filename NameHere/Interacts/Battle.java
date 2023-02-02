@@ -116,7 +116,7 @@ public class Battle extends Interactable {
                             enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
                             System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
                                                enemies.get(choice - 1).getName());
-                            Helper.Sleep(0.3);
+
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
                                 System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
@@ -127,6 +127,7 @@ public class Battle extends Interactable {
                                         Colors.RESET);
                                 enemies.remove(choice - 1);
                             }
+                            Helper.contiuePrompt();
                         }
                         else {
                             System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
