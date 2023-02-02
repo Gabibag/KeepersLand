@@ -19,14 +19,14 @@ public class Battle extends Interactable {
         if (!battleEnd) {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getBattleHp() + i.getHpIncr());
-                p.setDamage(p.getDamage() + i.getDmgIncr());
+                p.setBattleDamage(p.getDamage() + i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() + i.getHealVariance());
             }
         }else  {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getHp() - i.getHpIncr());
-                p.setDamage(p.getDamage() - i.getDmgIncr());
+                p.setBattleDamage(p.getDamage() - i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() - i.getHealVariance());
             }
@@ -112,7 +112,7 @@ public class Battle extends Interactable {
 
                         System.out.println(Colors.CLEAR);
                         if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 0) {
-                            int pDamage = Main.currentPlace.modifyPlayerDamage(p.getDamage());
+                            int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
                             enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
                             System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
                                                enemies.get(choice - 1).getName());

@@ -13,6 +13,7 @@ public class Player {
     private String name;
     private int hp;
     private int dmg;
+    private int battleDamage;
     private List<Item> inventory;
     private int actionAmount = 2;//num of moves in a turn
     private int battleHp;
@@ -25,6 +26,7 @@ public class Player {
         this.name = name;
         this.hp = hp;
         this.dmg = dmg;
+        this.battleDamage = dmg;
         this.inventory = inventory;
         this.battleHp = hp;
         this.stageNum = 1;
@@ -36,6 +38,7 @@ public class Player {
         this.dmg = dmg;
         this.battleHp = hp;
         this.stageNum = 1;
+        this.battleDamage = dmg;
     }
 
     public static Player loadFromFile(String file){
@@ -253,5 +256,13 @@ public class Player {
         }
         return "Name: " + this.name + "\nHP: " + this.hp + "\nDamage: " + this.dmg + "\nMoney: " + this.money + "\nHeal Variance: " + this.healVariance + "\nHeal Amount: " + this.healAmount + "\nLevel: " + this.level +"\nXp: " + this.xp +  "\nLevel Requirement: " + this.xpToLevel +  "\nStage Number: " + this.stageNum + "\nInventory: " + invDisplay;
 
+    }
+
+    public int getBattleDamage() {
+        return battleDamage;
+    }
+
+    public void setBattleDamage(int battleDamage) {
+        this.battleDamage = battleDamage;
     }
 }

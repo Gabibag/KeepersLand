@@ -1,10 +1,8 @@
 package NameHere.Enviroments;
 
+import NameHere.*;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
-import NameHere.Item;
-import NameHere.Main;
-import NameHere.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -13,7 +11,7 @@ import java.util.List;
 public class Luck extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList();
+        return Arrays.asList(ItemData.Clover, ItemData.Charm, ItemData.Grass);
     }
 
     public String getDescription() {
@@ -47,24 +45,33 @@ public class Luck extends Enviorment {
         if (chance == 0) {
             p.setBattleHp(p.getBattleHp() + p.getHealAmount());
             System.out.println("You healed for " + p.getHealAmount() + " health!");
+            Helper.contiuePrompt();
         } else if (chance == 1) {
             p.takeDamage((int) (p.getHp() * 0.05));
             System.out.println("You took " + (int) (p.getHp() * 0.05) + " damage!");
+            Helper.contiuePrompt();
         }
         //1 in 5 chance of removing 10% of player's damage, 1in 5 chance of adding 10% of player's damage
         chance = Main.r.nextInt(5);
         if (chance == 0) {
-            p.setDamage((int) (p.getDamage() * 0.9));
-            System.out.println("Your damage has decreased by 10%!");
+            p.setBattleDamage((int) (p.getBattleDamage() * 0.9));
+            System.out.println(Colors.CLEAR + "Your damage has decreased by 10%!");
+            Helper.contiuePrompt();
         } else if (chance == 1) {
-            p.setDamage((int) (p.getDamage() * 1.1));
-            System.out.println("Your damage has increased by 10%!");
+            p.setBattleDamage((int) (p.getBattleDamage() * 1.1));
+            System.out.println(Colors.CLEAR + "Your damage has increased by 10%!");
+            Helper.contiuePrompt();
         }
+
     }
 
     public void turnEnd(Player p, List<Enemy> enemies) {
         //1 in 5 chance of adding a spirit in enemies
+        //1 in 5 chance of adding a spirit in enemies
         int chance = Main.r.nextInt(5);
+        if (enemies.size()==0){
+            chance = 5;
+        }
         if (chance == 0){
             try {
                 enemies.add(Main.allSpirits.get(Main.r.nextInt(0, Main.allSpirits.size() - 1)).getClass().getDeclaredConstructor().newInstance());
@@ -76,7 +83,8 @@ public class Luck extends Enviorment {
         } //if chance is 1 turn one enemy into a random enemy in the game
         else if (chance == 1) {
             try {
-                enemies.set(Main.r.nextInt(0, enemies.size() - 1), Main.allEnemies.get(Main.r.nextInt(0, Main.allEnemies.size() - 1)).getClass().getDeclaredConstructor().newInstance());
+
+                enemies.set(Main.r.nextInt(0, enemies.size()), Main.allEnemies.get(Main.r.nextInt(0, Main.allEnemies.size() )).getClass().getDeclaredConstructor().newInstance());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);

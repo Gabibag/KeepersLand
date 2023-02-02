@@ -3,6 +3,7 @@ package NameHere.Enviroments;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.Arrays;
@@ -11,7 +12,7 @@ import java.util.List;
 public class CherryBlossoms extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList();
+        return Arrays.asList(ItemData.Petal, ItemData.CherryBlossom, ItemData.CherryBark);
     }
 
     public String getDescription() {

@@ -3,6 +3,7 @@ package NameHere.Enviroments;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
+import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.Arrays;
@@ -12,7 +13,7 @@ public class WindyHeights extends Enviorment {
     private int turn = 0;
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList();
+        return Arrays.asList(ItemData.Rock, ItemData.StoneShield, ItemData.StoneSword);
     }
 
     public String getDescription() {

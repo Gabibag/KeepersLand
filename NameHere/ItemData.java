@@ -5,11 +5,14 @@ public class ItemData {
     public ItemData() throws Exception{
         throw new Exception("Do not create objects of data classes");
     }
-    //damage costs 30 per point
-    //health costs 25 per point
-    //heal costs 20 per point
-    //heal variance costs 15 per point
-    //rarity is cost/100 + 1
+    /*
+    damage costs 30 per point
+    health costs 25 per point
+    heal costs 20 per point
+    heal variance costs 15 per point
+    rarity is cost/100 + 1
+    5% discount on higher costed items
+    */
 
     public static Item MoltenGem = new Item(0, 0, "Molten Gem", "A gem made of molten lava", 1, 0);
     public static Item demonSword = new Item(10, 0, "Demon Sword", "Where did it come from?", 6, 300);
@@ -38,5 +41,17 @@ public class ItemData {
     public static Item GhostSpirit = new Item(0,1, "Ghost Spirit in a Bottle", "A bottle with a ghost trapped inside. It seems to be trying to say something", 3,0);
     public static Item toxicWaste = new Item(10, 0, "Toxic Waste", "Where did it come from?", 6, 90);
     public static Item starDust = new Item(10, 0, "Toxic Waste", "Where did it come from?", 6, 90);
+    public static Item barFromHell = new Item(7, 0, "Bar From Hell", "Did you just take that from the gates of hell?");
+    public static Item Petal = new Item(0, 5, "Petal", "I mean its a petal, it can't be that good.", 1, 0);
+    public static Item CherryBlossom = new Item(0, 8, "Cherry Blossom", "Hey... Isn't that from a location?", 2, 0);
+    public static Item CherryBark = new Item(0, 12, "Cherry Bark", "How and where did you get this?", 0, 1);
+    public static Item Clover = new Item(0, 12, "Clover", "How am I going to implement this theres no luck in this game.", 0, 3);
+    public static Item Charm = new Item(20, 12, "Charm", "This is a bit... overpowered?", 2, 3);
+    public static Item Grass = new Item(1, 0, "Grass", "Sometimes grass is sharp.");
+    public static Item Rock = new Item(1, 0, "Rock", "Found on mountains.");
+    public static Item StoneShield = new Item(1, 8, "Stone Shield", "Its a shield... made of stone. I don't think that would be easy to hold.");
+    public static Item StoneSword = new Item(4, 0, "Stone Sword", "Good luck swinging with this.");
+
+
 
 }

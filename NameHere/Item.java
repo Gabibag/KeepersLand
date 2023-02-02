@@ -38,12 +38,15 @@ public class Item {
         this.hpIncr = hpIncr;
         this.name = name;
         this.description = description;
-        this.cost = (dmgIncr *30) + (hpIncr * 25) + (heal * 20) + (healvair * 15);
-        if (this.cost<50){
+
+        int cost = (dmgIncr * 30) + (hpIncr * 25) + (heal * 20) + (healvair * 15);
+        if (cost < 50){
             this.rarity = 2;
+            this.cost = cost;
         }
         else {
-            this.rarity = (this.cost/100) + 1;
+            this.rarity = (cost/100) + 1;
+            this.cost = (int)(cost * 0.95);
         }
         this.healIncrease = heal;
         this.HealVariance = healvair;

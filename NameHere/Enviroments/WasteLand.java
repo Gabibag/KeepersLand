@@ -14,7 +14,7 @@ public class WasteLand extends Enviorment {
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.GhostSpirit,
                              ItemData.doransBlade,
-                             ItemData.bloodStone);
+                             ItemData.toxicWaste);
     }
 
     public String getDescription() {

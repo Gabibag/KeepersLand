@@ -5,6 +5,7 @@ import NameHere.Enviroments.LavaZone;
 import NameHere.Interacts.Battle;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -103,18 +104,31 @@ public class Main {
                 getNewPlace();
             }
             player.incStageNum(lvl - 1);
+            for (int i = 0; i < allPlaces.size(); i++) {
+                System.out.println("[" + i + "] " + allPlaces.get(i).getName());
+            }
+            int location = Helper.getInput("What location would you like to be at?", allPlaces.size());
+
+            try {
+                Main.currentPlace = allPlaces.get(location - 1).getClass().getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+            currentPlace = allPlaces.get(location);
             System.out.println("amogus");
         }
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(
-                    "You are currently in the " + currentPlace.getName() + ", on stage " + player.getStageNum() +
+                    "You are currently in the " + Colors.RED +  currentPlace.getName() + Colors.RESET + ", on stage " + player.getStageNum() +
                     Colors.PURPLE);
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }
             int choice = -1 + Helper.getInput(Colors.RESET, allInteracts.size() + 1);
             allInteracts.get(choice).onChoose(player);
+
         }
     }
 

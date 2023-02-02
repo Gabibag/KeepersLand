@@ -12,10 +12,11 @@ public class Shop extends Interactable {
     }
 
     public void onChoose(Player player) {
-        System.out.println(
-                "Welcome to the shop, " + player.getName() + ". \nYou have " + Colors.CYAN + player.getMoney() + "◊");
+        System.out.print(
+                "Welcome to the shop, " + player.getName());
         while (true) {
             List<Item> items = getItems(player);
+            System.out.println("\nYou have " + Colors.CYAN + player.getMoney() + "◊");
             System.out.println(Colors.PURPLE + "[0] Quit");
             try {
                 for (int i = 0; i < items.size(); i++){
@@ -69,7 +70,7 @@ public class Shop extends Interactable {
                 player.getInventory().add(i);
                 player.chargeMoney(i.getCost());
                 System.out.println(
-                        "Bought " + i.getName() + " for " + i.getCost() + " \n new balance: " + player.getMoney());
+                        "Bought " + i.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
             }
         }
     }
