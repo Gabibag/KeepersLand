@@ -35,7 +35,7 @@ public class GatesToHell extends Enviorment {
     public void playerAction(Player p) {
         //remove 2% of player hp
         p.setBattleHp(p.getBattleHp() - (int) (p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02));
-        System.out.println("The gates to hell hurt you for"+(p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02) +" of your current hp");
+        System.out.println("The gates to hell hurt you for "+ (int)(p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02) +" damage!");
         Helper.contiuePrompt();
     }
 

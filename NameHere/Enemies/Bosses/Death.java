@@ -8,15 +8,9 @@ import NameHere.Helper;
 import NameHere.Main;
 import NameHere.Player;
 
-import java.security.PublicKey;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Death extends Boss{
     protected static boolean End;
@@ -40,7 +34,7 @@ public class Death extends Boss{
 
         System.out.println(Colors.CLEAR + Colors.BLACK + "NO, YOU " + Colors.RED + "CANNOT DEFEAT ME!" + Colors.BLACK + " I SHALL " + Colors.RED + "BRING YOU DOWN " + Colors.BLACK + " EVEN IF I SACRIFICE " + Colors.BLACK_BACKGROUND + Colors.RED_BOLD + "MY SELF" +
                            Colors.RESET);
-        for (int i = 0; i < Main.r.nextInt(3) + 4; i++) {
+        for (int i = 0; i < Main.r.nextInt(1,3) + 4; i++) {
             allies.add(new DeathMinion());
         }
         Helper.contiuePrompt();
@@ -49,12 +43,14 @@ public class Death extends Boss{
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
         System.out.println(
-                                     "______\n"
-                                    +"|_   _|\n"
-                                    +"  | | \n"
-                                    +"  | | \n"
-                                    +" _| |_\n"
-                                    +"|_____|\n" );
+                """
+                        _______
+                        |_   _|
+                          | |\s
+                          | |\s
+                         _| |_
+                        |_____|
+                        """);
         Helper.Sleep(1);
         System.out.println("\n" + Colors.CLEAR +
                            "                       \n" +
@@ -81,15 +77,11 @@ public class Death extends Boss{
             public Integer call(){
                 while(true){
                     progress++;
-                    String s = "";
-                    for (int i = 0; i < progress; i++) {
-                        s += "=";
-                    }
-                    for(int i = 0; i < 15 - progress; i++){
-                        s += " ";
-                    }
+                    StringBuilder s = new StringBuilder();
+                    s.append("=".repeat(Math.max(0, progress)));// I- power of intellij
+                    s.append(" ".repeat(Math.max(0, 15 - progress)));
                     String pointer = progress == 8 ? "X" : "O";
-                    s = s.substring(0, 7) + pointer + s.substring(8);
+                    s = new StringBuilder(s.substring(0, 7) + pointer + s.substring(8));
                     if(progress > 15){
                         progress = 0;
                     }
@@ -98,7 +90,7 @@ public class Death extends Boss{
                     if(Death.End){
                         return progress -1;
                     }
-                    Helper.Sleep(0.05);
+                    Helper.Sleep(0.08);
                 }
                 
             }
@@ -111,12 +103,12 @@ public class Death extends Boss{
             int i = f.get();
             int dmg = this.getDamage();
             if(i == 8){
-                System.out.println("You dodged deaths attack!");
+                System.out.println("You dodged death's attack!");
                 dmg = 0;
             }
-            else if(Math.abs(8 - i) == 1){
+            else if(Math.abs(8 - i) == 1 || Math.abs(8 - i) == 2){
                 dmg /= 2;
-                System.out.println("You are grazed by death's attack!, and take half damage\n You are hit for " + dmg + " damage");
+                System.out.println("You are grazed by death's attack!, and take half damage\nYou are hit for " + dmg + " damage");
 
             }
             else{
@@ -125,9 +117,7 @@ public class Death extends Boss{
             System.out.println();
             Death.End = false;
             return dmg;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return 0;
