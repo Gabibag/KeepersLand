@@ -64,7 +64,7 @@ public class Battle extends Interactable {
         }
         if(p.getName().equals("among us")){
             enemies.clear();
-            enemies.add(new Death());
+            enemies.add(new DemonLord());
         }
         while (enemies.size() > 0) {
             removeDead(enemies);
