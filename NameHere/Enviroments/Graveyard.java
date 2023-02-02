@@ -23,9 +23,7 @@ public class Graveyard extends Enviorment {
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.tombStone,
                              ItemData.GraveFlower,
-                             ItemData.GhostSpirit,
-                             ItemData.DullSkull,
-                             ItemData.GlowingSkull);
+                             ItemData.GhostSpirit);
     }
 
     @Override

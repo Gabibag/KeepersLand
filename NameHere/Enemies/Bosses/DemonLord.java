@@ -13,7 +13,7 @@ public class DemonLord extends Boss {
         this.baseHp = 120;
         this.damage = 20;
         this.xp = 100;
-        this.name = Colors.RED + "Demon Lord" + Colors.RESET;
+        this.name = "Demon Lord";
         this.coins = 50;
         this.tokens = 1;
     }

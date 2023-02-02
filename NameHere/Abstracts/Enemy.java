@@ -60,7 +60,9 @@ public abstract class Enemy {
     public int getBattleHp() {
         return battleHp;
     }
-
+    public String displayBattleHp() {
+        return battleHp + "hp";
+    }
     public void setBattleHp(int battleHp) {
         this.battleHp = battleHp;
     }
@@ -88,12 +90,14 @@ public abstract class Enemy {
 
     public void randDrops(Player p, Enemy e) {
         for (Item drop : this.drops) {
-            if (r.nextInt(drop.getRarity()) == drop.getRarity() - 1) {
+            if (r.nextInt(drop.getRarity()) == 1) {
                 p.addInventory(drop);
                 System.out.println(Colors.CYAN + "You found a " + drop.getName() + "!" + Colors.RESET);
                 break;
             }
         }
+        
         p.addMoney(e.getCoins());
+        p.addXp(e.xp);
     }
 }

@@ -10,8 +10,8 @@ public class Goblin extends Enemy {
     Random r = new Random();
 
     public void setBaseStats() {
-        this.baseHp = 5;
-        this.damage = 15;
+        this.baseHp = 10;
+        this.damage = 7;
         this.xp = 5;
         this.name = "Goblin";
         this.coins = 3;
@@ -21,7 +21,7 @@ public class Goblin extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(3) == 2;
+        return true;
 
     }
 }

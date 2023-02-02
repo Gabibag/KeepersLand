@@ -24,7 +24,7 @@ public class Death extends Boss{
         this.baseHp = 100;
         this.damage = 10;
         this.xp = 100;
-        this.name = Colors.BLACK + "DEATH" + Colors.RESET;
+        this.name = "DEATH";
         this.coins = 50;
         this.tokens = 1;
     }
@@ -49,10 +49,10 @@ public class Death extends Boss{
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
         System.out.println(
-                                     "_____\n"
+                                     "______\n"
                                     +"|_   _|\n"
-                                    + " | | \n"
-                                   +"   | | \n"
+                                    +"  | | \n"
+                                    +"  | | \n"
                                     +" _| |_\n"
                                     +"|_____|\n" );
         Helper.Sleep(1);

@@ -1,22 +1,11 @@
 package NameHere;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.BaseStream;
-import java.util.stream.Stream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.charset.CharsetEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Player {
     private int stageNum = 0;
@@ -24,6 +13,7 @@ public class Player {
     private String name;
     private int hp;
     private int dmg;
+    private int battleDamage;
     private List<Item> inventory;
     private int actionAmount = 2;//num of moves in a turn
     private int battleHp;
@@ -31,10 +21,12 @@ public class Player {
     private int level = 1;
     private int healAmount = 2;
     private int healVariance = 2;
+    private int xpToLevel = 100;
     public Player(String name, int hp, int dmg, List<Item> inventory) {
         this.name = name;
         this.hp = hp;
         this.dmg = dmg;
+        this.battleDamage = dmg;
         this.inventory = inventory;
         this.battleHp = hp;
         this.stageNum = 1;
@@ -46,33 +38,34 @@ public class Player {
         this.dmg = dmg;
         this.battleHp = hp;
         this.stageNum = 1;
+        this.battleDamage = dmg;
     }
+
     public static Player loadFromFile(String file){
         try{
-        File f = new File( file);
-        Scanner r = new Scanner(f);
-        Player p = new Player(r.nextLine(),r.nextInt(), r.nextInt(), new ArrayList<Item>());
-        p.setMoney(r.nextInt());
-        p.setActionAmount(r.nextInt());
-        p.setHealVariance(r.nextInt());
-        p.setHealAmount(r.nextInt());
-        p.setLevel(r.nextInt());
-        p.setStageNum(r.nextInt());
-        int invSize = r.nextInt();
-        for(int i = 0; i < invSize; i++){
-            r.nextLine();//idk why this is needed but it breaks if you remove it soooo
-        String name = r.nextLine();
-        System.out.println("name " + name);
-        int cost = Integer.parseInt(r.nextLine());
-        Item is = new Item(0,0, name,null, 0,cost);
-        is.setDmgIncr(r.nextInt());
-        r.nextLine(); //again, don't ask me :)
-        is.setDescription(r.nextLine().replace("*n", "\n"));
-        is.setHealIncrease(r.nextInt());
-        is.setHealVariance(r.nextInt());
-        is.setHpIncr(r.nextInt());
-        is.setRarity(r.nextInt());
-        p.inventory.add(is);
+            File f = new File( file);
+            Scanner r = new Scanner(f);
+            Player p = new Player(r.nextLine(),r.nextInt(), r.nextInt(), new ArrayList<Item>());
+            p.setMoney(r.nextInt());
+            p.setActionAmount(r.nextInt());
+            p.setHealVariance(r.nextInt());
+            p.setHealAmount(r.nextInt());
+            p.setLevel(r.nextInt());
+            p.setStageNum(r.nextInt());
+            int invSize = r.nextInt();
+            for(int i = 0; i < invSize; i++){
+                r.nextLine();//idk why this is needed but it breaks if you remove it soooo
+                String name = r.nextLine();
+                int cost = Integer.parseInt(r.nextLine());
+                Item is = new Item(0,0, name,null, 0,cost);
+                is.setDmgIncr(r.nextInt());
+                r.nextLine(); //again, don't ask me :)
+                is.setDescription(r.nextLine().replace("*n", "\n"));
+                is.setHealIncrease(r.nextInt());
+                is.setHealVariance(r.nextInt());
+                is.setHpIncr(r.nextInt());
+                is.setRarity(r.nextInt());
+                p.inventory.add(is);
         }
         r.close();
         return p;
@@ -137,7 +130,9 @@ public class Player {
     public int getHealAmount() {
         return healAmount;
     }
-
+    public void addXp(int i){
+        this.xp += i;
+    }
     public void setHealAmount(int healAmount) {
         this.healAmount = healAmount;
     }
@@ -206,11 +201,11 @@ public class Player {
         this.hp = hp;
     }
 
-    public int getDmg() {
+    public int getDamage() {
         return dmg;
     }
 
-    public void setDmg(int dmg) {
+    public void setDamage(int dmg) {
         this.dmg = dmg;
     }
 
@@ -232,5 +227,42 @@ public class Player {
 
     public void setActionAmount(int amount) {
         this.actionAmount = amount;
+    }
+
+    public int getXpToLevel() {
+        return xpToLevel;
+    }
+
+    public void setXpToLevel(int xpToLevel) {
+        this.xpToLevel = xpToLevel;
+    }
+    public String toString(){
+        //return all variables in player
+        ArrayList<Item> inventoryTrunk = new ArrayList<>();
+        for(Item i : Main.player.getInventory()){
+            if(inventoryTrunk.contains(i)){
+                inventoryTrunk.get(inventoryTrunk.indexOf(i)).addCount();
+            }else{
+                inventoryTrunk.add(i);
+            }
+        }
+        String invDisplay = "";
+        for (int i = 0; i < inventoryTrunk.size(); i++) {
+        //concat the name of each item in the inventory
+            invDisplay = invDisplay.concat(inventoryTrunk.get(i).getName() + " x" + inventoryTrunk.get(i).getCount());
+            if(i != inventoryTrunk.size() - 1){
+                invDisplay = invDisplay.concat(", ");
+            }
+        }
+        return "Name: " + this.name + "\nHP: " + this.hp + "\nDamage: " + this.dmg + "\nMoney: " + this.money + "\nHeal Variance: " + this.healVariance + "\nHeal Amount: " + this.healAmount + "\nLevel: " + this.level +"\nXp: " + this.xp +  "\nLevel Requirement: " + this.xpToLevel +  "\nStage Number: " + this.stageNum + "\nInventory: " + invDisplay;
+
+    }
+
+    public int getBattleDamage() {
+        return battleDamage;
+    }
+
+    public void setBattleDamage(int battleDamage) {
+        this.battleDamage = battleDamage;
     }
 }

@@ -3,7 +3,7 @@ package NameHere.Enemies.Bosses;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Colors;
-import NameHere.Enemies.Toxic.HealingSpirit;
+import NameHere.Enemies.Spirits.HealingSpirit;
 import NameHere.Helper;
 import NameHere.Main;
 import NameHere.Player;
@@ -15,14 +15,15 @@ public class Angel extends Boss {
         this.baseHp = 50;
         this.damage = 3;
         this.xp = 120;
-        this.name = Colors.YELLOW + "Angel" + Colors.RESET;
+        this.name = "Angel";
         this.coins = 50;
         this.tokens = 1;
     }
 
     @Override
     public boolean canSpawn(Player p) {
-        return (Main.r.nextBoolean()||Main.r.nextBoolean()); //75% spawn chance
+        return (Main.r.nextBoolean() || Main.r.nextBoolean()); //75% spawn chance
+//        return false;
     }
 
     @Override
