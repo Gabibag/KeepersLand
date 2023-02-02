@@ -4,6 +4,7 @@ import NameHere.Abstracts.*;
 import NameHere.Enemies.Bosses.DemonLord;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Interacts.Battle;
+import NameHere.Interacts.Shop;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -105,6 +106,9 @@ public class Main {
             player.incStageNum(lvl - 1);
             for (int i = 0; i < allPlaces.size(); i++) {
                 System.out.println("[" + i + "] " + allPlaces.get(i).getName());
+            }
+            if (player.getStageNum()%9 == 0){
+                Shop.quickBuy(player);
             }
             int location = Helper.getInput("What location would you like to be at?", allPlaces.size());
 

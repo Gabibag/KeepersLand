@@ -3,9 +3,8 @@ package NameHere.Interacts;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
-import NameHere.Enemies.Bosses.Death;
-import NameHere.Enemies.Bosses.DemonLord;
 import NameHere.*;
+import NameHere.Enemies.Bosses.Death;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +67,8 @@ public class Battle extends Interactable {
         }
         while (enemies.size() > 0) {
             removeDead(enemies);
+            //tell user their stage number and enviorment
+            System.out.println("You are in the " + Main.currentPlace.getName() + Colors.RESET);
             while (Actions > 0) {
                 for (Enemy enemy : enemies) {
                     System.out.print(Colors.RED + enemy.getName() + "  ");
@@ -118,7 +119,7 @@ public class Battle extends Interactable {
                         }
 
                         System.out.println(Colors.CLEAR);
-                        if (r.nextInt(20 / enemies.get(choice - 1).getDodgeRate()) != 0) {
+                        if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
                             enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
                             System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
@@ -147,10 +148,7 @@ public class Battle extends Interactable {
                     case 2:
 
                         int healAmount =
-                                p.getHealAmount() + (r.nextInt(p.getHealVariance()));
-                        if (p.getBattleHp() + healAmount > p.getHp()) {
-                            healAmount = 0;
-                        }
+                                p.getHealAmount() + (r.nextInt(p.getHealVariance() << 1) - p.getHealVariance());
                         p.setBattleHp(p.getBattleHp() + healAmount);
                         System.out.print(Colors.CYAN + "You healed for " + healAmount);
                         Helper.Sleep(0.4);

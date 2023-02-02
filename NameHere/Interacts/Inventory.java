@@ -33,6 +33,10 @@ public class Inventory extends Interactable{
             System.out.println(Colors.CLEAR);
             onChoose(p);
         }
+        for(Item i : p.getInventory()){
+            i.setCount(1);
+        }
+
     }
 
     public String getName() {
