@@ -4,7 +4,7 @@ import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
-import NameHere.Enemies.Bosses.Death;
+import NameHere.Enemies.Bosses.DemonLord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +63,7 @@ public class Battle extends Interactable {
         }
         if(p.getName().equals("among us")){
             enemies.clear();
-            enemies.add(new Death());
+            enemies.add(new DemonLord());
         }
         while (enemies.size() > 0) {
             removeDead(enemies);
