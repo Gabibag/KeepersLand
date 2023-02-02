@@ -30,7 +30,7 @@ public class Main {
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        
+
         int saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
         if (saves == 1) {
             try {
