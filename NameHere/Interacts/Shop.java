@@ -17,7 +17,7 @@ public class Shop extends Interactable {
         while (true) {
             List<Item> items = getItems(player);
             System.out.println("\nYou have " + Colors.CYAN + player.getMoney() + "◊");
-            System.out.println(Colors.PURPLE + "[0] Quit");
+            System.out.println(Colors.PURPLE + "[0] Leave");
             System.out.println(Colors.PURPLE + "[1] Quick Buy");
             try {
                 for (int i = 0; i < items.size() + 1; i++){
@@ -38,7 +38,7 @@ public class Shop extends Interactable {
             else if (choice == 1) {
                 quickBuy(Main.player);
             }
-            else if (choice == items.size() + 1) {
+            else if (choice == items.size()-1) {
                 for (int i = 0; i < items.size(); i++)
                     System.out.println(
                             "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
@@ -50,7 +50,7 @@ public class Shop extends Interactable {
                 System.out.println(Colors.CLEAR);
                 continue;
             }
-            else if(choice == items.size() + 2){
+            else if(choice == items.size()){
                 List<Item> inv = player.getInventory();//ref type, no need for set
                 System.out.println("[0] Go back");
                 for(int i = 0; i < player.getInventory().size();i++){
@@ -67,7 +67,7 @@ public class Shop extends Interactable {
                 }
                 continue;
             }
-            Item i = items.get(-1 + choice);
+            Item i = items.get(choice-2);
             if (i.getCost() > player.getMoney()) {
                 System.out.println("Not enough money");
             }

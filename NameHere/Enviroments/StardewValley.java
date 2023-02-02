@@ -36,15 +36,13 @@ public class StardewValley extends Enviorment {
     }
 
     public void turnEnd(Player p, List<Enemy> enemies) {
-        //make everything in the list of enemies attack each other
+        //make the enemies attack each other
         for (Enemy e : enemies) {
-            for (Enemy e2 : enemies) {
-                if (e != e2) {
-                    e.setBattleHp(e.getBattleHp() - e2.getDamage());
-                }
-            }
+            e.setBattleHp(e.getBattleHp() - 1);
         }
-        System.out.println("Stardew Valley made all enemies attack each other");
+
+
+        System.out.println("Stardew Valley made all enemies attack themselves");
     }
 
     public int modifyEnemyDamage(int preChange) {
