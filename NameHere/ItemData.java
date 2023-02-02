@@ -39,8 +39,8 @@ public class ItemData {
     public static Item soul = new Item(1, 20, "Soul", "I-it's just a soul why does it give you health?", 10, 90);
     public static Item empty = new Item(0, 0, "Empty", "Nothing to see here.", 1000000, 0);
     public static Item GhostSpirit = new Item(0,1, "Ghost Spirit in a Bottle", "A bottle with a ghost trapped inside. It seems to be trying to say something", 3,0);
-    public static Item toxicWaste = new Item(10, 0, "Toxic Waste", "Where did it come from?", 6, 90);
-    public static Item starDust = new Item(10, 0, "Toxic Waste", "Where did it come from?", 6, 90);
+    public static Item toxicWaste = new Item(10, 0, "Toxic Waste", "Where did it come from?", 6, 9);
+    public static Item starDust = new Item(10, 0, "Star Dust", "Similar to toxic waste", 6, 9);
     public static Item barFromHell = new Item(7, 0, "Bar From Hell", "Did you just take that from the gates of hell?");
     public static Item Petal = new Item(0, 5, "Petal", "I mean its a petal, it can't be that good.", 1, 0);
     public static Item CherryBlossom = new Item(0, 8, "Cherry Blossom", "Hey... Isn't that from a location?", 2, 0);
