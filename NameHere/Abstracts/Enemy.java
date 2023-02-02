@@ -68,10 +68,10 @@ public abstract class Enemy {
     }
 
     public void scaleStats() {
-        this.baseHp *= Helper.getScaleFactor();
-        this.damage *= Helper.getScaleFactor();
-        this.coins *= Helper.getScaleFactor();
-        this.xp *= Helper.getScaleFactor();
+        this.baseHp *= Helper.getScaleFactor(0);
+        this.damage *= Helper.getScaleFactor(1);
+        this.coins *= Helper.getScaleFactor(0);
+//        this.xp *= Helper.getScaleFactor();
     }
 
     public abstract void setBaseStats();

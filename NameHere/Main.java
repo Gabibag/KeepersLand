@@ -3,6 +3,7 @@ package NameHere;
 import NameHere.Abstracts.*;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Interacts.Battle;
+import NameHere.Interacts.LevelUp;
 import NameHere.Interacts.Shop;
 
 import java.io.File;
@@ -66,7 +67,6 @@ public class Main {
 
         if (player.getName().equals("among us") || player.getName().equals("test")) {
             player.incStageNum(9);
-            System.out.println(Helper.getScaleFactor());
             player.setHealAmount(100);
             player.addMoney(99999);
             player.setDamage(500);
@@ -86,7 +86,6 @@ public class Main {
                 getNewPlace();
             }
             player.incStageNum(19);
-            System.out.println(Helper.getScaleFactor());
             System.out.println("sussy");
             Main.currentPlace = new LavaZone();
         }
@@ -101,15 +100,18 @@ public class Main {
                 for (Enemy e : tempenemies) {
                     e.randDrops(player, e);
                 }
+
+                if (player.getStageNum()%9 == 0){
+                    Shop.quickBuy(player);
+                }
+                player.incStageNum(1);
                 getNewPlace();
             }
             player.incStageNum(lvl - 1);
             for (int i = 0; i < allPlaces.size(); i++) {
                 System.out.println("[" + i + "] " + allPlaces.get(i).getName());
             }
-            if (player.getStageNum()%9 == 0){
-                Shop.quickBuy(player);
-            }
+
             int location = Helper.getInput("What location would you like to be at?", allPlaces.size());
 
             try {
@@ -120,6 +122,31 @@ public class Main {
             }
             currentPlace = allPlaces.get(location);
             System.out.println("amogus");
+        }else if (player.getName().equalsIgnoreCase("StatsTest") || player.getName().equalsIgnoreCase("stest")) {
+            int lvl = Helper.getInput("What level would you like to be at?", 99999999);
+            List<Enemy> spawns;
+            List<Enemy> tempenemies;
+            for (int i = 0; i < lvl; i++) {
+                spawns = Battle.getEnemies(player);
+                tempenemies = Helper.getRandomElements(spawns, 3);
+
+                for (Enemy e : tempenemies) {
+                    e.randDrops(player, e);
+                }
+                if (player.getStageNum()%9 == 0){
+                    Shop.quickBuy(player);
+                }
+                getNewPlace();
+                player.incStageNum(1);
+            }
+
+            //level up player
+            LevelUp a = new LevelUp();
+            a.onChoose(player);
+
+            System.out.println(player);
+            System.out.println("amogsus");
+            System.exit(0);
         }
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);

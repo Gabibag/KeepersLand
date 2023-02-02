@@ -15,9 +15,15 @@ public class Helper {
     *returns the scale factor
     */
 
-    public static int getScaleFactor(){
+    public static int getScaleFactor(int type){
         if(Main.player == null){
             return 1;
+        }
+        if(type == 0){
+            return 1 + Math.round(Main.player.getStageNum() / 11f);
+        }
+        else if (type == 1) {
+            return  1 + Math.round(Main.player.getStageNum() / 10f);
         }
         return 1 + Math.round(Main.player.getStageNum() / 10f);
     }

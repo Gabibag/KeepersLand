@@ -68,7 +68,7 @@ public class Luck extends Enviorment {
     public void turnEnd(Player p, List<Enemy> enemies) {
         //1 in 5 chance of adding a spirit in enemies
         //1 in 5 chance of adding a spirit in enemies
-        int chance = Main.r.nextInt(5);
+        int chance = Main.r.nextInt(10);
         if (enemies.size()==0){
             chance = 5;
         }

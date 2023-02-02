@@ -39,7 +39,7 @@ public class Item {
         this.name = name;
         this.description = description;
 
-        int cost = (dmgIncr * 30) + (hpIncr * 25) + (heal * 20) + (healvair * 15);
+        int cost = (dmgIncr * 30) + (hpIncr * 25) + (heal * 60) + (healvair * 15);
         if (cost < 50){
             this.rarity = 2;
             this.cost = cost;

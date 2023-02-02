@@ -67,7 +67,7 @@ public class Shop extends Interactable {
                 }
                 continue;
             }
-            Item i = items.get(choice-2);
+            Item i = items.get(choice-1);
             if (i.getCost() > player.getMoney()) {
                 System.out.println("Not enough money");
             }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TankSpirit extends Spirit {
     public void setBaseStats() {
-        this.baseHp = 20;
+        this.baseHp = 15;
         this.coins = 5;
         this.dodgeRate = 1;
         this.xp = 5;

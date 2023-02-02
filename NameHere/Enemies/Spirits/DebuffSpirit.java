@@ -22,7 +22,7 @@ public class DebuffSpirit extends Spirit {
     @Override
     public int Attack(Player p, List<Enemy> allies) {
         //remove an action from the player
-        p.setActionAmount(p.getActionAmount() - 1);
+        p.setActionAmount(1);
         System.out.println("Debuff Spirit removes an action from you");
         return 0;
     }
