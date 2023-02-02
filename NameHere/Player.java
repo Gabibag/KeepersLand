@@ -67,6 +67,7 @@ public class Player {
                 is.setHealVariance(r.nextInt());
                 is.setHpIncr(r.nextInt());
                 is.setRarity(r.nextInt());
+                is.setCount(r.nextInt());
                 p.inventory.add(is);
             }
             r.close();
@@ -101,6 +102,7 @@ public class Player {
                 f.write(item.getHealVariance() + "\n");
                 f.write(item.getHpIncr() + "\n");
                 f.write(item.getRarity() + "\n");
+                f.write(item.getCount() + "\n");
 
             }
             f.close();

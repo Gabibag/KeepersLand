@@ -10,6 +10,7 @@ import NameHere.Player;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.MissingFormatArgumentException;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -84,25 +85,34 @@ public class Bug extends Boss {
         System.out.println(Colors.CLEAR);
     }
     public int BossAttack(Player p, List<Enemy> allies) {
-        System.out.println("Press enter when a green circle appears");
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> future = executor.submit(new Callable<Integer>() {
             /* (non-Javadoc)
              * @see java.util.concurrent.Callable#call()
              */
             public Integer call()  {
+                int MissedLeft = 3;
+                String GoalShape = Helper.getRandomElements(Arrays.asList("O", "X", "■"), 1).get(0);
+                String GoalColor = Helper.RandomColor();
+                System.out.println("Hit enter when this shape appears:" + GoalColor + GoalShape + Colors.RESET);
                 String shape = "n";
                 String Color = "n";
-                while(!Bug.End){
+                while(!Bug.End && MissedLeft > 0){
                      shape = Helper.getRandomElements(Arrays.asList("O", "X", "■"), 1).get(0);
                     Color = Helper.RandomColor();
                     System.out.print("\r :" + Color + shape + Colors.RESET);
-
+                    if(shape.equals(GoalShape) && Color.equals(GoalColor)){
+                        MissedLeft--;
+                    }
                     Helper.Sleep(0.5);
                 }
                 System.out.println(Colors.RESET);
-                int result =  shape.equals("O") ? 1 : 0;
-                result += (Color.equals(Colors.GREEN)) ? 1 : 0; 
+                if(MissedLeft ==0){
+                    System.out.println("You failed to dodge");
+                    return 0;
+                }
+                int result =  shape.equals(GoalShape) ? 1 : 0;
+                result += (Color.equals(GoalColor)) ? 1 : 0; 
                 return result;
             }
         });
