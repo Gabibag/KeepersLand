@@ -22,15 +22,14 @@ public class Main {
     public static List<Boss> allBosses = new ArrayList<>();
     public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
-    //make a method to return the meaning of life
-
+    
     public static void main(String[] args) {
         s = new Scanner(System.in);
         r = new Random();
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        
+         
         int saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
         if(saves == 1){
             try {

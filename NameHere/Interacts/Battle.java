@@ -3,6 +3,8 @@ package NameHere.Interacts;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
+import NameHere.Enemies.Bosses.Death;
+import NameHere.Enemies.Bosses.DemonLord;
 import NameHere.*;
 
 import java.util.ArrayList;
@@ -58,11 +60,16 @@ public class Battle extends Interactable {
                 throw new RuntimeException(e);
             }
         }
+        if(p.getName().equals("among us")){
+            enemies.clear();
+            enemies.add(new Death());
+        }
         while (enemies.size() > 0) {
             while (Actions > 0) {
                 for (Enemy enemy : enemies) {
                     System.out.print(Colors.RED + enemy.getName() + "  ");
                 }
+
                 System.out.println();
                 //TODO: add a check if the health exceeds the text length of the char so the names spread out
                 for (Enemy enemy : enemies) {
@@ -163,7 +170,13 @@ public class Battle extends Interactable {
 
             System.out.println(Colors.CLEAR + Colors.RED);
             for (Enemy enemy : enemies) {
-                int damage = enemy.Attack(p, enemies);
+                int damage = 0;
+                if(enemy instanceof Boss){
+                    damage = ((Boss)enemy).BossAttack(p, enemies);
+                }
+                else{
+                damage = enemy.Attack(p, enemies);
+                }
                 p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
                 Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
