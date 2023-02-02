@@ -71,6 +71,7 @@ public class Death extends Boss{
         System.out.println(Colors.CLEAR);
     }
     public int BossAttack(Player p, List<Enemy> allies) {
+        System.out.println("Press enter when the x is visable to dodge death's attack! ");
         ExecutorService executor = Executors.newSingleThreadExecutor(); // Create a new thread
         Future<Integer> f = executor.submit(new Callable<Integer>() {
             int progress = 0;

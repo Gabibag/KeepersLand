@@ -41,18 +41,16 @@ public class DemonLord extends Boss {
     }
     @Override
     public int BossAttack(Player p, List<Enemy> allies){
+        System.out.println("Hit enter when the numbers are the same to dodge!");
         ExecutorService executor = Executors.newSingleThreadExecutor(); // Create a new thread
         Future<Integer> f = executor.submit(new Callable<Integer>() {
             public Integer call(){
                 int Pos = Main.r.nextInt(7);
                 int SPos = Main.r.nextInt(7);
-                System.out.println(Pos);
-                System.out.println(SPos);
                 if(Pos == SPos){
                     SPos = (SPos + 1) % 6;
                 }
                 if(!(Math.abs(Pos - SPos) % 2 == 0) ){
-                    System.out.println("Dif" + Math.abs(Pos - SPos));
                     SPos = (SPos + 1);
                     if(SPos == 7){
                         SPos = 0;
@@ -62,8 +60,6 @@ public class DemonLord extends Boss {
                 if(Pos == SPos){
                     SPos = (SPos + 1) % 6;
                 }
-                System.out.println(Pos);
-                System.out.println(SPos);
                 Boolean PDown = false;
                 Boolean SDown = true;
                 while(!DemonLord.End){
