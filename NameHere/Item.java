@@ -20,24 +20,35 @@ public class Item {
      */
     private int cost;
 
-    public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost) {
+    public Item(int dmgIncr, int hpIncr, String name, String description) {
         this.dmgIncr = dmgIncr;
         this.hpIncr = hpIncr;
         this.name = name;
         this.description = description;
-        this.rarity = rarity;
-        this.cost = cost;
+        this.cost = (dmgIncr *30) + (hpIncr * 25);
+        if (this.cost<50){
+            this.rarity = 2;
+        }
+        else {
+            this.rarity = (this.cost/100) + 1;
+        }
     }
-    public Item(int dmgIncr, int hpIncr, String name, String description, int rarity, int cost, int heal, int healvair) {
+    public Item(int dmgIncr, int hpIncr, String name, String description, int heal, int healvair) {
         this.dmgIncr = dmgIncr;
         this.hpIncr = hpIncr;
         this.name = name;
         this.description = description;
-        this.rarity = rarity;
-        this.cost = cost;
+        this.cost = (dmgIncr *30) + (hpIncr * 25) + (heal * 20) + (healvair * 15);
+        if (this.cost<50){
+            this.rarity = 2;
+        }
+        else {
+            this.rarity = (this.cost/100) + 1;
+        }
         this.healIncrease = heal;
         this.HealVariance = healvair;
     }
+
 
     public int getCount() {
         return count;
