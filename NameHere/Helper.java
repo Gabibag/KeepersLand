@@ -156,4 +156,9 @@ public class Helper {
         }
 
     }
+
+    public static String RandomColor() {
+        List<String> colors = Arrays.asList( Colors.RED, Colors.GREEN, Colors.YELLOW);
+        return Helper.getRandomElements(colors, 1).get(0);
+    }
 }

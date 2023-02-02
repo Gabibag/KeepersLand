@@ -95,7 +95,7 @@ public class DemonLord extends Boss {
                     S = S.substring(0, SPos) + SPos + S.substring(SPos + 1);
                     System.out.println(O + "\n" + S);
                     //Helper.Prompt("a");
-                    Helper.Sleep(0.3);
+                    Helper.Sleep(0.1);
                     System.out.print(String.format("\033[%dA",2));
                 }
                 System.out.println(Colors.CLEAR);

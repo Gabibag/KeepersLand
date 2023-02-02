@@ -8,9 +8,17 @@ import NameHere.Helper;
 import NameHere.Main;
 import NameHere.Player;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Bug extends Boss {
+    protected static boolean End;
+
     public void setBaseStats() {
         this.baseHp = 75;
         this.damage = 5;
@@ -74,6 +82,52 @@ public class Bug extends Boss {
                            "                     \\______/ ");
         Helper.Sleep(1.5);
         System.out.println(Colors.CLEAR);
+    }
+    public int BossAttack(Player p, List<Enemy> allies) {
+        System.out.println("Press enter when a green circle appears");
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<Integer> future = executor.submit(new Callable<Integer>() {
+            /* (non-Javadoc)
+             * @see java.util.concurrent.Callable#call()
+             */
+            public Integer call()  {
+                String shape = "n";
+                String Color = "n";
+                while(!Bug.End){
+                     shape = Helper.getRandomElements(Arrays.asList("O", "X", "■"), 1).get(0);
+                    Color = Helper.RandomColor();
+                    System.out.print("\r :" + Color + shape + Colors.RESET);
+
+                    Helper.Sleep(0.5);
+                }
+                System.out.println(Colors.RESET);
+                int result =  shape.equals("O") ? 1 : 0;
+                result += (Color.equals(Colors.GREEN)) ? 1 : 0; 
+                return result;
+            }
+        });
+        try {
+            Main.s.nextLine();
+            Bug.End = true;
+            int res = future.get();
+            Bug.End = false;
+            if(res ==0){
+                System.out.println("You failed to dodge");
+                 return this.damage;
+            }
+            if(res == 2){
+                System.out.println("You dodged the attack");
+                return 0;
+            }
+            if(res == 1){
+                System.out.println("You almost dodged the attack");
+                return this.damage/2;
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return -1;
     }
     @Override
     //override the attack command in enemy
