@@ -21,7 +21,6 @@ public class Main {
     public static List<Boss> allBosses = new ArrayList<>();
     public static Random r;
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
-    //make a method to return the meaning of life
     public static Player player;
     public static Scanner s;
 
