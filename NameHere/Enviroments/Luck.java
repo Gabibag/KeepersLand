@@ -11,7 +11,7 @@ import java.util.List;
 public class Luck extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(ItemData.Clover, ItemData.Charm, ItemData.Grass);
+        return Arrays.asList(ItemData.Clover, ItemData.Charm, ItemData.Grass, ItemData.SpriteShard);
     }
 
     public String getDescription() {

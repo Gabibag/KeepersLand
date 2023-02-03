@@ -16,6 +16,14 @@ public class Shop extends Interactable {
                 "Welcome to the shop, " + player.getName());
         while (true) {
             List<Item> items = getItems(player);
+            //if the player's stage number is less than 10 remove all Items that contain the word "shard" in their name
+            if (player.getStageNum() < 10) {
+                for (int i = items.size()-1; i >= 0; i--) {
+                    if (items.get(i).getName().contains("Shard")) {
+                        items.set(i, ItemData.LockedItem);
+                    }
+                }
+            }
             System.out.println("\nYou have " + Colors.CYAN + player.getMoney() + "◊");
             System.out.println(Colors.PURPLE + "[0] Leave");
             System.out.println(Colors.PURPLE + "[1] Quick Buy");
@@ -38,8 +46,8 @@ public class Shop extends Interactable {
             else if (choice == 1) {
                 quickBuy(Main.player);
             }
-            else if (choice == items.size()-1) {
-                for (int i = 0; i < items.size(); i++)
+            else if (choice == items.size()+2) {
+                for (int i = 0; i < items.size()-1; i++)
                     System.out.println(
                             "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
                             "◊" +
@@ -50,7 +58,7 @@ public class Shop extends Interactable {
                 System.out.println(Colors.CLEAR);
                 continue;
             }
-            else if(choice == items.size()){
+            else if(choice == items.size()+3){
                 List<Item> inv = player.getInventory();//ref type, no need for set
                 System.out.println("[0] Go back");
                 for(int i = 0; i < player.getInventory().size();i++){
@@ -67,15 +75,17 @@ public class Shop extends Interactable {
                 }
                 continue;
             }
-            Item i = items.get(choice-1);
-            if (i.getCost() > player.getMoney()) {
-                System.out.println("Not enough money");
-            }
             else {
-                player.getInventory().add(i);
-                player.chargeMoney(i.getCost());
-                System.out.println(
-                        "Bought " + i.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
+                Item i = items.get(choice - 3);
+                if (i.getCost() > player.getMoney()) {
+                    System.out.println("Not enough money");
+                }
+                else {
+                    player.getInventory().add(i);
+                    player.chargeMoney(i.getCost());
+                    System.out.println(
+                            "Bought " + i.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
+                }
             }
         }
     }

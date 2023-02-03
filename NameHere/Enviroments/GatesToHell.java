@@ -15,7 +15,7 @@ public class GatesToHell extends Enviorment {
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.barFromHell,
                              ItemData.doransBlade,
-                             ItemData.bloodStone);
+                             ItemData.bloodStone, ItemData.HellShard);
     }
 
     public String getDescription() {
