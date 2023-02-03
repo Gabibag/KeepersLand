@@ -1,77 +1,92 @@
 package NameHere.Interacts;
 
+import NameHere.*;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
-import NameHere.*;
-import NameHere.Enemies.Bosses.Bug;
-import NameHere.Enemies.Bosses.DemonLord;
+import NameHere.Enemies.Bosses.FinalBoss;
+import NameHere.Enviroments.NullZone;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import static NameHere.Main.player;
+import static NameHere.Interacts.Battle.*;
 
-public class Battle extends Interactable {
-
-
-    static void updateItems(Player p, boolean battleEnd) {
-        if (!battleEnd) {
-            for (Item i : p.getInventory()) {
-                p.setBattleHp(p.getBattleHp() + i.getHpIncr());
-                p.setBattleDamage(p.getDamage() + i.getDmgIncr());
-                p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
-                p.setHealVariance(p.getHealVariance() + i.getHealVariance());
+public class BossFight extends Interactable {
+    @Override
+    public String getName() {
+        //check if player's inventory contains the items "Healing Shard", "Glitched Shard", "Shattered Shard", "Sprite Shard", "Death Shard", "Hell Shard", "Omega Shard", "God Shard"
+        //if it does, return "Boss Fight"
+        //if it doesn't, return "Locked"
+        ArrayList<Item> inventoryTrunk = new ArrayList<>();
+        //for each item in inventory, add it to inventoryTrunk. If it already exists, add to the variable Count in the item.
+        for(Item i : Main.player.getInventory()){
+            if(inventoryTrunk.contains(i)){
+                inventoryTrunk.get(inventoryTrunk.indexOf(i)).addCount();
+            }else{
+                inventoryTrunk.add(i);
             }
-        }else  {
-            for (Item i : p.getInventory()) {
-                p.setBattleHp(p.getHp() - i.getHpIncr());
-                p.setBattleDamage(p.getDamage() - i.getDmgIncr());
-                p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
-                p.setHealVariance(p.getHealVariance() - i.getHealVariance());
+        }
+        int shardCounter = 0;
+        for (int i = 0; i < inventoryTrunk.size(); i++) {
+            if (inventoryTrunk.get(i).getName().contains("Shard")) {
+                shardCounter++;
+            }
+        }
+        return shardCounter == 7 ? "Boss Fight" : "Locked";
+        
+    }
+    static void updateBossItems(Enemy e, boolean battleEnd) {
+        if (!battleEnd) {
+            for (Item i : e.getDrops()) {
+                e.setBattleHp(e.getBattleHp() + i.getHpIncr());
+                e.setDamage(e.getDamage() + i.getDmgIncr());
+            }
+        }
+        else {
+            for (Item i : e.getDrops()) {
+                e.setBattleHp(e.getBattleHp() - i.getHpIncr());
+                e.setDamage(e.getDamage() - i.getDmgIncr());
+
             }
         }
     }
-
     @Override
-    public void onChoose(Player p) {
+    public void onChoose(Player p) { //yeah same exact thing. Just some sliiiight tweaks.
+        int tempMaxHp = 0;
+        for (Item i : p.getInventory()) {
+            tempMaxHp = p.getHp() + i.getHpIncr();
+        }
         p.setBattleHp(p.getHp());
-        updateItems(p,false);
+
         Random r = new Random();
         int Actions = p.getActionAmount();
-        List<Enemy> spawns = getEnemies(p);
-        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3));//only spawns 1 boss
+        List<Enemy> enemies = new ArrayList<>();
+        enemies.add(new FinalBoss());
 
-
-        try {
-            for (int i = 0; i < enemies.size(); i++) {
-                enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to create a new enemy object, check your cnstr");
-        }
-        System.out.println(Colors.RED+"A battle is starting!" + Colors.RESET);
-        Helper.Sleep(1);
-        System.out.print(Colors.CLEAR);
-        if(p.getStageNum()%10 == 0){
-            try {
-                ((Boss)(enemies.get(0))).bossOnSpawn(enemies);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+        //tell the user that all their items (except those with shards in their name) have been taken from them and given to the boss. then do so
+        System.out.println("You have entered the boss fight. All your items have been taken from you and given to the boss.\nIf you die, you will lose 20% of them.");
+        for (int i =  p.getInventory().size()-1; i >=0; i--) {
+            if (!p.getInventory().get(i).getName().toLowerCase().contains("shard")) {
+                enemies.get(0).addDrops(p.getInventory().get(i));
+                p.removeInventory(p.getInventory().get(i));
             }
         }
-        if(p.getName().equals("among us")){
-            enemies.clear();
-            enemies.add(new DemonLord());
-
-        }
+        Helper.contiuePrompt();
+        updateItems(p, false);
+        updateBossItems(enemies.get(0), false);
+        Main.currentPlace = new NullZone();
+        System.out.println(Colors.CLEAR);
         while (enemies.size() > 0) {
             removeDead(enemies);
             //tell user their stage number and enviorment
-            System.out.println("You are in the " + Main.currentPlace.getName() + Colors.RESET);
+
             while (Actions > 0) {
+
+                updateBossItems(enemies.get(0), true);
+                updateBossItems(enemies.get(0), false);
                 for (Enemy enemy : enemies) {
                     System.out.print(Colors.RED + enemy.getName() + "  ");
                 }
@@ -101,7 +116,8 @@ public class Battle extends Interactable {
                     }
                     System.out.print("  ");
                 }
-
+                updateItems(p, true);
+                updateItems(p, false);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
                                    "[1] Attack");
@@ -112,7 +128,7 @@ public class Battle extends Interactable {
                     //#region case1
                     case 1 -> {//attack
                         System.out.println(Colors.CLEAR);
-                        if (enemies.size()>1) {
+                        if (enemies.size() > 1) {
                             for (int i = 0; i < enemies.size(); i++) {
                                 System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
                                 System.out.print(Colors.RESET);
@@ -125,11 +141,24 @@ public class Battle extends Interactable {
                             enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
                             System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
                                                enemies.get(choice - 1).getName());
+                            //have the boss take a random item from it's drops and give it to the player's inventory each time they atatck
+                            if (enemies.get(choice - 1).getDrops().size() > 0) {
+                                for (int i = 0; i < r.nextInt(1, enemies.get(choice - 1).getDrops().size()); i++) {
+                                    Item temp = enemies.get(choice - 1).getDrops().get(r.nextInt(enemies.get(choice - 1).getDrops().size()));
+                                    p.addInventory(temp);
+                                    System.out.println("the boss dropped a " + temp.getName() + "!");
+                                    enemies.get(choice - 1).getDrops().remove(temp);
+                                }
+                            }
+
 
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
                                 System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
-                                enemies.get(choice - 1).randDrops(p, enemies.get(choice-1));
+                                for (int i = 0; i < enemies.get(choice-1).getDrops().size(); i++) {
+                                    p.addInventory(enemies.get(choice-1).getDrops().get(i));
+                                }
+                                System.out.println("All your items were returned to you!");
                                 p.addMoney(enemies.get(choice - 1).getCoins());
                                 System.out.println(
                                         "You gained " + enemies.get(choice - 1).getCoins() + Colors.CYAN + "◊" +
@@ -188,19 +217,28 @@ public class Battle extends Interactable {
             System.out.println(Colors.CLEAR + Colors.RED);
             for (Enemy enemy : enemies) {
                 int damage = 0;
-                if(enemy instanceof Boss){
-                    damage = ((Boss)enemy).BossAttack(p, enemies);
+                if (enemy instanceof Boss) {
+                    damage = ((Boss) enemy).BossAttack(p, enemies);
                 }
-                else{
-                damage = enemy.Attack(p, enemies);
+                else {
+                    damage = enemy.Attack(p, enemies);
                 }
-                p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
+                p.takeDamage(damage);
 //                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
             }
             Helper.contiuePrompt();
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");
+                //drop 80% of the items in drops for enemy
+                for (Enemy enemy : enemies) {
+                    for (int i = enemy.getDrops().size()-1; i >=0; i--) {
+                        if (r.nextInt(0, 10) > 2) {
+                            p.addInventory(enemy.getDrops().get(i));
+                        }
+                        enemy.getDrops().remove(i);
+                    }
+                }
                 IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                         enemies::remove); //the magic of intellij
                 Helper.Sleep(1);
@@ -215,84 +253,9 @@ public class Battle extends Interactable {
             p.incStageNum(1);
 
         }
-        updateItems(p,true);
+        updateItems(p, true);
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
-
     }
-
-    public static void inv(List<Enemy> enemies) {
-
-        System.out.println(Colors.PURPLE + "[0] Go Back");
-        for (int i = 0; i < enemies.size(); i++) {
-            System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
-        }
-
-        System.out.println("[" + (enemies.size() + 1) + "] Enviroment Info" + Colors.RESET);
-        int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
-        if (choiceInfo == 0) {
-            return;
-        }
-        else if (choiceInfo == (enemies.size() + 1)) {
-            System.out.println(
-                    "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
-            Helper.Prompt("Press Enter");
-        }
-        else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
-            System.out.println(enemies.get(choiceInfo - 1).getName() + ":");
-            System.out.println(
-                    Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
-            System.out.println(Colors.RED_BOLD + "Damage: " + enemies.get(choiceInfo - 1).getDamage() + Colors.RESET);
-            System.out.println(
-                    Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
-            System.out.println(
-                    Colors.RED_BRIGHT + "Dodge Rate: " + enemies.get(choiceInfo - 1).getDodgeRate() + Colors.RESET);
-            Helper.contiuePrompt();
-        }
-        inv(enemies);
-
-    }  //TODO get location + opponent info
-
-    public static List<Enemy> getEnemies(Player p) {
-        List<Enemy> returned = new ArrayList<>();
-        for (Enemy e : Main.allEnemies) {
-            if (e.canSpawn(p)) {
-                if (p.getStageNum() % 10 == 0){
-                    if (e instanceof Boss) {
-                        returned.add(e);
-                    }
-                }
-                else if (!(e instanceof Boss)) {
-                returned.add((e));
-            }
-            }
-
-        }
-
-        return returned;
-    }
-
-    //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
-    public static void removeDead(List<Enemy> enemies) {
-        for (Enemy choice : enemies) {
-            if (choice.getBattleHp() <= 0) {
-                choice.onDeath(player, enemies);
-                System.out.println(choice.getName() + " has been killed!");
-                choice.randDrops(player, choice);
-                player.addMoney(choice.getCoins());
-                System.out.println(
-                        "You gained " + choice.getCoins() + Colors.CYAN + "◊" +
-                        Colors.RESET);
-                enemies.remove(choice);
-            }
-        }
-    }
-
-    @Override
-    public String getName() {
-        return "Battle";
-    }
-
-
 }

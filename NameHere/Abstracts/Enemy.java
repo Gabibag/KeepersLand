@@ -12,6 +12,20 @@ public abstract class Enemy {
     protected String name;
     protected int dodgeRate = 1;
     protected int xp;
+
+    public List<Item> getDrops() {
+        return drops;
+    }
+
+    public void setDrops(List<Item> drops) {
+        this.drops = drops;
+    }
+
+    public void addDrops(Item drops) {
+            this.drops.add(drops);
+        }
+
+
     protected List<Item> drops = new ArrayList<>();
     protected int battleHp;
     protected int coins;

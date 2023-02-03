@@ -220,8 +220,12 @@ public class Player {
         this.inventory = inventory;
     }
 
+
     public void addInventory(Item item) {
         this.inventory.add(item);
+    }
+    public void removeInventory(Item item) {
+        this.inventory.remove(item);
     }
 
     public int getActionAmount() {
