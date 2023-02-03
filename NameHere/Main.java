@@ -1,7 +1,6 @@
 package NameHere;
 
 import NameHere.Abstracts.*;
-import NameHere.Enemies.Bosses.DemonLord;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
@@ -107,7 +106,6 @@ public class Main {
                 player.incStageNum(1);
                 getNewPlace();
             }
-            player.incStageNum(lvl - 1);
             for (int i = 0; i < allPlaces.size(); i++) {
                 System.out.println("[" + i + "] " + allPlaces.get(i).getName());
             }

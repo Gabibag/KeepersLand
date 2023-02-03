@@ -14,6 +14,7 @@ public class Archer extends Enemy {
         this.xp = 4;
         this.name = "Archer";
         this.coins = 1;
+
     }
 
     @Override
