@@ -143,18 +143,37 @@ public class BossFight extends Interactable {
                                                enemies.get(choice - 1).getName());
                             //have the boss take a random item from it's drops and give it to the player's inventory each time they atatck
                             if (enemies.get(choice - 1).getDrops().size() > 0) {
-                                for (int i = 0; i < r.nextInt(1, enemies.get(choice - 1).getDrops().size()); i++) {
+                                String tempItems = "";
+                                for (int i = 0; i < r.nextInt(1, enemies.get(choice - 1).getDrops().size()/2); i++) {
                                     Item temp = enemies.get(choice - 1).getDrops().get(r.nextInt(enemies.get(choice - 1).getDrops().size()));
                                     p.addInventory(temp);
-                                    System.out.println("the boss dropped a " + temp.getName() + "!");
+                                    if (!tempItems.contains(temp.getName())) {
+                                        tempItems = tempItems.concat( temp.getName() + ", ");
+                                    }
                                     enemies.get(choice - 1).getDrops().remove(temp);
                                 }
+                                int counter = 0;
+                                for (int i = tempItems.length()-1; i >=0; i--) {
+                                    //add a check to replace the second to last comma with an and
+                                    //manipulating strings is hard
+                                    if (tempItems.charAt(i) == ','&& counter == 1) {
+                                        tempItems = tempItems.substring(0, i+1) + " and a " + tempItems.substring(i+2);
+                                        break;
+                                    }else if(tempItems.charAt(i) == ','){
+                                        counter++;
+                                    }
+                                }
+                                System.out.println("The Keeper dropped " + tempItems.substring(0, tempItems.length()-2) + "!");
                             }
 
 
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
-                                System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
+                                if (enemies.get(choice - 1).getName().equals("Keeper")) {
+//                                    if (((Boss)enemies.get(choice-1)).getBossStage()==0){
+//                                    }
+                                    System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
+                                }
                                 for (int i = 0; i < enemies.get(choice-1).getDrops().size(); i++) {
                                     p.addInventory(enemies.get(choice-1).getDrops().get(i));
                                 }
