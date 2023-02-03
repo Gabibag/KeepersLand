@@ -10,7 +10,7 @@ import NameHere.Player;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-public class SpiritLord extends Boss {
+public class SpriteLord extends Boss {
     public void setBaseStats() {
         this.baseHp = 25;
         this.damage = 4;
