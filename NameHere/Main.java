@@ -102,7 +102,7 @@ public class Main {
                 }
 
                 if (player.getStageNum()%9 == 0){
-                    Shop.quickBuy(player);
+                    Shop.quickBuy(player, currentPlace.getShopItems());
                 }
                 player.incStageNum(1);
                 getNewPlace();
@@ -134,7 +134,7 @@ public class Main {
                     e.randDrops(player, e);
                 }
                 if (player.getStageNum()%9 == 0){
-                    Shop.quickBuy(player);
+                    Shop.quickBuy(player, currentPlace.getShopItems());
                 }
                 getNewPlace();
                 player.incStageNum(1);
