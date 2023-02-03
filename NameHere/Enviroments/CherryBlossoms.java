@@ -12,7 +12,7 @@ import java.util.List;
 public class CherryBlossoms extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(ItemData.Petal, ItemData.CherryBlossom, ItemData.CherryBark);
+        return Arrays.asList(ItemData.Petal, ItemData.CherryBlossom, ItemData.CherryBark, ItemData.HealingShard);
     }
 
     public String getDescription() {

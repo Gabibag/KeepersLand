@@ -23,6 +23,7 @@ public abstract class Enemy {
         scaleStats();
         Main.allEnemies.add((this)); //adds all enemies to a list
         this.battleHp = this.baseHp;
+        this.drops.add(ItemData.OmegaShard);
     }
 
     public int getBaseHp() {
