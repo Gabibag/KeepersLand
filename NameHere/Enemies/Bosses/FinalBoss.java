@@ -2,25 +2,29 @@ package NameHere.Enemies.Bosses;
 
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-
-import NameHere.Main;
 import NameHere.Player;
 
 import java.util.List;
 
 public class FinalBoss extends Boss {
     public void setBaseStats() {
-        this.baseHp = 75;
-        this.damage = 10;
-        this.xp = 120;
-        this.name = "FinalBoss";
-        this.coins = 50;
-        this.tokens = 1;
+        this.baseHp = 7500;
+        this.damage = 500;
+        this.xp = 12000;
+        this.name = "Keeper";
+        this.coins = 5000;
+        this.tokens = 100;
+
     }
 
     @Override
     public boolean canSpawn(Player p) {
-        return (p.getStageNum() % 10 != 0) && (Main.r.nextBoolean() || Main.r.nextBoolean()); //75% spawn chance
+        return false; //75% spawn chance
+    }
+
+    @Override
+    public void scaleStats() {
+        //do nothing
     }
 
     @Override

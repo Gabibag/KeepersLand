@@ -33,6 +33,7 @@ public class Item {
         else {
             this.rarity = (this.cost/100) + 1;
         }
+        Main.allItem.add(this);
     }
     public Item(int dmgIncr, int hpIncr, String name, String description, int heal, int healvair) {
         this.dmgIncr = dmgIncr;
@@ -51,6 +52,7 @@ public class Item {
         }
         this.healIncrease = heal;
         this.HealVariance = healvair;
+        Main.allItem.add(this);
     }
     public Item(int dmgIncr, int hpIncr, String name, String description, int heal, int healvair, int dropRate, int costMultiplier) {
         this.dmgIncr = dmgIncr;
@@ -62,6 +64,7 @@ public class Item {
         this.rarity = dropRate;
         this.healIncrease = heal;
         this.HealVariance = healvair;
+        Main.allItem.add(this);
     }
 
     public int getCount() {
