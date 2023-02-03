@@ -18,6 +18,8 @@ public class Main {
     public static List<Enviorment> allPlaces = new ArrayList<>();
     public static Enviorment currentPlace;
     public static List<Enemy> allEnemies = new ArrayList<>();
+    public static List<Item> allItem = new ArrayList<>();
+
     public static List<Spirit> allSpirits = new ArrayList<>();
 
     public static List<Boss> allBosses = new ArrayList<>();
@@ -119,6 +121,13 @@ public class Main {
                 throw new RuntimeException(e);
             }
             currentPlace = allPlaces.get(location);
+            //add all items that have the word "shard" in them from the list allItems
+            for (Item i : allItem) {
+                if (i.getName().toLowerCase().contains("shard")) {
+                    player.addInventory(i);
+                }
+            }
+
             System.out.println("amogus");
         }else if (player.getName().equalsIgnoreCase("StatsTest") || player.getName().equalsIgnoreCase("stest")) {
             int lvl = Helper.getInput("What level would you like to be at?", 99999999);
