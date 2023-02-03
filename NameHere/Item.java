@@ -9,7 +9,6 @@ public class Item {
     private String name;
     private String description;
     private int rarity;
-    private int count = 1;
     /*make this a number from 1-1000, for drop chance, also doubles as epic, common, etc.
     1-10  - common
     10-20 - uncommon
@@ -51,25 +50,12 @@ public class Item {
         this.healIncrease = heal;
         this.HealVariance = healvair;
     }
-
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-    public void addCount() {
-        this.count += 1;
-    }
-
     public String toString() {
         return this.getName() + ":" + "\n" + this.getDescription() + Colors.RED + "\nDamage Increase: " +
                this.getDmgIncr() +
                "\nHealth Increase: " + this.getHpIncr() + "\nHealing Increase: " + this.healIncrease +
                "\nHeal Variance: " + this.HealVariance + "\n" + Colors.RESET + "Rarity: " +
-               Helper.getWordRarity(this) + "\nAmount: " + this.getCount() + "\nCost: " + this.getCost();
+               Helper.getWordRarity(this) + "\nCost: " + this.getCost();
     }
 
     public int getHealVariance() {

@@ -67,7 +67,6 @@ public class Player {
                 is.setHealVariance(r.nextInt());
                 is.setHpIncr(r.nextInt());
                 is.setRarity(r.nextInt());
-                is.setCount(r.nextInt());
                 p.inventory.add(is);
             }
             r.close();
@@ -102,8 +101,6 @@ public class Player {
                 f.write(item.getHealVariance() + "\n");
                 f.write(item.getHpIncr() + "\n");
                 f.write(item.getRarity() + "\n");
-                f.write(item.getCount() + "\n");
-
             }
             f.close();
 
@@ -244,39 +241,21 @@ public class Player {
     }
 
     public String toString() {
-        //return all variables in player
-        ArrayList<Item> inventoryTrunk = new ArrayList<>();
-        for (Item i : Main.player.getInventory()) {
-            if (inventoryTrunk.contains(i)) {
-                inventoryTrunk.get(inventoryTrunk.indexOf(i)).addCount();
-            }
-            else {
-                inventoryTrunk.add(i);
-            }
-        }
-        String invDisplay = "";
-        for (int i = 0; i < inventoryTrunk.size(); i++) {
-            //concat the name of each item in the inventory
-            invDisplay = invDisplay.concat(inventoryTrunk.get(i).getName() + " x" + inventoryTrunk.get(i).getCount());
-            if (i != inventoryTrunk.size() - 1) {
-                invDisplay = invDisplay.concat(", ");
-            }
-        }
         //get the healthincr and damageincr of each item in inventoryTrunk and multiply it by the item's count. set that vairable to temphp and temp dmg
         int tempHp = 0;
         int tempDmg = 0;
         int tempHeal = 0;
         int tempHealVar = 0;
-        for (Item i : inventoryTrunk) {
-            tempHp += i.getHpIncr() * i.getCount();
-            tempDmg += i.getDmgIncr() * i.getCount();
-            tempHeal += i.getHealIncrease() * i.getCount();
-            tempHealVar += i.getHealVariance() * i.getCount();
+        for (Item i : inventory) {
+            tempHp += i.getHpIncr();
+            tempDmg += i.getDmgIncr();
+            tempHeal += i.getHealIncrease();
+            tempHealVar += i.getHealVariance();
         }
         return "Name: " + this.name + "\nHP: " + tempHp + "\nDamage: " + tempDmg + "\nMoney: " + this.money +
                "\nHeal Variance: " + tempHealVar + "\nHeal Amount: " + tempHeal + "\nLevel: " +
                this.level + "\nXp: " + this.xp + "\nLevel Requirement: " + this.xpToLevel + "\nStage Number: " +
-               this.stageNum + "\nInventory: " + invDisplay;
+               this.stageNum;
 
     }
 
