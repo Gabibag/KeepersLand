@@ -10,6 +10,7 @@ public class Item {
     private String description;
     private int rarity;
     private int count = 1;
+
     /*make this a number from 1-1000, for drop chance, also doubles as epic, common, etc.
     1-10  - common
     10-20 - uncommon
@@ -51,7 +52,17 @@ public class Item {
         this.healIncrease = heal;
         this.HealVariance = healvair;
     }
+    public Item(int dmgIncr, int hpIncr, String name, String description, int heal, int healvair, int dropRate, int costMultiplier) {
+        this.dmgIncr = dmgIncr;
+        this.hpIncr = hpIncr;
+        this.name = name;
+        this.description = description;
 
+        cost = ((dmgIncr * 30) + (hpIncr * 25) + (heal * 60) + (healvair * 15))*costMultiplier;
+        this.rarity = dropRate;
+        this.healIncrease = heal;
+        this.HealVariance = healvair;
+    }
 
     public int getCount() {
         return count;
