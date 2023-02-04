@@ -2,6 +2,7 @@ package NameHere;
 
 import NameHere.Abstracts.*;
 import NameHere.Enviroments.LavaZone;
+import NameHere.Enviroments.NullZone;
 import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
 import NameHere.Interacts.Shop;
@@ -103,7 +104,7 @@ public class Main {
                 }
 
                 if (player.getStageNum()%9 == 0){
-                    Shop.quickBuy(player, currentPlace.getShopItems());
+                    Shop.superBuy(player);
                 }
                 player.incStageNum(1);
                 getNewPlace();
@@ -129,7 +130,40 @@ public class Main {
             }
 
             System.out.println("amogus");
-        }else if (player.getName().equalsIgnoreCase("StatsTest") || player.getName().equalsIgnoreCase("stest")) {
+        }else if (player.getName().equalsIgnoreCase("bossTest") || player.getName().equalsIgnoreCase("btest")) {
+            List<Enemy> spawns;
+            List<Enemy> tempenemies;
+            for (int i = 0; i < 99; i++) {
+                spawns = Battle.getEnemies(player);
+                tempenemies = Helper.getRandomElements(spawns, 3);
+
+                for (Enemy e : tempenemies) {
+                    e.randDrops(player, e);
+                }
+
+                if (player.getStageNum()%9 == 0){
+                    Shop.superBuy(player);
+                }
+                player.incStageNum(1);
+                getNewPlace();
+            }
+            for (int i = 0; i < allPlaces.size(); i++) {
+                System.out.println("[" + i + "] " + allPlaces.get(i).getName());
+            }
+
+            currentPlace= new NullZone();
+            //add all items that have the word "shard" in them from the list allItems
+            for (Item i : allItem) {
+                if (i.getName().toLowerCase().contains("shard")) {
+                    player.addInventory(i);
+                }
+            }
+            player.setDamage(player.getDamage()*500);
+            LevelUp a = new LevelUp();
+            a.onChoose(player);
+            System.out.println("amogngnus");
+        }
+        else if (player.getName().equalsIgnoreCase("StatsTest") || player.getName().equalsIgnoreCase("stest")) {
             int lvl = Helper.getInput("What level would you like to be at?", 99999999);
             List<Enemy> spawns;
             List<Enemy> tempenemies;
@@ -141,7 +175,7 @@ public class Main {
                     e.randDrops(player, e);
                 }
                 if (player.getStageNum()%9 == 0){
-                    Shop.quickBuy(player, currentPlace.getShopItems());
+                    Shop.superBuy(player);
                 }
                 getNewPlace();
                 player.incStageNum(1);

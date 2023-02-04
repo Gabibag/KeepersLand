@@ -18,13 +18,13 @@ public class ItemEntity extends Enemy {
         this.battleHp = baseHp;
         this.coins = 3;
     }
-    public void setBaseStats(int baseHp, int damage, int xp, String ItemName, int coins) {
+    public void setBaseStats(int baseHp, int damage, String ItemName) {
         this.baseHp = baseHp;
         this.damage = damage;
-        this.xp = xp;
+        this.xp = 1;
         this.name = ItemName;
         this.battleHp = baseHp;
-        this.coins = coins;
+        this.coins = 1;
     }
 
     @Override

@@ -4,7 +4,7 @@ import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
-import NameHere.Enemies.Bosses.Bug;
+import NameHere.Enemies.Bosses.DemonLord;
 
 import java.util.ArrayList;
 import java.util.List;

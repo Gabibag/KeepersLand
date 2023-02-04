@@ -1,22 +1,19 @@
 package NameHere.Enemies.Bosses;
 
-import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.FinalBoss;
 import NameHere.Main;
 import NameHere.Player;
 
 import java.util.List;
 
-public class FinalBoss extends Boss {
-    public int getBossStage() {
-        return bossStage;
+public class TheKeeper extends FinalBoss {
+
+    @Override
+    public void finalBossOnSpawn(List<Enemy> enemies) {
+      //do nothing
     }
 
-    public void setBossStage(int bossStage) {
-        this.bossStage = bossStage;
-    }
-
-    private int bossStage = 1;
     public void setBaseStats() {
         this.baseHp = 7500;
         this.damage = 1000;
@@ -24,7 +21,7 @@ public class FinalBoss extends Boss {
         this.name = "Keeper";
         this.coins = 5000;
         this.tokens = 100;
-        bossStage = 1;
+        this.bossStage = 1;
     }
 
     @Override
