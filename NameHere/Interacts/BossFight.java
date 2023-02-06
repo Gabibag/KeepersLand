@@ -80,6 +80,8 @@ public class BossFight extends Interactable {
 
         Helper.contiuePrompt();
         updateItems(p, false);
+        updateItems(p, true);
+        updateBossItems(enemies.get(0), true);
         updateBossItems(enemies.get(0), false);
         Main.currentPlace = new NullZone();
         System.out.println(Colors.CLEAR);
@@ -131,6 +133,7 @@ public class BossFight extends Interactable {
                 System.out.println(Colors.PURPLE +
                                    "[1] Attack");
                 System.out.println("[2] Heal");
+                System.out.println("");
                 System.out.println("[3] Info" + Colors.RESET);
                 int choice = Helper.getInput(Colors.RESET + "Current Health: " + p.getBattleHp(), 3);
                 switch (choice) {
@@ -147,24 +150,15 @@ public class BossFight extends Interactable {
                         System.out.println(Colors.CLEAR);
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
-                            if (enemies.get(choice - 1).getClass() == FinalBoss.class&&(enemies.size()==1)) {
-                                enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
-                                System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
-                                                   enemies.get(choice - 1).getName());
-                                System.out.println("if runs.");
-                                KeeperDrop(p, r, enemies, choice);
-                            }
-                            else if ((enemies.get(choice - 1).getClass() == FinalBoss.class)&&(enemies.size()!=1)) {
+                            if ((enemies.get(choice - 1).getType().equals("FinalBoss")) && (enemies.size() != 1)) {
                                 System.out.println("You must kill everything else before you can attack the boss");
                                 Actions++;
-                                System.out.println("elif runs.");
                             }
-                            else if (enemies.get(choice - 1).getClass() != FinalBoss.class) {
+                            else {
                                 enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
                                 System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
                                                    enemies.get(choice - 1).getName());
 
-                                System.out.println("Else if not boss runs.");
                             }
 
                             //have the boss take a random item from its drops and give it to the player's inventory each time they atatck
@@ -198,14 +192,12 @@ public class BossFight extends Interactable {
 
                             }
                             Helper.contiuePrompt();
-                        }
-                        else {
+                        }else {
                             System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
                             Helper.Sleep(1);
                         }
                     }
-                    //#endregion
-                    //#region case2
+
                     case 2 -> {
                         try {
                             if (r.nextInt(p.getBattleHp(), tempMaxHp) == p.getBattleHp() + 1) {
@@ -227,13 +219,11 @@ public class BossFight extends Interactable {
                         }
                         Helper.Sleep(0.4);
                     }
-                    //#endregion
-                    //#region case3
+
                     case 3 -> {
                         Battle.inv(enemies);
                         continue;
                     }
-                    //#endregion
                 }
                 Main.currentPlace.playerAction(p);
                 if (enemies.size() > 0) {
@@ -247,14 +237,9 @@ public class BossFight extends Interactable {
             }
 
             System.out.println(Colors.CLEAR + Colors.RED);
+            int damage;
             for (Enemy enemy : enemies) {
-                int damage = 0;
-                if (enemy instanceof Boss) {
-                    damage = ((Boss) enemy).BossAttack(p, enemies);
-                }
-                else {
                     damage = enemy.Attack(p, enemies);
-                }
                 p.takeDamage(damage);
 //                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 

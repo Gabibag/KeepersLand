@@ -12,6 +12,11 @@ public abstract class Boss extends Enemy {
         Main.allBosses.add((this));
     }
 
+    @Override
+    public String getType() {
+        return "Boss";
+    }
+
     public abstract void bossOnSpawn(List<Enemy> enemies);
     public int getTokens() {
         return tokens;
@@ -22,7 +27,7 @@ public abstract class Boss extends Enemy {
     }
 
     public int BossAttack(Player p, List<Enemy> enemies) {
-        return super.Attack(p, enemies);
+        return Attack(p, enemies);
     }
 
 

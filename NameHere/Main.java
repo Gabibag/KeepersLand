@@ -103,9 +103,9 @@ public class Main {
                     e.randDrops(player, e);
                 }
 
-                if (player.getStageNum()%9 == 0){
+                /*if (player.getStageNum()%9 == 0){
                     Shop.superBuy(player);
-                }
+                }*/
                 player.incStageNum(1);
                 getNewPlace();
             }
@@ -158,7 +158,7 @@ public class Main {
                     player.addInventory(i);
                 }
             }
-            player.setDamage(player.getDamage()*500);
+//            player.setDamage(player.getDamage()*500);
             LevelUp a = new LevelUp();
             a.onChoose(player);
             System.out.println("amogngnus");
