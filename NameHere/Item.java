@@ -65,16 +65,6 @@ public class Item {
         Main.allItem.add(this);
     }
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-    public void addCount() {
-        this.count += 1;
-    }
 
     public String toString() {
         return this.getName() + ":" + "\n" + this.getDescription() + Colors.RED + "\nDamage Increase: " +

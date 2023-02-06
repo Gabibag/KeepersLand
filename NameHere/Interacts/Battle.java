@@ -37,6 +37,10 @@ public class Battle extends Interactable {
 
     @Override
     public void onChoose(Player p) {
+        int tempMaxHp = 0;
+        for (Item i : p.getInventory()) {
+            tempMaxHp = p.getHp() + i.getHpIncr();
+        }
         p.setBattleHp(p.getHp());
         updateItems(p,false);
         Random r = new Random();
