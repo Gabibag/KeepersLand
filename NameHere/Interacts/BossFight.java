@@ -6,7 +6,6 @@ import NameHere.Abstracts.Interactable;
 import NameHere.Enemies.Bosses.FinalBoss;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-import NameHere.Abstracts.FinalBoss;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
 import NameHere.Enemies.Bosses.TheKeeper;
@@ -179,7 +178,7 @@ public class BossFight extends Interactable {
                                         enemies.add(new TheKeeper2());
                                         enemies.get(enemies.size()-1).setDrops(enemies.get(choice-1).getDrops());
                                         System.out.println("The Keeper has ascended to stage two!");
-                                        ((FinalBoss)enemies.get(enemies.size()-1)).finalBossOnSpawn(enemies);
+                                        ((TheKeeper)enemies.get(enemies.size()-1)).finalBossOnSpawn(enemies);
                                         enemies.remove(choice-1);
                                         //tell the user that the keeper has ascended to stage two
 

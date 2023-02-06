@@ -58,7 +58,7 @@ public class ItemData {
     public static Item SpriteShard = new Item(0, 0, "Sprite Shard", "Said to only be dropped by the Sprite Lord. 1 of 7 Shards.", 0, 7, 4, 10);
     public static Item HellShard = new Item(7, 0, "Hell Shard", "Said to only be dropped by the Demon Lord. 1 of 7 Shards.", 0, 0, 4, 10);
     public static Item OmegaShard = new Item(10, 20, "Omega Shard", "The most rare shard, and yet, the least rare shard. 1 of 7 Shards.", 9, 6, 100, 10);
-    public static Item LockedItem = new Item(0, 0, "Locked Item", "Sorry, you can't buy this yet.", 0, 1, Integer.MAX_VALUE - 9999)
+    public static Item LockedItem = new Item(999999999, 999999999, "Locked Item", "Sorry, you can't buy this yet.", 0, 0);
 
 
 
