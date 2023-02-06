@@ -4,7 +4,6 @@ import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
-import NameHere.Enemies.Bosses.Bug;
 import NameHere.Enemies.Bosses.DemonLord;
 
 import java.util.ArrayList;
@@ -25,12 +24,49 @@ public class Battle extends Interactable {
                 p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() + i.getHealVariance());
             }
-        }else  {
+        }
+        else {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getHp() - i.getHpIncr());
                 p.setBattleDamage(p.getDamage() - i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() - i.getHealVariance());
+            }
+        }
+    }
+
+    public static List<Enemy> getEnemies(Player p) {
+
+        List<Enemy> returned = new ArrayList<>();
+        for (Enemy e : Main.allEnemies) {
+            if (e.canSpawn(p)) {
+                if (p.getStageNum() % 10 == 0) {
+                    if (e instanceof Boss) {
+                        returned.add(e);
+                    }
+                }
+                else if (!(e instanceof Boss)) {
+                    returned.add((e));
+                }
+            }
+
+        }
+
+        return returned;
+    }
+
+    //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
+    public static void removeDead(List<Enemy> enemies) {
+        for (Enemy choice : enemies) {
+            if (choice.getBattleHp() <= 0) {
+                choice.onDeath(player, enemies);
+                System.out.println(choice.getName() + " has been killed!");
+                choice.randDrops(player, choice);
+                player.addMoney(choice.getCoins());
+                System.out.println(
+                        "You gained " + choice.getCoins() + Colors.CYAN + "◊" +
+                        Colors.RESET);
+                enemies.remove(choice);
             }
         }
     }
@@ -42,11 +78,11 @@ public class Battle extends Interactable {
             tempMaxHp = p.getHp() + i.getHpIncr();
         }
         p.setBattleHp(p.getHp());
-        updateItems(p,false);
+        updateItems(p, false);
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
-        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum()%10 == 0 ? 1 : 3));//only spawns 1 boss
+        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 3));//only spawns 1 boss
 
 
         try {
@@ -56,17 +92,17 @@ public class Battle extends Interactable {
         } catch (Exception e) {
             System.out.println("Failed to create a new enemy object, check your cnstr");
         }
-        System.out.println(Colors.RED+"A battle is starting!" + Colors.RESET);
+        System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
         Helper.Sleep(1);
         System.out.print(Colors.CLEAR);
-        if(p.getStageNum()%10 == 0){
+        if (p.getStageNum() % 10 == 0) {
             try {
-                ((Boss)(enemies.get(0))).bossOnSpawn(enemies);
+                ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        if(p.getName().equals("among us")){
+        if (p.getName().equals("among us")) {
             enemies.clear();
             enemies.add(new DemonLord());
 
@@ -116,7 +152,7 @@ public class Battle extends Interactable {
                     //#region case1
                     case 1 -> {//attack
                         System.out.println(Colors.CLEAR);
-                        if (enemies.size()>1) {
+                        if (enemies.size() > 1) {
                             for (int i = 0; i < enemies.size(); i++) {
                                 System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
                                 System.out.print(Colors.RESET);
@@ -133,7 +169,7 @@ public class Battle extends Interactable {
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
                                 System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
-                                enemies.get(choice - 1).randDrops(p, enemies.get(choice-1));
+                                enemies.get(choice - 1).randDrops(p, enemies.get(choice - 1));
                                 p.addMoney(enemies.get(choice - 1).getCoins());
                                 System.out.println(
                                         "You gained " + enemies.get(choice - 1).getCoins() + Colors.CYAN + "◊" +
@@ -187,11 +223,11 @@ public class Battle extends Interactable {
             System.out.println(Colors.CLEAR + Colors.RED);
             for (Enemy enemy : enemies) {
                 int damage = 0;
-                if(enemy instanceof Boss){
-                    damage = ((Boss)enemy).BossAttack(p, enemies);
+                if (enemy instanceof Boss) {
+                    damage = ((Boss) enemy).BossAttack(p, enemies);
                 }
-                else{
-                damage = enemy.Attack(p, enemies);
+                else {
+                    damage = enemy.Attack(p, enemies);
                 }
                 p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
 //                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
@@ -214,7 +250,7 @@ public class Battle extends Interactable {
             p.incStageNum(1);
 
         }
-        updateItems(p,true);
+        updateItems(p, true);
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
@@ -252,41 +288,6 @@ public class Battle extends Interactable {
         inv(enemies);
 
     }  //TODO get location + opponent info
-
-    public static List<Enemy> getEnemies(Player p) {
-        List<Enemy> returned = new ArrayList<>();
-        for (Enemy e : Main.allEnemies) {
-            if (e.canSpawn(p)) {
-                if (p.getStageNum() % 10 == 0){
-                    if (e instanceof Boss) {
-                        returned.add(e);
-                    }
-                }
-                else if (!(e instanceof Boss)) {
-                returned.add((e));
-            }
-            }
-
-        }
-
-        return returned;
-    }
-
-    //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
-    public static void removeDead(List<Enemy> enemies) {
-        for (Enemy choice : enemies) {
-            if (choice.getBattleHp() <= 0) {
-                choice.onDeath(player, enemies);
-                System.out.println(choice.getName() + " has been killed!");
-                choice.randDrops(player, choice);
-                player.addMoney(choice.getCoins());
-                System.out.println(
-                        "You gained " + choice.getCoins() + Colors.CYAN + "◊" +
-                        Colors.RESET);
-                enemies.remove(choice);
-            }
-        }
-    }
 
     @Override
     public String getName() {

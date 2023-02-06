@@ -27,13 +27,14 @@ public class Shop extends Interactable {
             System.out.println("\nYou have " + Colors.CYAN + player.getMoney() + "◊");
             System.out.println(Colors.PURPLE + "[0] Leave");
             System.out.println(Colors.PURPLE + "[1] Quick Buy");
-            System.out.println("[2] Inspect");
-            System.out.println("[3] Sell Items");
+            System.out.println(Colors.PURPLE + "[2] Super Buy");
+            System.out.println("[3] Inspect");
+            System.out.println("[4] Sell Items");
             //System.out.print(Colors.RESET);
             try {
                 for (int i = 0; i < items.size(); i++){
                     System.out.println(
-                            "[" + (i + 4) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
+                            "[" + (i + 5) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
                             "◊" +
                             Colors.PURPLE);
                 }
@@ -41,14 +42,17 @@ public class Shop extends Interactable {
                 //items.add(Item.empty);
             }
             int choice = Helper.getInput( "",0,
-                                         items.size() + 3);
+                                          items.size() + 4);
             if (choice == 0) {
                 return;
             }
             else if (choice == 1 ) {
                 quickBuy(player, items);
             }
-            else if(choice == 2){
+            else if (choice == 2){
+                superBuy(player);
+            }
+            else if(choice == 3){
 
                 for (int i = 0; i < items.size(); i++)
                     System.out.println(
@@ -61,7 +65,7 @@ public class Shop extends Interactable {
                 System.out.println(Colors.CLEAR);
                 continue;
             }
-            else if(choice == 3){
+            else if(choice == 4){
 
                 List<Item> inv = player.getInventory();//ref type, no need for set
                 System.out.println("[0] Go back");
@@ -80,18 +84,18 @@ public class Shop extends Interactable {
                 continue;
             }
             else{
-            Item i = items.get(choice - 4);
-            if (i.getCost() > player.getMoney()) {
-                System.out.println("Not enough money");
-            }
-            else {
-                player.getInventory().add(i);
-                player.chargeMoney(i.getCost());
-                System.out.println(
-                        "Bought " + i.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
+                Item i = items.get(choice - 5);
+                if (i.getCost() > player.getMoney()) {
+                    System.out.println("Not enough money");
+                }
+                else {
+                    player.getInventory().add(i);
+                    player.chargeMoney(i.getCost());
+                    System.out.println(
+                            "Bought " + i.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
+                }
             }
         }
-    }
     }
     public static void quickBuy(Player p, List<Item> items){
         int money = p.getMoney();
@@ -111,6 +115,30 @@ public class Shop extends Interactable {
             p.chargeMoney(item.getCost());
         }
         System.out.println("Bought " + numBuy + " " + item.getName() + "s for " + (numBuy * item.getCost()) + "◊");
+    }
+    public static void superBuy(Player p){
+        int money = p.getMoney();
+        List<Item> tempItems = Main.currentPlace.getShopItems();
+        //sort items by cost ascending
+        for(int i = 0; i < tempItems.size(); i++){
+            for(int j = 0; j < tempItems.size() - 1; j++){
+                if(tempItems.get(j).getCost() > tempItems.get(j + 1).getCost()){
+                    Item temp = tempItems.get(j);
+                    tempItems.set(j, tempItems.get(j + 1));
+                    tempItems.set(j + 1, temp);
+                }
+            }
+        }
+
+        for(int i = 0; i < tempItems.size(); i++){
+            if(tempItems.get(i).getCost() <= money){
+                p.getInventory().add(tempItems.get(i));
+                p.chargeMoney(tempItems.get(i).getCost());
+                money = p.getMoney();
+                i--;
+            }
+        }
+        System.out.println("Bought all items you could afford");
     }
     public List<Item> getItems(Player p) {
         return Main.currentPlace.getShopItems();

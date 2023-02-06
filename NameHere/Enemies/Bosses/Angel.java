@@ -3,7 +3,7 @@ package NameHere.Enemies.Bosses;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Colors;
-import NameHere.Enemies.Spirits.HealingSpirit;
+import NameHere.Enemies.Sprites.HealingSprite;
 import NameHere.Helper;
 import NameHere.Main;
 import NameHere.Player;
@@ -66,7 +66,7 @@ public class Angel extends Boss {
         Helper.Sleep(1);
         System.out.println(Colors.RESET + Colors.CLEAR);
         for (int i = 0; i < 4; i++) {
-            allies.add(new HealingSpirit());
+            allies.add(new HealingSprite());
         }
     }
 }

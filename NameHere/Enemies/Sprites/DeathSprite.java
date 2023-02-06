@@ -1,4 +1,4 @@
-package NameHere.Enemies.Spirits;
+package NameHere.Enemies.Sprites;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Spirit;
@@ -7,13 +7,13 @@ import NameHere.Player;
 
 import java.util.List;
 
-public class DeathSpirit extends Spirit {
+public class DeathSprite extends Spirit {
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;
         this.dodgeRate = 1;
         this.xp = 5;
-        this.name = "DeathSpirit";
+        this.name = "Death Sprite";
     }
 
     public boolean canSpawn(Player p) {

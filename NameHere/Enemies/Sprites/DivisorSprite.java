@@ -1,18 +1,18 @@
-package NameHere.Enemies.Spirits;
-
+package NameHere.Enemies.Sprites;
+import NameHere.Abstracts.Spirit;
 import NameHere.Abstracts.Enemy;
 import NameHere.Main;
 import NameHere.Player;
-import NameHere.Abstracts.Spirit;
+
 import java.util.List;
 
-public class DebuffSpirit extends Spirit {
+public class DivisorSprite extends Spirit {
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;
         this.dodgeRate = 1;
         this.xp = 5;
-        this.name = "Debuff Spirit";
+        this.name = "Divisor Spirit";
     }
 
     public boolean canSpawn(Player p) {
@@ -21,9 +21,8 @@ public class DebuffSpirit extends Spirit {
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
-        //remove an action from the player
-        p.setActionAmount(1);
-        System.out.println("Debuff Spirit removes an action from you");
-        return 0;
+        //return the player's battle hp divided by two
+        System.out.println("The Divisor Spirit divides the player's hp by two");
+        return p.getBattleHp()/2;
     }
 }
