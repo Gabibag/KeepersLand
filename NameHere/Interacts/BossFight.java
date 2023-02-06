@@ -1,5 +1,9 @@
 package NameHere.Interacts;
-
+import NameHere.*;
+import NameHere.Abstracts.Boss;
+import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Interactable;
+import NameHere.Enemies.Bosses.FinalBoss;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.FinalBoss;
@@ -13,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
-
+import static NameHere.Interacts.Battle.*;
 import static NameHere.Interacts.Battle.removeDead;
 import static NameHere.Interacts.Battle.updateItems;
 
@@ -23,14 +27,10 @@ public class BossFight extends Interactable {
         //check if player's inventory contains the items "Healing Shard", "Glitched Shard", "Shattered Shard", "Sprite Shard", "Death Shard", "Hell Shard", "Omega Shard", "God Shard"
         //if it does, return "Boss Fight"
         //if it doesn't, return "Locked"
+       if(Main.player!= null){
         ArrayList<Item> inventoryTrunk = new ArrayList<>();
-        //for each item in inventory, add it to inventoryTrunk. If it already exists, add to the variable Count in the item.
         for(Item i : Main.player.getInventory()){
-            if(inventoryTrunk.contains(i)){
-                inventoryTrunk.get(inventoryTrunk.indexOf(i)).addCount();
-            }else{
-                inventoryTrunk.add(i);
-            }
+            inventoryTrunk.add(i);
         }
         int shardCounter = 0;
         for (int i = 0; i < inventoryTrunk.size(); i++) {
@@ -39,7 +39,8 @@ public class BossFight extends Interactable {
             }
         }
         return shardCounter == 7 ? "Boss Fight" : "Locked";
-        
+    }
+    return "Locked";
     }
     static void updateBossItems(Enemy e, boolean battleEnd) {
         if (!battleEnd) {
@@ -77,7 +78,6 @@ public class BossFight extends Interactable {
                 p.removeInventory(p.getInventory().get(i));
             }
         }
-
         Helper.contiuePrompt();
         updateItems(p, false);
         updateBossItems(enemies.get(0), false);
