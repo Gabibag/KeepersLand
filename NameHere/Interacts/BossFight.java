@@ -1,8 +1,11 @@
 package NameHere.Interacts;
-
+import NameHere.*;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-import NameHere.Abstracts.FinalBoss;
+import NameHere.Abstracts.Interactable;
+import NameHere.Enemies.Bosses.FinalBoss;
+import NameHere.Abstracts.Boss;
+import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
 import NameHere.Enemies.Bosses.TheKeeper;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
-
+import static NameHere.Interacts.Battle.*;
 import static NameHere.Interacts.Battle.removeDead;
 import static NameHere.Interacts.Battle.updateItems;
 
@@ -23,14 +26,10 @@ public class BossFight extends Interactable {
         //check if player's inventory contains the items "Healing Shard", "Glitched Shard", "Shattered Shard", "Sprite Shard", "Death Shard", "Hell Shard", "Omega Shard", "God Shard"
         //if it does, return "Boss Fight"
         //if it doesn't, return "Locked"
+       if(Main.player!= null){
         ArrayList<Item> inventoryTrunk = new ArrayList<>();
-        //for each item in inventory, add it to inventoryTrunk. If it already exists, add to the variable Count in the item.
         for(Item i : Main.player.getInventory()){
-            if(inventoryTrunk.contains(i)){
-                inventoryTrunk.get(inventoryTrunk.indexOf(i)).addCount();
-            }else{
-                inventoryTrunk.add(i);
-            }
+            inventoryTrunk.add(i);
         }
         int shardCounter = 0;
         for (int i = 0; i < inventoryTrunk.size(); i++) {
@@ -39,7 +38,8 @@ public class BossFight extends Interactable {
             }
         }
         return shardCounter == 7 ? "Boss Fight" : "Locked";
-        
+    }
+    return "Locked";
     }
     static void updateBossItems(Enemy e, boolean battleEnd) {
         if (!battleEnd) {
@@ -58,6 +58,17 @@ public class BossFight extends Interactable {
     }
     @Override
     public void onChoose(Player p) { //yeah same exact thing. Just some sliiiight tweaks.
+        int shardCounter = 0;
+        for (Item i :p.getInventory()) {
+            if(i.getName().contains("Shard")){
+                shardCounter++;
+            }
+        }
+        if(shardCounter < 7){
+            System.out.println("You need all 7 shards to fight enter this area.");
+            Helper.contiuePrompt();
+            return;
+        }
         int tempMaxHp = 0;
         for (Item i : p.getInventory()) {
             tempMaxHp = p.getHp() + i.getHpIncr();
@@ -77,7 +88,6 @@ public class BossFight extends Interactable {
                 p.removeInventory(p.getInventory().get(i));
             }
         }
-
         Helper.contiuePrompt();
         updateItems(p, false);
         updateItems(p, true);
@@ -173,7 +183,7 @@ public class BossFight extends Interactable {
                                         enemies.add(new TheKeeper2());
                                         enemies.get(enemies.size()-1).setDrops(enemies.get(choice-1).getDrops());
                                         System.out.println("The Keeper has ascended to stage two!");
-                                        ((FinalBoss)enemies.get(enemies.size()-1)).finalBossOnSpawn(enemies);
+                                        ((TheKeeper)enemies.get(enemies.size()-1)).finalBossOnSpawn(enemies);
                                         enemies.remove(choice-1);
                                         //tell the user that the keeper has ascended to stage two
 

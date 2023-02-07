@@ -1,6 +1,8 @@
 package NameHere.Enemies.WindyHeights;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.WindyHeights;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -23,7 +25,6 @@ public class Ninja extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return true; //(r.nextInt([spawnchance]) == 2)
-
+        return Main.currentPlace instanceof WindyHeights; //(r.nextInt([spawnchance]) == 2)
     }
 }

@@ -16,6 +16,14 @@ public class Shop extends Interactable {
                 "Welcome to the shop, " + player.getName());
         while (true) {
             List<Item> items = getItems(player);
+            //if the player's stage number is less than 10 remove all Items that contain the word "shard" in their name
+            if (player.getStageNum() < 10) {
+                for (int i = items.size()-1; i >= 0; i--) {
+                    if (items.get(i).getName().contains("Shard")) {
+                        items.set(i, ItemData.LockedItem);
+                    }
+                }
+            }
             System.out.println("\nYou have " + Colors.CYAN + player.getMoney() + "◊");
             System.out.println(Colors.PURPLE + "[0] Leave");
             System.out.println(Colors.PURPLE + "[1] Quick Buy");
