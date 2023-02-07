@@ -1,6 +1,8 @@
 package NameHere.Enemies.GatesToHell;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.GatesToHell;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -22,7 +24,7 @@ public class CaveDweller extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return true; //(r.nextInt([spawnchance]) == 2)
+        return Main.currentPlace instanceof GatesToHell; //(r.nextInt([spawnchance]) == 2)
 
     }
 

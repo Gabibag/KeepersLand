@@ -58,6 +58,17 @@ public class BossFight extends Interactable {
     }
     @Override
     public void onChoose(Player p) { //yeah same exact thing. Just some sliiiight tweaks.
+        int shardCounter = 0;
+        for (Item i :p.getInventory()) {
+            if(i.getName().contains("Shard")){
+                shardCounter++;
+            }
+        }
+        if(shardCounter < 7){
+            System.out.println("You need all 7 shards to fight enter this area.");
+            Helper.contiuePrompt();
+            return;
+        }
         int tempMaxHp = 0;
         for (Item i : p.getInventory()) {
             tempMaxHp = p.getHp() + i.getHpIncr();
