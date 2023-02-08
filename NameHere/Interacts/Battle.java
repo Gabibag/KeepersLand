@@ -108,36 +108,9 @@ public class Battle extends Interactable {
             //tell user their stage number and enviorment
             System.out.println("You are in the " + Main.currentPlace.getName() + Colors.RESET);
             while (Actions > 0) {
-                for (Enemy enemy : enemies) {
-                    System.out.print(Colors.RED + enemy.getName() + "  ");
-                }
-
                 System.out.println();
                 //TODO: add a check if the health exceeds the text length of the char so the names spread out
-                for (Enemy enemy : enemies) {
-                    for (int i = 0; i < enemy.getName().length(); i++) {
-                        if ((enemy.getName().length() <= 4)) {
-                            System.out.print(" " + enemy.displayBattleHp());
-                            for (int j = 0; j < enemy.getName().length() - 4; ) {
-                                System.out.print(" ");
-                            }
-                            break;
-                        }
-                        else if ((enemy.getName().length() - (enemy.displayBattleHp().length() + 2)) / 2 <
-                                 1) {
-                            System.out.print(enemy.displayBattleHp() + " ");
-                            break;
-                        }
-                        else if (i ==
-                                 (((enemy.getName().length()) - (enemy.displayBattleHp()).length() + 2)) / 2) {
-                            System.out.print(enemy.displayBattleHp());
-                            i += 4;
-                        }
-                        System.out.print(" ");
-                    }
-                    System.out.print("  ");
-                }
-
+                printHealth(enemies, p);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
                                    "[1] Attack");
@@ -251,6 +224,36 @@ public class Battle extends Interactable {
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
 
+    }
+
+    private void printHealth(List<Enemy> enemies, Player p) {
+        System.out.println(Colors.PURPLE + "Player hp: " + p.getBattleHp());
+        String Names  = "";
+        String HpAmounts = "";
+        for (Enemy enemy : enemies) {
+            String nameAdd = enemy.getName();
+            String hpAdd = "" + enemy.getBattleHp();
+            if(nameAdd.length() > hpAdd.length()){
+                //find the difference
+                int diff = nameAdd.length() - hpAdd.length();
+                int offset = diff / 2;
+                for(int i = 0; i < offset; i++){
+                    hpAdd = " " + hpAdd + " ";
+                }
+            }
+            else if (nameAdd.length() < hpAdd.length()){
+                int diff = hpAdd.length() - nameAdd.length();
+                int offset = diff / 2;
+                for(int i = 0; i < offset; i++){
+                    nameAdd = " " + nameAdd + " ";
+                }
+            }
+
+            Names +=  nameAdd + "  ";
+            HpAmounts += hpAdd + "  ";
+        }
+        System.out.println(Names);
+        System.out.println(HpAmounts +  Colors.RESET);
     }
 
     public static void inv(List<Enemy> enemies) {
