@@ -82,7 +82,7 @@ public class Battle extends Interactable {
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
-        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 3));//only spawns 1 boss
+        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 7));//only spawns 1 boss
 
 
         try {
@@ -230,6 +230,7 @@ public class Battle extends Interactable {
         System.out.println(Colors.PURPLE + "Player hp: " + p.getBattleHp());
         String Names  = "";
         String HpAmounts = "";
+        String hpBars = "";
         for (Enemy enemy : enemies) {
             String nameAdd = enemy.getName();
             String hpAdd =   enemy.getBattleHp() + "hp";
@@ -240,6 +241,9 @@ public class Battle extends Interactable {
                 for(int i = 0; i < offset; i++){
                     hpAdd = " " + hpAdd + " ";
                 }
+                if(diff %2 != 0){
+                    hpAdd += " ";
+                }
             }
             else if (nameAdd.length() < hpAdd.length()){
                 int diff = hpAdd.length() - nameAdd.length();
@@ -247,12 +251,25 @@ public class Battle extends Interactable {
                 for(int i = 0; i < offset; i++){
                     nameAdd = " " + nameAdd + " ";
                 }
+                if(diff %2 != 0){
+                    nameAdd += " ";
+                }
             }
-
+            int barLength = Math.max(nameAdd.length(), hpAdd.length());
+            String bar = "[=]";
+            if(!(barLength < 3)){
+                 bar = "[";
+                for(int i = 0; i < barLength - 2; i++){
+                    bar += "=";
+                }
+                bar += "]";
+            }
+            hpBars += bar + "  ";
             Names +=  nameAdd + "  ";
             HpAmounts += hpAdd + "  ";
         }
         System.out.println(Names);
+       // System.out.println(hpBars);
         System.out.println(HpAmounts +  Colors.RESET);
     }
 
