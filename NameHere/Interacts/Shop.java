@@ -3,6 +3,7 @@ package NameHere.Interacts;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Shop extends Interactable {
@@ -20,7 +21,20 @@ public class Shop extends Interactable {
             if (player.getStageNum() < 10) {
                 for (int i = items.size()-1; i >= 0; i--) {
                     if (items.get(i).getName().contains("Shard")) {
-                        items.set(i, ItemData.LockedItem);
+                        Item il = ItemData.LockedItem;
+                        il.setCost(9999999);
+                        items.set(i,il );
+                    }
+                }
+            }
+            //if the player aleady has an item and it has shard in its name, remove it from the shop
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getName().contains("Shard")) {
+                    for (Item item : player.getInventory()) {
+                        if (item.getName().contains("Shard")) {
+                            items.remove(i);
+                            i--;
+                        }
                     }
                 }
             }
@@ -140,7 +154,8 @@ public class Shop extends Interactable {
         }
         System.out.println("Bought all items you could afford");
     }
-    public List<Item> getItems(Player p) {
-        return Main.currentPlace.getShopItems();
+    public ArrayList<Item> getItems(Player p) {
+        ArrayList<Item> tmp = new ArrayList<Item>(Main.currentPlace.getShopItems());
+        return tmp;
     }
 }

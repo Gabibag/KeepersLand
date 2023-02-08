@@ -4,6 +4,7 @@ import NameHere.Item;
 import NameHere.Main;
 import NameHere.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Enviorment {
