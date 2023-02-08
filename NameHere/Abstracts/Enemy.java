@@ -43,6 +43,8 @@ public abstract class Enemy {
         Main.allEnemies.add((this)); //adds all enemies to a list
         }
         this.battleHp = this.baseHp;
+        //to prevent errors with the list being static sized
+        this.drops = new ArrayList<Item>(this.drops);
         this.drops.add(ItemData.OmegaShard);
     }
 

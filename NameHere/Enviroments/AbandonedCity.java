@@ -19,7 +19,7 @@ public class AbandonedCity  extends Enviorment{
 
     @Override
     public String getDescription() {
-        return "A destoryed city, full of mutated monsters. \n It appears to have been destoryed by a nuclear blast and some of the radation is still around.";
+        return "A destoryed city, full of mutated monsters. \nIt appears to have been destoryed by a nuclear blast and some of the radation is still around.";
     }
 
     @Override

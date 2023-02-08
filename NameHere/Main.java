@@ -68,7 +68,8 @@ public class Main {
             player.incStageNum(10);
             player.setHealAmount(100);
             player.addMoney(99999);
-            player.setDamage(500);
+            player.setDamage(5);
+            player.setHp(2000);
             System.out.println("sus");
             Main.currentPlace = new AbandonedCity();
         }

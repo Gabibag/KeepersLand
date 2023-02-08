@@ -90,8 +90,9 @@ public class Battle extends Interactable {
                 enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
             }
         } catch (Exception e) {
-            System.out.println("Failed to create a new enemy object, check your cnstr");
-        }
+            System.out.println("Failed to create a new enemy object, check your cnstr type:");
+            e.printStackTrace();
+      }
         System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
         Helper.Sleep(1);
         System.out.print(Colors.CLEAR);
