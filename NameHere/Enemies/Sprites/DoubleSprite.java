@@ -24,7 +24,7 @@ public class DoubleSprite extends Spirit {
         //make all allies but itself attack again
         System.out.println("The Double Spirit makes all allies attack again");
         for (Enemy e : allies) {
-            if (e != this) {
+            if (!(e instanceof DoubleSprite)) {
                 e.Attack(p, allies);
             }
         }

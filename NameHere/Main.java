@@ -1,6 +1,7 @@
 package NameHere;
 
 import NameHere.Abstracts.*;
+import NameHere.Enviroments.AbandonedCity;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Enviroments.NullZone;
 import NameHere.Enviroments.WindyHeights;
@@ -69,7 +70,7 @@ public class Main {
             player.addMoney(99999);
             player.setDamage(500);
             System.out.println("sus");
-            Main.currentPlace = new WindyHeights();
+            Main.currentPlace = new AbandonedCity();
         }
         else if (player.getName().equalsIgnoreCase("playtest") || player.getName().equalsIgnoreCase("ptest")) {
             List<Enemy> spawns;

@@ -1,7 +1,9 @@
 package NameHere.Enemies.Graveyard;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.Graveyard;
 import NameHere.ItemData;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -21,7 +23,7 @@ public void setBaseStats(){
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextBoolean());
+        return (Main.currentPlace instanceof Graveyard);
 
     }
 }
