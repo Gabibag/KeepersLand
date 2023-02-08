@@ -22,7 +22,7 @@ public class Overloading extends Enemy{
     public int Attack(Player p, List<Enemy> a){
         if(chargeLeft == 0){
             System.out.println("The OverLoaded Zombie explodes, dealing " + this.damage + " damage to the player and killing itself");
-            a.remove(this);
+            this.battleHp = 0;
             return this.damage;
         }
         chargeLeft--;

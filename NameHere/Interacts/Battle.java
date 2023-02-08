@@ -199,6 +199,7 @@ public class Battle extends Interactable {
                     damage = enemy.Attack(p, enemies);
                 }
                 p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
+                
 //                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
             }
@@ -260,7 +261,14 @@ public class Battle extends Interactable {
             if(!(barLength < 3)){
                  bar = "[";
                 for(int i = 0; i < barLength - 2; i++){
-                    bar += "=";
+                    double percentHp  = enemy.getBattleHp()/ (double) enemy.getBaseHp();
+                    double barPercent = i / (double) (barLength - 2);
+                    if(barPercent < percentHp){
+                        bar += "=";
+                    }
+                    else{
+                        bar += " ";
+                    } 
                 }
                 bar += "]";
             }
@@ -269,7 +277,7 @@ public class Battle extends Interactable {
             HpAmounts += hpAdd + "  ";
         }
         System.out.println(Names);
-       // System.out.println(hpBars);
+       System.out.println(hpBars);
         System.out.println(HpAmounts +  Colors.RESET);
     }
 
