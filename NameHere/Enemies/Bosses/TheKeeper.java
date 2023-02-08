@@ -15,7 +15,7 @@ public class TheKeeper extends FinalBoss {
     }
 
     public void setBaseStats() {
-        this.baseHp = 7500;
+        this.baseHp = 1000;
         this.damage = 150;
         this.xp = 12000;
         this.name = "Keeper";
@@ -50,7 +50,7 @@ public class TheKeeper extends FinalBoss {
         int damage =this.damage;
         //1 in 10 chance to make all items that contian the name shard in the player's inventory deal 10 damage to the player
         int counter = 0;
-        int rand = Main.r.nextInt(10);
+        int rand = Main.r.nextInt(5);
         if (rand == 1) {
             for (int i = 0; i < p.getInventory().size(); i++) {
                 if (p.getInventory().get(i).getName().contains("shard")) {
@@ -61,7 +61,7 @@ public class TheKeeper extends FinalBoss {
             return counter*10;
         }
         else if (rand==2) {
-            System.out.println(name + " deals " + damage + " damage (DOUBLE)");
+            System.out.println(name + " deals " + (damage << 1) + " damage (DOUBLE)");
             return damage << 1;
         } else if (rand == 3) {
             for (int i = 0; i < p.getInventory().size(); i++) {
@@ -74,7 +74,7 @@ public class TheKeeper extends FinalBoss {
         }
         else if (rand == 4) {
 
-            System.out.println("A shard shatters...");
+            System.out.println("A shard shatters in your inventory...");
             //find an omega sword in the player's inventory. replace it with 9 shattered shards
         }
         else  {

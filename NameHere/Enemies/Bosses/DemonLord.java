@@ -2,7 +2,6 @@ package NameHere.Enemies.Bosses;
 
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-import NameHere.Enemies.Lava.Demon;
 import NameHere.Colors;
 import NameHere.Helper;
 import NameHere.Main;
@@ -10,11 +9,7 @@ import NameHere.Player;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class DemonLord extends Boss {
     public static boolean End = false;
@@ -60,8 +55,8 @@ public class DemonLord extends Boss {
                 if(Pos == SPos){
                     SPos = (SPos + 1) % 6;
                 }
-                Boolean PDown = false;
-                Boolean SDown = true;
+                boolean PDown = false;
+                boolean SDown = true;
                 while(!DemonLord.End){
                     if(Pos <= 0 ){
                         PDown = false; 
@@ -96,7 +91,7 @@ public class DemonLord extends Boss {
                     System.out.println(O + "\n" + S);
                     //Helper.Prompt("a");
                     Helper.Sleep(0.1);
-                    System.out.print(String.format("\033[%dA",2));
+                    System.out.printf("\033[%dA", 2);
                 }
                 System.out.println(Colors.CLEAR);
                 return Math.abs(Pos - SPos);
@@ -123,9 +118,7 @@ public class DemonLord extends Boss {
             System.out.println();
             DemonLord.End = false;
             return dmg;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         System.out.println("Failed to get result");

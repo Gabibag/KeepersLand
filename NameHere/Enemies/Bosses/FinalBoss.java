@@ -64,7 +64,7 @@ public class FinalBoss extends Boss {
         }
         else if (rand==2) {
             System.out.println(name + " deals " + damage + " damage (DOUBLE)");
-            return damage*2;
+            return damage << 1;
         } else if(rand == 3){
             for (int i = 0; i < p.getInventory().size(); i++) {
                 if (p.getInventory().get(i).getName().equalsIgnoreCase("Omega Shard")) {
