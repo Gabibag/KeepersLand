@@ -77,7 +77,6 @@ public class Shop extends Interactable {
                 System.out.println(items.get(sC - 1));
                 Helper.Prompt("Press Enter when done");
                 System.out.println(Colors.CLEAR);
-                continue;
             }
             else if(choice == 4){
 
@@ -95,7 +94,6 @@ public class Shop extends Interactable {
                     player.addMoney((int)(inv.get(c - 1).getCost()* (9f/10)));
                     inv.remove(c - 1);
                 }
-                continue;
             }
             else{
                 Item i = items.get(choice - 5);

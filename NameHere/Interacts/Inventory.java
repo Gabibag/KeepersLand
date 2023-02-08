@@ -7,21 +7,17 @@ import NameHere.Player;
 import NameHere.Abstracts.Interactable;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-
-import javax.swing.Icon;
 
 public class Inventory extends Interactable{
     public void onChoose(Player p){
         System.out.println(p.getName() + "'s inventory: ");
         System.out.println("Current Balance " +Colors.CYAN+ p.getMoney() + "◊");
-        HashMap iCount = new HashMap<String, Integer>();
+        HashMap<String, Integer> iCount = new HashMap<>();
         for(Item i: p.getInventory()){
             if(iCount.containsKey(i.getName())){
-                iCount.put(i.getName(), (int)iCount.get(i.getName()) + 1);
+                iCount.put(i.getName(), iCount.get(i.getName()) + 1);
             }else{
                 iCount.put(i.getName(), 1);
             }

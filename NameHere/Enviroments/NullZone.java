@@ -5,13 +5,12 @@ import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
 import NameHere.Player;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class NullZone extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList();
+        return List.of();
     }
 
     public String getDescription() {

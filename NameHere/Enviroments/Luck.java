@@ -28,7 +28,7 @@ public class Luck extends Enviorment {
         int chance = Main.r.nextInt(3);
         if (chance == 0) {
             System.out.println("Your damage has doubled!");
-            return preChange * 2;
+            return preChange << 1;
 
         } else if (chance == 1) {
             System.out.println("Your damage has halved!");
@@ -94,9 +94,9 @@ public class Luck extends Enviorment {
         // if chance is 2, double everything's battle health
         else if (chance == 2) {
             for (Enemy e : enemies) {
-                e.setBattleHp(e.getBattleHp() * 2);
+                e.setBattleHp(e.getBattleHp() << 1);
             }
-            p.setBattleHp(p.getBattleHp() * 2);
+            p.setBattleHp(p.getBattleHp() << 1);
             System.out.println("All health has doubled!");
         }
         //if chance is 3 deal 20 damage to everything
@@ -121,7 +121,7 @@ public class Luck extends Enviorment {
     public int modifyEnemyDamage(int preChange) {
         int chance = Main.r.nextInt(3);
         if (chance == 0) {
-            return preChange * 2;
+            return preChange << 1;
         } else if (chance == 1) {
             return preChange / 2;
         } else {

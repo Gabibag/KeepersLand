@@ -5,14 +5,10 @@ import NameHere.Enviroments.LavaZone;
 import NameHere.Enviroments.NullZone;
 import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
-import NameHere.Interacts.Shop;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 
@@ -52,9 +48,7 @@ public class Main {
         }
         if (saves == 0) {
             List<String> takenNames = allPlayerFiles();
-            for (int i = 0; i < takenNames.size(); i++) {
-                takenNames.set(i, takenNames.get(i).substring(0, takenNames.get(i).length() - 4));
-            }
+            takenNames.replaceAll(s1 -> s1.substring(0, s1.length() - 4));
             String name = Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET);
             while (takenNames.contains(name)) {
                 name = Helper.Prompt(
@@ -131,7 +125,8 @@ public class Main {
             }
 
             System.out.println("amogus");
-        }else if (player.getName().equalsIgnoreCase("bossTest") || player.getName().equalsIgnoreCase("btest")) {
+        }
+        else if (player.getName().equalsIgnoreCase("bossTest") || player.getName().equalsIgnoreCase("btest")) {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < 99; i++) {
@@ -142,9 +137,9 @@ public class Main {
                     e.randDrops(player, e);
                 }
 
-                if (player.getStageNum()%9 == 0){
+                /*if (player.getStageNum()%9 == 0){
                     Shop.superBuy(player);
-                }
+                }*/
                 player.incStageNum(1);
                 getNewPlace();
             }
@@ -175,9 +170,9 @@ public class Main {
                 for (Enemy e : tempenemies) {
                     e.randDrops(player, e);
                 }
-                if (player.getStageNum()%9 == 0){
+                /*if (player.getStageNum()%9 == 0){
                     Shop.superBuy(player);
-                }
+                }*/
                 getNewPlace();
                 player.incStageNum(1);
             }
@@ -190,7 +185,7 @@ public class Main {
             System.out.println("amogsus");
             System.exit(0);
         }
-        while (true) {
+          while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(
                     "You are currently in the " + Colors.RED +  currentPlace.getName() + Colors.RESET + ", on stage " + player.getStageNum() +
@@ -205,8 +200,8 @@ public class Main {
     }
 
     public static List<String> allPlayerFiles() {
-        List<String> saves = new ArrayList<String>();
-        for (File f : new File(".").listFiles()) {
+        List<String> saves = new ArrayList<>();
+        for (File f : Objects.requireNonNull(new File(".").listFiles())) {
             if (f.getName().endsWith(".plr")) {
                 saves.add(f.getName());
             }
@@ -241,7 +236,7 @@ public class Main {
     }
 
     /**
-     * peforms black magic to get all of the types
+     * peforms black magic to get all the types
      **/
     public static void initTypes() {
         File folder = new File(".");

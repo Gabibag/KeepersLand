@@ -1,6 +1,8 @@
 package NameHere.Enemies.GatesToHell;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.GatesToHell;
+import NameHere.Main;
 import NameHere.Player;
 import NameHere.Main;
 import NameHere.Enviroments.GatesToHell;

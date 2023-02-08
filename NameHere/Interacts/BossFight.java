@@ -1,13 +1,10 @@
 package NameHere.Interacts;
-import NameHere.*;
+
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
+import NameHere.*;
 import NameHere.Enemies.Bosses.FinalBoss;
-import NameHere.Abstracts.Boss;
-import NameHere.Abstracts.Enemy;
-import NameHere.Abstracts.Interactable;
-import NameHere.*;
 import NameHere.Enemies.Bosses.TheKeeper;
 import NameHere.Enemies.Bosses.TheKeeper2;
 import NameHere.Enviroments.NullZone;
@@ -16,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
-import static NameHere.Interacts.Battle.*;
+
 import static NameHere.Interacts.Battle.removeDead;
 import static NameHere.Interacts.Battle.updateItems;
 
@@ -27,16 +24,13 @@ public class BossFight extends Interactable {
         //if it does, return "Boss Fight"
         //if it doesn't, return "Locked"
        if(Main.player!= null){
-        ArrayList<Item> inventoryTrunk = new ArrayList<>();
-        for(Item i : Main.player.getInventory()){
-            inventoryTrunk.add(i);
-        }
+           ArrayList<Item> inventoryTrunk = new ArrayList<>(Main.player.getInventory());
         int shardCounter = 0;
-        for (int i = 0; i < inventoryTrunk.size(); i++) {
-            if (inventoryTrunk.get(i).getName().contains("Shard")) {
-                shardCounter++;
-            }
-        }
+           for (Item item : inventoryTrunk) {
+               if (item.getName().contains("Shard")) {
+                   shardCounter++;
+               }
+           }
         return shardCounter == 7 ? "Boss Fight" : "Locked";
     }
     return "Locked";
@@ -143,7 +137,6 @@ public class BossFight extends Interactable {
                 System.out.println(Colors.PURPLE +
                                    "[1] Attack");
                 System.out.println("[2] Heal");
-                System.out.println("");
                 System.out.println("[3] Info" + Colors.RESET);
                 int choice = Helper.getInput(Colors.RESET + "Current Health: " + p.getBattleHp(), 3);
                 switch (choice) {

@@ -51,13 +51,11 @@ public class Helper {
 
     }
     public static <t> void AddArrayToList(List<t> add, t[] added){
-        for (t ts : added) {
-            add.add(ts);
-        }
+        add.addAll(Arrays.asList(added));
     }
-    public static String contiuePrompt(){
+    public static void contiuePrompt(){
         System.out.print(Colors.PURPLE + "Press enter to continue" + Colors.RESET);
-        return s.nextLine();
+        s.nextLine();
     }
     /**
      * returns an items rarity as a word from a number following this chart
