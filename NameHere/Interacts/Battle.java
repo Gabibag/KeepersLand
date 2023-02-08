@@ -82,7 +82,7 @@ public class Battle extends Interactable {
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
-        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 7));//only spawns 1 boss
+        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 3));//only spawns 1 boss
 
 
         try {
