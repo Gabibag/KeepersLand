@@ -232,7 +232,7 @@ public class Battle extends Interactable {
         String HpAmounts = "";
         for (Enemy enemy : enemies) {
             String nameAdd = enemy.getName();
-            String hpAdd = "" + enemy.getBattleHp();
+            String hpAdd =   enemy.getBattleHp() + "hp";
             if(nameAdd.length() > hpAdd.length()){
                 //find the difference
                 int diff = nameAdd.length() - hpAdd.length();
