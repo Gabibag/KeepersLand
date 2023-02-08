@@ -1,6 +1,7 @@
 package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -20,7 +21,7 @@ public class Giant extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return true; //20% chance of spawning
+        return Main.r.nextFloat() > 0.7f; //20% chance of spawning
 
     }
 }

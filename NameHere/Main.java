@@ -3,6 +3,7 @@ package NameHere;
 import NameHere.Abstracts.*;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Enviroments.NullZone;
+import NameHere.Enviroments.WindyHeights;
 import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
 import NameHere.Interacts.Shop;
@@ -69,12 +70,12 @@ public class Main {
         getNewPlace();
 
         if (player.getName().equals("among us") || player.getName().equals("test")) {
-            player.incStageNum(9);
+            player.incStageNum(10);
             player.setHealAmount(100);
             player.addMoney(99999);
             player.setDamage(500);
             System.out.println("sus");
-            Main.currentPlace = new LavaZone();
+            Main.currentPlace = new WindyHeights();
         }
         else if (player.getName().equalsIgnoreCase("playtest") || player.getName().equalsIgnoreCase("ptest")) {
             List<Enemy> spawns;

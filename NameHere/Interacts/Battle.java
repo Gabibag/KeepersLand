@@ -102,11 +102,6 @@ public class Battle extends Interactable {
                 throw new RuntimeException(e);
             }
         }
-        if (p.getName().equals("among us")) {
-            enemies.clear();
-            enemies.add(new DemonLord());
-
-        }
         while (enemies.size() > 0) {
             removeDead(enemies);
             //tell user their stage number and enviorment

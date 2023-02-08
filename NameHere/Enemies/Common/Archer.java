@@ -1,6 +1,7 @@
 package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -20,7 +21,7 @@ public class Archer extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return true; //(r.nextInt([spawnchance]) == 2)
+        return Main.r.nextFloat() > 70; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

@@ -2,6 +2,7 @@ package NameHere.Enemies.Common;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.ItemData;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -21,7 +22,7 @@ public class Goblin extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return true;
+        return Main.r.nextFloat() > 0.7f;
 
     }
 }
