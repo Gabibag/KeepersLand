@@ -24,6 +24,8 @@ public class Helper {
         }
         else if (type == 1) {
             return  1 + Math.round(Main.player.getStageNum() / 10f);
+        }else if (type == 2) {
+            return  1 + Math.round(Main.player.getStageNum() / 100f);
         }
         return 1 + Math.round(Main.player.getStageNum() / 10f);
     }

@@ -16,7 +16,7 @@ public class TheKeeper extends FinalBoss {
 
     public void setBaseStats() {
         this.baseHp = 7500;
-        this.damage = 1000;
+        this.damage = 150;
         this.xp = 12000;
         this.name = "Keeper";
         this.coins = 5000;
@@ -47,12 +47,13 @@ public class TheKeeper extends FinalBoss {
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
+        int damage =this.damage;
         //1 in 10 chance to make all items that contian the name shard in the player's inventory deal 10 damage to the player
         int counter = 0;
         int rand = Main.r.nextInt(10);
         if (rand == 1) {
             for (int i = 0; i < p.getInventory().size(); i++) {
-                if (p.getInventory().get(i).getName().contains("Shard")) {
+                if (p.getInventory().get(i).getName().contains("shard")) {
                     counter++;
                 }
             }
@@ -61,17 +62,25 @@ public class TheKeeper extends FinalBoss {
         }
         else if (rand==2) {
             System.out.println(name + " deals " + damage + " damage (DOUBLE)");
-            return damage*2;
-        } else if(rand == 3){
+            return damage << 1;
+        } else if (rand == 3) {
             for (int i = 0; i < p.getInventory().size(); i++) {
                 if (p.getInventory().get(i).getName().equalsIgnoreCase("Omega Shard")) {
                     counter++;
                 }
             }
-            System.out.println("The shards power the Keeper. It deals " + damage * (counter/10) + " damage.");
-            return damage * (counter/10);
+            System.out.println("The shards power the Keeper. It deals " + (damage * ((counter / 2) + 1)) + " damage.");
+            return damage * ((counter / 10) + 1);
         }
+        else if (rand == 4) {
 
+            System.out.println("A shard shatters...");
+            //find an omega sword in the player's inventory. replace it with 9 shattered shards
+        }
+        else  {
+            System.out.println(name + " deals " + damage + " damage ");
+            return damage;
+        }
         return damage;
     }
 }

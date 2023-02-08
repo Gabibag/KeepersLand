@@ -1,11 +1,8 @@
 package NameHere.Enviroments;
 
+import NameHere.*;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
-import NameHere.Helper;
-import NameHere.Item;
-import NameHere.ItemData;
-import NameHere.Player;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,8 +31,9 @@ public class GatesToHell extends Enviorment {
 
     public void playerAction(Player p) {
         //remove 2% of player hp
+
         p.setBattleHp(p.getBattleHp() - (int) (p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02));
-        System.out.println("The gates to hell hurt you for "+ (int)(p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02) +" damage!");
+        System.out.println(Colors.CLEAR +  "The gates to hell hurt you for " + (int)(p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02) + " damage!");
         Helper.contiuePrompt();
     }
 

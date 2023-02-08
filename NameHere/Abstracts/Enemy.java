@@ -13,6 +13,10 @@ public abstract class Enemy {
     protected int dodgeRate = 1;
     protected int xp;
 
+    //create a get type method that returns the string "Enemy"
+    public String getType() {
+        return "Enemy";
+    }
     public List<Item> getDrops() {
         return drops;
     }
@@ -112,7 +116,7 @@ public abstract class Enemy {
             }
         }
         
-        p.addMoney(e.getCoins());
+        p.addMoney(e.getCoins()*Helper.getScaleFactor(2));
         p.addXp(e.xp);
     }
 }
