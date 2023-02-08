@@ -39,7 +39,9 @@ public abstract class Enemy {
     public Enemy() {
         this.setBaseStats();
         scaleStats();
+        if(!Main.allEnemies.contains(this)){
         Main.allEnemies.add((this)); //adds all enemies to a list
+        }
         this.battleHp = this.baseHp;
         this.drops.add(ItemData.OmegaShard);
     }

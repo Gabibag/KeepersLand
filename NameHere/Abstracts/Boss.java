@@ -9,7 +9,8 @@ public abstract class Boss extends Enemy {
     protected int tokens;
 
     public Boss() {
-        Main.allBosses.add((this));
+        if(!Main.allBosses.contains(this))
+            Main.allBosses.add((this));
     }
 
     @Override

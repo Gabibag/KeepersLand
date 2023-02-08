@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 
 public class Main {
@@ -227,10 +228,16 @@ public class Main {
     }
 
     public static void getNewPlace() {
-        currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
+        try {
+            currentPlace = allPlaces.get(r.nextInt(allPlaces.size())).getClass().getDeclaredConstructor().newInstance();
+        
         while (!currentPlace.isVaild(player)) {
             currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
         }
+    }catch (Exception e){
+        System.out.println("Error getting new place, invaild constructor, trying again");
+        getNewPlace();
+    }
     }
 
     /**

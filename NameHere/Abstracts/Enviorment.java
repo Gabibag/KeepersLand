@@ -9,7 +9,9 @@ import java.util.List;
 
 public abstract class Enviorment {
     public Enviorment() {
+        if(!Main.allPlaces.contains(this)){
         Main.allPlaces.add((this));
+        }
     }
 
     public abstract String getDescription();
