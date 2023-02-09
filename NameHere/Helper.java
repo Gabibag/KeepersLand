@@ -1,6 +1,13 @@
 package NameHere;
 
-import java.util.*;
+import NameHere.Enemies.Common.Archer;
+import NameHere.Enemies.Common.Goblin;
+import NameHere.Enemies.Common.Warrior;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Helper {
@@ -104,7 +111,14 @@ public class Helper {
     public static <T> List<T> getRandomElements(List<T> list, int amount) {
         List<T> r = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            r.add(list.get(Main.r.nextInt(list.size())));
+            try {
+                r.add(list.get(Main.r.nextInt(list.size())));
+            } catch (Exception e) {
+                r.add((T) new Goblin());
+                r.add((T) new Archer());
+                r.add((T) new Warrior());
+
+            }
         }
 
         return r;

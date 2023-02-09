@@ -14,7 +14,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
         this.baseHp = 1;
         this.damage = 0;
         this.xp = 20;
-        this.name = "Final Boss (Stage 2)";
+        this.name = "The Keeper (Stage 2)";
         this.coins = 50;
         this.tokens = 1;
         this.bossStage = 2;

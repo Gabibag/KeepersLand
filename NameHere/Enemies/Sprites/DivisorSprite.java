@@ -12,11 +12,11 @@ public class DivisorSprite extends Spirit {
         this.coins = 5;
         this.dodgeRate = 1;
         this.xp = 5;
-        this.name = "Divisor Spirit";
+        this.name = "Divisor Sprite";
     }
 
     public boolean canSpawn(Player p) {
-        return Main.r.nextInt(1, 10) == 2;
+        return Main.r.nextInt(1, 20) == 2;
     }
 
     @Override

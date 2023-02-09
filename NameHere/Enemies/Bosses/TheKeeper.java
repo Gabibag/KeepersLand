@@ -15,9 +15,9 @@ public class TheKeeper extends FinalBoss {
     }
 
     public void setBaseStats() {
-        this.baseHp = 1000;
+        this.baseHp = 500;
         this.damage = 150;
-        this.xp = 12000;
+        this.xp = 1200;
         this.name = "Keeper";
         this.coins = 5000;
         this.tokens = 100;

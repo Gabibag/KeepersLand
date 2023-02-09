@@ -16,7 +16,7 @@ public class WindSprite extends Spirit {
     }
 
     public boolean canSpawn(Player p) {
-        return Main.r.nextInt(1, 10) == 2;
+        return Main.r.nextInt(1, 20) == 2;
     }
 
     @Override

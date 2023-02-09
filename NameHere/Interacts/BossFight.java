@@ -7,6 +7,7 @@ import NameHere.*;
 import NameHere.Enemies.Bosses.FinalBoss;
 import NameHere.Enemies.Bosses.TheKeeper;
 import NameHere.Enemies.Bosses.TheKeeper2;
+import NameHere.Enemies.Bosses.TheKeeper3;
 import NameHere.Enviroments.NullZone;
 
 import java.util.ArrayList;
@@ -25,13 +26,20 @@ public class BossFight extends Interactable {
         //if it doesn't, return "Locked"
        if(Main.player!= null){
            ArrayList<Item> inventoryTrunk = new ArrayList<>(Main.player.getInventory());
-        int shardCounter = 0;
-           for (Item item : inventoryTrunk) {
-               if (item.getName().contains("Shard")) {
-                   shardCounter++;
+            int shardCounter = 0;
+               for (int j = 0; j < inventoryTrunk.size(); j++) {
+                   Item item = inventoryTrunk.get(j);
+                   if (item.getName().contains("Shard")) {
+                       for (int i = 0; i < inventoryTrunk.size() - 1; i++) {
+                           //check if item1's name is the same as item's name, if it is, remove it
+                           if (inventoryTrunk.get(i).getName().equals(item.getName())) {
+                               inventoryTrunk.remove(inventoryTrunk.get(i));
+                           }
+                       }
+                       shardCounter++;
+                   }
                }
-           }
-        return shardCounter == 7 ? "Boss Fight" : "Locked";
+        return shardCounter > 6 ? "Boss Fight" : "Locked";
     }
     return "Locked";
     }
@@ -52,13 +60,7 @@ public class BossFight extends Interactable {
     }
     @Override
     public void onChoose(Player p) { //yeah same exact thing. Just some sliiiight tweaks.
-        int shardCounter = 0;
-        for (Item i :p.getInventory()) {
-            if(i.getName().contains("Shard")){
-                shardCounter++;
-            }
-        }
-        if(shardCounter < 7){
+        if(getName().equalsIgnoreCase("Locked")){
             System.out.println("You need all 7 shards to fight enter this area.");
             Helper.contiuePrompt();
             return;
@@ -96,7 +98,7 @@ public class BossFight extends Interactable {
         }
         while (enemies.size() > 0) {
             removeDead(enemies);
-            //tell user their stage number and enviorment
+            //tell user their stage number and environment
 
             while (Actions > 0) {
 
@@ -137,7 +139,8 @@ public class BossFight extends Interactable {
                 System.out.println(Colors.PURPLE +
                                    "[1] Attack");
                 System.out.println("[2] Heal");
-                System.out.println("[3] Info" + Colors.RESET);
+                System.out.println("[3] Info");
+                System.out.println("[4] Inventory" + Colors.RESET);
                 int choice = Helper.getInput(Colors.RESET + "Current Health: " + p.getBattleHp(), 3);
                 switch (choice) {
                     //#region case1
@@ -153,7 +156,7 @@ public class BossFight extends Interactable {
                         System.out.println(Colors.CLEAR);
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
-                            if ((enemies.get(choice - 1).getType().equals("FinalBoss")) && (enemies.size() != 1)) {
+                            if (((enemies.get(choice - 1).getType().equals("The Keeper"))||(enemies.get(choice - 1).getType().equals("The Keeper (Final Stage)"))) && (enemies.size() != 1)) {
                                 System.out.println("You must kill everything else before you can attack the boss");
                                 Actions++;
                             }
@@ -168,10 +171,9 @@ public class BossFight extends Interactable {
                             KeeperDrop(p, r, enemies, choice);
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
-                                if (enemies.get(choice - 1).getName().equals("Keeper")) {
+                                if (enemies.get(choice - 1).getName().equalsIgnoreCase("Keeper")) {
                                     //if the keeper dies, check the bossStage located in Keeper
                                     if(((FinalBoss)enemies.get(choice - 1)).getBossStage()==1){
-
                                         System.out.println("The Keeper has been defeated!");
                                         enemies.add(new TheKeeper2());
                                         enemies.get(enemies.size()-1).setDrops(enemies.get(choice-1).getDrops());
@@ -181,7 +183,16 @@ public class BossFight extends Interactable {
                                         //tell the user that the keeper has ascended to stage two
 
                                     }
-                                }else{
+                                }
+                                else if ((enemies.get(choice - 1).getName().equalsIgnoreCase("The Keeper (2nd Stage)"))) {
+                                    enemies.clear();
+                                    enemies.add(new TheKeeper3());
+                                    System.out.println("You found a Mystical Shard!");
+                                    ((TheKeeper3)enemies.get(enemies.size()-1)).finalBossOnSpawn(enemies);
+                                    System.out.println(Colors.CLEAR);
+                                }
+
+                                else{
                                     System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
                                     p.addMoney(enemies.get(choice - 1).getCoins());
                                     System.out.println(
@@ -227,6 +238,10 @@ public class BossFight extends Interactable {
                         Battle.inv(enemies);
                         continue;
                     }
+                    case 4 -> {
+                        Inventory a = new Inventory();
+                        a.onChoose(p);
+                    }
                 }
                 Main.currentPlace.playerAction(p);
                 if (enemies.size() > 0) {
@@ -259,6 +274,12 @@ public class BossFight extends Interactable {
                         enemy.getDrops().remove(i);
                     }
                 }
+                for (int i = p.getInventory().size()-1; i >=0; i--) {
+                    if (p.getInventory().get(i).getName().equalsIgnoreCase("KeeperCrystal")) {
+                        p.getInventory().remove(i);
+                    }
+                }
+
                 IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                         enemies::remove); //the magic of intellij
                 Helper.Sleep(1);

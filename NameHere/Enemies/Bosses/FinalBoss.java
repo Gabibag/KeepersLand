@@ -39,7 +39,7 @@ public class FinalBoss extends Boss {
 
     @Override
     public void onDeath(Player p, List<Enemy> allies) {
-
+        System.out.println("The keeper has been hurt.");
     }
 
 
