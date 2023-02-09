@@ -193,5 +193,3 @@
        - Death poem
        - Player gets insane amounts of coins.
 <hr />
-[^1] May change \
-[^2] May change due to status effects or other parameters 
