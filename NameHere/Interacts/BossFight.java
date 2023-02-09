@@ -183,20 +183,16 @@ public class BossFight extends Interactable {
 
                     case 2 -> {
                         try {
-                            if (r.nextInt(p.getBattleHp(), tempMaxHp) == p.getBattleHp() + 1) {
-                                int healAmount =
-                                        p.getHealAmount() + (r.nextInt(p.getHealVariance() << 1) - p.getHealVariance());
-                                if (healAmount + p.getBattleHp() >= tempMaxHp) {
-                                    healAmount = tempMaxHp - p.getBattleHp();
-                                }
-                                p.setBattleHp(p.getBattleHp() + healAmount);
-                                System.out.print(Colors.RED + ((healAmount + p.getBattleHp() ==
-                                                                tempMaxHp) ? "You healed to full health" :
-                                        "You healed " + healAmount + " health"));
+                            int healAmount =
+                                    (p.getHealAmount() + (r.nextInt(p.getHealVariance() << 1) - p.getHealVariance())) /
+                                    (tempMaxHp / p.getHp());
+                            if (healAmount + p.getBattleHp() >= tempMaxHp) {
+                                healAmount = tempMaxHp - p.getBattleHp();
                             }
-                            else {
-                                System.out.println(Colors.RED + "You failed to heal.");
-                            }
+                            p.setBattleHp(p.getBattleHp() + healAmount);
+                            System.out.print(Colors.RED + ((healAmount + p.getBattleHp() ==
+                                                            tempMaxHp) ? "You healed to full health" :
+                                    "You healed " + healAmount + " health"));
                         } catch (Exception e) {
                             System.out.println("You are at your max health");
                         }
