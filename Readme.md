@@ -7,6 +7,7 @@
     * [Battles](#battles)
     * [Locations](#locations)
     * [Enemy types](#enemy-types)
+    * [Final Boss - The Keeper](#final-boss---the-keeper)
 <!-- TOC -->
 
 ### Todo
