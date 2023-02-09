@@ -2,6 +2,7 @@ package NameHere;
 
 import NameHere.Abstracts.*;
 import NameHere.Enviroments.AbandonedCity;
+import NameHere.Enviroments.GatesToHell;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Enviroments.NullZone;
 import NameHere.Interacts.Battle;
@@ -71,7 +72,7 @@ public class Main {
             player.setHp(2000);
             System.out.println("sus");
             player.getInventory().addAll(Arrays.asList(ItemData.ShatteredShard, ItemData.HellShard, ItemData.DeathShard, ItemData.OmegaShard, ItemData.SpriteShard, ItemData.HealingShard, ItemData.GlitchedShard));
-            Main.currentPlace = new AbandonedCity();
+            Main.currentPlace = new GatesToHell();
         }
         else if (player.getName().equalsIgnoreCase("playtest") || player.getName().equalsIgnoreCase("ptest")) {
             List<Enemy> spawns;
