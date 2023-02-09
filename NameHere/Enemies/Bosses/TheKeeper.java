@@ -2,6 +2,7 @@ package NameHere.Enemies.Bosses;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.FinalBoss;
+import NameHere.Item;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -79,9 +80,28 @@ public class TheKeeper extends FinalBoss {
             return damage * ((counter / 10) + 1);
         }
         else if (rand == 4) {
+            for (int i = 0; i < p.getInventory().size(); i++) {
+                if (p.getInventory().get(i).getName().contains("shard")) {
+                    counter++;
+                }
+            }
+            if (counter == 0){
+                return this.Attack(p, allies);
+            }
+            else{
+                for (int i = 0; i < p.getInventory().size(); i++) {
+                    Item item = p.getInventory().get(i);
+                    if(item.getName().contains("shard")){
+                        p.getInventory().remove(i);
+                        i--;
+                        System.out.println("The " + item.getName() + " shatters in your inventory...");
+                        p.setBattleHp(p.getBattleHp() - item.getHpIncr());
+                        p.setDamage(p.getDamage() - item.getDmgIncr());
+                    }
 
-            System.out.println("A shard shatters in your inventory...");
-            //find an omega sword in the player's inventory. replace it with 9 shattered shards
+                }
+                System.out.println("A shard shatters in your inventory...");
+            }
         }
         else  {
             System.out.println(name + " deals " + damage + " damage ");
