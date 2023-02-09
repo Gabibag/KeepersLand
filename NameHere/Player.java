@@ -22,6 +22,7 @@ public class Player {
     private int healAmount = 2;
     private int healVariance = 2;
     private int xpToLevel = 100;
+    private int tokens = 0;
 
     public Player(String name, int hp, int dmg, List<Item> inventory) {
         this.name = name;
@@ -269,5 +270,13 @@ public class Player {
 
     public void setBattleDamage(int battleDamage) {
         this.battleDamage = battleDamage;
+    }
+
+    public int getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(int tokens) {
+        this.tokens = tokens;
     }
 }

@@ -9,6 +9,7 @@ public class Item {
     private String name;
     private String description;
     private int rarity;
+    private int tokenCost = 0;
     /*make this a number from 1-1000, for drop chance, also doubles as epic, common, etc.
     1-10  - common
     10-20 - uncommon
@@ -31,6 +32,7 @@ public class Item {
         else {
             this.rarity = (this.cost/100) + 1;
         }
+
         Main.allItem.add(this);
     }
     public Item(int dmgIncr, int hpIncr, String name, String description, int heal, int healvair) {
@@ -59,6 +61,7 @@ public class Item {
         this.description = description;
 
         cost = ((dmgIncr * 30) + (hpIncr * 25) + (heal * 60) + (healvair * 15))*costMultiplier;
+        this.tokenCost = 10;
         this.rarity = dropRate;
         this.healIncrease = heal;
         this.HealVariance = healvair;
@@ -71,7 +74,7 @@ public class Item {
                this.getDmgIncr() +
                "\nHealth Increase: " + this.getHpIncr() + "\nHealing Increase: " + this.healIncrease +
                "\nHeal Variance: " + this.HealVariance + "\n" + Colors.RESET + "Rarity: " +
-               Helper.getWordRarity(this) + "\nCost: " + this.getCost();
+                Helper.getWordRarity(this) + (this.tokenCost==0 ? "\nCost: " + this.getCost() : "\nToken Cost: " + this.tokenCost) + "\n";
     }
 
     public int getHealVariance() {
@@ -136,6 +139,14 @@ public class Item {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public int getTokenCost() {
+        return tokenCost;
+    }
+
+    public void setTokenCost(int tokenCost) {
+        this.tokenCost = tokenCost;
     }
 
     //Items

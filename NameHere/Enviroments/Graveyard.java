@@ -2,12 +2,8 @@ package NameHere.Enviroments;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
+import NameHere.*;
 import NameHere.Enemies.Graveyard.SkeletonHand;
-import NameHere.Colors;
-import NameHere.Item;
-import NameHere.ItemData;
-import NameHere.Main;
-import NameHere.Player;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +19,7 @@ public class Graveyard extends Enviorment {
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.tombStone,
                              ItemData.GraveFlower,
-                             ItemData.GhostSpirit, ItemData.DeathShard);
+                             ItemData.GhostSpirit);
     }
 
     @Override
@@ -38,7 +34,7 @@ public class Graveyard extends Enviorment {
 
     @Override
     public void turnEnd(Player p, List<Enemy> enemies) {
-        if(Main.r.nextFloat() > 0.90f &&  !enemies.isEmpty()){
+        if (Main.r.nextFloat() > 0.90f && !enemies.isEmpty()) {
             System.out.println(Colors.RED_BRIGHT + "A hand crawls from a grave and joins the battle!");
             enemies.add(new SkeletonHand());
         }

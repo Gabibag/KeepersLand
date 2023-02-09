@@ -10,7 +10,7 @@ public class LavaZone extends Enviorment {
     int turnsTillLava = 5;
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(ItemData.LavaVial, ItemData.TougherTimes, ItemData.MoltenGem, ItemData.ShatteredShard);
+        return Arrays.asList(ItemData.LavaVial, ItemData.TougherTimes, ItemData.MoltenGem);
     }
     public String getName() {
         return "Lava Zone";

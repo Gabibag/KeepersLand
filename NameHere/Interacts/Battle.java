@@ -25,14 +25,15 @@ public class Battle extends Interactable {
                 p.setHealVariance(p.getHealVariance() + i.getHealVariance());
             }
         }
-        else if (battleEnd == 2){
+        else if (battleEnd == 2) {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getHp() - i.getHpIncr());
                 p.setBattleDamage(p.getDamage() - i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() - i.getHealVariance());
             }
-        }else {
+        }
+        else {
             updateItems(p, 2);
             updateItems(p, 1);
         }
@@ -60,7 +61,7 @@ public class Battle extends Interactable {
 
     //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
     public static void removeDead(List<Enemy> enemies) {
-        for (int i = enemies.size()-1; i >= 0; i--) {
+        for (int i = enemies.size() - 1; i >= 0; i--) {
             Enemy choice = enemies.get(i);
             if (choice.getBattleHp() <= 0) {
                 choice.onDeath(player, enemies);
@@ -74,6 +75,38 @@ public class Battle extends Interactable {
             }
         }
     }
+
+    public static void inv(List<Enemy> enemies) {
+
+        System.out.println(Colors.PURPLE + "[0] Go Back");
+        for (int i = 0; i < enemies.size(); i++) {
+            System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
+        }
+
+        System.out.println("[" + (enemies.size() + 1) + "] Enviroment Info" + Colors.RESET);
+        int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
+        if (choiceInfo == 0) {
+            return;
+        }
+        else if (choiceInfo == (enemies.size() + 1)) {
+            System.out.println(
+                    "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
+            Helper.Prompt("Press Enter");
+        }
+        else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
+            System.out.println(enemies.get(choiceInfo - 1).getName() + ":");
+            System.out.println(
+                    Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "Damage: " + enemies.get(choiceInfo - 1).getDamage() + Colors.RESET);
+            System.out.println(
+                    Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
+            System.out.println(
+                    Colors.RED_BRIGHT + "Dodge Rate: " + enemies.get(choiceInfo - 1).getDodgeRate() + Colors.RESET);
+            Helper.contiuePrompt();
+        }
+        inv(enemies);
+
+    }  //TODO get location + opponent info
 
     @Override
     public void onChoose(Player p) {
@@ -101,7 +134,7 @@ public class Battle extends Interactable {
         } catch (Exception e) {
             System.out.println("Failed to create a new enemy object, check your cnstr type:");
             e.printStackTrace();
-      }
+        }
         System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
         Helper.Sleep(1);
         System.out.print(Colors.CLEAR);
@@ -115,7 +148,7 @@ public class Battle extends Interactable {
         while (enemies.size() > 0) {
             removeDead(enemies);
             //tell user their stage number and enviorment
-            System.out.println("You are in the " + Main.currentPlace.getName() + Colors.RESET);
+            System.out.print("You are in the " + Main.currentPlace.getName() + Colors.RESET);
             while (Actions > 0) {
                 System.out.println();
                 //updateItems(p, 3);
@@ -171,7 +204,8 @@ public class Battle extends Interactable {
                     case 2 -> {
                         try {
                             int healAmount =
-                                    (p.getHealAmount() + (r.nextInt(p.getHealVariance() << 1) - p.getHealVariance()))/(tempMaxHp / p.getHp());
+                                    (p.getHealAmount() + (r.nextInt(p.getHealVariance() << 1) - p.getHealVariance())) /
+                                    (tempMaxHp / p.getHp());
                             if (healAmount + p.getBattleHp() >= tempMaxHp) {
                                 healAmount = tempMaxHp - p.getBattleHp();
                             }
@@ -243,90 +277,57 @@ public class Battle extends Interactable {
     }
 
     private void printHealth(List<Enemy> enemies, Player p) {
-        System.out.println(Colors.PURPLE + "Player hp: " + p.getBattleHp());
-        String Names  = "";
-        String HpAmounts = "";
-        String hpBars = "";
+        StringBuilder Names = new StringBuilder();
+        StringBuilder HpAmounts = new StringBuilder();
+        StringBuilder hpBars = new StringBuilder();
         for (Enemy enemy : enemies) {
-            String nameAdd = enemy.getName();
-            String hpAdd =   enemy.getBattleHp() + "hp";
-            if(nameAdd.length() > hpAdd.length()){
+            StringBuilder nameAdd = new StringBuilder(enemy.getName());
+            StringBuilder hpAdd = new StringBuilder(enemy.getBattleHp() + "hp");
+            if (nameAdd.length() > hpAdd.length()) {
                 //find the difference
                 int diff = nameAdd.length() - hpAdd.length();
                 int offset = diff / 2;
-                for(int i = 0; i < offset; i++){
-                    hpAdd = " " + hpAdd + " ";
+                for (int i = 0; i < offset; i++) {
+                    hpAdd = new StringBuilder(" " + hpAdd + " ");
                 }
-                if(diff %2 != 0){
-                    hpAdd += " ";
+                if (diff % 2 != 0) {
+                    hpAdd.append(" ");
                 }
             }
-            else if (nameAdd.length() < hpAdd.length()){
+            else if (nameAdd.length() < hpAdd.length()) {
                 int diff = hpAdd.length() - nameAdd.length();
                 int offset = diff / 2;
-                for(int i = 0; i < offset; i++){
-                    nameAdd = " " + nameAdd + " ";
+                for (int i = 0; i < offset; i++) {
+                    nameAdd = new StringBuilder(" " + nameAdd + " ");
                 }
-                if(diff %2 != 0){
-                    nameAdd += " ";
+                if (diff % 2 != 0) {
+                    nameAdd.append(" ");
                 }
             }
             int barLength = Math.max(nameAdd.length(), hpAdd.length());
-            String bar = "[=]";
-            if(!(barLength < 3)){
-                 bar = "[";
-                for(int i = 0; i < barLength - 2; i++){
-                    double percentHp  = enemy.getBattleHp()/ (double) enemy.getBaseHp();
+            StringBuilder bar = new StringBuilder("[=]");
+            if (!(barLength < 3)) {
+                bar = new StringBuilder("[");
+                for (int i = 0; i < barLength - 2; i++) {
+                    double percentHp = enemy.getBattleHp() / (double) enemy.getBaseHp();
                     double barPercent = i / (double) (barLength - 2);
-                    if(barPercent < percentHp){
-                        bar += "=";
+                    if (barPercent < percentHp) {
+                        bar.append("=");
                     }
-                    else{
-                        bar += " ";
-                    } 
+                    else {
+                        bar.append(" ");
+                    }
                 }
-                bar += "]";
+                bar.append("]");
             }
-            hpBars += bar + "  ";
-            Names +=  nameAdd + "  ";
-            HpAmounts += hpAdd + "  ";
+            hpBars.append(bar).append("  ");
+            Names.append(nameAdd).append("  ");
+            HpAmounts.append(hpAdd).append("  ");
         }
-        System.out.println(Names);
-       System.out.println(hpBars);
-        System.out.println(HpAmounts +  Colors.RESET);
+        System.out.println(Colors.RED + Names );
+        System.out.println(hpBars);
+        System.out.println(HpAmounts + Colors.RESET);
     }
-
-    public static void inv(List<Enemy> enemies) {
-
-        System.out.println(Colors.PURPLE + "[0] Go Back");
-        for (int i = 0; i < enemies.size(); i++) {
-            System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
-        }
-
-        System.out.println("[" + (enemies.size() + 1) + "] Enviroment Info" + Colors.RESET);
-        int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
-        if (choiceInfo == 0) {
-            return;
-        }
-        else if (choiceInfo == (enemies.size() + 1)) {
-            System.out.println(
-                    "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
-            Helper.Prompt("Press Enter");
-        }
-        else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
-            System.out.println(enemies.get(choiceInfo - 1).getName() + ":");
-            System.out.println(
-                    Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
-            System.out.println(Colors.RED_BOLD + "Damage: " + enemies.get(choiceInfo - 1).getDamage() + Colors.RESET);
-            System.out.println(
-                    Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
-            System.out.println(
-                    Colors.RED_BRIGHT + "Dodge Rate: " + enemies.get(choiceInfo - 1).getDodgeRate() + Colors.RESET);
-            Helper.contiuePrompt();
-        }
-        inv(enemies);
-
-    }  //TODO get location + opponent info
 
     @Override
     public String getName() {
