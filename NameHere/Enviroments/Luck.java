@@ -11,7 +11,7 @@ import java.util.List;
 public class Luck extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList(ItemData.Clover, ItemData.Charm, ItemData.Grass, ItemData.SpriteShard);
+        return Arrays.asList(ItemData.Clover, ItemData.Charm, ItemData.Grass);
     }
 
     public String getDescription() {
@@ -42,6 +42,7 @@ public class Luck extends Enviorment {
     public void playerAction(Player p) {
         //1 in 5 chance of healing player for it's heal amount, 1 in 5 chance of dealing 5% of max hp as damage to itself
         int chance = Main.r.nextInt(5);
+        System.out.println(Colors.CLEAR);
         if (chance == 0) {
             p.setBattleHp(p.getBattleHp() + p.getHealAmount());
             System.out.println("You healed for " + p.getHealAmount() + " health!");
