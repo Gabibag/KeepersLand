@@ -26,7 +26,7 @@ public class BuffSprite extends Spirit {
         for (Enemy target : allies) {
             target.setDamage(target.getDamage() + (int)(target.getDamage()*0.1));
         }
-        System.out.println(Colors.GREEN + "The Buff Spirit buffs it's party for 1 damage" + Colors.RESET);
+        System.out.println(Colors.GREEN + "The Buff Spirit buffs it's party for 10% of their damage" + Colors.RESET);
         return 0;
     }
 }

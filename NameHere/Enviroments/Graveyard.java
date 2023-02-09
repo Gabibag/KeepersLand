@@ -29,20 +29,20 @@ public class Graveyard extends Enviorment {
 
     @Override
     public void playerAction(Player p) {
-
+        //if the list of enemies is less than three, spawn a zombie
     }
 
     @Override
     public void turnEnd(Player p, List<Enemy> enemies) {
-        if (Main.r.nextFloat() > 0.90f && !enemies.isEmpty()) {
-            System.out.println(Colors.RED_BRIGHT + "A hand crawls from a grave and joins the battle!");
+        if (Main.r.nextInt(10) == 1 && !enemies.isEmpty()) {
+            System.out.println(Colors.RED_BRIGHT + "A hand crawls from a grave and joins the battle!" + Colors.RESET);
             enemies.add(new SkeletonHand());
         }
-
     }
 
     @Override
     public int modifyPlayerDamage(int preChange) {
+
         return preChange;
     }
 

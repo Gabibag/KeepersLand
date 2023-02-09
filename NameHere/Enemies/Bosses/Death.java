@@ -1,12 +1,9 @@
 package NameHere.Enemies.Bosses;
 
+import NameHere.*;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-import NameHere.Colors;
 import NameHere.Enemies.Lava.DeathMinion;
-import NameHere.Helper;
-import NameHere.Main;
-import NameHere.Player;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +18,7 @@ public class Death extends Boss{
         this.name = "DEATH";
         this.coins = 50;
         this.tokens = 1;
+        this.drops.add(ItemData.DeathShard);
     }
 
     @Override
@@ -31,10 +29,8 @@ public class Death extends Boss{
     @Override
     public void onDeath(Player p, List<Enemy> allies){
         Helper.Sleep(1);
-
-        System.out.println(Colors.CLEAR + Colors.BLACK + "NO, YOU " + Colors.RED + "CANNOT DEFEAT ME!" + Colors.BLACK + " I SHALL " + Colors.RED + "BRING YOU DOWN " + Colors.BLACK + " EVEN IF I SACRIFICE " + Colors.BLACK_BACKGROUND + Colors.RED_BOLD + "MY SELF" +
-                           Colors.RESET);
-        for (int i = 0; i < Main.r.nextInt(1,3) + 4; i++) {
+        System.out.println("Death escapes and summons its minions to kill you");
+        for (int i = 0; i < Main.r.nextInt(2,4) + 4; i++) {
             allies.add(new DeathMinion());
         }
         Helper.contiuePrompt();

@@ -1,20 +1,20 @@
 package NameHere.Enemies.GatesToHell;
 
-import java.util.List;
-
-import NameHere.Player;
 import NameHere.Abstracts.Enemy;
+import NameHere.Player;
+
+import java.util.List;
 
 public class Fireball extends Enemy {
 
     public void setBaseStats() {
         this.baseHp = 2;
         this.coins = 0;
-        this.damage = 15;
+        this.damage = 20;
         this.name = "Fireball";
         this.xp = 1;
     }
-    int numTurns = 3;
+    int numTurns = 1;
     public int Attack(Player p, List<Enemy> allies) {
         if(numTurns == 0){
         System.out.println("The fireball explodes for " + this.damage + " damage");
@@ -22,7 +22,7 @@ public class Fireball extends Enemy {
         return this.damage;
         }
         else{
-            System.out.println("THe FireBall flys towrds you.");
+            System.out.println("The FireBall fly's towards you.");
             numTurns--;
             return 0;
         }

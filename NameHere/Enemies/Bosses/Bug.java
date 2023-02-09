@@ -2,20 +2,11 @@ package NameHere.Enemies.Bosses;
 
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-
-import NameHere.Colors;
-import NameHere.Helper;
-import NameHere.Main;
-import NameHere.Player;
+import NameHere.*;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.MissingFormatArgumentException;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class Bug extends Boss {
     protected static boolean End;
@@ -27,6 +18,7 @@ public class Bug extends Boss {
         this.name = "Bug";
         this.coins = 50;
         this.tokens = 1;
+        this.drops.add(ItemData.GlitchedShard);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package NameHere.Enemies.City;
 
-import java.util.List;
-
-import NameHere.Main;
-import NameHere.Player;
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.AbandonedCity;
+import NameHere.Main;
+import NameHere.Player;
+
+import java.util.List;
 
 public class ShockZombie extends Enemy{
 
@@ -24,11 +24,11 @@ public class ShockZombie extends Enemy{
         return Main.currentPlace instanceof AbandonedCity;
     }
     public int Attack(Player p, List<Enemy> allies) {
-        System.out.println("The muntant shocks the player for " + this.damage + " damage");
-        System.out.println("The muntant shocks its allies for " + (int)(this.damage/3) + " damage");
+        System.out.println("The mutant shocks the player for " + this.damage + " damage");
+        System.out.println("The mutant shocks its allies for " + (this.damage/3) + " damage");
         for(Enemy e : allies) {
             if(e != this){
-            e.setBattleHp(e.getBattleHp() - (int)(this.damage/3));
+            e.setBattleHp(e.getBattleHp() - (this.damage/3));
             }
 
         }

@@ -4,6 +4,7 @@ import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Enviorment;
 import NameHere.Item;
 import NameHere.ItemData;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Arrays;
@@ -37,12 +38,14 @@ public class StardewValley extends Enviorment {
 
     public void turnEnd(Player p, List<Enemy> enemies) {
         //make the enemies attack each other
-        for (Enemy e : enemies) {
-            e.setBattleHp(e.getBattleHp() - 1);
+        if (Main.r.nextInt(4) == 1) {
+            for (Enemy e : enemies) {
+                e.setBattleHp(e.getBattleHp() - 1);
+            }
+
+
+            System.out.println("Stardew Valley made all enemies attack themselves");
         }
-
-
-        System.out.println("Stardew Valley made all enemies attack themselves");
     }
 
     public int modifyEnemyDamage(int preChange) {

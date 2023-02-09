@@ -25,13 +25,14 @@ public class Luck extends Enviorment {
 
     public int modifyPlayerDamage(int preChange) {
         // 1/3 chance of doubling damage, and 1/3 chance of halving damage
+
         int chance = Main.r.nextInt(3);
         if (chance == 0) {
-            System.out.println("Your damage has doubled!");
+            System.out.println( Colors.CLEAR + "Your damage has doubled!");
             return preChange << 1;
 
         } else if (chance == 1) {
-            System.out.println("Your damage has halved!");
+            System.out.println(Colors.CLEAR +  "Your damage has halved!");
             return preChange / 2;
         } else {
             return preChange;
@@ -80,7 +81,7 @@ public class Luck extends Enviorment {
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("A spirit has appeared!");
+            System.out.println("A sprite has appeared!");
         } //if chance is 1 turn one enemy into a random enemy in the game
         else if (chance == 1) {
             try {
@@ -114,7 +115,7 @@ public class Luck extends Enviorment {
                 e.setBattleHp(e.getBattleHp()+20);
             }
             p.setBattleHp(p.getBattleHp()+20);
-            System.out.println("Everything healed for 20!");
+            System.out.println("Everything healed for 20hp!");
         }
         //if chance is 5, do nothing
     }

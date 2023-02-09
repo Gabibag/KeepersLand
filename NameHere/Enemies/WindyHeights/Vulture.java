@@ -16,7 +16,7 @@ public class Vulture extends Enemy {
         this.baseHp = 18;
         this.damage = 7;
         this.xp = 22;
-        this.name = "Vulute";
+        this.name = "Vulture";
         this.battleHp = baseHp;
         this.coins = 4;
         this.dodgeRate = 5;
