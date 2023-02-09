@@ -80,6 +80,7 @@
   - Windy Heights
     - Every turn, the enemies' dodge rate increases
 
+
 ### Enemy types
 
 - There are three types of enemies (though not explicitly stated in game), a special enemy, a basic enemy, and sprites.
@@ -157,14 +158,48 @@
         - Drops Death Shard
       - Demon Lord
         - Numbers defense mechanism
-        - Drops
+        - Drops Hell Shard
       - Mega Lava slime
         - Splits into 3 Lava Slimes on death
-      - Sprite Lord 
+        - Drops Shattered Shard
+      - Sprite Lord
         - Spawns 4 sprites on spawn
         - Spawns 5 sprites on death
-      - 
+        - Drops Sprite Shard
 
+### Final Boss - The Keeper 
+ - Entering the Final Boss is optional, but is the main purpose of the game
+ - The player must have all 6 shards in their inventory to enter. (Shards can be purchased in the Token Shop)
+ - The Keeper has 3 stages
+   - Stage 1
+     - On Spawn:
+       - Takes all the player's item and uses it against them
+     - On Attack:
+       - Chance to shatter a shard
+       - Chance to use the shards in the player's inventory to deal extra damage
+       - Chance to use the shards in the player's inventory against them
+     - On Death:
+       - Spawns stage 2 boss
+   - Stage 2
+     - On Spawn: 
+       - Takes all the player's items and reanimates them.
+       - Returns some of the player's items.
+     - On Attack Keeper:
+       - All other enemies in the Keeper's party must be killed before damage can be done to the keeper
+     - On Death:
+       - Drops Mystical Crystal
+         - adds 1000hp to the player
+     - Does not deal damage
+   - Stage 3:
+     - On Spawn:
+       - Poem is given on how the player will die(small chance to be a different dialog)
+     - On Attack Keeper:
+       - All other enemies in the Keeper's party must be killed before damage can be done to the keeper
+     - On Turn End:
+       - Summon enemies to fill its party to 3.
+     - On Death: 
+       - Death poem
+       - Player gets insane amounts of coins.
 <hr />
 [^1] May change \
 [^2] May change due to status effects or other parameters 

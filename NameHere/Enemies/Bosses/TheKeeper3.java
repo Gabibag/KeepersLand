@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
     public void setBaseStats() {
-        this.baseHp = 1;
+        this.baseHp = 500;
         this.damage = 0;
         this.xp = Integer.MAX_VALUE/100; //yeah you shouldn't level up with this
         this.name = "The Keeper (Final Stage)";
