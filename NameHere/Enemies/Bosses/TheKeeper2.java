@@ -27,9 +27,12 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
 
     @Override
     public void onDeath(Player p, List<Enemy> allies) {
-
+        if (allies.size() > 0) {
+            allies.subList(0, allies.size()).clear();
+        }
+        allies.add(new TheKeeper3());
+        ((FinalBoss)allies.get(0)).finalBossOnSpawn(allies);
     }
-
 
 
     @Override
@@ -46,6 +49,13 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
             ItemEntity temp = new ItemEntity();
             temp.setBaseStats(item.getHpIncr()+item.getHealIncrease()+item.getCost(), item.getDmgIncr()+ item.getHealVariance(), "Animated " + item.getName());
             //if item's hpIncr is 0, don't add it to the list
+            //check if the temp's base health is over 100. if it is, set it to 100.
+            if (temp.getBaseHp() > 100) {
+                temp.setBaseHp(100);
+            }//do the same with damage but set the cap to 10
+            if (temp.getDamage() > 10) {
+                temp.setDamage(10);
+            }
             if (temp.getBaseHp() != 0&&item.getDmgIncr()!=0) {
                 enemies.add(temp);
             }

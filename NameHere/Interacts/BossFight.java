@@ -4,14 +4,12 @@ import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
-import NameHere.Abstracts.FinalBoss;
 import NameHere.Enemies.Bosses.TheKeeper;
-import NameHere.Enemies.Bosses.TheKeeper2;
-import NameHere.Enemies.Bosses.TheKeeper3;
 import NameHere.Enviroments.NullZone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -90,10 +88,8 @@ public class BossFight extends Interactable {
             }
         }
         Helper.contiuePrompt();
-        updateItems(p, false);
-        updateItems(p, true);
-        updateBossItems(enemies.get(0), true);
-        updateBossItems(enemies.get(0), false);
+        updateItems(p, 3);
+
         Main.currentPlace = new NullZone();
         System.out.println(Colors.CLEAR);
         try {
@@ -138,8 +134,7 @@ public class BossFight extends Interactable {
                     }
                     System.out.print("  ");
                 }
-                updateItems(p, true);
-                updateItems(p, false);
+                updateItems(p, 3);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
                                    "[1] Attack");
@@ -161,8 +156,9 @@ public class BossFight extends Interactable {
                         System.out.println(Colors.CLEAR);
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
-                            if (((enemies.get(choice - 1).getType().equals("The Keeper"))||(enemies.get(choice - 1).getType().equals("The Keeper (Final Stage)"))) && (enemies.size() != 1)) {
-                                System.out.println("You must kill everything else before you can attack the boss");
+                            if (((enemies.get(choice - 1).getType().equals("The Keeper"))||(enemies.get(choice - 1).getType().equals("The Keeper (Final Stage)"))) && (enemies.size() != 1) &&
+                                !Objects.equals(p.getName(), "btest")) {
+                                System.out.println("You must kill everythin g else before you can attack the boss");
                                 Actions++;
                             }
                             else {
@@ -171,43 +167,11 @@ public class BossFight extends Interactable {
                                                    enemies.get(choice - 1).getName());
 
                             }
-
                             //have the boss take a random item from its drops and give it to the player's inventory each time they atatck
-                            KeeperDrop(p, r, enemies, choice);
+
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies);
-                                if (enemies.get(choice - 1).getName().equalsIgnoreCase("Keeper")) {
-                                    //if the keeper dies, check the bossStage located in Keeper
-                                    if(((FinalBoss)enemies.get(choice - 1)).getBossStage()==1){
-                                        System.out.println("The Keeper has been defeated!");
-                                        enemies.add(new TheKeeper2());
-                                        enemies.get(enemies.size()-1).setDrops(enemies.get(choice-1).getDrops());
-                                        System.out.println("The Keeper has ascended to stage two!");
-                                        ((TheKeeper)enemies.get(enemies.size()-1)).finalBossOnSpawn(enemies);
-                                        enemies.remove(choice-1);
-                                        //tell the user that the keeper has ascended to stage two
 
-                                    }
-                                }
-                                else if ((enemies.get(choice - 1).getName().equalsIgnoreCase("The Keeper (2nd Stage)"))) {
-                                    enemies.clear();
-                                    enemies.add(new TheKeeper3());
-                                    System.out.println("You found a Mystical Shard!");
-                                    ((TheKeeper3)enemies.get(enemies.size()-1)).finalBossOnSpawn(enemies);
-                                    System.out.println(Colors.CLEAR);
-                                }
-
-                                else{
-                                    System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
-                                    p.addMoney(enemies.get(choice - 1).getCoins());
-                                    System.out.println(
-                                            "You gained " + enemies.get(choice - 1).getCoins() + Colors.CYAN + "◊" +
-                                            Colors.RESET);
-                                    enemies.remove(choice - 1);
-                                }
-                                for (int i = 0; i < enemies.get(choice-1).getDrops().size(); i++) {
-                                    p.addInventory(enemies.get(choice-1).getDrops().get(i));
-                                }
 
                             }
                             Helper.contiuePrompt();
@@ -299,38 +263,10 @@ public class BossFight extends Interactable {
             p.incStageNum(1);
 
         }
-        updateItems(p, true);
+        updateItems(p, 2);
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
     }
 
-    private static void KeeperDrop(Player p, Random r, List<Enemy> enemies, int choice) {
-        if (enemies.get(choice - 1).getClass() == FinalBoss.class) {
-            if (enemies.get(choice - 1).getDrops().size() > 0) {
-                //drops items and prints out the names of the items
-                String tempItems = "";
-                for (int i = 0; i < r.nextInt(1, enemies.get(choice - 1).getDrops().size() / 2); i++) {
-                    Item temp = enemies.get(choice - 1).getDrops().get(r.nextInt(enemies.get(choice - 1).getDrops().size()));
-                    p.addInventory(temp);
-                    if (!tempItems.contains(temp.getName())) {
-                        tempItems = tempItems.concat( temp.getName() + ", ");
-                    }
-                    enemies.get(choice - 1).getDrops().remove(temp);
-                }
-                int counter = 0;
-                for (int i = tempItems.length()-1; i >=0; i--) {
-                    //add a check to replace the second to last comma with an and
-                    //manipulating strings is hard
-                    if (tempItems.charAt(i) == ','&& counter == 1) {
-                        tempItems = tempItems.substring(0, i+1) + " and a " + tempItems.substring(i+2);
-                        break;
-                    }else if(tempItems.charAt(i) == ','){
-                        counter++;
-                    }
-                }
-                System.out.println("The Keeper dropped " + tempItems.substring(0, tempItems.length()-2) + "!");
-            }
-        }
-    }
 }

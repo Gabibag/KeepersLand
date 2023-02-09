@@ -4,7 +4,6 @@ import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
-import NameHere.Enemies.Bosses.DemonLord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +15,8 @@ import static NameHere.Main.player;
 public class Battle extends Interactable {
 
 
-    static void updateItems(Player p, boolean battleEnd) {
-        if (!battleEnd) {
+    static void updateItems(Player p, int battleEnd) {
+        if (battleEnd == 1) {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getBattleHp() + i.getHpIncr());
                 p.setBattleDamage(p.getDamage() + i.getDmgIncr());
@@ -25,13 +24,16 @@ public class Battle extends Interactable {
                 p.setHealVariance(p.getHealVariance() + i.getHealVariance());
             }
         }
-        else {
+        else if (battleEnd == 2){
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getHp() - i.getHpIncr());
                 p.setBattleDamage(p.getDamage() - i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() - i.getHealVariance());
             }
+        }else {
+            updateItems(p, 2);
+            updateItems(p, 1);
         }
     }
 
@@ -57,7 +59,8 @@ public class Battle extends Interactable {
 
     //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
     public static void removeDead(List<Enemy> enemies) {
-        for (Enemy choice : enemies) {
+        for (int i = enemies.size()-1; i >= 0; i--) {
+            Enemy choice = enemies.get(i);
             if (choice.getBattleHp() <= 0) {
                 choice.onDeath(player, enemies);
                 System.out.println(choice.getName() + " has been killed!");
@@ -78,7 +81,7 @@ public class Battle extends Interactable {
             tempMaxHp += i.getHpIncr();
         }
         p.setBattleHp(p.getHp());
-        updateItems(p, false);
+        updateItems(p, 1);
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
@@ -109,6 +112,7 @@ public class Battle extends Interactable {
             System.out.println("You are in the " + Main.currentPlace.getName() + Colors.RESET);
             while (Actions > 0) {
                 System.out.println();
+                updateItems(p, 3);
                 //TODO: add a check if the health exceeds the text length of the char so the names spread out
                 printHealth(enemies, p);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
@@ -136,7 +140,11 @@ public class Battle extends Interactable {
                                                enemies.get(choice - 1).getName());
 
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
-                                enemies.get(choice - 1).onDeath(p, enemies);
+                                try {
+                                    enemies.get(choice - 1).onDeath(p, enemies);
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
                                 System.out.println(enemies.get(choice - 1).getName() + " has been killed!");
                                 enemies.get(choice - 1).randDrops(p, enemies.get(choice - 1));
                                 p.addMoney(enemies.get(choice - 1).getCoins());
@@ -145,6 +153,7 @@ public class Battle extends Interactable {
                                         Colors.RESET);
                                 enemies.remove(choice - 1);
                             }
+
                             Helper.contiuePrompt();
                         }
                         else {
@@ -203,6 +212,7 @@ public class Battle extends Interactable {
 //                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
             }
+
             Helper.contiuePrompt();
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");
@@ -220,7 +230,7 @@ public class Battle extends Interactable {
             p.incStageNum(1);
 
         }
-        updateItems(p, true);
+        updateItems(p, 2);
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
