@@ -16,7 +16,7 @@ public class TheKeeper extends FinalBoss {
 
     public void setBaseStats() {
         this.baseHp = 500;
-        this.damage = 150;
+        this.damage = 50;
         this.xp = 1200;
         this.name = "Keeper";
         this.coins = 5000;
@@ -36,7 +36,13 @@ public class TheKeeper extends FinalBoss {
 
     @Override
     public void onDeath(Player p, List<Enemy> allies) {
-
+        System.out.println("The Keeper has been defeated!");
+        allies.add(new TheKeeper2());
+        allies.get(allies.size()-1).setDrops(allies.get(0).getDrops());
+        System.out.println("The Keeper has ascended to tage two!");
+        ((FinalBoss)allies.get(allies.size()-1)).finalBossOnSpawn(allies);
+        allies.remove(0);
+        //tell the user that the keeper has ascended to stage two
     }
 
 

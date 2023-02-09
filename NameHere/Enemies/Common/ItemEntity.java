@@ -14,7 +14,7 @@ public class ItemEntity extends Enemy {
         this.baseHp = 20;
         this.damage = 4;
         this.xp = 20;
-        this.name = "this shouldn't exist";
+        this.name = "invalid";
         this.battleHp = baseHp;
         this.coins = 3;
     }

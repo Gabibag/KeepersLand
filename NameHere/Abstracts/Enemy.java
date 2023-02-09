@@ -8,6 +8,11 @@ import java.util.Random;
 
 public abstract class Enemy {
     protected int damage;
+
+    public void setBaseHp(int baseHp) {
+        this.baseHp = baseHp;
+    }
+
     protected int baseHp;
     protected String name;
     protected int dodgeRate = 1;
@@ -108,7 +113,11 @@ public abstract class Enemy {
     }
 
     public void onDeath(Player p, List<Enemy> allies) {
-
+        //by default, just gives xp and money
+        System.out.println("You defeated " + name + "!");
+        p.addMoney(coins);
+        p.addXp(xp);
+        randDrops(p, this);
     }
 
     public void randDrops(Player p, Enemy e) {
