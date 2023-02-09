@@ -4,14 +4,12 @@ import NameHere.Abstracts.*;
 import NameHere.Enviroments.AbandonedCity;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Enviroments.NullZone;
-import NameHere.Enviroments.WindyHeights;
 import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
 
 
 public class Main {
@@ -154,6 +152,8 @@ public class Main {
             //add all items that have the word "shard" in them from the list allItems
             for (Item i : allItem) {
                 if (i.getName().toLowerCase().contains("shard")) {
+                    player.addInventory(i);
+                    player.addInventory(i);
                     player.addInventory(i);
                 }
             }

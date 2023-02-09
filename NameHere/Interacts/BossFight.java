@@ -4,7 +4,7 @@ import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
 import NameHere.*;
-import NameHere.Enemies.Bosses.FinalBoss;
+import NameHere.Abstracts.FinalBoss;
 import NameHere.Enemies.Bosses.TheKeeper;
 import NameHere.Enemies.Bosses.TheKeeper2;
 import NameHere.Enemies.Bosses.TheKeeper3;
@@ -26,20 +26,25 @@ public class BossFight extends Interactable {
         //if it doesn't, return "Locked"
        if(Main.player!= null){
            ArrayList<Item> inventoryTrunk = new ArrayList<>(Main.player.getInventory());
-            int shardCounter = 0;
-               for (int j = 0; j < inventoryTrunk.size(); j++) {
-                   Item item = inventoryTrunk.get(j);
-                   if (item.getName().contains("Shard")) {
-                       for (int i = 0; i < inventoryTrunk.size() - 1; i++) {
-                           //check if item1's name is the same as item's name, if it is, remove it
-                           if (inventoryTrunk.get(i).getName().equals(item.getName())) {
-                               inventoryTrunk.remove(inventoryTrunk.get(i));
-                           }
-                       }
-                       shardCounter++;
-                   }
+           for (int i = inventoryTrunk.size()-1; i >=0; i--) {
+               if (!inventoryTrunk.get(i).getName().contains("Shard")) {
+                   inventoryTrunk.remove(inventoryTrunk.get(i));
                }
-        return shardCounter > 6 ? "Boss Fight" : "Locked";
+           }
+            int shardCounter = 0;
+               for (int j = inventoryTrunk.size()-1; j >= 0; ) {
+                   Item item = inventoryTrunk.get(j);
+                   for (int i = inventoryTrunk.size() - 1; i >=0; i--) {
+                       //check if item1's name is the same as item's name, if it is, remove it
+                       if (inventoryTrunk.get(i).getName().equals(item.getName())) {
+                           inventoryTrunk.remove(inventoryTrunk.get(i));
+                           j--;
+                       }
+                   }
+                   shardCounter++;
+
+               }
+        return shardCounter >= 6 ? "Boss Fight" : "Locked";
     }
     return "Locked";
     }
@@ -61,7 +66,7 @@ public class BossFight extends Interactable {
     @Override
     public void onChoose(Player p) { //yeah same exact thing. Just some sliiiight tweaks.
         if(getName().equalsIgnoreCase("Locked")){
-            System.out.println("You need all 7 shards to fight enter this area.");
+            System.out.println("You need all 6 shards to fight enter this area.");
             Helper.contiuePrompt();
             return;
         }
