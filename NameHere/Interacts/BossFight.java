@@ -68,9 +68,9 @@ public class BossFight extends Interactable {
             Helper.contiuePrompt();
             return;
         }
-        int tempMaxHp = 0;
+        int tempMaxHp = p.getHp();
         for (Item i : p.getInventory()) {
-            tempMaxHp = p.getHp() + i.getHpIncr();
+            tempMaxHp += i.getHpIncr();
         }
         p.setBattleHp(p.getHp());
 
@@ -102,7 +102,6 @@ public class BossFight extends Interactable {
             //tell user their stage number and environment
 
             while (Actions > 0) {
-
                 updateBossItems(enemies.get(0), true);
                 updateBossItems(enemies.get(0), false);
                 for (Enemy enemy : enemies) {
@@ -134,14 +133,14 @@ public class BossFight extends Interactable {
                     }
                     System.out.print("  ");
                 }
-                updateItems(p, 3);
+               // updateItems(p, 3);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
                                    "[1] Attack");
                 System.out.println("[2] Heal");
                 System.out.println("[3] Info");
                 System.out.println("[4] Inventory" + Colors.RESET);
-                int choice = Helper.getInput(Colors.RESET + "Current Health: " + p.getBattleHp(), 3);
+                int choice = Helper.getInput(Colors.RESET + "Current Health: " + p.getBattleHp(), 4);
                 switch (choice) {
                     //#region case1
                     case 1 -> {//attack
@@ -158,7 +157,7 @@ public class BossFight extends Interactable {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
                             if (((enemies.get(choice - 1).getType().equals("The Keeper"))||(enemies.get(choice - 1).getType().equals("The Keeper (Final Stage)"))) && (enemies.size() != 1) &&
                                 !Objects.equals(p.getName(), "btest")) {
-                                System.out.println("You must kill everythin g else before you can attack the boss");
+                                System.out.println("You must kill everything else before you can attack the boss");
                                 Actions++;
                             }
                             else {
@@ -195,8 +194,7 @@ public class BossFight extends Interactable {
                                         "You healed " + healAmount + " health"));
                             }
                             else {
-                                System.out.println(Colors.RED + "You failed to heal.");
-                            }
+                                System.out.println(Colors.RED + "You failed to heal.");                            }
                         } catch (Exception e) {
                             System.out.println("You are at your max health");
                         }
@@ -226,10 +224,8 @@ public class BossFight extends Interactable {
             System.out.println(Colors.CLEAR + Colors.RED);
             int damage;
             for (Enemy enemy : enemies) {
-                    damage = enemy.Attack(p, enemies);
+                damage = enemy.Attack(p, enemies);
                 p.takeDamage(damage);
-//                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
-
             }
             Helper.contiuePrompt();
             if (p.getBattleHp() <= 0) {
