@@ -8,6 +8,7 @@ import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -69,6 +70,7 @@ public class Main {
             player.setDamage(5);
             player.setHp(2000);
             System.out.println("sus");
+            player.getInventory().addAll(Arrays.asList(ItemData.ShatteredShard, ItemData.HellShard, ItemData.DeathShard, ItemData.OmegaShard, ItemData.SpriteShard, ItemData.HealingShard, ItemData.GlitchedShard));
             Main.currentPlace = new AbandonedCity();
         }
         else if (player.getName().equalsIgnoreCase("playtest") || player.getName().equalsIgnoreCase("ptest")) {

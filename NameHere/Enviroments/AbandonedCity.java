@@ -19,12 +19,11 @@ public class AbandonedCity  extends Enviorment{
 
     @Override
     public String getDescription() {
-        return "A destoryed city, full of mutated monsters. \nIt appears to have been destoryed by a nuclear blast and some of the radation is still around.";
+        return "A destroyed city, full of mutated monsters. \nIt appears to have been destroyed by a nuclear blast and some of the radiation is still around.";
     }
 
     @Override
     public List<Item> getShopItems() {
-        // TODO Auto-generated method stub
         return Arrays.asList(ItemData.Revolver, ItemData.Meds, ItemData.RadioactiveRod, ItemData.RadiationSuit);
     }
 
@@ -38,10 +37,9 @@ public class AbandonedCity  extends Enviorment{
     }
     @Override
     public void turnEnd(Player p, List<Enemy> enemies) {
-        
         if(Main.r.nextFloat() > 0.8f){
         Enemy m = Helper.getRandomElements(enemies, 1).get(0);
-        System.out.println("The city's radiation muatates an " + m.getName() + ", splitting it into 2");
+        System.out.println("The city's radiation mutates an " + m.getName() + ", splitting it into 2");
         enemies.remove(m);
         try {
             Enemy m1 = m.getClass().getConstructor().newInstance();
@@ -53,11 +51,9 @@ public class AbandonedCity  extends Enviorment{
         enemies.add(m2);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                 | NoSuchMethodException | SecurityException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         }
-        
     }
 
 

@@ -112,8 +112,7 @@ public class Battle extends Interactable {
             System.out.println("You are in the " + Main.currentPlace.getName() + Colors.RESET);
             while (Actions > 0) {
                 System.out.println();
-                updateItems(p, 3);
-                //TODO: add a check if the health exceeds the text length of the char so the names spread out
+                //updateItems(p, 3);
                 printHealth(enemies, p);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
