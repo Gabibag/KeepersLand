@@ -1,5 +1,6 @@
 package NameHere.Enemies.City;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import NameHere.Abstracts.Enemy;
 import NameHere.Enemies.Lava.MiniSlime;
 import NameHere.Enviroments.AbandonedCity;
 
-public abstract class Radioactive extends Enemy{
+public class Radioactive extends Enemy{
     public void setBaseStats(){
         this.baseHp = 17;
         this.damage = 3;
@@ -28,7 +29,7 @@ public abstract class Radioactive extends Enemy{
     public int Attack(Player p, List<Enemy> allies) {
         if(Main.r.nextFloat() > 0.5f){
             System.out.println("The Radioactive Slime creates a smaller slime to join the fight");
-            allies.add((new MiniRadioSlime()));
+            allies.add(new MiniSlime());
             return 0;
         }
         return super.Attack(p, allies);

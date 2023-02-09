@@ -3,6 +3,7 @@ package NameHere.Interacts;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
+import NameHere.Enemies.City.Radioactive;
 import NameHere.*;
 
 import java.util.ArrayList;
@@ -86,6 +87,11 @@ public class Battle extends Interactable {
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
         List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 3));//only spawns 1 boss
+        if(p.getName() == "among us"){
+            while(enemies.contains(new Radioactive())){
+                enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 3));
+            }
+        }
 
 
         try {
@@ -198,7 +204,8 @@ public class Battle extends Interactable {
             }
 
             System.out.println(Colors.CLEAR + Colors.RED);
-            for (Enemy enemy : enemies) {
+            for (int i = 0; i < enemies.size(); i++) {
+                Enemy enemy = enemies.get(i);
                 int damage = 0;
                 if (enemy instanceof Boss) {
                     damage = ((Boss) enemy).BossAttack(p, enemies);
@@ -207,7 +214,6 @@ public class Battle extends Interactable {
                     damage = enemy.Attack(p, enemies);
                 }
                 p.takeDamage(Main.currentPlace.modifyEnemyDamage(damage));
-                
 //                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
             }
