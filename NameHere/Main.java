@@ -1,7 +1,6 @@
 package NameHere;
 
 import NameHere.Abstracts.*;
-import NameHere.Enviroments.AbandonedCity;
 import NameHere.Enviroments.GatesToHell;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Enviroments.NullZone;
@@ -9,7 +8,6 @@ import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
@@ -199,7 +197,7 @@ public class Main {
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }
-            int choice = -1 + Helper.getInput(Colors.RESET, allInteracts.size() + 1);
+            int choice = -1 + Helper.getInput(Colors.RESET, allInteracts.size());
             allInteracts.get(choice).onChoose(player);
 
         }
