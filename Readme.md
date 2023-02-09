@@ -2,7 +2,6 @@
 
 <!-- TOC -->
 * [About This Game](#about-this-game)
-    * [Todo](#todo)
     * [Shops](#shops)
     * [Battles](#battles)
     * [Locations](#locations)
@@ -10,14 +9,6 @@
     * [Final Boss - The Keeper](#final-boss---the-keeper)
 <!-- TOC -->
 
-### Todo
-
-- Status Effects
-    - Location modifiers
-- Bosses
-- Token Shop
-- Stages
-- Storage
 
 ### Shops
 
