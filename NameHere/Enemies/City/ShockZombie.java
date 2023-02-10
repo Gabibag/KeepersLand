@@ -1,6 +1,7 @@
 package NameHere.Enemies.City;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
 import NameHere.Enviroments.AbandonedCity;
 import NameHere.Main;
 import NameHere.Player;
@@ -24,8 +25,7 @@ public class ShockZombie extends Enemy{
         return Main.currentPlace instanceof AbandonedCity;
     }
     public int Attack(Player p, List<Enemy> allies) {
-        System.out.println("The mutant shocks the player for " + this.damage + " damage");
-        System.out.println("The mutant shocks its allies for " + (this.damage/3) + " damage");
+        System.out.println("The mutant " + Colors.YELLOW + "shocks "+ Colors.RESET + "everything around it");
         for(Enemy e : allies) {
             if(e != this){
             e.setBattleHp(e.getBattleHp() - (this.damage/3));

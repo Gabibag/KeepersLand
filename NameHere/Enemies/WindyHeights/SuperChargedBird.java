@@ -1,6 +1,7 @@
 package NameHere.Enemies.WindyHeights;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
 import NameHere.Enviroments.WindyHeights;
 import NameHere.Main;
 import NameHere.Player;
@@ -34,7 +35,7 @@ public class SuperChargedBird extends Enemy{
         return 0;
     }
     private String getEnding() {
-        return turnsTillAttack == 3 ? " shakes, causing a glowing circle to appear in front of it" : turnsTillAttack == 2 ? "'s sphere grows even larger" : turnsTillAttack == 1 ? " stops shaking, and points the large glowing sphere at you" : "";
+        return turnsTillAttack == 3 ? " begins to " + Colors.YELLOW + "glow." + Colors.RESET  : turnsTillAttack == 2 ? Colors.YELLOW + " glows" + Colors.RESET + " even brighter" : turnsTillAttack == 1 ? " is going to "+ Colors.RED + "nuke"+ Colors.RESET + " you next turn" : "";
     }
     @Override
     public boolean canSpawn(Player p) {

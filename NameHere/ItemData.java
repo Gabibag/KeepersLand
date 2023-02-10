@@ -62,6 +62,7 @@ public class ItemData {
     public static Item OmegaShard = new Item(10, 20, "Omega Shard", "The most rare shard, and yet, the least rare shard. 1 of 7 Shards.", 9, 6, 100, 10);
     public static Item KeeperCrystal = new Item(0, 1000, "Keeper Crystal", "Powerful. But if you live you won't be needing it.", 0, 0, Integer.MIN_VALUE/1000, Integer.MIN_VALUE/100000);
     public static Item LockedItem = new Item(0, 0, "Locked Item", "Sorry, you can't buy this yet.", 0, 0);
+    public static Item SubspaceOrb = new Item(1, 1, "Subspace Orb", "Kinda small don't you think? Wait, you can't see it yet.", 1, 0);
 
 
 

@@ -1,6 +1,8 @@
 package NameHere.Enemies.Sprites;
-import NameHere.Abstracts.Spirit;
+
 import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Spirit;
+import NameHere.Colors;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -31,7 +33,7 @@ public class SwapSprite extends Spirit {
                 }
             }
         }
-        System.out.println("The Swap Spirit swaps the hp of each enemy in the party");
+        System.out.println("The Swap Spirit " + Colors.RED + "swaps"+ Colors.RESET + " the hp of each enemy in the party");
         return 0;
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DeathSprite extends Spirit {
     public void setBaseStats() {
-        this.baseHp = 10;
+        this.baseHp = 5;
         this.coins = 5;
         this.dodgeRate = 1;
         this.xp = 5;

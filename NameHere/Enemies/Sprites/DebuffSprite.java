@@ -1,9 +1,11 @@
 package NameHere.Enemies.Sprites;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Spirit;
+import NameHere.Colors;
 import NameHere.Main;
 import NameHere.Player;
-import NameHere.Abstracts.Spirit;
+
 import java.util.List;
 
 public class DebuffSprite extends Spirit {
@@ -23,7 +25,7 @@ public class DebuffSprite extends Spirit {
     public int Attack(Player p, List<Enemy> allies) {
         //remove an action from the player
         p.setActionAmount(1);
-        System.out.println("Debuff Spirit removes an action from you");
+        System.out.println("Debuff Spirit " + Colors.RED + "removes" + Colors.RESET + " an action from you");
         return 0;
     }
 }

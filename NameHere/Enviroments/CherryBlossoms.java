@@ -35,9 +35,9 @@ public class CherryBlossoms extends Enviorment {
 
     public void turnEnd(Player p, List<Enemy> enemies) {
         //heal players and enemies for 10% of its current hp
-        p.setBattleHp(p.getBattleHp() + (int) (p.getBattleHp() * 0.05));
+        p.setBattleHp(p.getBattleHp() + (int) (p.getBattleHp() * 0.05) + 1);
         for (Enemy e : enemies) {
-            e.setBattleHp(e.getBattleHp() + (int) (e.getBattleHp() * 0.05));
+            e.setBattleHp(e.getBattleHp() + (int) (e.getBattleHp() * 0.05) + 1);
         }
         System.out.println("The cherry blossoms healed everyone for 5% of their current hp");
     }

@@ -1,7 +1,6 @@
 package NameHere;
 
 import NameHere.Abstracts.*;
-import NameHere.Enemies.Lava.Demon;
 import NameHere.Enviroments.AbandonedCity;
 import NameHere.Enviroments.GatesToHell;
 import NameHere.Enviroments.LavaZone;
@@ -36,12 +35,15 @@ public class Main {
     public static Player player;
     public static Scanner s;
     public static void main(String[] args) {
+
         s = new Scanner(System.in);
         r = new Random();
         initTypes();
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
         //defaults for player
-        int saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
+        List<String> saveList = allPlayerFiles();
+        int saves = 0;
+        if (saveList.size() != 0) {saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);}
         if (saves == 1) {
             try {
                 player = loadSave();
@@ -63,7 +65,7 @@ public class Main {
                 name = Helper.Prompt(
                         Colors.RED + "That name is already taken, please enter a new name: " + Colors.RESET);
             }
-            player = new Player(name, 30, 5,
+            player = new Player(name, 40, 5,
                                 new ArrayList<>());
             player.addMoney(50);
             player.setHealAmount(3);
@@ -78,7 +80,9 @@ public class Main {
             player.setDamage(5);
             player.setHp(2000);
             System.out.println("sus");
-            player.getInventory().addAll(Arrays.asList(ItemData.ShatteredShard, ItemData.HellShard, ItemData.DeathShard, ItemData.OmegaShard, ItemData.SpriteShard, ItemData.HealingShard, ItemData.GlitchedShard));
+            player.getInventory().addAll(
+                    Arrays.asList(ItemData.ShatteredShard, ItemData.HellShard, ItemData.DeathShard, ItemData.OmegaShard,
+                                  ItemData.SpriteShard, ItemData.HealingShard, ItemData.GlitchedShard));
             Main.currentPlace = new GatesToHell();
         }
         else if (player.getName().equalsIgnoreCase("playtest") || player.getName().equalsIgnoreCase("ptest")) {
@@ -158,7 +162,7 @@ public class Main {
                 System.out.println("[" + i + "] " + allPlaces.get(i).getName());
             }
 
-            currentPlace= new NullZone();
+            currentPlace = new NullZone();
             //add all items that have the word "shard" in them from the list allItems
             for (Item i : allItem) {
                 if (i.getName().toLowerCase().contains("shard")) {
@@ -198,15 +202,16 @@ public class Main {
             System.out.println("amogsus");
             System.exit(0);
         }
-          while (true) {
+        while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(
-                    "You are currently in the " + Colors.RED +  currentPlace.getName() + Colors.RESET + ", on stage " + player.getStageNum() +
+                    "You are currently in the " + Colors.RED + currentPlace.getName() + Colors.RESET + ", on stage " +
+                    player.getStageNum() +
                     Colors.PURPLE);
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }
-            int choice = -1 + Helper.getInput(Colors.RESET, allInteracts.size() + 1);
+            int choice = -1 + Helper.getInputDefault(Colors.RESET, allInteracts.size(), 5);
             allInteracts.get(choice).onChoose(player);
 
         }

@@ -1,10 +1,12 @@
 package NameHere.Enemies.GatesToHell;
 
+import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
+import NameHere.Enviroments.GatesToHell;
 import NameHere.Main;
 import NameHere.Player;
-import NameHere.Abstracts.Enemy;
+
 import java.util.List;
-import NameHere.Enviroments.GatesToHell;
 
 public class HellFireImp extends Enemy {
 
@@ -20,12 +22,12 @@ public class HellFireImp extends Enemy {
     @Override
     public int Attack(Player p, List<Enemy> allies) {
         if(Main.r.nextFloat() > 0.6){
-            System.out.println("The imp creates a fireball hurtling towards the player for " + (this.damage * 3) + " damage");
+            System.out.println("The imp throws a " + Colors.RED + "fireball" + Colors.RESET + " at the player ");
             allies.add( new Fireball());
             return 0;
         }
         else{
-            System.out.println("The imp burns the player for " + this.damage + " damage");
+            System.out.println("The imp " + Colors.RED + "burns" + Colors.RESET + " the player.");
             return this.damage;
         }
 

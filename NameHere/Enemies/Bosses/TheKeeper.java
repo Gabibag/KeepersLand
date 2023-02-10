@@ -36,7 +36,7 @@ public class TheKeeper extends FinalBoss {
     }
 
     @Override
-    public void onDeath(Player p, List<Enemy> allies) {
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         System.out.println("The Keeper has been defeated!");
         allies.add(new TheKeeper2());
         allies.get(allies.size()-1).setDrops(allies.get(0).getDrops());

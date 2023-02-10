@@ -1,6 +1,8 @@
 package NameHere.Enemies.Sprites;
-import NameHere.Abstracts.Spirit;
+
 import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Spirit;
+import NameHere.Colors;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -24,14 +26,14 @@ public class HelperSprite extends Spirit {
         //remove 1 health from each item in the list allies, if it is the only element in the list, deal 100000 damage to the player
         if (allies.size() == 1) {
             p.setBattleHp(p.getBattleHp() - 100000);
-            System.out.println("The Helper Spirit deals 100000 damage to the player");
+            System.out.println("The Helper Spirit deals " + Colors.RED + "100000 damage"+ Colors.RESET + " to the player");
         } else{
             for (Enemy target : allies) {
                 if (allies != (Enemy)this) {
                     target.setBattleHp(target.getBattleHp() - 1);
                 }
             }
-            System.out.println("The Helper Spirit removes 1 health from each enemy in the party");
+            System.out.println("The Helper Spirit removes " + Colors.RED + "1 health" + Colors.RESET + " from each enemy in the party");
         }
 
         return 0;

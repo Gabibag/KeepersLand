@@ -46,6 +46,58 @@ public class BossFight extends Interactable {
     }
     return "Locked";
     }
+    private void printHealth(List<Enemy> enemies, Player p) {
+        StringBuilder Names = new StringBuilder();
+        StringBuilder HpAmounts = new StringBuilder();
+        StringBuilder hpBars = new StringBuilder();
+        for (Enemy enemy : enemies) {
+            StringBuilder nameAdd = new StringBuilder(enemy.getName());
+            StringBuilder hpAdd = new StringBuilder(enemy.getBattleHp() + "hp");
+            if (nameAdd.length() > hpAdd.length()) {
+                //find the difference
+                int diff = nameAdd.length() - hpAdd.length();
+                int offset = diff / 2;
+                for (int i = 0; i < offset; i++) {
+                    hpAdd = new StringBuilder(" " + hpAdd + " ");
+                }
+                if (diff % 2 != 0) {
+                    hpAdd.append(" ");
+                }
+            }
+            else if (nameAdd.length() < hpAdd.length()) {
+                int diff = hpAdd.length() - nameAdd.length();
+                int offset = diff / 2;
+                for (int i = 0; i < offset; i++) {
+                    nameAdd = new StringBuilder(" " + nameAdd + " ");
+                }
+                if (diff % 2 != 0) {
+                    nameAdd.append(" ");
+                }
+            }
+            int barLength = Math.max(nameAdd.length(), hpAdd.length());
+            StringBuilder bar = new StringBuilder("[=]");
+            if (!(barLength < 3)) {
+                bar = new StringBuilder("[");
+                for (int i = 0; i < barLength - 2; i++) {
+                    double percentHp = enemy.getBattleHp() / (double) enemy.getBaseHp();
+                    double barPercent = i / (double) (barLength - 2);
+                    if (barPercent < percentHp) {
+                        bar.append("=");
+                    }
+                    else {
+                        bar.append(" ");
+                    }
+                }
+                bar.append("]");
+            }
+            hpBars.append(bar).append("  ");
+            Names.append(nameAdd).append("  ");
+            HpAmounts.append(hpAdd).append("  ");
+        }
+        System.out.println(Colors.RED + Names );
+        System.out.println(hpBars);
+        System.out.println(HpAmounts + Colors.RESET);
+    }
     static void updateBossItems(Enemy e, boolean battleEnd) {
         if (!battleEnd) {
             for (Item i : e.getDrops()) {
@@ -104,35 +156,9 @@ public class BossFight extends Interactable {
             while (Actions > 0) {
                 updateBossItems(enemies.get(0), true);
                 updateBossItems(enemies.get(0), false);
-                for (Enemy enemy : enemies) {
-                    System.out.print(Colors.RED + enemy.getName() + "  ");
-                }
 
-                System.out.println();
                 //TODO: add a check if the health exceeds the text length of the char so the names spread out
-                for (Enemy enemy : enemies) {
-                    for (int i = 0; i < enemy.getName().length(); i++) {
-                        if ((enemy.getName().length() <= 4)) {
-                            System.out.print(" " + enemy.displayBattleHp());
-                            for (int j = 0; j < enemy.getName().length() - 4; ) {
-                                System.out.print(" ");
-                            }
-                            break;
-                        }
-                        else if ((enemy.getName().length() - (enemy.displayBattleHp().length() + 2)) / 2 <
-                                 1) {
-                            System.out.print(enemy.displayBattleHp() + " ");
-                            break;
-                        }
-                        else if (i ==
-                                 (((enemy.getName().length()) - (enemy.displayBattleHp()).length() + 2)) / 2) {
-                            System.out.print(enemy.displayBattleHp());
-                            i += 4;
-                        }
-                        System.out.print(" ");
-                    }
-                    System.out.print("  ");
-                }
+                printHealth(enemies, p);
                // updateItems(p, 3);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
@@ -169,12 +195,11 @@ public class BossFight extends Interactable {
                             //have the boss take a random item from its drops and give it to the player's inventory each time they atatck
 
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
-                                enemies.get(choice - 1).onDeath(p, enemies);
-
-
+                                enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
                             }
                             Helper.contiuePrompt();
-                        }else {
+                        }
+                        else {
                             System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
                             Helper.Sleep(1);
                         }
@@ -182,16 +207,7 @@ public class BossFight extends Interactable {
 
                     case 2 -> {
                         try {
-                            int healAmount =
-                                    (p.getHealAmount() + (r.nextInt(p.getHealVariance() << 1) - p.getHealVariance())) /
-                                    (tempMaxHp / p.getHp());
-                            if (healAmount + p.getBattleHp() >= tempMaxHp) {
-                                healAmount = tempMaxHp - p.getBattleHp();
-                            }
-                            p.setBattleHp(p.getBattleHp() + healAmount);
-                            System.out.print(Colors.RED + ((healAmount + p.getBattleHp() ==
-                                                            tempMaxHp) ? "You healed to full health" :
-                                    "You healed " + healAmount + " health"));
+                            healPlayer(p, tempMaxHp, r);
                         } catch (Exception e) {
                             System.out.println("You are at your max health");
                         }
@@ -260,6 +276,27 @@ public class BossFight extends Interactable {
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
+    }
+
+    static void healPlayer(Player p, int tempMaxHp, Random r) {
+        int healAmount =
+                (int)((p.getHealAmount()) /
+                      (((double) p.getBattleHp() / (double) tempMaxHp < 0.5) ? 1 : ((double) p.getBattleHp() / (double) tempMaxHp)));
+        healAmount += r.nextInt((p.getHealVariance() << 1)) - p.getHealVariance();
+        if (healAmount < 0) {
+            healAmount = 0;
+        }
+        else if (healAmount + p.getBattleHp() >= tempMaxHp) {
+            healAmount = tempMaxHp - p.getBattleHp();
+        }
+        p.setBattleHp(p.getBattleHp() + healAmount);
+        if (healAmount == 0){
+            System.out.println("Your heal variance negated your heal..."); //occurs when heal variance is large enough in a negative value
+        }else {
+            System.out.print(Colors.RED + ((healAmount + p.getBattleHp() ==
+                                            tempMaxHp) ? "You healed to full health" :
+                    "You healed " + healAmount + " health"));
+        }
     }
 
 }

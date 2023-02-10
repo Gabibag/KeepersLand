@@ -14,7 +14,10 @@ public class TokenShop extends Interactable {
         //set a string to locked if the player doesn't have a shard in their inventory. if they do, set it to token shop
         for (Item item : Main.player.getInventory()) {
           if (item.getName().contains("Shard")&&!item.getName().equalsIgnoreCase("Shattered Shard")){
+              if (Main.player.getTokens() >= 10){
               return Colors.GREEN + "Token Shop" + Colors.PURPLE;
+              }
+              return "Token Shop";
           }
         }
         return "Locked";

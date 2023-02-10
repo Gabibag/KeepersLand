@@ -11,7 +11,10 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Helper {
+    public static boolean speedMode = false;
+
     public static void Sleep(double s) {
+        s = (speedMode ? s/4 : s);
         try {
             TimeUnit.MILLISECONDS.sleep((long) (s * 1000));
         } catch (InterruptedException e) {
@@ -22,19 +25,19 @@ public class Helper {
     *returns the scale factor
     */
 
-    public static int getScaleFactor(int type){
+    public static float getScaleFactor(int type){
         if(Main.player == null){
             return 1;
         }
         if(type == 0){
-            return 1 + Math.round(Main.player.getStageNum() / 11f);
+            return 1 + (Main.player.getStageNum() / 3f);
         }
         else if (type == 1) {
-            return  1 + Math.round(Main.player.getStageNum() / 10f);
+            return  1 + (Main.player.getStageNum() / 5f);
         }else if (type == 2) {
-            return  1 + Math.round(Main.player.getStageNum() / 100f);
+            return  1 + (Main.player.getStageNum() / 100f);
         }
-        return 1 + Math.round(Main.player.getStageNum() / 10f);
+        return 1 + (Main.player.getStageNum() / 5f);
     }
     static Scanner s = new Scanner(System.in);
     /**
@@ -61,8 +64,12 @@ public class Helper {
         add.addAll(Arrays.asList(added));
     }
     public static void contiuePrompt(){
-        System.out.print(Colors.PURPLE + "Press enter to continue" + Colors.RESET);
-        s.nextLine();
+        if (!speedMode) {
+            System.out.print(Colors.PURPLE + "Press enter to continue" + Colors.RESET);
+            s.nextLine();
+        } else{
+            Sleep(1);
+        }
     }
     /**
      * returns an items rarity as a word from a number following this chart
@@ -145,6 +152,22 @@ public class Helper {
         } catch (Exception e) {
             System.out.println(Colors.RED + "Bad input, try again" + Colors.RESET);
             return getInput(msg, top);
+        }
+
+    }
+    public static int getInputDefault(String msg, int top,int def) {
+        try {
+            System.out.println(msg);
+            int r = Integer.parseInt(Prompt(Colors.CYAN + "Player: "));
+            if (r > 0 && r <= top) {
+                System.out.print(Colors.CLEAR);
+                return r;
+            }
+            System.out.println(Colors.RED + "Not an option" + Colors.RESET);
+            return getInput(msg, top);
+        } catch (Exception e) {
+            System.out.println(Colors.CLEAR);
+            return def;
         }
 
     }

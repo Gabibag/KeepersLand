@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="possiblyNotGood:jar">
+    <output-path>$PROJECT_DIR$/../../../NameHere</output-path>
+    <root id="archive" name="possiblyNotGood.jar">
+      <element id="module-output" name="possiblyNotGood" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/23.0.0/annotations-23.0.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

@@ -24,7 +24,7 @@ public class SpriteLord extends Boss {
     }
 
     @Override
-    public void onDeath(Player p, List<Enemy> allies) {
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         for (int i = 0; i < 5; i++) {
             //add random elements of the list allSpirits in main to allies
             try {

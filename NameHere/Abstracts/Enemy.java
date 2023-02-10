@@ -1,12 +1,12 @@
 package NameHere.Abstracts;
 
 import NameHere.*;
-import NameHere.Enemies.Bosses.TheKeeper3;
 
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static NameHere.Main.player;
 
 public abstract class Enemy {
     protected int damage;
@@ -100,7 +100,7 @@ public abstract class Enemy {
     public void scaleStats() {
         this.baseHp *= Helper.getScaleFactor(0);
         this.damage *= Helper.getScaleFactor(1);
-        this.coins *= Helper.getScaleFactor(0);
+        this.coins *= Helper.getScaleFactor(2);
 //        this.xp *= Helper.getScaleFactor();
     }
 
@@ -110,14 +110,18 @@ public abstract class Enemy {
 
     public int Attack(Player p, List<Enemy> allies) {
         //by default, just hits for its damage
-        System.out.println(name + " deals " + damage + " damage");
+
         return damage;
     }
 
-    public void onDeath(Player p, List<Enemy> allies) {
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         //by default, just gives xp and money
         System.out.println("You defeated " + name + "!");
         p.addMoney(coins);
+        player.addMoney(self.getCoins());
+        System.out.println(
+                "You gained " + self.getCoins() + Colors.CYAN + "◊" +
+                Colors.RESET);
         p.addXp(xp);
         randDrops(p, this);
     }
@@ -130,7 +134,7 @@ public abstract class Enemy {
             }
         }
         
-        p.addMoney(e.getCoins()*Helper.getScaleFactor(2));
+        p.addMoney(e.getCoins());
         p.addXp(e.xp);
     }
 }

@@ -25,7 +25,7 @@ public class Angel extends Boss {
     }
 
     @Override
-    public void onDeath(Player p, List<Enemy> allies) {
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         for (int i = 0; i < 3; i++) {
             allies.add(new HealingSprite());
         }

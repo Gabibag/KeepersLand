@@ -1,11 +1,11 @@
 package NameHere.Enemies.Toxic;
 
-import java.util.List;
-
-import NameHere.Main;
-import NameHere.Player;
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.ToxicEnv;
+import NameHere.Main;
+import NameHere.Player;
+
+import java.util.List;
 
 public class SwampMonster extends Enemy {
     public void setBaseStats(){
@@ -18,7 +18,6 @@ public class SwampMonster extends Enemy {
     }
     public int Attack(Player p, List<Enemy> allies) {
         //TODO make this gimmick do more hp the more your missing
-        System.out.println("The monster bites the player for " + this.damage + " damage");
         return this.damage;
     }
 

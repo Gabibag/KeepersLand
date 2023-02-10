@@ -1,6 +1,7 @@
 package NameHere.Enemies.StardewValley;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
 import NameHere.Enviroments.StardewValley;
 import NameHere.Main;
 import NameHere.Player;
@@ -32,27 +33,23 @@ public class Fairy extends Enemy {
         //1 in 10 chance of healing itself, or healing an ally, or dealing 1.2x damage, or delaing 0.8x damge
         int rand = r.nextInt(10);
         if (rand == 0) {
-            System.out.println(name + " heals itself for " + damage + "hp! ");
+            System.out.println(name + " heals itself for " + Colors.GREEN + damage + Colors.RESET + "hp! ");
             battleHp += damage;
             return 0;
         } else if (rand == 1) {
             if (allies.size() > 0) {
                 int randAlly = r.nextInt(allies.size());
-                System.out.println(name + " heals " + allies.get(randAlly).getName() + " for " + damage + " damage");
+                System.out.println(name + " heals " + allies.get(randAlly).getName() + " for " + Colors.GREEN + damage + Colors.RESET + " damage");
                 allies.get(randAlly).setBattleHp(allies.get(randAlly).getBattleHp() + damage);
                 return 0;
             } else {
-                System.out.println(name + " deals " + damage + " damage");
                 return damage;
             }
         } else if (rand == 2) {
-            System.out.println(name + " deals " + (damage * 1.2) + " damage");
             return (int) (damage * 1.2);
         } else if (rand == 3) {
-            System.out.println(name + " deals " + (damage * 0.8) + " damage");
             return (int) (damage * 0.8);
         } else {
-            System.out.println(name + " deals " + damage + " damage");
             return damage;
         }
     }
