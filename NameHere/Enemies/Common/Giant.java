@@ -11,7 +11,7 @@ public class Giant extends Enemy {
 
     public void setBaseStats() {
         this.baseHp = 50;
-        this.damage = 2;
+        this.damage = 4;
         this.xp = 20;
         this.name = "Giant";
         this.coins = 15;

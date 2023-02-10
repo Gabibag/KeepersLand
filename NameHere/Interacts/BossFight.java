@@ -207,16 +207,7 @@ public class BossFight extends Interactable {
 
                     case 2 -> {
                         try {
-                            int healAmount =
-                                    (p.getHealAmount() + (r.nextInt(p.getHealVariance() << 1) - p.getHealVariance())) /
-                                    (tempMaxHp / p.getHp());
-                            if (healAmount + p.getBattleHp() >= tempMaxHp) {
-                                healAmount = tempMaxHp - p.getBattleHp();
-                            }
-                            p.setBattleHp(p.getBattleHp() + healAmount);
-                            System.out.print(Colors.RED + ((healAmount + p.getBattleHp() ==
-                                                            tempMaxHp) ? "You healed to full health" :
-                                    "You healed " + healAmount + " health"));
+                            healPlayer(p, tempMaxHp, r);
                         } catch (Exception e) {
                             System.out.println("You are at your max health");
                         }
@@ -285,6 +276,27 @@ public class BossFight extends Interactable {
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
+    }
+
+    static void healPlayer(Player p, int tempMaxHp, Random r) {
+        int healAmount =
+                (int)((p.getHealAmount()) /
+                      (((double) p.getBattleHp() / (double) tempMaxHp < 0.5) ? 1 : ((double) p.getBattleHp() / (double) tempMaxHp)));
+        healAmount += r.nextInt((p.getHealVariance() << 1)) - p.getHealVariance();
+        if (healAmount < 0) {
+            healAmount = 0;
+        }
+        else if (healAmount + p.getBattleHp() >= tempMaxHp) {
+            healAmount = tempMaxHp - p.getBattleHp();
+        }
+        p.setBattleHp(p.getBattleHp() + healAmount);
+        if (healAmount == 0){
+            System.out.println("Your heal variance negated your heal..."); //occurs when heal variance is large enough in a negative value
+        }else {
+            System.out.print(Colors.RED + ((healAmount + p.getBattleHp() ==
+                                            tempMaxHp) ? "You healed to full health" :
+                    "You healed " + healAmount + " health"));
+        }
     }
 
 }

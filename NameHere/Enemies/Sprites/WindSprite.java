@@ -1,6 +1,7 @@
 package NameHere.Enemies.Sprites;
 import NameHere.Abstracts.Spirit;
 import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -25,7 +26,7 @@ public class WindSprite extends Spirit {
         for (Enemy target : allies) {
             target.setDodgeRate(target.getDodgeRate() + 1);
         }
-        System.out.println("The Wind Spirit increases its party's dodge rate by 1");
+        System.out.println("The Wind Spirit increases its party's " + Colors.BLACK + "dodge rate"+ Colors.RESET + " by 1");
         return 0;
     }
 }

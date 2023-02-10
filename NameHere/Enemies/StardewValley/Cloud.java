@@ -34,10 +34,8 @@ public class Cloud extends Enemy {
     public int Attack(Player p, List<Enemy> allies) {
         //20% chance to do 20% less damage
         if (r.nextInt(5) == 2) {
-            System.out.println(name + " deals " + damage + " damage");
             return (int)(damage*0.8);
         }
-        System.out.println(name + " deals " + damage + " damage");
         return damage;
     }
 }

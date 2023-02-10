@@ -1,6 +1,7 @@
 package NameHere.Enemies.GatesToHell;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
 import NameHere.Player;
 
 import java.util.List;
@@ -17,12 +18,12 @@ public class Fireball extends Enemy {
     int numTurns = 1;
     public int Attack(Player p, List<Enemy> allies) {
         if(numTurns == 0){
-        System.out.println("The fireball explodes for " + this.damage + " damage");
+        System.out.println("The fireball " + Colors.RED + " explodes" + Colors.RESET);
         this.battleHp = 0;
         return this.damage;
         }
         else{
-            System.out.println("The FireBall fly's towards you.");
+            System.out.println("The fireball fly's towards you.");
             numTurns--;
             return 0;
         }

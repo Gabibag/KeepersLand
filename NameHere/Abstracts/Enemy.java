@@ -100,7 +100,7 @@ public abstract class Enemy {
     public void scaleStats() {
         this.baseHp *= Helper.getScaleFactor(0);
         this.damage *= Helper.getScaleFactor(1);
-        this.coins *= Helper.getScaleFactor(0);
+        this.coins *= Helper.getScaleFactor(2);
 //        this.xp *= Helper.getScaleFactor();
     }
 
@@ -134,7 +134,7 @@ public abstract class Enemy {
             }
         }
         
-        p.addMoney(e.getCoins()*Helper.getScaleFactor(2));
+        p.addMoney(e.getCoins());
         p.addXp(e.xp);
     }
 }

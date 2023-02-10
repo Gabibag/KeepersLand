@@ -1,6 +1,8 @@
 package NameHere.Enemies.Sprites;
-import NameHere.Abstracts.Spirit;
+
 import NameHere.Abstracts.Enemy;
+import NameHere.Abstracts.Spirit;
+import NameHere.Colors;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -22,7 +24,7 @@ public class DoubleSprite extends Spirit {
     @Override
     public int Attack(Player p, List<Enemy> allies) {
         //make all allies but itself attack again
-        System.out.println("The Double Spirit makes all allies attack again");
+        System.out.println("The Double Spirit makes all " + Colors.RED + "allies attack again"+ Colors.RESET);
         for (Enemy e : allies) {
             if (!(e instanceof DoubleSprite)) {
                 int i = e.Attack(p, allies);

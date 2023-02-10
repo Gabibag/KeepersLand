@@ -204,7 +204,7 @@ public class Main {
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }
-            int choice = -1 + Helper.getInputDefault(Colors.RESET, allInteracts.size(), 6);
+            int choice = -1 + Helper.getInputDefault(Colors.RESET, allInteracts.size(), 5);
             allInteracts.get(choice).onChoose(player);
 
         }

@@ -1,11 +1,12 @@
 package NameHere.Enemies.City;
 
-import java.util.List;
-
+import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
+import NameHere.Enviroments.AbandonedCity;
 import NameHere.Main;
 import NameHere.Player;
-import NameHere.Abstracts.Enemy;
-import NameHere.Enviroments.AbandonedCity;
+
+import java.util.List;
 
 public class Overloading extends Enemy{
 
@@ -21,12 +22,12 @@ public class Overloading extends Enemy{
     int chargeLeft = 3;
     public int Attack(Player p, List<Enemy> a){
         if(chargeLeft == 0){
-            System.out.println("The OverLoaded Zombie explodes, dealing " + this.damage + " damage to the player and killing itself");
+            System.out.println("The OverLoaded Zombie " + Colors.RED + " explodes" + Colors.RESET + " and kills itself");
             this.battleHp = 0;
             return this.damage;
         }
         chargeLeft--;
-        System.out.println("The OverLoaded Zombie charges up");
+        System.out.println("The OverLoaded Zombie " + Colors.YELLOW + "charges" + Colors.RESET + " up");
         return 0;
     } 
     @Override

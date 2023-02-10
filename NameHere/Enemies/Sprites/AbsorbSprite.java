@@ -2,6 +2,7 @@ package NameHere.Enemies.Sprites;
 
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Spirit;
+import NameHere.Colors;
 import NameHere.Main;
 import NameHere.Player;
 
@@ -28,7 +29,7 @@ public class AbsorbSprite extends Spirit {
             this.setBattleHp(this.getBattleHp() + (int)(target.getBattleHp()*0.02));
             this.setDamage(this.getDamage() + (int)(target.getDamage()*0.02));
         }
-        System.out.println("The Absorb Spirit absorbs 2% of all the enemies hp and damage");
+        System.out.println("The Absorb Spirit " + Colors.BLACK + "absorbs" + Colors.RESET + " 2 % of all the enemies hp and damage");
 
         return damage;
     }

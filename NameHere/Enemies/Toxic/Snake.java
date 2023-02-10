@@ -1,11 +1,12 @@
 package NameHere.Enemies.Toxic;
 
-import java.util.List;
-
+import NameHere.Abstracts.Enemy;
+import NameHere.Colors;
+import NameHere.Enviroments.ToxicEnv;
 import NameHere.Main;
 import NameHere.Player;
-import NameHere.Abstracts.Enemy;
-import NameHere.Enviroments.ToxicEnv;
+
+import java.util.List;
 
 public class Snake extends Enemy {
     public void setBaseStats(){
@@ -17,9 +18,15 @@ public class Snake extends Enemy {
     }
     public int Attack(Player p, List<Enemy> allies) {
         int dmg = (int)(p.getHp() * (8f / 100));
-        System.out.println("The snake bites the player for "+this.damage+"% of their hp. You take" + dmg +  " damage");
+        System.out.println("The snake " + Colors.RED + "bites "+ Colors.RESET + "the player for 8% of their hp.");
         return dmg;
     }
+
+    @Override
+    public int getDamage() {
+        return (int) (Main.player.getHp() * (8f / 100));
+    }
+
     @Override
     public boolean canSpawn(Player p) {
 

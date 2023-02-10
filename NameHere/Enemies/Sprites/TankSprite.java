@@ -26,7 +26,7 @@ public class TankSprite extends Spirit {
         for (Enemy e : allies) {
             if (e.getBattleHp() < this.getBattleHp()) {
                 e.setBattleHp(this.getBattleHp());
-                System.out.print("The Tank Spirit has set the battle hp of " + e.getName() + " to " + this.getBattleHp());
+                System.out.print("The Tank Spirit has resets the battle hp of " + e.getName() + " to " + this.getBattleHp());
                 System.out.println(", you must kill the Tank Spirit first");
             }
         }

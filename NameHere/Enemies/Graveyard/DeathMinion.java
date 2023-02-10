@@ -1,7 +1,7 @@
-package NameHere.Enemies.Lava;
+package NameHere.Enemies.Graveyard;
 
 import NameHere.Abstracts.Enemy;
-import NameHere.Enviroments.LavaZone;
+import NameHere.Enviroments.Graveyard;
 import NameHere.ItemData;
 import NameHere.Main;
 import NameHere.Player;
@@ -23,7 +23,7 @@ public void setBaseStats(){
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextInt(10) == 2) && Main.currentPlace instanceof LavaZone; //(r.nextInt([spawnchance]) == 2)
+        return (r.nextInt(10) == 2) && Main.currentPlace instanceof Graveyard; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

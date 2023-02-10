@@ -3,7 +3,7 @@ package NameHere.Enemies.Bosses;
 import NameHere.*;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-import NameHere.Enemies.Lava.DeathMinion;
+import NameHere.Enemies.Graveyard.DeathMinion;
 
 import java.util.List;
 import java.util.Scanner;

@@ -33,11 +33,10 @@ public class Gargoyle extends Enemy {
     public int Attack(Player p, List<Enemy> allies) {
         //random chance to deal 20% more damage, random chance to not deal any damage
         if (r.nextInt(5) == 2) {
-            System.out.println(name + " deals " + damage + " damage (20% more)");
             return (int)(damage*1.2);
         }
         if (r.nextInt(5) == 2) {
-            System.out.println(name + " misses and deals " + damage + " damage");
+            System.out.println(name + " misses its attack.");
             return 0;
         }
         return super.Attack(p, allies);
