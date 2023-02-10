@@ -13,8 +13,8 @@ public class LavaSlime extends Enemy{
         this.xp = 5;
         this.name = "Lava Slime";
     }
-    public void onDeath(Player p, List<Enemy> allies){
-        super.onDeath(p, allies);
+    public void onDeath(Player p, List<Enemy> allies, Enemy self){
+        super.onDeath(p, allies, self);
         System.out.println("The Lava Slime splits into 3 mini slimes");
         for(int i = 0; i < 3; i++){
             allies.add(new MiniSlime());

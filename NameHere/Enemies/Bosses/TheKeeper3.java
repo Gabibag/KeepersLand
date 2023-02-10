@@ -25,7 +25,7 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
     }
 
     @Override
-    public void onDeath(Player p, List<Enemy> allies) {
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         p.addMoney(allies.get(0).getCoins());
         System.out.println(
                 "You gained " + allies.get(0).getCoins() + Colors.CYAN + "◊" +

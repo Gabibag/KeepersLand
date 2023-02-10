@@ -27,7 +27,7 @@ public class Death extends Boss{
 //        return false;
     }
     @Override
-    public void onDeath(Player p, List<Enemy> allies){
+    public void onDeath(Player p, List<Enemy> allies, Enemy self){
         Helper.Sleep(1);
         System.out.println("Death escapes and summons its minions to kill you");
         for (int i = 0; i < Main.r.nextInt(2,4) + 4; i++) {

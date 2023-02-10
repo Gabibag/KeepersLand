@@ -27,7 +27,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
     }
 
     @Override
-    public void onDeath(Player p, List<Enemy> allies) {
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         allies.clear();
         System.out.println(Colors.CLEAR);
         System.out.println("You found a Mystical Crystal!");

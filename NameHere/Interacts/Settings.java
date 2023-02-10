@@ -1,6 +1,7 @@
 package NameHere.Interacts;
 
 import NameHere.Abstracts.Interactable;
+import NameHere.Colors;
 import NameHere.Helper;
 import NameHere.Main;
 import NameHere.Player;
@@ -16,7 +17,8 @@ public class Settings extends Interactable{
         System.out.println("[1] Change Name");
         System.out.println("[2] Modify Saves");
         System.out.println("[3] Save");
-        int choice = Helper.getInput("Enter a number: ", 0, 3);
+        System.out.println((Helper.speedMode ? Colors.GREEN : Colors.RESET) + "[4] Toggle Speed Mode" + Colors.RESET);
+        int choice = Helper.getInput("Enter a number: ", 0, 4);
         switch (choice) {
             case 0 -> {
                 return;
@@ -57,6 +59,12 @@ public class Settings extends Interactable{
                 }
             }
             case 3 -> p.Save(p.getName() + ".plr");
+            case 4 -> {
+                Helper.speedMode = !Helper.speedMode ;
+                System.out.println("Toggled Speed mode to " + (Helper.speedMode ? "on" : "off"));
+                Helper.contiuePrompt();
+            }
+
         }
         this.onChoose(p);
     }

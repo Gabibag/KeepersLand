@@ -1,6 +1,8 @@
 package NameHere.Enemies.SubSpace;
 
 import NameHere.Abstracts.Enemy;
+import NameHere.Enviroments.SubSpace;
+import NameHere.Main;
 import NameHere.Player;
 
 import java.util.Random;
@@ -11,8 +13,8 @@ public class SubSpaceBird extends Enemy {
 
     @Override
     public void setBaseStats() {
-        this.baseHp = 20;
-        this.damage = 4;
+        this.baseHp = 10;
+        this.damage = 8;
         this.xp = 20;
         this.name = "Sub Space Bird";
         this.battleHp = baseHp;
@@ -21,8 +23,7 @@ public class SubSpaceBird extends Enemy {
 
     @Override
     public boolean canSpawn(Player p) {
-
-        return true; //(r.nextInt([spawnchance]) == 2)
+        return Main.currentPlace instanceof SubSpace;
 
     }
 }

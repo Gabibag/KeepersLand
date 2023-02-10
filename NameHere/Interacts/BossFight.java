@@ -195,7 +195,7 @@ public class BossFight extends Interactable {
                             //have the boss take a random item from its drops and give it to the player's inventory each time they atatck
 
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
-                                enemies.get(choice - 1).onDeath(p, enemies);
+                                enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
                             }
                             Helper.contiuePrompt();
                         }

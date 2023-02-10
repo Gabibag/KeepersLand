@@ -30,7 +30,7 @@ public class Item {
             this.rarity = 2;
         }
         else {
-            this.rarity = (this.cost/100) + 1;
+            this.rarity = (this.cost/10) + 1;
         }
 
         Main.allItem.add(this);
@@ -47,9 +47,10 @@ public class Item {
             this.cost = cost;
         }
         else {
-            this.rarity = (cost/100) + 1;
-            this.cost = (int)(cost * 0.95);
+            this.rarity = (cost/50) + 1;
+            this.cost = (int)(cost * 0.99);
         }
+
         this.healIncrease = heal;
         this.HealVariance = healvair;
         Main.allItem.add(this);

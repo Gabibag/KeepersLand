@@ -1,12 +1,12 @@
 package NameHere.Abstracts;
 
 import NameHere.*;
-import NameHere.Enemies.Bosses.TheKeeper3;
 
-import java.net.PortUnreachableException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static NameHere.Main.player;
 
 public abstract class Enemy {
     protected int damage;
@@ -110,14 +110,18 @@ public abstract class Enemy {
 
     public int Attack(Player p, List<Enemy> allies) {
         //by default, just hits for its damage
-        System.out.println(name + " deals " + damage + " damage");
+
         return damage;
     }
 
-    public void onDeath(Player p, List<Enemy> allies) {
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         //by default, just gives xp and money
         System.out.println("You defeated " + name + "!");
         p.addMoney(coins);
+        player.addMoney(self.getCoins());
+        System.out.println(
+                "You gained " + self.getCoins() + Colors.CYAN + "◊" +
+                Colors.RESET);
         p.addXp(xp);
         randDrops(p, this);
     }

@@ -28,7 +28,7 @@ public class DemonLord extends Boss {
     }
 
     @Override
-    public void onDeath(Player p, List<Enemy> allies) {
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
 
 
     }

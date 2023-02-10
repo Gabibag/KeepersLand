@@ -2,19 +2,13 @@
 
 <!-- TOC -->
 * [About This Game](#about-this-game)
-    * [Shops](#shops)
     * [Battles](#battles)
+    * [Shops](#shops)
     * [Locations](#locations)
     * [Enemy types](#enemy-types)
     * [Final Boss - The Keeper](#final-boss---the-keeper)
 <!-- TOC -->
 
-
-### Shops
-
-- There are 2 different shops, 1 is the regular shop, which allows you to purchase things with coins (◊).
-- The other is a token shop, which allows you to purchase shards using tokens (₪). If you have all the shards, you unlock the final battle
-  - The shop is only accessible after finding a shard.
 
 ### Battles
 
@@ -32,6 +26,12 @@
   - Each boss has a chance to drop a shard, which can be used to unlock the final battle.
     - Each boss drops a specific shard
 - Once the player completes a battle, they will be taken to the home screen, and a new location + stage
+
+### Shops
+
+- There are 2 different shops, 1 is the regular shop, which allows you to purchase things with coins (◊).
+- The other is a token shop, which allows you to purchase shards using tokens (₪). If you have all the shards, you unlock the final battle
+  - The shop is only accessible after finding a shard.
 
 ### Locations
 - Locations are randomly determined, and each location has a different modifier.
@@ -71,7 +71,6 @@
     - Always deal less damage and a chance to take damage
   - Windy Heights
     - Every turn, the enemies' dodge rate increases
-
 
 ### Enemy types
 
