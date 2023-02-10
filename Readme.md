@@ -1,6 +1,6 @@
-# About This Game
 
 <!-- TOC -->
+* [Installation](#installation)
 * [About This Game](#about-this-game)
     * [Battles](#battles)
     * [Shops](#shops)
@@ -8,6 +8,19 @@
     * [Enemy types](#enemy-types)
     * [Final Boss - The Keeper](#final-boss---the-keeper)
 <!-- TOC -->
+
+
+# Installation 
+1. Download the .jar file in releases.
+2. Open your terminal
+   1. Mac - Open spotlight search(command  + space) and type in "terminal"
+   2. Windows - Open the start menu and type in "cmd"
+3. Type in java -jar
+4. Drag in the .jar file onto your terminal
+5. Hit enter
+Note: Hitting control c will force close the game without saving.
+
+# About This Game
 
 
 ### Battles
