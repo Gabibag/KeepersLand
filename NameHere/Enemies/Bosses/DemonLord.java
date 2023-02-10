@@ -1,11 +1,8 @@
 package NameHere.Enemies.Bosses;
 
+import NameHere.*;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-import NameHere.Colors;
-import NameHere.Helper;
-import NameHere.Main;
-import NameHere.Player;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +18,7 @@ public class DemonLord extends Boss {
         this.name = "Demon Lord";
         this.coins = 50;
         this.tokens = 1;
+        this.drops.add(ItemData.HellShard);
     }
 
     @Override

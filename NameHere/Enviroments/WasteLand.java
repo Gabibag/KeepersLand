@@ -18,7 +18,7 @@ public class WasteLand extends Enviorment {
     }
 
     public String getDescription() {
-        return "";
+        return "Used to be a forest. Now its this.";
     }
 
     public String getName() {

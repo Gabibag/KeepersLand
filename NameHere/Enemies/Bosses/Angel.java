@@ -1,12 +1,9 @@
 package NameHere.Enemies.Bosses;
 
+import NameHere.*;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-import NameHere.Colors;
 import NameHere.Enemies.Sprites.HealingSprite;
-import NameHere.Helper;
-import NameHere.Main;
-import NameHere.Player;
 
 import java.util.List;
 
@@ -18,6 +15,7 @@ public class Angel extends Boss {
         this.name = "Angel";
         this.coins = 50;
         this.tokens = 1;
+        this.drops.add(ItemData.HealingShard);
     }
 
     @Override
@@ -28,7 +26,9 @@ public class Angel extends Boss {
 
     @Override
     public void onDeath(Player p, List<Enemy> allies) {
-
+        for (int i = 0; i < 3; i++) {
+            allies.add(new HealingSprite());
+        }
     }
 
 

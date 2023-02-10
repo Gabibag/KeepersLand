@@ -81,26 +81,29 @@ public class TheKeeper extends FinalBoss {
         }
         else if (rand == 4) {
             for (int i = 0; i < p.getInventory().size(); i++) {
-                if (p.getInventory().get(i).getName().contains("shard")) {
+                if (p.getInventory().get(i).getName().contains("Shard")) {
                     counter++;
                 }
             }
             if (counter == 0){
+                //System.out.println("No shards left");
                 return this.Attack(p, allies);
             }
             else{
                 for (int i = 0; i < p.getInventory().size(); i++) {
+
                     Item item = p.getInventory().get(i);
-                    if(item.getName().contains("shard")){
+                    if(item.getName().contains("Shard")){
                         p.getInventory().remove(i);
                         i--;
                         System.out.println("The " + item.getName() + " shatters in your inventory...");
                         p.setBattleHp(p.getBattleHp() - item.getHpIncr());
                         p.setDamage(p.getDamage() - item.getDmgIncr());
+                        break;
                     }
 
                 }
-                System.out.println("A shard shatters in your inventory...");
+             //   System.out.println("A shard shatters in your inventory...");
             }
         }
         else  {

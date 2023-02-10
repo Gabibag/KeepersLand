@@ -7,7 +7,7 @@ public class SkeletonHand extends Enemy {
     public void setBaseStats(){
         this.baseHp = 1;
         this.battleHp = this.baseHp;
-        this.damage = 1;
+        this.damage = 10;
         this.coins = 1;
         this.xp = 1;
         this.dodgeRate = 1;

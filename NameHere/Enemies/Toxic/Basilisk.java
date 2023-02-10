@@ -8,8 +8,7 @@ import NameHere.Player;
 import java.util.Random;
 
 public class Basilisk extends Enemy {
-    Random r = new Random();
-public void setBaseStats(){
+ public void setBaseStats(){
         this.baseHp = 30;
         this.damage = 4;
         this.xp = 10;

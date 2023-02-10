@@ -30,7 +30,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
     public void onDeath(Player p, List<Enemy> allies) {
         allies.clear();
         System.out.println(Colors.CLEAR);
-        System.out.println("You found a Mystical Shard!");
+        System.out.println("You found a Mystical Crystal!");
         if (allies.size() > 0) {
             allies.subList(0, allies.size()).clear();
         }

@@ -5,6 +5,7 @@ import NameHere.Abstracts.Enemy;
 import NameHere.Colors;
 import NameHere.Enemies.Lava.LavaSlime;
 import NameHere.Helper;
+import NameHere.ItemData;
 import NameHere.Player;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class MegaLavaSlime extends Boss{
         this.name = "Mega Lava Slime";
         this.coins = 50;
         this.tokens = 1;
+        this.drops.add(ItemData.ShatteredShard);
     }
 
     @Override

@@ -1,18 +1,18 @@
 package NameHere.Enemies.WindyHeights;
 
-import java.util.List;
-
-import NameHere.Main;
-import NameHere.Player;
 import NameHere.Abstracts.Enemy;
 import NameHere.Enviroments.WindyHeights;
+import NameHere.Main;
+import NameHere.Player;
+
+import java.util.List;
 
 public class SuperChargedBird extends Enemy{
 
     @Override
     public void setBaseStats() {
         this.baseHp = 15;
-        this.damage = 20;
+        this.damage = 40;
         this.coins = 10;
         this.dodgeRate = 1;
         this.xp = 5;

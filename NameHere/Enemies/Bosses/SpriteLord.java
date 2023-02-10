@@ -1,11 +1,8 @@
 package NameHere.Enemies.Bosses;
 
+import NameHere.*;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
-import NameHere.Colors;
-import NameHere.Helper;
-import NameHere.Main;
-import NameHere.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -18,6 +15,7 @@ public class SpriteLord extends Boss {
         this.name = "Spirit Lord";
         this.coins = 75;
         this.tokens = 2;
+        this.drops.add(ItemData.SpriteShard);
     }
 
     @Override
