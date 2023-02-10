@@ -50,7 +50,6 @@ public class Main {
                     saves = 0;
                 }
             } catch (Exception e) {
-
                 saves = 0;
             }
 
@@ -238,6 +237,9 @@ public class Main {
     public static void getNewPlace() {
             try {
                 currentPlace = allPlaces.get(r.nextInt(allPlaces.size())).getClass().getDeclaredConstructor().newInstance();
+                while(!currentPlace.isVaild(player)){
+                    getNewPlace();
+                }
             } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException | NoSuchMethodException | SecurityException e) {
                 // TODO Auto-generated catch block
