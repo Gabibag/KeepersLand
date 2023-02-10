@@ -3,7 +3,6 @@ package NameHere.Interacts;
 import NameHere.Abstracts.Boss;
 import NameHere.Abstracts.Enemy;
 import NameHere.Abstracts.Interactable;
-import NameHere.Enemies.City.Radioactive;
 import NameHere.*;
 
 import java.util.ArrayList;
@@ -232,8 +231,9 @@ public class Battle extends Interactable {
                 if (damage > 0) {
                     p.takeDamage(damage);
                     System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
-                    totalDamage += damage;
-                }//                Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
+
+                }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
+                totalDamage += damage;
             }
             System.out.println("Total damage taken: " + Colors.RED + (totalDamage > p.getBattleHp() ? totalDamage = p.getDamage() : totalDamage) + Colors.RESET);
 

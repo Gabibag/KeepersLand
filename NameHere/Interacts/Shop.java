@@ -97,15 +97,14 @@ public class Shop extends Interactable {
                 for(int i = 0; i < player.getInventory().size();i++){
                     System.out.println("[" + (i + 1) + "] " + inv.get(i).getName());
                 }
+                System.out.println("Note: Items are sold for 90% of their original value");
                 int c = Helper.getInput("Enter an item to sell",0  , inv.size());
-                if(c ==0){
-                    continue;
-                }
-                else{
+                if(c !=0){
                     System.out.println("Sold " + inv.get(c - 1).getName() + " for " + (int)(inv.get(c - 1).getCost()* (9f/10)));
                     player.addMoney((int)(inv.get(c - 1).getCost()* (9f/10)));
                     inv.remove(c - 1);
                 }
+
             }
             else{
                 Item i = items.get(choice - 5);

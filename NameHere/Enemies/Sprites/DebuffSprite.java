@@ -18,7 +18,7 @@ public class DebuffSprite extends Spirit {
     }
 
     public boolean canSpawn(Player p) {
-        return Main.r.nextInt(1, 20) == 2;
+        return Main.r.nextInt(1, 40) == 2;
     }
 
     @Override
