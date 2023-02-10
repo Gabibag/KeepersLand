@@ -15,7 +15,7 @@
 2. Open your terminal
    1. Mac - Open spotlight search(command  + space) and type in "terminal"
    2. Windows - Open the start menu and type in "cmd"
-3. Type in java -jar
+3. Type in `java -jar`
 4. Drag in the .jar file onto your terminal
 5. Hit enter
 Note: Hitting control c will force close the game without saving.
