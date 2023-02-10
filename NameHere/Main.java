@@ -8,8 +8,12 @@ import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
 
 
 public class Main {
@@ -34,9 +38,7 @@ public class Main {
         //defaults for player
         List<String> saveList = allPlayerFiles();
         int saves = 0;
-        if (saveList.size() != 0) {
-            saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
-        }
+        if (saveList.size() != 0) {saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);}
         if (saves == 1) {
             try {
                 player = loadSave();
@@ -234,22 +236,58 @@ public class Main {
     }
 
     public static void getNewPlace() {
-        try {
-            currentPlace = allPlaces.get(r.nextInt(allPlaces.size())).getClass().getDeclaredConstructor().newInstance();
-        
-        while (!currentPlace.isVaild(player)) {
-            currentPlace = allPlaces.get(r.nextInt(allPlaces.size()));
-        }
-    }catch (Exception e){
-        System.out.println("Error getting new place, invaild constructor, trying again");
-        getNewPlace();
-    }
+            try {
+                currentPlace = allPlaces.get(r.nextInt(allPlaces.size())).getClass().getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
     }
 
     /**
      * peforms black magic to get all the types
      **/
     public static void initTypes() {
+        try {
+        for (String classpathEntry : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
+            System.out.println("Entry " + classpathEntry);
+           // System.out.println("first loop");
+            if (classpathEntry.endsWith(".jar")) {
+                System.out.println(".jar found");
+                File jar = new File(classpathEntry);
+                JarInputStream is;
+                 is = new JarInputStream(new FileInputStream(jar));
+                JarEntry entry;
+                while( (entry = is.getNextJarEntry()) != null) {
+                    //System.out.println("name" + entry.getName());
+                    if(entry.getName().endsWith(".class") && entry.getName().contains("NameHere")) {
+                        System.out.println(entry.getName());
+                      //  System.out.println(entry.getName());
+                        String className = entry.getName().replace(".class", "");
+                     //   className = className.substring(className.indexOf("/")+1);
+                        System.out.println(className);
+                        try {
+                            Class.forName(className.replace("/",".")).newInstance();
+                        } catch (Exception e) {
+                        //    System.out.println("failed to load class " + e);
+                     //       System.out.println(className.length());
+                            continue;
+                        }
+                    }
+                }
+            }
+        }
+        } catch (IOException e) {
+                // TODO Auto-generated catch block
+               // e.printStackTrace();
+            }
+            //if it didnt work, we are not from  a .jar and can use the old method. We will know by checking if allInteracts is empty
+            if(allInteracts.size() > 0){
+                System.out.println("Loaded types from .jar");
+                return;
+            }
+            System.out.println(".jar load failed retrying with different method, checking for java files");
         File folder = new File(".");
         initDirc(folder, "");
         for (Interactable i : allInteracts) {
@@ -275,7 +313,7 @@ public class Main {
                     s.newInstance();
 
                 } catch (Exception ignored) {
-                    System.out.println(ignored);
+                    //System.out.println(ignored);
                 }
             }
             else if (listOfFile.isDirectory()) {
