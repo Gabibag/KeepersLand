@@ -1,21 +1,17 @@
 package NameHere;
 
 import NameHere.Abstracts.*;
-import NameHere.Enviroments.AbandonedCity;
 import NameHere.Enviroments.GatesToHell;
 import NameHere.Enviroments.LavaZone;
 import NameHere.Enviroments.NullZone;
+import NameHere.Enviroments.StarterLand;
 import NameHere.Interacts.Battle;
 import NameHere.Interacts.LevelUp;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
@@ -52,7 +48,6 @@ public class Main {
                     saves = 0;
                 }
             } catch (Exception e) {
-
                 saves = 0;
             }
 
@@ -70,9 +65,11 @@ public class Main {
             player.addMoney(50);
             player.setHealAmount(3);
             player.setHealVariance(1);
+            Main.currentPlace = new StarterLand();
         }
-        getNewPlace();
-
+        else{
+            getNewPlace();
+        }
         if (player.getName().equals("among us") || player.getName().equals("test")) {
             player.incStageNum(10);
             player.setHealAmount(100);
@@ -211,7 +208,7 @@ public class Main {
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }
-            int choice = -1 + Helper.getInputDefault(Colors.RESET, allInteracts.size(), 5);
+            int choice = -1 + Helper.getInput(Colors.RESET, allInteracts.size());
             allInteracts.get(choice).onChoose(player);
 
         }
@@ -266,7 +263,7 @@ public class Main {
                 JarEntry entry;
                 while( (entry = is.getNextJarEntry()) != null) {
                     //System.out.println("name" + entry.getName());
-                    if(entry.getName().endsWith(".class")) {
+                    if(entry.getName().endsWith(".class") && entry.getName().contains("NameHere")){
                       //  System.out.println(entry.getName());
                         String className = entry.getName().replace(".class", "");
                      //   className = className.substring(className.indexOf("/")+1);

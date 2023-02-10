@@ -4,7 +4,6 @@ import NameHere.Item;
 import NameHere.Main;
 import NameHere.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Enviorment {
@@ -14,11 +13,25 @@ public abstract class Enviorment {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        try {
+            Enviorment e = (Enviorment) obj;
+            return e.getName().equals(this.getName());
+        } catch (Exception e) {
+            return super.equals(obj);
+        }
+        //return super.equals(obj);
+    }
+    public void BattleStart(Player p, List<Enemy> allies){
+        
+    }
+
     public abstract String getDescription();
 
     public abstract List<Item> getShopItems();
 
-    public boolean isVaild(Player p) {
+    public boolean isValid(Player p) {
         return true;
     }
 

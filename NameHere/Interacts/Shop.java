@@ -10,9 +10,10 @@ public class Shop extends Interactable {
     @Override
     public String getName() {
         //save the result of getItems to a list named items
-        List<Item> items = getItems(Main.player);
+
         //sort the list items by cost descending
         try {
+            List<Item> items = getItems(Main.player);
             if (Main.player.getMoney() >= items.get(0).getCost()){
                 return Colors.GREEN + "Shop" + Colors.PURPLE;
             }

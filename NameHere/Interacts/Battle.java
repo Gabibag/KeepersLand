@@ -17,6 +17,7 @@ import static NameHere.Main.player;
 public class Battle extends Interactable {
 
     static void updateItems(Player p, int battleEnd) {
+
         if (battleEnd == 1) {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getBattleHp() + i.getHpIncr());
@@ -117,11 +118,6 @@ public class Battle extends Interactable {
             spawns = getEnemies(p);
         }
         List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 3));//only spawns 1 boss
-        if(p.getName().equals("among us")){
-            while(enemies.contains(new Radioactive())){
-                enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 3));
-            }
-        }
 
 
         try {
@@ -142,6 +138,7 @@ public class Battle extends Interactable {
                 throw new RuntimeException(e);
             }
         }
+        Main.currentPlace.BattleStart(p, enemies);
         while (enemies.size() > 0) {
             removeDead(enemies);
             //tell user their stage number and enviorment
