@@ -4,6 +4,7 @@ import KeeperLand.*;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Enviorment;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class StarterLand extends Enviorment {
@@ -34,11 +35,13 @@ public class StarterLand extends Enviorment {
 
     @Override
     public List<Item> getShopItems() {
-        return null;
+        return Arrays.asList(ItemData.warriorSword,
+                             ItemData.woodenSword,
+                             ItemData.bountyHunterSword);
     }
 
     @Override
-    public void playerAction(Player p) {
+    public void playerAction(Player p, List<Enemy> enemies) {
 
     }
 

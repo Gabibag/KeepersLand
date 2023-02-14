@@ -16,7 +16,7 @@ public class LavaZone extends Enviorment {
         return "Lava Zone";
     }
 
-    public void playerAction(Player p){
+    public void playerAction(Player p, List<Enemy> enemies){
 
     }
     public void turnEnd(Player p, List<Enemy> enemies){

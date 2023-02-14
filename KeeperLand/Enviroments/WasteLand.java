@@ -33,7 +33,7 @@ public class WasteLand extends Enviorment {
 
     }
 
-    public void playerAction(Player p) {
+    public void playerAction(Player p, List<Enemy> enemies) {
         System.out.println("You have been poisoned by the Waste Land");
         p.setBattleHp((int)(p.getBattleHp() - (p.getBattleHp()*0.2)));
     }

@@ -30,12 +30,12 @@ public class Helper {
             return 1;
         }
         if(type == 0){
-            return 1 + (Main.player.getStageNum() / 3f);
+            return (Main.player.getStageNum() / 3f) <= 1 ? 1 : (Main.player.getStageNum() / 3f);
         }
         else if (type == 1) {
-            return  1 + (Main.player.getStageNum() / 5f);
+            return  (Main.player.getStageNum() / 5f) <= 1 ? 1 : (Main.player.getStageNum() / 5f);
         }else if (type == 2) {
-            return  1 + (Main.player.getStageNum() / 100f);
+            return  (Main.player.getStageNum() / 100f) <= 1 ? 1 : (Main.player.getStageNum() / 100f);
         }
         return 1 + (Main.player.getStageNum() / 5f);
     }

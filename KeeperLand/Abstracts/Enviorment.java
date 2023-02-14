@@ -40,9 +40,10 @@ public abstract class Enviorment {
     /**
      * Called after the player completes an action
      *
-     * @param p the player
+     * @param p       the player
+     * @param enemies
      */
-    public abstract void playerAction(Player p);//done
+    public abstract void playerAction(Player p, List<Enemy> enemies);//done
 
     /**
      * called after the player has used all their actions for a turn

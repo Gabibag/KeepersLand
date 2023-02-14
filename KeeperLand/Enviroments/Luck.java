@@ -40,7 +40,7 @@ public class Luck extends Enviorment {
 
     }
 
-    public void playerAction(Player p) {
+    public void playerAction(Player p, List<Enemy> enemies) {
         //1 in 5 chance of healing player for it's heal amount, 1 in 5 chance of dealing 5% of max hp as damage to itself
         int chance = Main.r.nextInt(5);
         System.out.println(Colors.CLEAR);

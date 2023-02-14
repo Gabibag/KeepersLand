@@ -32,7 +32,7 @@ public class StardewValley extends Enviorment {
 
     }
 
-    public void playerAction(Player p) {
+    public void playerAction(Player p, List<Enemy> enemies) {
 
     }
 

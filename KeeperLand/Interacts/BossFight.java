@@ -223,7 +223,7 @@ public class BossFight extends Interactable {
                         a.onChoose(p);
                     }
                 }
-                Main.currentPlace.playerAction(p);
+                Main.currentPlace.playerAction(p, enemies);
                 if (enemies.size() > 0) {
                     Actions--;
                 }

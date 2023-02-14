@@ -28,7 +28,7 @@ public class Graveyard extends Enviorment {
     }
 
     @Override
-    public void playerAction(Player p) {
+    public void playerAction(Player p, List<Enemy> enemies) {
         //if the list of enemies is less than three, spawn a zombie
     }
 

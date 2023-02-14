@@ -13,7 +13,7 @@ public class GateKeepers extends Enemy {
 
     @Override
     public void setBaseStats() {
-        this.baseHp = 1;
+        this.baseHp = 20;
         this.damage = 0;
         this.xp = 20;
         this.name = "GateKeepers";
@@ -27,5 +27,6 @@ public class GateKeepers extends Enemy {
         return Main.currentPlace instanceof GatesToHell; //(r.nextInt([spawnchance]) == 2)
 
     }
+
 
 }

@@ -31,7 +31,7 @@ public class AbandonedCity  extends Enviorment{
     }
 
     @Override
-    public void playerAction(Player p) {
+    public void playerAction(Player p, List<Enemy> enemies) {
     }
     @Override
     public void turnEnd(Player p, List<Enemy> enemies) {

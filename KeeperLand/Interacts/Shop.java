@@ -28,7 +28,13 @@ public class Shop extends Interactable {
         System.out.print(
                 "Welcome to the shop, " + player.getName());
         while (true) {
-            List<Item> items = getItems(player);
+            List<Item> items = new ArrayList<>();
+            try {
+                items = getItems(player);
+            } catch (Exception ignored) {//in case its empty
+                items.add(ItemData.empty);
+
+            }
             //if the player's stage number is less than 10 remove all Items that contain the word "shard" in their name
             if (player.getStageNum() < 10) {
                 for (int i = items.size()-1; i >= 0; i--) {
@@ -36,17 +42,6 @@ public class Shop extends Interactable {
                         Item il = ItemData.LockedItem;
                         il.setCost(9999999);
                         items.set(i,il );
-                    }
-                }
-            }
-            //if the player aleady has an item and it has shard in its name, remove it from the shop
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).getName().contains("Shard")) {
-                    for (Item item : player.getInventory()) {
-                        if (item.getName().contains("Shard")) {
-                            items.remove(i);
-                            i--;
-                        }
                     }
                 }
             }
@@ -59,9 +54,14 @@ public class Shop extends Interactable {
             //System.out.print(Colors.RESET);
             try {
                 for (int i = 0; i < items.size(); i++){
+                    String color = Colors.PURPLE;
+                    if (player.getMoney() >= items.get(i).getCost()){
+                        color = Colors.GREEN;
+                    }
                     System.out.println(
-                            "[" + (i + 5) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
+                            "[" + (i + 5) + "] " + color+ items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
                             "◊" +
+                            Colors.RED + " ⚔ "  + items.get(i).getDmgIncr() +Colors.GREEN+ " ❤ " + items.get(i).getHpIncr() + Colors.PURPLE+
                             Colors.PURPLE);
                 }
             } catch (Exception e) {
@@ -81,10 +81,13 @@ public class Shop extends Interactable {
             else if(choice == 3){
 
                 for (int i = 0; i < items.size(); i++)
-                    System.out.println(
-                            "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
-                            "◊" +
-                            Colors.PURPLE);
+                    try {
+                        System.out.println(
+                                "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
+                                "◊" );
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 int sC = Helper.getInput(Colors.RESET + "Enter an item to inspect", 1, items.size());
                 System.out.println(items.get(sC - 1));
                 Helper.Prompt("Press Enter when done");
@@ -94,6 +97,7 @@ public class Shop extends Interactable {
 
                 List<Item> inv = player.getInventory();//ref type, no need for set
                 System.out.println("[0] Go back");
+                System.out.println(Colors.PURPLE);
                 for(int i = 0; i < player.getInventory().size();i++){
                     System.out.println("[" + (i + 1) + "] " + inv.get(i).getName());
                 }

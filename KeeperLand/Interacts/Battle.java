@@ -205,7 +205,7 @@ public class Battle extends Interactable {
                     }
                     //#endregion
                 }
-                Main.currentPlace.playerAction(p);
+                Main.currentPlace.playerAction(p, enemies);
                 if (enemies.size() > 0) {
                     Actions--;
                 }
@@ -231,9 +231,9 @@ public class Battle extends Interactable {
                 if (damage > 0) {
                     p.takeDamage(damage);
                     System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
-
+                    totalDamage += damage;
                 }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
-                totalDamage += damage;
+
             }
             System.out.println("Total damage taken: " + Colors.RED + (totalDamage > p.getBattleHp() ? totalDamage = p.getDamage() : totalDamage) + Colors.RESET);
 
