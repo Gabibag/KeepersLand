@@ -35,7 +35,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
             allies.subList(0, allies.size()).clear();
         }
         allies.add(new TheKeeper3());
-        ((FinalBoss)allies.get(0)).finalBossOnSpawn(allies);
+        ((FinalBoss)allies.get(0)).bossOnSpawn(allies);
     }
 
 
@@ -44,8 +44,10 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
         return super.Attack(p, allies);
     }
 
+
+
     @Override
-    public void finalBossOnSpawn(List<Enemy> enemies) {
+    public void bossOnSpawn(List<Enemy> enemies) {
         //for drops in TheKeeper, create a new enemy with the same stats as the drop
         //then add it to the list of enemies
         List<Item> tempItems = new ArrayList<>();
@@ -64,11 +66,5 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
                 enemies.add(temp);
             }
         }
-
-    }
-
-    @Override
-    public void bossOnSpawn(List<Enemy> enemies) {
-        //donthing
     }
 }

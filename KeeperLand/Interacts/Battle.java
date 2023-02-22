@@ -116,7 +116,7 @@ public class Battle extends Interactable {
         while (spawns.size()<3){
             spawns = getEnemies(p);
         }
-        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() % 10 == 0 ? 1 : 3));//only spawns 1 boss
+        List<Enemy> enemies = Helper.getRandomElements(spawns, (p.getStageNum() < 10 ? (p.getStageNum() % 5 == 0 ? 1 : 3) : p.getStageNum() %3 == 0 ? 1 : 3));//only spawns 1 boss
 
 
         try {
@@ -130,7 +130,7 @@ public class Battle extends Interactable {
         System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
         Helper.Sleep(1);
         System.out.print(Colors.CLEAR);
-        if (p.getStageNum() % 10 == 0) {
+        if ((p.getStageNum() < 10 ? (p.getStageNum() % 5 == 0) : p.getStageNum() %3 == 0)) {
             try {
                 ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
             } catch (Exception e) {

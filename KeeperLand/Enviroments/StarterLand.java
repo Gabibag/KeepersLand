@@ -13,7 +13,7 @@ public class StarterLand extends Enviorment {
         System.out.println("Welcome to your first battle!");
         Helper.contiuePrompt();
         System.out.println(Colors.CLEAR + "When the battle starts, choose an option to preform an action.");
-        System.out.println("[1] Attack - choose an enemy to deal damage to \n[2] Heal - heal some of your hp back. The lower you get, the less effective it is \n[3] Inspect - this does not take an action, but allows you to see how much damage each thing does.");
+        System.out.println(Colors.RED + "[1] Attack" + Colors.RESET + " - choose an enemy to deal damage to \n" + Colors.RED + "[2] Heal" + Colors.YELLOW + " - heal some of your hp back. The lower you get, the less effective it is "+ Colors.CYAN + "\n[3] Inspect "+ Colors.RESET + "- this does not take an action, but allows you to get information on the player and it's mobs.");
         Helper.contiuePrompt();
         System.out.println(Colors.CLEAR);
     }

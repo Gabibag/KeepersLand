@@ -236,10 +236,19 @@ public class BossFight extends Interactable {
 
             System.out.println(Colors.CLEAR + Colors.RED);
             int damage;
+            int totalDamage = 0;
             for (Enemy enemy : enemies) {
                 damage = enemy.Attack(p, enemies);
                 p.takeDamage(damage);
+                if (damage > 0) {
+                    p.takeDamage(damage);
+                    System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
+                    totalDamage += damage;
+                }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
+
             }
+            System.out.println("Total damage taken: " + Colors.RED + (totalDamage > p.getBattleHp() ? totalDamage = p.getDamage() : totalDamage) + Colors.RESET);
+
             Helper.contiuePrompt();
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");

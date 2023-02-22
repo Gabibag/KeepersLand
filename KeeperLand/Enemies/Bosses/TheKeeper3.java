@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
+
     public void setBaseStats() {
         this.baseHp = 500;
         this.damage = 0;
@@ -93,7 +94,7 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
     }
 
     @Override
-    public void finalBossOnSpawn(List<Enemy> enemies) {
+    public void bossOnSpawn(List<Enemy> enemies) {
         //for drops in TheKeeper, create a new enemy with the same stats as the drop
         //then add it to the list of enemies
         List<Item> tempItems = new ArrayList<>();
@@ -218,8 +219,4 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
         }
     }
 
-    @Override
-    public void bossOnSpawn(List<Enemy> enemies) {
-        //donthing
-    }
 }

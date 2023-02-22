@@ -1,7 +1,5 @@
 package KeeperLand.Abstracts;
 
-import java.util.List;
-
 public abstract class FinalBoss extends Boss{
     public int getBossStage() {
         return bossStage;
@@ -18,7 +16,6 @@ public abstract class FinalBoss extends Boss{
         return "FinalBoss";
     }
 
-    public abstract void finalBossOnSpawn(List<Enemy> enemies);
 
 
     @Override

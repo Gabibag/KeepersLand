@@ -10,10 +10,7 @@ import java.util.List;
 
 public class TheKeeper extends FinalBoss {
 
-    @Override
-    public void finalBossOnSpawn(List<Enemy> enemies) {
-      //do nothing
-    }
+
 
     public void setBaseStats() {
         this.baseHp = 500;
@@ -41,7 +38,7 @@ public class TheKeeper extends FinalBoss {
         allies.add(new TheKeeper2());
         allies.get(allies.size()-1).setDrops(allies.get(0).getDrops());
         System.out.println("The Keeper has ascended to tage two!");
-        ((FinalBoss)allies.get(allies.size()-1)).finalBossOnSpawn(allies);
+        ((FinalBoss)allies.get(allies.size()-1)).bossOnSpawn(allies);
         allies.remove(0);
         //tell the user that the keeper has ascended to stage two
     }
