@@ -28,8 +28,9 @@ public abstract class Enemy {
         return drops;
     }
 
-    public void setDrops(List<Item> drops) {
+    public ArrayList<Item> setDrops(List<Item> drops) {
         this.drops = drops;
+        return null;
     }
 
     public void addDrops(Item drops) {

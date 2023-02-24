@@ -66,5 +66,22 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
                 enemies.add(temp);
             }
         }
+        for (int mainEntity = enemies.size()-1; mainEntity >= 0; mainEntity--) {
+            ItemEntity e = null;
+            try {
+                e = ((ItemEntity) enemies.get(mainEntity));
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+            for (int j = enemies.size() - 1; j >= 0; j--) {
+                if (e.getName().equals(enemies.get(j).getName()) && mainEntity != j) {
+                    e.setBaseHp(enemies.get(j).getBaseHp() + e.getBaseHp());
+                    enemies.remove(j);
+                    mainEntity--;
+                    e.setCount(e.getCount() + 1);
+//                  e.setName(e.getName() + " x" + e.getCount());
+                }
+            }
+        }
     }
 }

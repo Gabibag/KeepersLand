@@ -8,6 +8,20 @@ import java.util.Random;
 public class ItemEntity extends Enemy {
     Random r = new Random();
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    private int count = 1;
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     @Override
     public void setBaseStats() {
