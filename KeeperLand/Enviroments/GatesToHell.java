@@ -41,7 +41,7 @@ public class GatesToHell extends Enviorment {
         }
 
         System.out.println(Colors.CLEAR +  "The gates to hell hurt you for " + (int)(p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02) + " damage!");
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
     }
 
     public void turnEnd(Player p, List<Enemy> enemies) {

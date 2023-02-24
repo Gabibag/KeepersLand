@@ -71,7 +71,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
             try {
                 e = ((ItemEntity) enemies.get(mainEntity));
             } catch (Exception ex) {
-                throw new RuntimeException(ex);
+                continue;
             }
             for (int j = enemies.size() - 1; j >= 0; j--) {
                 if (e.getName().equals(enemies.get(j).getName()) && mainEntity != j) {

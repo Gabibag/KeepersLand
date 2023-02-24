@@ -1,7 +1,6 @@
 package KeeperLand.Interacts;
 
 import KeeperLand.Abstracts.Interactable;
-import KeeperLand.Colors;
 import KeeperLand.Helper;
 import KeeperLand.Player;
 
@@ -16,7 +15,7 @@ public class Info extends Interactable {
         //print out all variables in the class player
 
         System.out.println(p);
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
 
     }
 }

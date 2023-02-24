@@ -31,7 +31,7 @@ public class SubSpace extends Enviorment {
     public void playerAction(Player p, List<Enemy> enemies) {
         if (p.getBattleHp()>100){
             System.out.println("The subspace environment limits your health. Your health " + ((p.getBattleHp()<250) ? "drops" : "plummets" ) + " to 100");
-            Helper.contiuePrompt();
+            Helper.continuePrompt();
             p.setBattleHp(100);
         }
     }

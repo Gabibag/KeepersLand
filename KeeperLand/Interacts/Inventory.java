@@ -21,6 +21,7 @@ public class Inventory extends Interactable{
             inventory(p);
         }else{
             System.out.println(p);
+            Helper.continuePrompt();
         }
 
     }

@@ -89,7 +89,7 @@ public class DemonLord extends Boss {
                     System.out.println(O + "\n" + S);
                     //Helper.Prompt("a");
                     Helper.Sleep(0.1);
-                    System.out.printf("\033[%dA", 2);
+                    System.out.println(Colors.CLEAR);
                 }
                 System.out.println(Colors.CLEAR);
                 return Math.abs(Pos - SPos);

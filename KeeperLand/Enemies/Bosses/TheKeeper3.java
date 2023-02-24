@@ -44,7 +44,7 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
         Helper.Sleep(1);
         System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "I will make sure you " + Colors.RED + "will not disappoint" + Colors.RESET + ".");
         Helper.Sleep(1);
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
         System.out.println(Colors.CLEAR + "To be continued in...");
         Helper.Sleep(1);
         System.out.println("\n" +
@@ -61,9 +61,9 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
                            "                                                            | $$                                                                            \\$$    $$\n" +
                            "                                                             \\$$                                                                             \\$$$$$$ ");
         Helper.Sleep(1);
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
         System.out.println(Colors.CLEAR + "Thank you for playing!");
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
         System.out.println(Colors.CLEAR);
     }
 
@@ -89,7 +89,7 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
             }
         }
         System.out.println("The keeper created 2 more allies! (Tip: make sure you have one action to deal damage to the keeper before killing the other enemies.)");
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
         return 0;
     }
 
@@ -127,7 +127,7 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
             Helper.Sleep(3.5);
             System.out.println(Colors.RED + "The Keeper:" + Colors.RESET  + " Let the final boss fight begin.");
             Helper.Sleep(2.5);
-            Helper.contiuePrompt();
+            Helper.continuePrompt();
 
         }//do it again, but with a different paragraph
         else if(essay == 3) {
@@ -149,7 +149,7 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
             Helper.Sleep(3.5);
             System.out.println(Colors.RED + "The Keeper:" + Colors.RESET  + " Let the final boss fight begin.");
             Helper.Sleep(3.5);
-            Helper.contiuePrompt();
+            Helper.continuePrompt();
         }// do it again but as a poem
         else { //rewrite this code to add "Colors.RED + "The Keeper:" + Colors.RESET  +" infront of each printstatement
             System.out.println(Colors.RED + "The Keeper: " + Colors.RESET  + "Hello player. I see you've made it to my final stage.");
@@ -202,7 +202,7 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
             Helper.Sleep(2);
             System.out.println(" are just a mere player");
             Helper.Sleep(1);
-            Helper.contiuePrompt();
+            Helper.continuePrompt();
         }
         System.out.println(Colors.CLEAR);
         //Uh so yeah that worked. we're keeping this.

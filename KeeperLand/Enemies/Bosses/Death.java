@@ -33,7 +33,7 @@ public class Death extends Boss{
         for (int i = 0; i < Main.r.nextInt(2,4) + 4; i++) {
             allies.add(new DeathMinion());
         }
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
         System.out.println(Colors.CLEAR);
     }
     @Override

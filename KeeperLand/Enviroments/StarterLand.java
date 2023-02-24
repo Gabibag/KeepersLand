@@ -11,10 +11,10 @@ public class StarterLand extends Enviorment {
     @Override
     public void BattleStart(Player p, List<Enemy> a){
         System.out.println("Welcome to your first battle!");
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
         System.out.println(Colors.CLEAR + "When the battle starts, choose an option to preform an action.");
         System.out.println(Colors.RED + "[1] Attack" + Colors.RESET + " - choose an enemy to deal damage to \n" + Colors.RED + "[2] Heal" + Colors.YELLOW + " - heal some of your hp back. The lower you get, the less effective it is "+ Colors.CYAN + "\n[3] Inspect "+ Colors.RESET + "- this does not take an action, but allows you to get information on the player and it's mobs.");
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
         System.out.println(Colors.CLEAR);
     }
     private int survival = 0;

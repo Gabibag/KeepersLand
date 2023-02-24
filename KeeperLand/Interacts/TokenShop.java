@@ -27,7 +27,7 @@ public class TokenShop extends Interactable {
         //if get name is locked tell the user they cant access this yet
         if (getName().equalsIgnoreCase("Locked")){
             System.out.println("You can't access this yet.");
-            Helper.contiuePrompt();
+            Helper.continuePrompt();
             return;
         }
         System.out.print("Welcome to the token shop, " + player.getName());

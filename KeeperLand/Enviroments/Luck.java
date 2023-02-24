@@ -15,7 +15,7 @@ public class Luck extends Enviorment {
     }
 
     public String getDescription() {
-        return "Randomly changes your health, damage, and enemy damage";
+        return "Randomly changes your health, damage, and enemy damage. Oh and swaps enemies.";
     }
 
     public String getName() {
@@ -28,11 +28,11 @@ public class Luck extends Enviorment {
 
         int chance = Main.r.nextInt(3);
         if (chance == 0) {
-            System.out.println( Colors.CLEAR + "Your damage has doubled!");
+            System.out.println( Colors.CLEAR + "Your damage has "+ Colors.RED + "doubled!" + Colors.RESET);
             return preChange << 1;
 
         } else if (chance == 1) {
-            System.out.println(Colors.CLEAR +  "Your damage has halved!");
+            System.out.println(Colors.CLEAR +  "Your damage has "+ Colors.RED + "halved!"+ Colors.RESET);
             return preChange / 2;
         } else {
             return preChange;
@@ -46,23 +46,23 @@ public class Luck extends Enviorment {
         System.out.println(Colors.CLEAR);
         if (chance == 0) {
             p.setBattleHp(p.getBattleHp() + p.getHealAmount());
-            System.out.println("You healed for " + p.getHealAmount() + " health!");
-            Helper.contiuePrompt();
+            System.out.println("You healed for " + Colors.GREEN +p.getHealAmount() + Colors.RESET + " health!");
+            Helper.continuePrompt();
         } else if (chance == 1) {
             p.takeDamage((int) (p.getHp() * 0.05));
-            System.out.println("You took " + (int) (p.getHp() * 0.05) + " damage!");
-            Helper.contiuePrompt();
+            System.out.println("You took "+ Colors.RED + (int) (p.getHp() * 0.08)+ Colors.RESET + " damage!");
+            Helper.continuePrompt();
         }
         //1 in 5 chance of removing 10% of player's damage, 1in 5 chance of adding 10% of player's damage
         chance = Main.r.nextInt(5);
         if (chance == 0) {
             p.setBattleDamage((int) (p.getBattleDamage() * 0.9));
-            System.out.println(Colors.CLEAR + "Your damage has decreased by 10%!");
-            Helper.contiuePrompt();
+            System.out.println(Colors.CLEAR + "Your damage has "+ Colors.RED + "decreased by 10%!"+ Colors.RESET);
+            Helper.continuePrompt();
         } else if (chance == 1) {
             p.setBattleDamage((int) (p.getBattleDamage() * 1.1));
-            System.out.println(Colors.CLEAR + "Your damage has increased by 10%!");
-            Helper.contiuePrompt();
+            System.out.println(Colors.CLEAR + "Your damage has "+ Colors.RED + "increased by 10%!"+ Colors.RESET );
+            Helper.continuePrompt();
         }
 
     }
@@ -81,7 +81,7 @@ public class Luck extends Enviorment {
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("A sprite has appeared!");
+            System.out.println(Colors.YELLOW + "A sprite has appeared!"+ Colors.RESET);
         } //if chance is 1 turn one enemy into a random enemy in the game
         else if (chance == 1) {
             try {
@@ -91,7 +91,7 @@ public class Luck extends Enviorment {
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("An enemy has changed!");
+            System.out.println(Colors.YELLOW + "An enemy has changed!"+ Colors.RESET);
         }
         // if chance is 2, double everything's battle health
         else if (chance == 2) {
@@ -99,7 +99,7 @@ public class Luck extends Enviorment {
                 e.setBattleHp(e.getBattleHp() << 1);
             }
             p.setBattleHp(p.getBattleHp() << 1);
-            System.out.println("All health has doubled!");
+            System.out.println("All health has "+ Colors.GREEN + "doubled!"+ Colors.RESET);
         }
         //if chance is 3 deal 20 damage to everything
         else if (chance == 3) {
@@ -107,7 +107,7 @@ public class Luck extends Enviorment {
                 e.setBattleHp(e.getBattleHp()-20);
             }
             p.takeDamage(20);
-            System.out.println("Everything took 20 damage!");
+            System.out.println("Everything took "+ Colors.RED + "20 damage!"+ Colors.RESET);
         }
         //if chance is 4, heal everything for 20
         else if (chance == 4) {
@@ -115,7 +115,7 @@ public class Luck extends Enviorment {
                 e.setBattleHp(e.getBattleHp()+20);
             }
             p.setBattleHp(p.getBattleHp()+20);
-            System.out.println("Everything healed for 20hp!");
+            System.out.println("Everything "+ Colors.GREEN + "healed for 20hp!" + Colors.RESET );
         }
         //if chance is 5, do nothing
     }

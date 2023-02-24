@@ -63,7 +63,7 @@ public class Helper {
     public static <t> void AddArrayToList(List<t> add, t[] added){
         add.addAll(Arrays.asList(added));
     }
-    public static void contiuePrompt(){
+    public static void continuePrompt(){
         if (!speedMode) {
             System.out.print(Colors.PURPLE + "Press enter to continue" + Colors.RESET);
             s.nextLine();

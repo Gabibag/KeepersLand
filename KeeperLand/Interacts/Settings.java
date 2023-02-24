@@ -62,7 +62,7 @@ public class Settings extends Interactable{
             case 4 -> {
                 Helper.speedMode = !Helper.speedMode ;
                 System.out.println("Toggled Speed mode to " + (Helper.speedMode ? "on" : "off"));
-                Helper.contiuePrompt();
+                Helper.continuePrompt();
             }
 
         }

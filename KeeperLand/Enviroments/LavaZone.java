@@ -29,7 +29,7 @@ public class LavaZone extends Enviorment {
             }
             p.setBattleHp(p.getBattleHp()/2 + p.getBattleHp());
             turnsTillLava = 3;
-            Helper.contiuePrompt();
+            Helper.continuePrompt();
             return;
         }
         System.out.println(Colors.YELLOW + "The volcano will erupt in " + turnsTillLava + " turns" + Colors.RESET);

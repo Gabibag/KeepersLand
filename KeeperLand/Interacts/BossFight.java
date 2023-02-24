@@ -117,7 +117,7 @@ public class BossFight extends Interactable {
     public void onChoose(Player p) { //yeah same exact thing. Just some sliiiight tweaks.
         if(getName().equalsIgnoreCase("Locked")){
             System.out.println("You need all 6 shards to fight enter this area.");
-            Helper.contiuePrompt();
+            Helper.continuePrompt();
             return;
         }
         int tempMaxHp = p.getHp();
@@ -139,7 +139,7 @@ public class BossFight extends Interactable {
                 p.removeInventory(p.getInventory().get(i));
             }
         }
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
         updateItems(p, 3);
 
         Main.currentPlace = new NullZone();
@@ -197,7 +197,7 @@ public class BossFight extends Interactable {
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
                             }
-                            Helper.contiuePrompt();
+                            Helper.continuePrompt();
                         }
                         else {
                             System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
@@ -249,7 +249,7 @@ public class BossFight extends Interactable {
             }
             System.out.println("Total damage taken: " + Colors.RED + (totalDamage > p.getBattleHp() ? totalDamage = p.getDamage() : totalDamage) + Colors.RESET);
 
-            Helper.contiuePrompt();
+            Helper.continuePrompt();
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");
                 //drop 80% of the items in drops for enemy

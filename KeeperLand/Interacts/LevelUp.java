@@ -34,6 +34,6 @@ public class LevelUp extends Interactable {
         }else {
             System.out.println("You don't have enough xp to level up!");
         }
-        Helper.contiuePrompt();
+        Helper.continuePrompt();
     }
 }
