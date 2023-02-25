@@ -1,20 +1,16 @@
 package KeeperLand.Interacts;
 
 import KeeperLand.Abstracts.Interactable;
-import KeeperLand.Colors;
-import KeeperLand.Helper;
-import KeeperLand.Main;
 import KeeperLand.Player;
+
+import javax.swing.*;
 
 public class LevelUp extends Interactable {
 
     @Override
     public String getName() {
-        try {
-            return ((Main.player.getXp() >= Main.player.getXpToLevel()? Colors.GREEN : Colors.PURPLE) + "Level Up"  + Colors.PURPLE);
-        } catch (Exception e) {
-            return ("Level Up");
-        }
+        return ("Level Up");
+
     }
 
     @Override
@@ -28,12 +24,15 @@ public class LevelUp extends Interactable {
                 p.setHp((int) (p.getHp() + ((p.getHp() * (0.1)>3) ? p.getHp() * (0.1) : 3)) );
                 p.setDamage((int) (p.getDamage() + ((p.getDamage() * (0.15)>4) ? p.getDamage() * (0.15) : 4) ));
                 p.setHealAmount((int) (p.getHealAmount() + p.getHp()*0.07));
-                System.out.println("You leveled up! You are now level " + p.getLevel() + "!");
+                JDialog levelUp = new JDialog();
+                        levelUp.add(new JLabel("You leveled up!"));
+                        levelUp.setSize(300, 300);
+                        levelUp.setVisible(true);
+
 
             }
         }else {
-            System.out.println("You don't have enough xp to level up!");
+            new JDialog().add(new JLabel("You leveled up!"));
         }
-        Helper.continuePrompt();
     }
 }

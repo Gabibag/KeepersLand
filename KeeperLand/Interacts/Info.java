@@ -1,8 +1,9 @@
 package KeeperLand.Interacts;
 
 import KeeperLand.Abstracts.Interactable;
-import KeeperLand.Helper;
 import KeeperLand.Player;
+
+import javax.swing.*;
 
 public class Info extends Interactable {
     @Override
@@ -13,9 +14,8 @@ public class Info extends Interactable {
     @Override
     public void onChoose(Player p) {
         //print out all variables in the class player
-
-        System.out.println(p);
-        Helper.continuePrompt();
+        JOptionPane info = new JOptionPane();
+        JOptionPane.showMessageDialog(null, p);
 
     }
 }

@@ -77,6 +77,14 @@ public class Item {
                "\nHeal Variance: " + this.HealVariance + "\n" + Colors.RESET + "Rarity: " +
                 Helper.getWordRarity(this) + (this.tokenCost==0 ? "\nCost: " + this.getCost() : "\nToken Cost: " + this.tokenCost) + "\n";
     }
+    public String getDesc(){
+        return this.getName() + ":" + "\n" + this.getDescription() + Colors.RED + "\nDamage Increase: " +
+               this.getDmgIncr() +
+               "\nHealth Increase: " + this.getHpIncr() + "\nHealing Increase: " + this.healIncrease +
+               "\nHeal Variance: " + this.HealVariance + "\n" + Colors.RESET + "Rarity: " +
+               Helper.getWordRarity(this) + (this.tokenCost==0 ? "\nCost: " + this.getCost() : "\nToken Cost: " + this.tokenCost) + "\n";
+
+    }
 
     public int getHealVariance() {
         return HealVariance;

@@ -308,7 +308,7 @@ public class Main {
         File[] listOfFiles = Dirc.listFiles();
         assert listOfFiles != null;
         for (File listOfFile : listOfFiles) {
-            if (listOfFile.isFile() && listOfFile.getName().endsWith(".java")) {
+            if (listOfFile.isFile() && listOfFile.getName().endsWith(".java")&& !listOfFile.getName().contains("$")) {
                 try {
                     Class<?> s = Class.forName(
                             path + listOfFile.getName().substring(0, listOfFile.getName().indexOf(".java")));
