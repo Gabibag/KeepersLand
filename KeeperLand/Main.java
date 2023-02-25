@@ -6,6 +6,7 @@ import KeeperLand.Enviroments.LavaZone;
 import KeeperLand.Enviroments.NullZone;
 import KeeperLand.Enviroments.StarterLand;
 import KeeperLand.Interacts.Battle;
+import KeeperLand.Frames.$GamePanel;
 import KeeperLand.Interacts.LevelUp;
 
 import java.io.File;
@@ -30,8 +31,8 @@ public class Main {
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
     public static Player player;
     public static Scanner s;
+    public static $GamePanel mainPanel= new $GamePanel();
     public static void main(String[] args) {
-
         s = new Scanner(System.in);
         r = new Random();
         initTypes();
@@ -263,7 +264,7 @@ public class Main {
                 JarEntry entry;
                 while( (entry = is.getNextJarEntry()) != null) {
                     //System.out.println("name" + entry.getName());
-                    if(entry.getName().endsWith(".class") && entry.getName().contains("KeeperLand")){
+                    if(entry.getName().endsWith(".class") && entry.getName().contains("KeeperLand")&& !entry.getName().contains("$")){
                       //  System.out.println(entry.getName());
                         String className = entry.getName().replace(".class", "");
                      //   className = className.substring(className.indexOf("/")+1);
