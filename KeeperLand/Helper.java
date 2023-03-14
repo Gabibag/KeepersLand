@@ -1,5 +1,6 @@
 package KeeperLand;
 
+import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Enemies.Common.Archer;
 import KeeperLand.Enemies.Common.Goblin;
 import KeeperLand.Enemies.Common.Warrior;
@@ -71,6 +72,12 @@ public class Helper {
             Sleep(1);
         }
     }
+    public static int[] geEnemyFrameLocation(List<Enemy> allies, Enemy self){
+        int[] stats = new int[2];
+        
+
+
+    }
     /**
      * returns an items rarity as a word from a number following this chart
      * 10- common
@@ -113,7 +120,7 @@ public class Helper {
      * @param <T> type of objects in the array
      * @param list the list to choose from
      * @param amount the size of the returned array
-     * @return
+     * @return a list of random elements from the list
      */
     public static <T> List<T> getRandomElements(List<T> list, int amount) {
         List<T> r = new ArrayList<>();

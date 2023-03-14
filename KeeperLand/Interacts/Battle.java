@@ -5,6 +5,7 @@ import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Interactable;
 import KeeperLand.*;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +15,6 @@ import static KeeperLand.Interacts.BossFight.healPlayer;
 import static KeeperLand.Main.player;
 
 public class Battle extends Interactable {
-
     static void updateItems(Player p, int battleEnd) {
 
         if (battleEnd == 1) {
@@ -104,6 +104,7 @@ public class Battle extends Interactable {
 
     @Override
     public void onChoose(Player p) {
+        JFrame battleFrame = new JFrame("Battle");
         int tempMaxHp = p.getHp();
         for (Item i : p.getInventory()) {
             tempMaxHp += i.getHpIncr();
@@ -113,10 +114,16 @@ public class Battle extends Interactable {
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
+        List<JFrame> enemyFrames = new ArrayList<>();
         while (spawns.size()<3){
             spawns = getEnemies(p);
         }
         List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
+        for (Enemy e : enemies) {
+            enemyFrames.add(e.createFrame(e, 1,1));
+        }
+
+        }
 
 
         try {

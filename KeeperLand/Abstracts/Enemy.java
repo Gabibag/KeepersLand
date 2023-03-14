@@ -2,6 +2,8 @@ package KeeperLand.Abstracts;
 
 import KeeperLand.*;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -108,6 +110,17 @@ public abstract class Enemy {
     public abstract void setBaseStats();
 
     public abstract boolean canSpawn(Player p);
+    public JFrame createFrame(Enemy self, int x, int y) {
+        JFrame frame = new JFrame();
+        frame.setSize(30, 30);
+        frame.setLocation(x, y);
+        frame.setUndecorated(true);
+        frame.add(new Label(self.getName() + " " + self.displayBattleHp()));
+        frame.setVisible(true);
+        return frame;
+    }
+
+
 
     public int Attack(Player p, List<Enemy> allies) {
         //by default, just hits for its damage

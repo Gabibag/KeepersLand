@@ -5,6 +5,8 @@ import KeeperLand.Player;
 
 import javax.swing.*;
 
+import static KeeperLand.Main.mainPanel;
+
 public class LevelUp extends Interactable {
 
     @Override
@@ -25,14 +27,20 @@ public class LevelUp extends Interactable {
                 p.setDamage((int) (p.getDamage() + ((p.getDamage() * (0.15)>4) ? p.getDamage() * (0.15) : 4) ));
                 p.setHealAmount((int) (p.getHealAmount() + p.getHp()*0.07));
                 JDialog levelUp = new JDialog();
-                        levelUp.add(new JLabel("You leveled up!"));
+                        levelUp.add(new JLabel("<HTML><h1>You leveled up<h1/><HTML/>"));
                         levelUp.setSize(300, 300);
+                        levelUp.setLocationRelativeTo(mainPanel);
                         levelUp.setVisible(true);
 
 
             }
         }else {
-            new JDialog().add(new JLabel("You leveled up!"));
+            JDialog levelUp = new JDialog();
+            levelUp.add(new JLabel("<HTML><h1>You need more XP to level up<h1/><HTML/>"));
+            levelUp.pack();
+            levelUp.setLocationRelativeTo(mainPanel);
+            levelUp.setLocation(mainPanel.getX(), mainPanel.getY()-levelUp.getHeight());
+            levelUp.setVisible(true);
         }
     }
 }
