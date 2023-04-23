@@ -37,14 +37,36 @@ public class Inventory extends Interactable{
                 iCount.put(i.getName(), 1);
             }
         }
-        List<Item> printItems = new ArrayList<Item>();
-
-        for(Item i: p.getInventory()){
-            if(!printItems.contains(i)){
-                printItems.add(i);
-                System.out.println(Colors.CYAN + (printItems.size()) + Colors.RESET + " " + i.getName() + "x" + iCount.get(i.getName()) + Colors.RESET);
+        List<Item> printItems = new ArrayList<>();
+        printItems.addAll(p.getInventory());
+        //check if the item is already in the list, if it is, remove the item from the list
+        for(int i = 0; i < printItems.size(); i++){
+            for(int j = i + 1; j < printItems.size(); j++){
+                if(printItems.get(i).getName().equals(printItems.get(j).getName())){
+                    printItems.remove(j);
+                    j--;
+                }
             }
+        }
 
+        int count = 1;
+        for(Item i: printItems){
+            String col = Colors.RESET;
+            if(iCount.get(i.getName()) > 100) {
+                col = Colors.RED_BRIGHT;
+            }
+            else if (iCount.get(i.getName()) > 50){
+                col = Colors.RED;
+            }else if(iCount.get(i.getName()) > 25){
+                col = Colors.YELLOW;
+            }else if(iCount.get(i.getName()) > 10){
+                col = Colors.GREEN;
+            }
+            if(i.getName().toLowerCase().contains("shard")){
+                col = Colors.BLUE;
+            }
+            System.out.println(Colors.CYAN + (count) + col + " " + i.getName() + Colors.RESET + " x" + iCount.get(i.getName()) + Colors.RESET);
+            count++;
         }
         int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info \n[0] Quit" + Colors.RESET, 0,
                                     p.getInventory().size());

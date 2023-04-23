@@ -247,7 +247,7 @@ public class BossFight extends Interactable {
                 }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
             }
-            System.out.println("Total damage taken: " + Colors.RED + (totalDamage > p.getBattleHp() ? totalDamage = p.getDamage() : totalDamage) + Colors.RESET);
+            System.out.println("Total damage taken: " + Colors.RED + (totalDamage > p.getBattleHp() ? p.getDamage() : totalDamage) + Colors.RESET);
 
             Helper.continuePrompt();
             if (p.getBattleHp() <= 0) {

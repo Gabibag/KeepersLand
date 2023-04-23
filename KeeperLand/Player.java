@@ -246,7 +246,6 @@ public class Player {
     }
 
     public String toString() {
-        //get the healthincr and damageincr of each item in inventoryTrunk and multiply it by the item's count. set that vairable to temphp and temp dmg
         int tempHp = 0;
         int tempDmg = 0;
         int tempHeal = 0;

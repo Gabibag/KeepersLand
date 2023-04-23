@@ -245,7 +245,7 @@ public class Battle extends Interactable {
                     totalDamage += damage;
 
             }
-            System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp-p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + p.getBattleHp() + Colors.RESET + "]");
+            System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp-p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (p.getBattleHp() < 0 ? 0 : p.getBattleHp()) + Colors.RESET + "]");
 
             Helper.continuePrompt();
             if (p.getBattleHp() <= 0) {

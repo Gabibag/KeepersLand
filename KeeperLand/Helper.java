@@ -31,12 +31,17 @@ public class Helper {
             return 1;
         }
         if(type == 0){
-            return (Main.player.getStageNum() / 3f) <= 1 ? 1 : (Main.player.getStageNum() / 3f);
+            float multi = (Main.player.getDamage() /700f > 1f ? Main.player.getDamage() /100f : 1 );
+            float num = (Main.player.getStageNum() / 3f) * multi;
+            return (num) <= 1 ? 1 : (num); //hp scale
         }
         else if (type == 1) {
-            return  (Main.player.getStageNum() / 5f) <= 1 ? 1 : (Main.player.getStageNum() / 5f);
+            float multi = (Main.player.getHp() /700f > 1f ? Main.player.getHp() /100f : 1 );
+            float num = (((Main.player.getStageNum()) / 5f)  * multi);
+            return  num <= 1 ? 1 : num; // damage scale
         }else if (type == 2) {
-            return  (Main.player.getStageNum() / 100f) <= 1 ? 1 : (Main.player.getStageNum() / 100f);
+            float num = Main.player.getStageNum() / 100f;
+            return  (num) <= 1 ? 1 : (num); //coins scale
         }
         return 1 + (Main.player.getStageNum() / 5f);
     }
@@ -110,7 +115,7 @@ public class Helper {
     }
 
     /**
-     * gets some random elements from an list. Can get the same thing more than one time
+     * gets some random elements from an list. Can get the same thing more than one time.
      * @param <T> type of objects in the array
      * @param list the list to choose from
      * @param amount the size of the returned array
@@ -128,14 +133,15 @@ public class Helper {
 
             }
         }
-        //check for duplicates, if there are any, re run the method
+        //check for duplicates, if there are any, replace them with a random element
         for (int i = 0; i < r.size(); i++) {
             for (int j = 0; j < r.size(); j++) {
                 if (i != j && r.get(i).equals(r.get(j))) {
-                    return getRandomElements(list, amount);
+                    r.set(i, list.get(Main.r.nextInt(list.size())));
                 }
             }
         }
+
 
         return r;
     }
