@@ -32,6 +32,12 @@ public class DemonLord extends Boss {
 
 
     }
+
+    @Override
+    public String getDodgeText() {
+        return " burns your attack.";
+    }
+
     @Override
     public int BossAttack(Player p, List<Enemy> allies){
         System.out.println("Hit enter when the numbers are the same to dodge!");

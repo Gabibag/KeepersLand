@@ -95,7 +95,8 @@ public class Battle extends Interactable {
             System.out.println(
                     Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
             System.out.println(
-                    Colors.RED_BRIGHT + "Dodge Rate: " + enemies.get(choiceInfo - 1).getDodgeRate() + Colors.RESET);
+                    Colors.RED_BRIGHT + "Dodge Rate: " + enemies.get(choiceInfo - 1).getDodgeRate()
+                    + Colors.RESET);
             Helper.continuePrompt();
         }
         inv(enemies);
@@ -113,15 +114,16 @@ public class Battle extends Interactable {
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
-        while (spawns.size()<3){
+        while (spawns.size()<3) {
             spawns = getEnemies(p);
-        }
 
-        //check if spawns contains duplicates, if it does, remove it
-        for (int i = spawns.size() - 1; i >= 0; i--) {
-            for (int j = spawns.size() - 1; j >= i + 1; j--) {
-                if (spawns.get(i).equals(spawns.get(j))) {
-                    spawns.remove(j);
+
+            //check if spawns contains duplicates, if it does, remove it
+            for (int i = spawns.size() - 1; i >= 0; i--) {
+                for (int j = spawns.size() - 1; j >= i + 1; j--) {
+                    if (spawns.get(i).getName().equalsIgnoreCase(spawns.get(j).getName())) {
+                        spawns.remove(j);
+                    }
                 }
             }
         }
@@ -191,7 +193,7 @@ public class Battle extends Interactable {
                             Helper.continuePrompt();
                         }
                         else {
-                            System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
+                            System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                             Helper.Sleep(1);
                         }
                     }
@@ -245,8 +247,8 @@ public class Battle extends Interactable {
                     totalDamage += damage;
 
             }
-            System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp-p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (p.getBattleHp() < 0 ? 0 : p.getBattleHp()) + Colors.RESET + "]");
 
+            System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp-p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (p.getBattleHp() < 0 ? 0 : p.getBattleHp()) + Colors.RESET + "]");
             Helper.continuePrompt();
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");
@@ -255,8 +257,10 @@ public class Battle extends Interactable {
                 p.Save(p.getName() + ".plr");
                 Helper.Sleep(1);
             }
-            System.out.println(Colors.RESET + Colors.CLEAR);
-            Main.currentPlace.turnEnd(p, enemies);
+            if (enemies.size() > 0) {
+                System.out.println(Colors.CLEAR + Colors.RESET);
+                Main.currentPlace.turnEnd(p, enemies);
+            }
             Actions = p.getActionAmount();
         }
         if (p.getBattleHp() > 0) {

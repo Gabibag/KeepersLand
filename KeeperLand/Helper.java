@@ -30,13 +30,12 @@ public class Helper {
         if(Main.player == null){
             return 1;
         }
+        float multi = (Main.player.getLevel() /7f > 1f ? Main.player.getLevel() /7f : 1f );
         if(type == 0){
-            float multi = (Main.player.getDamage() /700f > 1f ? Main.player.getDamage() /100f : 1 );
             float num = (Main.player.getStageNum() / 3f) * multi;
             return (num) <= 1 ? 1 : (num); //hp scale
         }
         else if (type == 1) {
-            float multi = (Main.player.getHp() /700f > 1f ? Main.player.getHp() /100f : 1 );
             float num = (((Main.player.getStageNum()) / 5f)  * multi);
             return  num <= 1 ? 1 : num; // damage scale
         }else if (type == 2) {
@@ -52,6 +51,7 @@ public class Helper {
      * @throws Exception skill issue
      */
     public Helper() throws Exception {
+        System.out.println("skill issue detected");
         throw new Exception("Do not create objects of a helper class");
     }
 

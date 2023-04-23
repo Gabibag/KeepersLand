@@ -11,7 +11,7 @@ public class Ogre extends Enemy {
     Random r = new Random();
 public void setBaseStats(){
         this.baseHp = 40;
-        this.damage = 2;
+        this.damage = 5;
         this.xp = 10;
         this.name = "Ogre";
         this.coins = 5;

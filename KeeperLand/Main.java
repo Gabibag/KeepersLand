@@ -34,8 +34,10 @@ public class Main {
 
         s = new Scanner(System.in);
         r = new Random();
-        initTypes();
+
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
+        initTypes();
+        getNewPlace();
         //defaults for player
         List<String> saveList = allPlayerFiles();
         int saves = 0;
@@ -50,6 +52,7 @@ public class Main {
             } catch (Exception e) {
                 saves = 0;
             }
+            getNewPlace();
 
         }
         if (saves == 0) {
@@ -199,6 +202,7 @@ public class Main {
             System.out.println("amogsus");
             System.exit(0);
         }
+        initTypes();
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(

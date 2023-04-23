@@ -28,6 +28,11 @@ public class Bug extends Boss {
     }
 
     @Override
+    public String getDodgeText() {
+        return " breaks your attack.";
+    }
+
+    @Override
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
 
     }
@@ -92,7 +97,7 @@ public class Bug extends Boss {
                 while(!Bug.End && MissedLeft > 0){
                      shape = Helper.getRandomElements(Arrays.asList("O", "X", "■"), 1).get(0);
                     Color = Helper.RandomColor();
-                    System.out.print("\r :" + Color + shape + Colors.RESET);
+                    System.out.print("\r:" + Color + shape + Colors.RESET);
                     if(shape.equals(GoalShape) && Color.equals(GoalColor)){
                         MissedLeft--;
                     }

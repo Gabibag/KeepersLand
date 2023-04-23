@@ -26,6 +26,12 @@ public class Death extends Boss{
         return true;
 //        return false;
     }
+
+    @Override
+    public String getDodgeText() {
+        return " devours your attack.";
+    }
+
     @Override
     public void onDeath(Player p, List<Enemy> allies, Enemy self){
         Helper.Sleep(1);

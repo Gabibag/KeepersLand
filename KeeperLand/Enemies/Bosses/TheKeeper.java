@@ -46,6 +46,10 @@ public class TheKeeper extends FinalBoss {
         //tell the user that the keeper has ascended to stage two
     }
 
+    @Override
+    public String getDodgeText() {
+        return " defies your attack.";
+    }
 
     @Override
     public void bossOnSpawn(List<Enemy> allies) {

@@ -200,7 +200,7 @@ public class BossFight extends Interactable {
                             Helper.continuePrompt();
                         }
                         else {
-                            System.out.println(enemies.get(choice - 1).getName() + " dodged your attack!");
+                            System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                             Helper.Sleep(1);
                         }
                     }

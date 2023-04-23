@@ -68,6 +68,10 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
     }
 
 
+    @Override
+    public String getDodgeText() {
+        return " decides your attack is insignificant and deletes it.";
+    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

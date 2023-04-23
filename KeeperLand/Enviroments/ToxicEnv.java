@@ -32,7 +32,7 @@ public class ToxicEnv extends Enviorment {
         if (dmgInc == 0) {
             return preChange;
         }
-        System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + dmgInc) + "!" + Colors.RESET);
+        System.out.println(Colors.RED + "The toxic air increases your damage to " + (preChange + dmgInc) + "!" + Colors.RESET + "(" + preChange + " -> " + (preChange + dmgInc) + ")");
         return preChange + dmgInc;
 
     }
@@ -49,7 +49,7 @@ public class ToxicEnv extends Enviorment {
         if ((dmgInc == 0) || (preChange == 0)) {
             return preChange;
         }
-        System.out.println(Colors.RED + "The toxic air increases the damage to " + (preChange + dmgInc) + "!" + Colors.RESET);
+        System.out.println(Colors.RED + "The toxic air increases the enemies' damage to " + (preChange + dmgInc) + "!" + Colors.RESET + "(" + preChange + " -> " + (preChange + dmgInc) + ")");
         return preChange + dmgInc;
     }
 }

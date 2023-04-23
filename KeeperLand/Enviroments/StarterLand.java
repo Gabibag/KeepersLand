@@ -63,4 +63,8 @@ public class StarterLand extends Enviorment {
         }
         return preChange;
     }
+    public StarterLand() {
+        //do nothing. Put here to stop the super constructor from being called and adding this to the list of places
+        //idk if this works
+    }
 }

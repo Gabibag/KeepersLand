@@ -76,6 +76,9 @@ public abstract class Enemy {
     public int getDodgeRate() {
         return dodgeRate;
     }
+    public String getDodgeText(){
+        return " dodged your attack!";
+    }
 
     public void setDodgeRate(int dodgeRate) {
         this.dodgeRate = dodgeRate;

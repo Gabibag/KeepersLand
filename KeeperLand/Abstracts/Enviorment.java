@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class Enviorment {
     public Enviorment() {
-        if(!Main.allPlaces.contains(this)){
+        if(!Main.allPlaces.contains(this) && !this.getName().equalsIgnoreCase("starter land") /*Hard coding cuz im stupid*/){
         Main.allPlaces.add((this));
         }
     }

@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
+
+    @Override
+    public String getDodgeText() {
+        return " ignores your attack.";
+    }
+
     public void setBaseStats() {
         this.baseHp = 1;
         this.damage = 0;
