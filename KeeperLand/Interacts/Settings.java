@@ -17,8 +17,9 @@ public class Settings extends Interactable{
         System.out.println("[1] Change Name");
         System.out.println("[2] Modify Saves");
         System.out.println("[3] Save");
+        System.out.println("[5] More Shop Info");
         System.out.println((Helper.speedMode ? Colors.GREEN : Colors.RESET) + "[4] Toggle Speed Mode" + Colors.RESET);
-        int choice = Helper.getInput("Enter a number: ", 0, 4);
+        int choice = Helper.getInput("Enter a number: ", 0, 5);
         switch (choice) {
             case 0 -> {
                 return;
@@ -32,7 +33,7 @@ public class Settings extends Interactable{
                 System.out.println("Modify Saves:");
                 System.out.println("[0] Exit");
                 System.out.println("[1] Delete Save");
-                int choice2 = Helper.getInput("Enter a number: ", 0, 3);
+                int choice2 = Helper.getInput("Enter a number: ", 0, 4);
                 switch (choice2) {
                     case 0 -> {
                         return;
@@ -62,6 +63,11 @@ public class Settings extends Interactable{
             case 4 -> {
                 Helper.speedMode = !Helper.speedMode ;
                 System.out.println("Toggled Speed mode to " + (Helper.speedMode ? "on" : "off"));
+                Helper.continuePrompt();
+            }
+            case 5 ->{
+                Helper.moreShopInfo = !Helper.moreShopInfo;
+                System.out.println("Toggled More Shop Info to " + (Helper.moreShopInfo ? "on" : "off"));
                 Helper.continuePrompt();
             }
 

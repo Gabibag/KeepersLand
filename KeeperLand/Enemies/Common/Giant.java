@@ -21,7 +21,7 @@ public class Giant extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return Main.r.nextFloat() > 0.7f; //20% chance of spawning
+        return Main.r.nextInt(40) ==2; //0.025% chance of spawning
 
     }
 }

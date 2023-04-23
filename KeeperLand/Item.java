@@ -1,6 +1,9 @@
 package KeeperLand;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Item {
     private int healIncrease = 0;
     private int dmgIncr;
@@ -10,6 +13,7 @@ public class Item {
     private String description;
     private int rarity;
     private int tokenCost = 0;
+    public static List<Item> allPool = new ArrayList<>();
     /*make this a number from 1-1000, for drop chance, also doubles as epic, common, etc.
     1-10  - common
     10-20 - uncommon
@@ -54,6 +58,31 @@ public class Item {
         this.healIncrease = heal;
         this.HealVariance = healvair;
         Main.allItem.add(this);
+    }
+    public Item(int dmgIncr, int hpIncr, String name, String description, int heal, int healvair, boolean isAllPool) {
+        this.dmgIncr = dmgIncr;
+        this.hpIncr = hpIncr;
+        this.name = name;
+        this.description = description;
+
+        int cost = (dmgIncr * 30) + (hpIncr * 25) + (heal * (heal<=2 ? 20 : (heal <=4 ? 30 : 40 ))) + (healvair * 5);
+        if (cost < 50){
+            this.rarity = 2;
+            this.cost = cost;
+        }
+        else {
+            this.rarity = (cost/50) + 1;
+            this.cost = (int)(cost * 0.99);
+        }
+
+        this.healIncrease = heal;
+        this.HealVariance = healvair;
+        if (isAllPool){
+            allPool.add(this);
+        }
+        else {
+            Main.allItem.add(this);
+        }
     }
     public Item(int dmgIncr, int hpIncr, String name, String description, int heal, int healvair, int dropRate, int costMultiplier) {
         this.dmgIncr = dmgIncr;

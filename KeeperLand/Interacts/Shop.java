@@ -61,8 +61,7 @@ public class Shop extends Interactable {
                     System.out.println(
                             "[" + (i + 5) + "] " + color+ items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
                             "◊" +
-                            Colors.RED + " ⚔ "  + items.get(i).getDmgIncr() +Colors.GREEN+ " ❤ " + items.get(i).getHpIncr() + Colors.PURPLE+
-                            Colors.PURPLE);
+                            Colors.RED + " ⚔ "  + items.get(i).getDmgIncr() +Colors.GREEN+ " ❤ " + items.get(i).getHpIncr() + (Helper.moreShopInfo ? Colors.RESET + " (" + items.get(i).getDescription() + ")" : "") + Colors.PURPLE);
                 }
             } catch (Exception e) {
                 //items.add(Item.empty);
@@ -84,7 +83,7 @@ public class Shop extends Interactable {
                     try {
                         System.out.println(
                                 "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
-                                "◊" );
+                                "◊" + Colors.CLEAR);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

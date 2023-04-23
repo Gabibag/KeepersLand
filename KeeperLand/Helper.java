@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Helper {
     public static boolean speedMode = false;
+    public static boolean moreShopInfo = false;
 
     public static void Sleep(double s) {
         s = (speedMode ? s/4 : s);
@@ -125,6 +126,14 @@ public class Helper {
                 r.add((T) new Archer());
                 r.add((T) new Warrior());
 
+            }
+        }
+        //check for duplicates, if there are any, re run the method
+        for (int i = 0; i < r.size(); i++) {
+            for (int j = 0; j < r.size(); j++) {
+                if (i != j && r.get(i).equals(r.get(j))) {
+                    return getRandomElements(list, amount);
+                }
             }
         }
 

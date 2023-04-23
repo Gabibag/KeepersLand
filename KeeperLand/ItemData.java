@@ -40,7 +40,7 @@ public class ItemData {
                                                "Why does a ribcage deal more damage than a sword?", 0, 0);
     public static Item soul = new Item(1, 20, "Soul", "I-it's just a soul why does it give you health?", 0, 0);
     public static Item empty = new Item(69420, 69420, "Empty", "Nothing to see here.", 69420, 69420);
-    public static Item GhostSpirit = new Item(0,3, "Ghost Spirit in a Bottle", "A bottle with a ghost trapped inside. It seems to be trying to say something", 3,0);
+    public static Item GhostSpirit = new Item(0,3, "Ghost Spirit in a Bottle", "Really a skill issue if you get stuck in a bottle imo", 3,0);
     public static Item toxicWaste = new Item(8, 2, "Toxic Waste", "Where did it come from?", 0, 0);
     public static Item starDust = new Item(10, 0, "Star Dust", "Similar to toxic waste", 0, 0);
     public static Item barFromHell = new Item(7, 0, "Bar From Hell", "Did you take that from the gates of hell?");
@@ -62,7 +62,10 @@ public class ItemData {
     public static Item OmegaShard = new Item(10, 20, "Omega Shard", "The most rare shard, and yet, the least rare shard. 1 of 7 Shards.", 9, 6, 100, 10);
     public static Item KeeperCrystal = new Item(0, 1000, "Keeper Crystal", "Powerful. But if you live you won't be needing it.", 0, 0, Integer.MIN_VALUE/1000, Integer.MIN_VALUE/100000);
     public static Item LockedItem = new Item(0, 0, "Locked Item", "Sorry, you can't buy this yet.", 0, 0);
-    public static Item SubspaceOrb = new Item(1, 1, "Subspace Orb", "Kinda small don't you think? Wait, you can't see it yet.", 1, 0);
+    public static Item SubspaceOrb = new Item(1, 1, "Subspace Orb", "Kinda small don't you think? Wait, you can't see it yet.", 1, 0,true);
+    public static Item glitch = new Item(-2, 4, "Glitch", "DO NOT USE.", -5, 99,true);
+    public static Item unstableSword = new Item((int) (Math.random() * 15) - 5, 0, "Unstable Sword", "Maybe reload your game?", 0, 0, true);
+    public static Item unstableRing = new Item(0, (int) (Math.random() * 20) - 7, "Unstable Ring", "Maybe reload your game?", -5, 0, true);
 
 
 

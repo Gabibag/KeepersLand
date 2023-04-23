@@ -22,7 +22,7 @@ public class Goblin extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return Main.r.nextFloat() > 0.7f;
+        return Main.r.nextInt(10) ==2;
 
     }
 }

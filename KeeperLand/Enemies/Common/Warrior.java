@@ -2,6 +2,7 @@ package KeeperLand.Enemies.Common;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.ItemData;
+import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.Random;
@@ -21,8 +22,7 @@ public class Warrior extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return (r.nextBoolean() ||
-                r.nextBoolean()); //25% chance of not spawning, kinda rare as it deals quite a bit damage
+        return (Main.r.nextInt(10) == 2); //25% chance of not spawning, kinda rare as it deals quite a bit damage
 
     }
 }

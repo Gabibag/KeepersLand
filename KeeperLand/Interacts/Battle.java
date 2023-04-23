@@ -44,7 +44,7 @@ public class Battle extends Interactable {
         List<Enemy> returned = new ArrayList<>();
         for (Enemy e : Main.allEnemies) {
             if (e.canSpawn(p)) {
-                if (p.getStageNum() % 10 == 0) {
+                if (p.getStageNum() % 5 == 0) {
                     if (e instanceof Boss) {
                         returned.add(e);
                     }
@@ -116,6 +116,15 @@ public class Battle extends Interactable {
         while (spawns.size()<3){
             spawns = getEnemies(p);
         }
+
+        //check if spawns contains duplicates, if it does, remove it
+        for (int i = spawns.size() - 1; i >= 0; i--) {
+            for (int j = spawns.size() - 1; j >= i + 1; j--) {
+                if (spawns.get(i).equals(spawns.get(j))) {
+                    spawns.remove(j);
+                }
+            }
+        }
         List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
 
 
@@ -141,8 +150,8 @@ public class Battle extends Interactable {
         while (enemies.size() > 0) {
             removeDead(enemies);
             //tell user their stage number and enviorment
-            System.out.print("You are in the " + Main.currentPlace.getName() + Colors.RESET);
             while (Actions > 0) {
+                System.out.print("You are in the " + Main.currentPlace.getName() + Colors.RESET);
                 System.out.println();
                 //updateItems(p, 3);
                 printHealth(enemies, p);
@@ -236,13 +245,14 @@ public class Battle extends Interactable {
                     totalDamage += damage;
 
             }
-            System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp-p.getBattleHp()) + Colors.RESET);
+            System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp-p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + p.getBattleHp() + Colors.RESET + "]");
 
             Helper.continuePrompt();
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");
                 IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                         enemies::remove); //the magic of intellij
+                p.Save(p.getName() + ".plr");
                 Helper.Sleep(1);
             }
             System.out.println(Colors.RESET + Colors.CLEAR);
@@ -253,6 +263,7 @@ public class Battle extends Interactable {
             //TODO drops
             System.out.println("You won!");
             p.incStageNum(1);
+            p.Save(p.getName() + ".plr");
 
         }
         updateItems(p, 2);

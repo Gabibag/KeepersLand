@@ -48,7 +48,7 @@ public class Player {
         try {
             File f = new File(file);
             Scanner r = new Scanner(f);
-            Player p = new Player(r.nextLine(), r.nextInt(), r.nextInt(), new ArrayList<Item>());
+            Player p = new Player(r.nextLine(), r.nextInt(), r.nextInt(), new ArrayList<>());
             p.setMoney(r.nextInt());
             p.setActionAmount(r.nextInt());
             p.setHealVariance(r.nextInt());

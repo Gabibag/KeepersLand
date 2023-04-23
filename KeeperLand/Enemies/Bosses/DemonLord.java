@@ -107,7 +107,7 @@ public class DemonLord extends Boss {
             }
             else if(Math.abs(1 - i) == 1){
                 dmg /= 2;
-                System.out.println("You are grazed by the demon's attack!, and take half damage\n You are hit for " + dmg + " damage");
+                System.out.println("You are grazed by the demon's attack!, and take half damage\nYou are hit for " + dmg + " damage");
 
             }
             else{

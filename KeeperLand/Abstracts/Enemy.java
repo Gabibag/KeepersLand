@@ -25,6 +25,7 @@ public abstract class Enemy {
         return "Enemy";
     }
     public List<Item> getDrops() {
+
         return drops;
     }
 
@@ -127,14 +128,24 @@ public abstract class Enemy {
         randDrops(p, this);
     }
     public void randDrops(Player p, Enemy e) {
-        for (Item drop : this.drops) {
-            if (r.nextInt(drop.getRarity()) == 1) {
-                p.addInventory(drop);
-                System.out.println(Colors.CYAN + "You found a " + drop.getName() + "!" + Colors.RESET);
-                break;
+        if (r.nextInt(1, 2) ==1) {
+            for (Item drop : this.drops) {
+                if (r.nextInt(drop.getRarity()) == 1) {
+                    p.addInventory(drop);
+                    System.out.println(Colors.CYAN + "You found a " + drop.getName() + "!" + Colors.RESET);
+                    break;
+                }
+            }
+        }else{
+            for(Item drop : Item.allPool){
+                if(r.nextInt(drop.getRarity()) == 1){
+                    p.addInventory(drop);
+                    System.out.println(Colors.CYAN + "You found a " + drop.getName() + "!" + Colors.RESET);
+                    break;
+                }
             }
         }
-        
+
         p.addMoney(e.getCoins());
         p.addXp(e.xp);
     }
