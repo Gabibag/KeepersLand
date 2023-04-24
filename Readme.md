@@ -97,7 +97,6 @@
     - Goblin
     - Ghost
     - Warrior
-    - Gate Keepers
     - Bounty Hunter
     - Skeleton
     - Skeleton Hand
@@ -127,6 +126,7 @@
     - Hell Fire Imp - Summons fireballs
     - Lava Slime - Splits into Miniature versions of itself on death
     - Cloud - Chance to deal less damage.
+    - Gate Keeper - Boosts the health of enemies by taking your health
     - Fairy - Has a chance to:
         - Heal itself
         - Heal its party members
@@ -153,12 +153,14 @@
     - 6 Bosses, each with different mechanics. Usually easy to beat and comes with a spawn "animation"
         - Angel
             - Spawns 4 healing sprites on spawn
-            - Spawns 3 healing sprites on death
+            - Spawns 3 healing sprites and a death's minion on death
             - Drops Healing Shard
+            - Chance to heal itself 
+            - Chance to spawn a healing sprite
         - <bug?>
-            - Hides damage and health
             - Shape defense mechanism
             - Drops glitched Shard
+            - Spawns "glitched" entites
         - Death
             - Spawns a random number of its minions on death
             - Bar defense mechanism
