@@ -35,29 +35,32 @@ public class Bug extends Boss {
 
     @Override
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
+        p.setStageNum(p.getStageNum()-1);
         List<Enemy> spawns = Battle.getEnemies(p);
+        p.setStageNum(p.getStageNum()+1);
         spawns = Helper.getRandomElements(spawns, 4);
 
         System.out.println(Colors.RED + "<Error>: multiple abnormal entites detected. Attempting to fix error..." + Colors.RESET);
         for (Enemy e : spawns) {
             int rand = Main.r.nextInt(3);
+            Helper.Sleep(2);
             if (rand == 0) {
                 System.out.println("Entity " + e.getName() + "<" + e + "> detected with abnormal stats. Attempting to fix...");
                 e.setBattleHp(e.getBattleHp() >> 1);
                 e.setDamage(e.getDamage() << 1);
-                Helper.Sleep(1);
+                Helper.Sleep(2);
                 System.out.println("Entity " + e.getName() + "<" + e + "> unable to fix, health halved (" + e.getBattleHp() * 2 + "->" + e.getBattleHp() + "), damage doubled (" + e.getDamage() / 2 + "->" + e.getDamage() + ").");
             } else if (rand == 1) {
                 System.out.println("Entity " + e.getName() + "<" + e + "> detected with abnormal stats. Attempting to fix...");
                 e.setBattleHp(e.getBattleHp() << 1);
                 e.setDamage(e.getDamage() >> 1);
-                Helper.Sleep(1);
+                Helper.Sleep(2);
                 System.out.println("Entity " + e.getName() + "<" + e + "> unable to fix, health doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + "), damage halved (" + e.getDamage() * 2 + "->" + e.getDamage() + ").");
             } else if (rand == 2) {
                 System.out.println("Entity " + e.getName() + "<" + e + "> detected with decreased stats. Attempting to fix...");
                 e.setBattleHp(e.getBattleHp() << 1);
                 e.setDamage(e.getDamage() << 1);
-                Helper.Sleep(1);
+                Helper.Sleep(2);
                 System.out.println("Entity " + e.getName() + "<" + e + "> fixed, health doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + "), damage doubled (" + e.getDamage() / 2 + "->" + e.getDamage() + ").");
             }
         }

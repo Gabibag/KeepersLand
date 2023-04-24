@@ -25,10 +25,11 @@ public class DoubleSprite extends Spirit {
     public int Attack(Player p, List<Enemy> allies) {
         //make all allies but itself attack again
         System.out.println("The Double Spirit makes all " + Colors.RED + "allies attack again" + Colors.RESET);
-        for (Enemy e : allies) {
+        for (int i = 0; i < allies.size(); i++) {
+            Enemy e = allies.get(i);
             if (!(e instanceof DoubleSprite)) {
-                int i = e.Attack(p, allies);
-                p.takeDamage(i);
+                int j = e.Attack(p, allies);
+                p.takeDamage(j);
             }
         }
         return 0;

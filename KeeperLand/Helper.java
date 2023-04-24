@@ -43,12 +43,12 @@ public class Helper {
             return 1;
         }
         float multi = (Main.player.getLevel() / 7f > 1f ? Main.player.getLevel() / 7f : 1f);
-        if (type == 0) {
+        if (type == 0) {//hp scale
             float num = (Main.player.getStageNum() / 3f) * multi;
-            return (num) <= 1 ? 1 : (num); //hp scale
-        } else if (type == 1) {
-            float num = (((Main.player.getStageNum()) / 5f) * multi);
-            return num <= 1 ? 1 : num; // damage scale
+            return (num) <= 1 ? 1 : (num);
+        } else if (type == 1) {// damage scale
+            float num = (((Main.player.getStageNum()) / 7.5f) * multi);
+            return num <= 1 ? 1 : num;
         } else if (type == 2) {
             float num = Main.player.getStageNum() / 100f;
             return (num) <= 1 ? 1 : (num); //coins scale

@@ -125,7 +125,7 @@ public class Shop extends Interactable {
                     try {
                         System.out.println(
                                 "[" + (i + 1) + "] " + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
-                                        "◊" + Colors.CLEAR);
+                                        "◊" + Colors.RESET);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }

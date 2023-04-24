@@ -36,12 +36,16 @@ public class TokenShop extends Interactable {
             for (int j = items.size() - 1; j >= 0; j--) {
                 Item i = items.get(j);
                 //if items' doesn't have shard in it or it's name is "shattered shard", remove it from items
-                if (!i.getName().contains("Shard") || i.getName().equals("Shattered Shard")) {
+                if ((!i.getName().contains("Shard") || i.getName().equals("Shattered Shard") )) {
                     items.remove(j);
                 }
-
             }
-
+            //if the item doesn't have a token cost, remove it from items
+            for (int j = items.size() - 1; j >= 0; j--) {
+                if (items.get(j).getTokenCost() == 0) {
+                    items.remove(j);
+                }
+            }
 
             System.out.println("\nYou have " + Colors.GREEN_BOLD + player.getTokens() + "₪");
             System.out.println(Colors.PURPLE + "[0] Leave");
