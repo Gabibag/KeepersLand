@@ -146,7 +146,7 @@ public class Main {
         else if (player.getName().equalsIgnoreCase("bossTest") || player.getName().equalsIgnoreCase("btest")) {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
-            for (int i = 0; i < 99; i++) {
+            for (int i = 0; i < 40; i++) {
                 spawns = Battle.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
 

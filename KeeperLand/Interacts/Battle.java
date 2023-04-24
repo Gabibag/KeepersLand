@@ -227,36 +227,7 @@ public class Battle extends Interactable {
                 System.out.println(Colors.CLEAR);
             }
 
-            System.out.println(Colors.CLEAR);
-            int totalDamage = 0;
-            int currentHp = p.getBattleHp();
-            for (int i = 0; i < enemies.size(); i++) {
-                Enemy enemy = enemies.get(i);
-                int damage;
-                if (enemy instanceof Boss) {
-                    damage = ((Boss) enemy).BossAttack(p, enemies);
-                }
-                else {
-                    damage = enemy.Attack(p, enemies);
-                }
-                damage = Main.currentPlace.modifyEnemyDamage(damage);
-                if (damage > 0) {
-                    p.setBattleHp(p.getBattleHp() - damage);
-//                    System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
-                }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
-                    totalDamage += damage;
-
-            }
-
-            System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp-p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (p.getBattleHp() < 0 ? 0 : p.getBattleHp()) + Colors.RESET + "]");
-            Helper.continuePrompt();
-            if (p.getBattleHp() <= 0) {
-                System.out.println("You lost!");
-                IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
-                        enemies::remove); //the magic of intellij
-                p.Save(p.getName() + ".plr");
-                Helper.Sleep(1);
-            }
+            attackEnemies(p, enemies);
             if (enemies.size() > 0) {
                 System.out.println(Colors.CLEAR + Colors.RESET);
                 Main.currentPlace.turnEnd(p, enemies);
@@ -275,6 +246,39 @@ public class Battle extends Interactable {
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
 
+    }
+
+    public static void attackEnemies(Player p, List<Enemy> enemies) {
+        System.out.println(Colors.CLEAR);
+        int totalDamage = 0;
+        int currentHp = p.getBattleHp();
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            int damage;
+            if (enemy instanceof Boss) {
+                damage = ((Boss) enemy).BossAttack(p, enemies);
+            }
+            else {
+                damage = enemy.Attack(p, enemies);
+            }
+            damage = Main.currentPlace.modifyEnemyDamage(damage);
+            if (damage > 0) {
+                p.setBattleHp(p.getBattleHp() - damage);
+//                    System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
+            }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
+                totalDamage += damage;
+
+        }
+
+        System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp- p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (p.getBattleHp() < 0 ? 0 : p.getBattleHp()) + Colors.RESET + "]");
+        Helper.continuePrompt();
+        if (p.getBattleHp() <= 0) {
+            System.out.println("You lost!");
+            IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
+                    enemies::remove); //the magic of intellij
+            p.Save(p.getName() + ".plr");
+            Helper.Sleep(1);
+        }
     }
 
     private void printHealth(List<Enemy> enemies, Player p) {

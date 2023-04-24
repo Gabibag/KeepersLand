@@ -14,11 +14,11 @@ public class TheKeeper extends FinalBoss {
 
     public void setBaseStats() {
         this.baseHp = 500;
-        this.damage = 50;
+        this.damage = 100;
         this.xp = 1200;
         this.name = "Keeper";
         this.coins = 5000;
-        this.tokens = 100;
+        this.tokens = 20;
         this.bossStage = 1;
     }
 
@@ -58,30 +58,29 @@ public class TheKeeper extends FinalBoss {
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
-        int damage =this.damage;
+        int damage = this.damage;
         //1 in 10 chance to make all items that contian the name shard in the player's inventory deal 10 damage to the player
         int counter = 0;
         int rand = Main.r.nextInt(5);
         if (rand == 1) {
             for (int i = 0; i < p.getInventory().size(); i++) {
-                if (p.getInventory().get(i).getName().contains("shard")) {
+                if (p.getInventory().get(i).getName().contains("Shard")) {
                     counter++;
                 }
             }
-            System.out.println("The Keeper's eyes glow with a bright light. You feel a sharp pain in your chest.");
+            System.out.println("The keeper uses the shards against you to deal " + counter*10 + " damage.");
             return counter*10;
         }
         else if (rand==2) {
-            System.out.println(name + " deals " + (damage << 1) + " damage (DOUBLE)");
             return damage << 1;
         } else if (rand == 3) {
             for (int i = 0; i < p.getInventory().size(); i++) {
-                if (p.getInventory().get(i).getName().equalsIgnoreCase("Omega Shard")) {
+                if (p.getInventory().get(i).getName().contains("Shard")) {
                     counter++;
                 }
             }
-            System.out.println("The shards power the Keeper. It deals " + (damage * ((counter / 2) + 1)) + " damage.");
-            return damage * ((counter / 10) + 1);
+            System.out.println("The shards power the Keeper. It deals " + (damage * ((counter / 8) + 1)) + " damage.");
+            return damage * ((counter / 8) + 1);
         }
         else if (rand == 4) {
             for (int i = 0; i < p.getInventory().size(); i++) {
