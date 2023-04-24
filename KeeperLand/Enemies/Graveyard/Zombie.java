@@ -2,14 +2,15 @@ package KeeperLand.Enemies.Graveyard;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Enviroments.Graveyard;
-import KeeperLand.Player;
 import KeeperLand.Main;
+import KeeperLand.Player;
 
 import java.util.Random;
 
 public class Zombie extends Enemy {
     Random r = new Random();
-public void setBaseStats(){
+
+    public void setBaseStats() {
         this.baseHp = 20;
         this.damage = 4;
         this.xp = 10;

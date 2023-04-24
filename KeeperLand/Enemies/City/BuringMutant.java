@@ -17,11 +17,12 @@ public class BuringMutant extends Enemy {
         this.coins = 10;
         this.xp = 4;
         this.name = "Radioactive Mutant";
-        
+
     }
+
     public int Attack(Player p, List<Enemy> allies) {
-        System.out.println("The mutant " + Colors.RED + "burns" + Colors.RESET + " the player and itself for " + Colors.RED + this.damage/2 + " damage");
-        this.battleHp -= this.damage/2;
+        System.out.println("The mutant " + Colors.RED + "burns" + Colors.RESET + " the player and itself for " + Colors.RED + this.damage / 2 + " damage");
+        this.battleHp -= this.damage / 2;
         return this.damage;
     }
 
@@ -29,5 +30,5 @@ public class BuringMutant extends Enemy {
     public boolean canSpawn(Player p) {
         return Main.currentPlace instanceof AbandonedCity;
     }
-    
+
 }

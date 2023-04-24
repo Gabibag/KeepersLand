@@ -10,7 +10,7 @@ import KeeperLand.Player;
 
 import java.util.List;
 
-public class MegaLavaSlime extends Boss{
+public class MegaLavaSlime extends Boss {
     public void setBaseStats() {
         this.baseHp = 20;
         this.damage = 4;
@@ -26,25 +26,27 @@ public class MegaLavaSlime extends Boss{
         return true;
 //        return false;
     }
+
     @Override
-    public void onDeath(Player p, List<Enemy> allies, Enemy self){
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         System.out.println("The Mega Lava Slime splits into 3 Lava Slimes");
         for (int i = 0; i < 3; i++) {
             allies.add(new LavaSlime());
         }
     }
+
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
         System.out.println("\n" +
-                           "    _____                       __            __        __  __  __        __   __     \n" +
-                           "   |     \\                     |  \\          |  \\      |  \\|  \\|  \\      |  \\ |  \\    \n" +
-                           "    \\$$$$$ __    __   _______ _| $$_         | $$   __  \\$$| $$| $$       \\$$_| $$_   \n" +
-                           "      | $$|  \\  |  \\ /       \\   $$ \\        | $$  /  \\|  \\| $$| $$      |  \\   $$ \\  \n" +
-                           " __   | $$| $$  | $$|  $$$$$$$\\$$$$$$        | $$_/  $$| $$| $$| $$      | $$\\$$$$$$  \n" +
-                           "|  \\  | $$| $$  | $$ \\$$    \\  | $$ __       | $$   $$ | $$| $$| $$      | $$ | $$ __ \n" +
-                           "| $$__| $$| $$__/ $$ _\\$$$$$$\\ | $$|  \\      | $$$$$$\\ | $$| $$| $$      | $$ | $$|  \\\n" +
-                           " \\$$    $$ \\$$    $$|       $$  \\$$  $$      | $$  \\$$\\| $$| $$| $$      | $$  \\$$  $$\n" +
-                           "  \\$$$$$$   \\$$$$$$  \\$$$$$$$    \\$$$$        \\$$   \\$$ \\$$ \\$$ \\$$       \\$$   \\$$$$ ");
+                "    _____                       __            __        __  __  __        __   __     \n" +
+                "   |     \\                     |  \\          |  \\      |  \\|  \\|  \\      |  \\ |  \\    \n" +
+                "    \\$$$$$ __    __   _______ _| $$_         | $$   __  \\$$| $$| $$       \\$$_| $$_   \n" +
+                "      | $$|  \\  |  \\ /       \\   $$ \\        | $$  /  \\|  \\| $$| $$      |  \\   $$ \\  \n" +
+                " __   | $$| $$  | $$|  $$$$$$$\\$$$$$$        | $$_/  $$| $$| $$| $$      | $$\\$$$$$$  \n" +
+                "|  \\  | $$| $$  | $$ \\$$    \\  | $$ __       | $$   $$ | $$| $$| $$      | $$ | $$ __ \n" +
+                "| $$__| $$| $$__/ $$ _\\$$$$$$\\ | $$|  \\      | $$$$$$\\ | $$| $$| $$      | $$ | $$|  \\\n" +
+                " \\$$    $$ \\$$    $$|       $$  \\$$  $$      | $$  \\$$\\| $$| $$| $$      | $$  \\$$  $$\n" +
+                "  \\$$$$$$   \\$$$$$$  \\$$$$$$$    \\$$$$        \\$$   \\$$ \\$$ \\$$ \\$$       \\$$   \\$$$$ ");
         Helper.Sleep(1.5);
         System.out.println(Colors.CLEAR);
     }

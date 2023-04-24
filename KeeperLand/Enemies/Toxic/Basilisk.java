@@ -6,7 +6,7 @@ import KeeperLand.Main;
 import KeeperLand.Player;
 
 public class Basilisk extends Enemy {
- public void setBaseStats(){
+    public void setBaseStats() {
         this.baseHp = 30;
         this.damage = 4;
         this.xp = 10;

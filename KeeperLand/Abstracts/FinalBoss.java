@@ -1,6 +1,8 @@
 package KeeperLand.Abstracts;
 
-public abstract class FinalBoss extends Boss{
+public abstract class FinalBoss extends Boss {
+    protected int bossStage = 1;
+
     public int getBossStage() {
         return bossStage;
     }
@@ -9,13 +11,10 @@ public abstract class FinalBoss extends Boss{
         this.bossStage = bossStage;
     }
 
-    protected int bossStage = 1;
-
     @Override
     public String getType() {
         return "FinalBoss";
     }
-
 
 
     @Override

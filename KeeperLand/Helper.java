@@ -13,38 +13,8 @@ import java.util.concurrent.TimeUnit;
 public class Helper {
     public static boolean speedMode = false;
     public static boolean moreShopInfo = false;
-
-    public static void Sleep(double s) {
-        s = (speedMode ? s/4 : s);
-        try {
-            TimeUnit.MILLISECONDS.sleep((long) (s * 1000));
-        } catch (InterruptedException e) {
-            System.out.println(Colors.RED_BOLD + "You cannot quit at this time." + Colors.RESET);
-        }
-    }
-    /**
-    *returns the scale factor
-    */
-
-    public static float getScaleFactor(int type){
-        if(Main.player == null){
-            return 1;
-        }
-        float multi = (Main.player.getLevel() /7f > 1f ? Main.player.getLevel() /7f : 1f );
-        if(type == 0){
-            float num = (Main.player.getStageNum() / 3f) * multi;
-            return (num) <= 1 ? 1 : (num); //hp scale
-        }
-        else if (type == 1) {
-            float num = (((Main.player.getStageNum()) / 5f)  * multi);
-            return  num <= 1 ? 1 : num; // damage scale
-        }else if (type == 2) {
-            float num = Main.player.getStageNum() / 100f;
-            return  (num) <= 1 ? 1 : (num); //coins scale
-        }
-        return 1 + (Main.player.getStageNum() / 5f);
-    }
     static Scanner s = new Scanner(System.in);
+
     /**
      * Dont do it
      *
@@ -53,6 +23,37 @@ public class Helper {
     public Helper() throws Exception {
         System.out.println("skill issue detected");
         throw new Exception("Do not create objects of a helper class");
+    }
+
+    public static void Sleep(double s) {
+        s = (speedMode ? s / 4 : s);
+        try {
+            TimeUnit.MILLISECONDS.sleep((long) (s * 1000));
+        } catch (InterruptedException e) {
+            System.out.println(Colors.RED_BOLD + "You cannot quit at this time." + Colors.RESET);
+        }
+    }
+
+    /**
+     * returns the scale factor
+     */
+
+    public static float getScaleFactor(int type) {
+        if (Main.player == null) {
+            return 1;
+        }
+        float multi = (Main.player.getLevel() / 7f > 1f ? Main.player.getLevel() / 7f : 1f);
+        if (type == 0) {
+            float num = (Main.player.getStageNum() / 3f) * multi;
+            return (num) <= 1 ? 1 : (num); //hp scale
+        } else if (type == 1) {
+            float num = (((Main.player.getStageNum()) / 5f) * multi);
+            return num <= 1 ? 1 : num; // damage scale
+        } else if (type == 2) {
+            float num = Main.player.getStageNum() / 100f;
+            return (num) <= 1 ? 1 : (num); //coins scale
+        }
+        return 1 + (Main.player.getStageNum() / 5f);
     }
 
     /**
@@ -66,17 +67,20 @@ public class Helper {
         return s.nextLine();
 
     }
-    public static <t> void AddArrayToList(List<t> add, t[] added){
+
+    public static <t> void AddArrayToList(List<t> add, t[] added) {
         add.addAll(Arrays.asList(added));
     }
-    public static void continuePrompt(){
+
+    public static void continuePrompt() {
         if (!speedMode) {
             System.out.print(Colors.PURPLE + "Press enter to continue" + Colors.RESET);
             s.nextLine();
-        } else{
+        } else {
             Sleep(1);
         }
     }
+
     /**
      * returns an items rarity as a word from a number following this chart
      * 10- common
@@ -91,33 +95,29 @@ public class Helper {
      */
     public static String getWordRarity(Item i) {
         int rarity = i.getRarity();
-        if (i.getName().contains("Shard")){
+        if (i.getName().contains("Shard")) {
             return Colors.YELLOW_UNDERLINED + "legendary" + Colors.RESET;
         }
         if (rarity < 10) {
             return "common";
-        }
-        else if (rarity < 20) {
+        } else if (rarity < 20) {
             return Colors.GREEN + " uncommon" + Colors.RESET;
-        }
-        else if (rarity < 30) {
+        } else if (rarity < 30) {
             return Colors.RED + "rare" + Colors.RESET;
-        }
-        else if (rarity < 40) {
+        } else if (rarity < 40) {
             return Colors.PURPLE_BOLD + "epic" + Colors.RESET;
-        }
-        else if (rarity <= 60) {
+        } else if (rarity <= 60) {
             return Colors.PURPLE_UNDERLINED + "super epic" + Colors.RESET;
-        }
-        else {
+        } else {
             return Colors.YELLOW_UNDERLINED + "legendary" + Colors.RESET;
         }
     }
 
     /**
      * gets some random elements from an list. Can get the same thing more than one time.
-     * @param <T> type of objects in the array
-     * @param list the list to choose from
+     *
+     * @param <T>    type of objects in the array
+     * @param list   the list to choose from
      * @param amount the size of the returned array
      * @return
      */
@@ -150,6 +150,7 @@ public class Helper {
     /**
      * prompts the user with a message then gets the next int they type, as long as its 1-top (inclusive both ways)
      * will keep asking until a valid input is obtained
+     *
      * @param msg what to ask
      * @param top max(inclusive) val for a input
      * @return the first valid int typed
@@ -170,7 +171,8 @@ public class Helper {
         }
 
     }
-    public static int getInputDefault(String msg, int top,int def) {
+
+    public static int getInputDefault(String msg, int top, int def) {
         try {
             System.out.println(msg);
             int r = Integer.parseInt(Prompt(Colors.CYAN + "Player: "));
@@ -190,9 +192,10 @@ public class Helper {
     /**
      * prompts the user with a message then gets the next int they type, as long as its bottom-top (inclusive both ways)
      * will keep asking until a valid input is obtained
-     * @param msg what to ask
-     * @param bottom lowest valid value 
-     * @param top highest valid value
+     *
+     * @param msg    what to ask
+     * @param bottom lowest valid value
+     * @param top    highest valid value
      * @return
      */
     public static int getInput(String msg, int bottom, int top) {
@@ -213,7 +216,7 @@ public class Helper {
     }
 
     public static String RandomColor() {
-        List<String> colors = Arrays.asList( Colors.RED, Colors.GREEN, Colors.YELLOW);
+        List<String> colors = Arrays.asList(Colors.RED, Colors.GREEN, Colors.YELLOW);
         return Helper.getRandomElements(colors, 1).get(0);
     }
 }

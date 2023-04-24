@@ -9,7 +9,7 @@ public abstract class Boss extends Enemy {
     protected int tokens;
 
     public Boss() {
-        if(!Main.allBosses.contains(this))
+        if (!Main.allBosses.contains(this))
             Main.allBosses.add((this));
     }
 
@@ -19,6 +19,7 @@ public abstract class Boss extends Enemy {
     }
 
     public abstract void bossOnSpawn(List<Enemy> enemies);
+
     public int getTokens() {
         return tokens;
     }
@@ -30,9 +31,6 @@ public abstract class Boss extends Enemy {
     public int BossAttack(Player p, List<Enemy> enemies) {
         return Attack(p, enemies);
     }
-
-
-
 
 
 }

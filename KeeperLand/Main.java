@@ -30,6 +30,7 @@ public class Main {
     public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
     public static Player player;
     public static Scanner s;
+
     public static void main(String[] args) {
 
         s = new Scanner(System.in);
@@ -40,7 +41,9 @@ public class Main {
         //defaults for player
         List<String> saveList = allPlayerFiles();
         int saves = 0;
-        if (saveList.size() != 0) {saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);}
+        if (saveList.size() != 0) {
+            saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
+        }
         if (saves == 1) {
             try {
                 player = loadSave();
@@ -64,14 +67,13 @@ public class Main {
                         Colors.RED + "That name is already taken, please enter a new name: " + Colors.RESET);
             }
             player = new Player(name, 40, 5,
-                                new ArrayList<>());
+                    new ArrayList<>());
             player.addMoney(50);
             player.setHealAmount(3);
             player.setHealVariance(1);
             initTypes();
             Main.currentPlace = new StarterLand();
-        }
-        else{
+        } else {
             initTypes();
             getNewPlace();
         }
@@ -84,10 +86,9 @@ public class Main {
             System.out.println("sus");
             player.getInventory().addAll(
                     Arrays.asList(ItemData.ShatteredShard, ItemData.HellShard, ItemData.DeathShard, ItemData.OmegaShard,
-                                  ItemData.SpriteShard, ItemData.HealingShard, ItemData.GlitchedShard));
+                            ItemData.SpriteShard, ItemData.HealingShard, ItemData.GlitchedShard));
             Main.currentPlace = new GatesToHell();
-        }
-        else if (player.getName().equalsIgnoreCase("playtest") || player.getName().equalsIgnoreCase("ptest")) {
+        } else if (player.getName().equalsIgnoreCase("playtest") || player.getName().equalsIgnoreCase("ptest")) {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < 19; i++) {
@@ -102,8 +103,7 @@ public class Main {
             player.incStageNum(19);
             System.out.println("sussy");
             Main.currentPlace = new LavaZone();
-        }
-        else if (player.getName().equalsIgnoreCase("runThrough") || player.getName().equalsIgnoreCase("rtest")) {
+        } else if (player.getName().equalsIgnoreCase("runThrough") || player.getName().equalsIgnoreCase("rtest")) {
             int lvl = Helper.getInput("What level would you like to be at?", 99999999);
             List<Enemy> spawns;
             List<Enemy> tempenemies;
@@ -142,8 +142,7 @@ public class Main {
             }
 
             System.out.println("amogus");
-        }
-        else if (player.getName().equalsIgnoreCase("bossTest") || player.getName().equalsIgnoreCase("btest")) {
+        } else if (player.getName().equalsIgnoreCase("bossTest") || player.getName().equalsIgnoreCase("btest")) {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < 40; i++) {
@@ -177,8 +176,7 @@ public class Main {
             LevelUp a = new LevelUp();
             a.onChoose(player);
             System.out.println("amogngnus");
-        }
-        else if (player.getName().equalsIgnoreCase("StatsTest") || player.getName().equalsIgnoreCase("stest")) {
+        } else if (player.getName().equalsIgnoreCase("StatsTest") || player.getName().equalsIgnoreCase("stest")) {
             int lvl = Helper.getInput("What level would you like to be at?", 99999999);
             List<Enemy> spawns;
             List<Enemy> tempenemies;
@@ -209,8 +207,8 @@ public class Main {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(
                     "You are currently in the " + Colors.YELLOW + currentPlace.getName() + Colors.RESET + ", " +
-                    (player.getStageNum() % 5 ==0 ? Colors.RED_UNDERLINED + Colors.RED_BOLD + "on stage " + player.getStageNum() : "on stage " + player.getStageNum()) +
-                    Colors.PURPLE);
+                            (player.getStageNum() % 5 == 0 ? Colors.RED_UNDERLINED + Colors.RED_BOLD + "on stage " + player.getStageNum() : "on stage " + player.getStageNum()) +
+                            Colors.PURPLE);
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
             }
@@ -244,12 +242,12 @@ public class Main {
     }
 
     public static void getNewPlace() {
-            try {
-                currentPlace = allPlaces.get(r.nextInt(allPlaces.size())).getClass().getDeclaredConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-                e.printStackTrace();
-            }
+        try {
+            currentPlace = allPlaces.get(r.nextInt(allPlaces.size())).getClass().getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+                 | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -257,43 +255,43 @@ public class Main {
      **/
     public static void initTypes() {
         try {
-        for (String classpathEntry : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
-            System.out.println("Entry " + classpathEntry);
-           // System.out.println("first loop");
-            if (classpathEntry.endsWith(".jar")) {
-                System.out.println(".jar found");
-                File jar = new File(classpathEntry);
-                JarInputStream is;
-                 is = new JarInputStream(new FileInputStream(jar));
-                JarEntry entry;
-                while( (entry = is.getNextJarEntry()) != null) {
-                    //System.out.println("name" + entry.getName());
-                    if(entry.getName().endsWith(".class") && entry.getName().contains("KeeperLand")){
-                      //  System.out.println(entry.getName());
-                        String className = entry.getName().replace(".class", "");
-                     //   className = className.substring(className.indexOf("/")+1);
-                        System.out.println(className);
-                        try {
-                            Class.forName(className.replace("/",".")).newInstance();
-                        } catch (Exception e) {
-                        //    System.out.println("failed to load class " + e);
-                     //       System.out.println(className.length());
-                            continue;
+            for (String classpathEntry : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
+                System.out.println("Entry " + classpathEntry);
+                // System.out.println("first loop");
+                if (classpathEntry.endsWith(".jar")) {
+                    System.out.println(".jar found");
+                    File jar = new File(classpathEntry);
+                    JarInputStream is;
+                    is = new JarInputStream(new FileInputStream(jar));
+                    JarEntry entry;
+                    while ((entry = is.getNextJarEntry()) != null) {
+                        //System.out.println("name" + entry.getName());
+                        if (entry.getName().endsWith(".class") && entry.getName().contains("KeeperLand")) {
+                            //  System.out.println(entry.getName());
+                            String className = entry.getName().replace(".class", "");
+                            //   className = className.substring(className.indexOf("/")+1);
+                            System.out.println(className);
+                            try {
+                                Class.forName(className.replace("/", ".")).newInstance();
+                            } catch (Exception e) {
+                                //    System.out.println("failed to load class " + e);
+                                //       System.out.println(className.length());
+                                continue;
+                            }
                         }
                     }
                 }
             }
-        }
         } catch (IOException e) {
-                // TODO Auto-generated catch block
-               // e.printStackTrace();
-            }
-            //if it didnt work, we are not from  a .jar and can use the old method. We will know by checking if allInteracts is empty
-            if(allInteracts.size() > 0){
-                System.out.println("Loaded types from .jar");
-                return;
-            }
-            System.out.println(".jar load failed retrying with different method, checking for java files");
+            // TODO Auto-generated catch block
+            // e.printStackTrace();
+        }
+        //if it didnt work, we are not from  a .jar and can use the old method. We will know by checking if allInteracts is empty
+        if (allInteracts.size() > 0) {
+            System.out.println("Loaded types from .jar");
+            return;
+        }
+        System.out.println(".jar load failed retrying with different method, checking for java files");
         File folder = new File(".");
         initDirc(folder, "");
         for (Interactable i : allInteracts) {
@@ -321,8 +319,7 @@ public class Main {
                 } catch (Exception ignored) {
                     //System.out.println(ignored);
                 }
-            }
-            else if (listOfFile.isDirectory()) {
+            } else if (listOfFile.isDirectory()) {
                 initDirc(listOfFile, path + listOfFile.getName() + ".");
             }
         }

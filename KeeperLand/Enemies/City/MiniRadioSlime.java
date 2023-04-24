@@ -1,7 +1,7 @@
 package KeeperLand.Enemies.City;
 
-import KeeperLand.Player;
 import KeeperLand.Abstracts.Enemy;
+import KeeperLand.Player;
 
 public class MiniRadioSlime extends Enemy {
 
@@ -12,12 +12,12 @@ public class MiniRadioSlime extends Enemy {
         this.coins = 0;
         this.xp = 0;
         this.name = "Mini Radioactive Slime";
-        
+
     }
 
     @Override
     public boolean canSpawn(Player p) {
         return false;
     }
-    
+
 }

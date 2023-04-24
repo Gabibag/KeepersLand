@@ -21,6 +21,7 @@ public class Vulture extends Enemy {
         this.coins = 4;
         this.dodgeRate = 5;
     }
+
     @Override
     public boolean canSpawn(Player p) {
         return Main.currentPlace instanceof WindyHeights; //(r.nextInt([spawnchance]) == 2)

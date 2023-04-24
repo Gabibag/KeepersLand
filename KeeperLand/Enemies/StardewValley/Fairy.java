@@ -25,7 +25,7 @@ public class Fairy extends Enemy {
 
     @Override
     public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof StardewValley&&r.nextBoolean();
+        return Main.currentPlace instanceof StardewValley && r.nextBoolean();
     }
 
     @Override

@@ -9,7 +9,8 @@ import java.util.Random;
 
 public class Assassin extends Enemy {
     Random r = new Random();
-public void setBaseStats(){
+
+    public void setBaseStats() {
         this.baseHp = 1;
         this.damage = 10;
         this.xp = 10;

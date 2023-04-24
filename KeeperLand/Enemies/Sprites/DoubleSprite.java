@@ -18,13 +18,13 @@ public class DoubleSprite extends Spirit {
     }
 
     public boolean canSpawn(Player p) {
-        return Main.r.nextInt(1,10)==2;
+        return Main.r.nextInt(1, 10) == 2;
     }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
         //make all allies but itself attack again
-        System.out.println("The Double Spirit makes all " + Colors.RED + "allies attack again"+ Colors.RESET);
+        System.out.println("The Double Spirit makes all " + Colors.RED + "allies attack again" + Colors.RESET);
         for (Enemy e : allies) {
             if (!(e instanceof DoubleSprite)) {
                 int i = e.Attack(p, allies);

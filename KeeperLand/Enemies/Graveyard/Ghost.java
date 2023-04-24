@@ -9,7 +9,8 @@ import java.util.Random;
 
 public class Ghost extends Enemy {
     Random r = new Random();
-public void setBaseStats(){
+
+    public void setBaseStats() {
         this.baseHp = 10;
         this.damage = 4;
         this.xp = 10;

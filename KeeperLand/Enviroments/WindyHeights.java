@@ -11,6 +11,7 @@ import java.util.List;
 
 public class WindyHeights extends Enviorment {
     private int turn = 0;
+
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.Rock, ItemData.StoneShield, ItemData.StoneSword);
@@ -28,10 +29,11 @@ public class WindyHeights extends Enviorment {
         return preChange;
     }
 
-    public void playerAction(Player p, List<Enemy> enemies){
+    public void playerAction(Player p, List<Enemy> enemies) {
 
     }
-    public void turnEnd(Player p, List<Enemy> enemies){
+
+    public void turnEnd(Player p, List<Enemy> enemies) {
         //increase the dodge rate of the enemy by 1 every other turn
         if (turn % 2 == 0) {
             for (Enemy e : enemies) {

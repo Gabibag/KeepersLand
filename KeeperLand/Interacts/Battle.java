@@ -24,16 +24,14 @@ public class Battle extends Interactable {
                 p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() + i.getHealVariance());
             }
-        }
-        else if (battleEnd == 2) {
+        } else if (battleEnd == 2) {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getHp() - i.getHpIncr());
                 p.setBattleDamage(p.getDamage() - i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() - i.getHealVariance());
             }
-        }
-        else {
+        } else {
             updateItems(p, 2);
             updateItems(p, 1);
         }
@@ -48,8 +46,7 @@ public class Battle extends Interactable {
                     if (e instanceof Boss) {
                         returned.add(e);
                     }
-                }
-                else if (!(e instanceof Boss)) {
+                } else if (!(e instanceof Boss)) {
                     returned.add((e));
                 }
             }
@@ -81,13 +78,11 @@ public class Battle extends Interactable {
         int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
         if (choiceInfo == 0) {
             return;
-        }
-        else if (choiceInfo == (enemies.size() + 1)) {
+        } else if (choiceInfo == (enemies.size() + 1)) {
             System.out.println(
                     "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
             Helper.Prompt("Press Enter");
-        }
-        else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
+        } else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
             System.out.println(enemies.get(choiceInfo - 1).getName() + ":");
             System.out.println(
                     Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
@@ -96,12 +91,44 @@ public class Battle extends Interactable {
                     Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
             System.out.println(
                     Colors.RED_BRIGHT + "Dodge Rate: " + enemies.get(choiceInfo - 1).getDodgeRate()
-                    + Colors.RESET);
+                            + Colors.RESET);
             Helper.continuePrompt();
         }
         inv(enemies);
 
     }  //TODO get location + opponent info
+
+    public static void attackEnemies(Player p, List<Enemy> enemies) {
+        System.out.println(Colors.CLEAR);
+        int totalDamage = 0;
+        int currentHp = p.getBattleHp();
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            int damage;
+            if (enemy instanceof Boss) {
+                damage = ((Boss) enemy).BossAttack(p, enemies);
+            } else {
+                damage = enemy.Attack(p, enemies);
+            }
+            damage = Main.currentPlace.modifyEnemyDamage(damage);
+            if (damage > 0) {
+                p.setBattleHp(p.getBattleHp() - damage);
+//                    System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
+            }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
+            totalDamage += damage;
+
+        }
+
+        System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp - p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (p.getBattleHp() < 0 ? 0 : p.getBattleHp()) + Colors.RESET + "]");
+        Helper.continuePrompt();
+        if (p.getBattleHp() <= 0) {
+            System.out.println("You lost!");
+            IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
+                    enemies::remove); //the magic of intellij
+            p.Save(p.getName() + ".plr");
+            Helper.Sleep(1);
+        }
+    }
 
     @Override
     public void onChoose(Player p) {
@@ -114,7 +141,7 @@ public class Battle extends Interactable {
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
-        while (spawns.size()<3) {
+        while (spawns.size() < 3) {
             spawns = getEnemies(p);
 
 
@@ -159,7 +186,7 @@ public class Battle extends Interactable {
                 printHealth(enemies, p);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
-                                   "[1] Attack");
+                        "[1] Attack");
                 System.out.println("[2] Heal");
                 System.out.println("[3] Info" + Colors.RESET);
                 int choice = Helper.getInputDefault(Colors.RESET + "Current Health: " + p.getBattleHp(), 3, 1);
@@ -179,11 +206,11 @@ public class Battle extends Interactable {
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
                             enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
                             System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
-                                               enemies.get(choice - 1).getName());
+                                    enemies.get(choice - 1).getName());
 
                             if (enemies.get(choice - 1).getBattleHp() <= 0) {
                                 try {
-                                    enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice-1));
+                                    enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }
@@ -191,8 +218,7 @@ public class Battle extends Interactable {
                             }
 
                             Helper.continuePrompt();
-                        }
-                        else {
+                        } else {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                             Helper.Sleep(1);
                         }
@@ -202,8 +228,7 @@ public class Battle extends Interactable {
                     case 2 -> {
                         try {
                             healPlayer(p, tempMaxHp, r);
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             System.out.println("You are at your max health");
                         }
                         Helper.Sleep(0.4);
@@ -219,8 +244,7 @@ public class Battle extends Interactable {
                 Main.currentPlace.playerAction(p, enemies);
                 if (enemies.size() > 0) {
                     Actions--;
-                }
-                else {
+                } else {
                     p.setActionAmount(2);
                     break;
                 }
@@ -248,39 +272,6 @@ public class Battle extends Interactable {
 
     }
 
-    public static void attackEnemies(Player p, List<Enemy> enemies) {
-        System.out.println(Colors.CLEAR);
-        int totalDamage = 0;
-        int currentHp = p.getBattleHp();
-        for (int i = 0; i < enemies.size(); i++) {
-            Enemy enemy = enemies.get(i);
-            int damage;
-            if (enemy instanceof Boss) {
-                damage = ((Boss) enemy).BossAttack(p, enemies);
-            }
-            else {
-                damage = enemy.Attack(p, enemies);
-            }
-            damage = Main.currentPlace.modifyEnemyDamage(damage);
-            if (damage > 0) {
-                p.setBattleHp(p.getBattleHp() - damage);
-//                    System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
-            }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
-                totalDamage += damage;
-
-        }
-
-        System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp- p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (p.getBattleHp() < 0 ? 0 : p.getBattleHp()) + Colors.RESET + "]");
-        Helper.continuePrompt();
-        if (p.getBattleHp() <= 0) {
-            System.out.println("You lost!");
-            IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
-                    enemies::remove); //the magic of intellij
-            p.Save(p.getName() + ".plr");
-            Helper.Sleep(1);
-        }
-    }
-
     private void printHealth(List<Enemy> enemies, Player p) {
         StringBuilder Names = new StringBuilder();
         StringBuilder HpAmounts = new StringBuilder();
@@ -298,8 +289,7 @@ public class Battle extends Interactable {
                 if (diff % 2 != 0) {
                     hpAdd.append(" ");
                 }
-            }
-            else if (nameAdd.length() < hpAdd.length()) {
+            } else if (nameAdd.length() < hpAdd.length()) {
                 int diff = hpAdd.length() - nameAdd.length();
                 int offset = diff / 2;
                 for (int i = 0; i < offset; i++) {
@@ -318,8 +308,7 @@ public class Battle extends Interactable {
                     double barPercent = i / (double) (barLength - 2);
                     if (barPercent < percentHp) {
                         bar.append("=");
-                    }
-                    else {
+                    } else {
                         bar.append(" ");
                     }
                 }
@@ -329,7 +318,7 @@ public class Battle extends Interactable {
             Names.append(nameAdd).append("  ");
             HpAmounts.append(hpAdd).append("  ");
         }
-        System.out.println(Colors.RED + Names );
+        System.out.println(Colors.RED + Names);
         System.out.println(hpBars);
         System.out.println(HpAmounts + Colors.RESET);
     }

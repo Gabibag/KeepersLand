@@ -1,6 +1,7 @@
 # About This Game - outdated, go to readme.md
 
 <!-- TOC -->
+
 * [About This Game - outdated, go to readme.md](#about-this-game---outdated-go-to-readmemd)
     * [Todo](#todo)
     * [Shops](#shops)
@@ -9,6 +10,7 @@
     * [Enemy types](#enemy-types)
     * [Status effects](#status-effects)
     * [Location modifiers](#location-modifiers)
+
 <!-- TOC -->
 
 ### Todo

@@ -11,7 +11,6 @@ import java.util.List;
 public class TheKeeper extends FinalBoss {
 
 
-
     public void setBaseStats() {
         this.baseHp = 500;
         this.damage = 100;
@@ -36,11 +35,11 @@ public class TheKeeper extends FinalBoss {
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         System.out.println("The Keeper has been defeated!");
         System.out.println("The Keeper has ascended to stage two!");
-        List <Item> items = allies.get(0).getDrops();
+        List<Item> items = allies.get(0).getDrops();
         allies.clear();
         allies.add(new TheKeeper2());
         (allies.get(0)).setDrops(items);
-        ((FinalBoss)allies.get(0)).bossOnSpawn(allies);
+        ((FinalBoss) allies.get(0)).bossOnSpawn(allies);
 
 
         //tell the user that the keeper has ascended to stage two
@@ -68,10 +67,9 @@ public class TheKeeper extends FinalBoss {
                     counter++;
                 }
             }
-            System.out.println("The keeper uses the shards against you to deal " + counter*10 + " damage.");
-            return counter*10;
-        }
-        else if (rand==2) {
+            System.out.println("The keeper uses the shards against you to deal " + counter * 10 + " damage.");
+            return counter * 10;
+        } else if (rand == 2) {
             return damage << 1;
         } else if (rand == 3) {
             for (int i = 0; i < p.getInventory().size(); i++) {
@@ -81,22 +79,20 @@ public class TheKeeper extends FinalBoss {
             }
             System.out.println("The shards power the Keeper. It deals " + (damage * ((counter / 8) + 1)) + " damage.");
             return damage * ((counter / 8) + 1);
-        }
-        else if (rand == 4) {
+        } else if (rand == 4) {
             for (int i = 0; i < p.getInventory().size(); i++) {
                 if (p.getInventory().get(i).getName().contains("Shard")) {
                     counter++;
                 }
             }
-            if (counter == 0){
+            if (counter == 0) {
                 //System.out.println("No shards left");
                 return this.Attack(p, allies);
-            }
-            else{
+            } else {
                 for (int i = 0; i < p.getInventory().size(); i++) {
 
                     Item item = p.getInventory().get(i);
-                    if(item.getName().contains("Shard")){
+                    if (item.getName().contains("Shard")) {
                         p.getInventory().remove(i);
                         i--;
                         System.out.println("The " + item.getName() + " shatters in your inventory...");
@@ -106,10 +102,9 @@ public class TheKeeper extends FinalBoss {
                     }
 
                 }
-             //   System.out.println("A shard shatters in your inventory...");
+                //   System.out.println("A shard shatters in your inventory...");
             }
-        }
-        else  {
+        } else {
             System.out.println(name + " deals " + damage + " damage ");
             return damage;
         }

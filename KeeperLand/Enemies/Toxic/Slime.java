@@ -1,14 +1,14 @@
 package KeeperLand.Enemies.Toxic;
 
+import KeeperLand.Abstracts.Enemy;
+import KeeperLand.Enviroments.ToxicEnv;
 import KeeperLand.ItemData;
 import KeeperLand.Main;
 import KeeperLand.Player;
-import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.ToxicEnv;
 
 public class Slime extends Enemy {
 
-public void setBaseStats(){
+    public void setBaseStats() {
         this.baseHp = 25;
         this.damage = 2;
         this.xp = 20;

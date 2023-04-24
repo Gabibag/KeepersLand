@@ -10,20 +10,34 @@ import static KeeperLand.Main.player;
 
 public abstract class Enemy {
     protected int damage;
-
-    public void setBaseHp(int baseHp) {
-        this.baseHp = baseHp;
-    }
-
     protected int baseHp;
     protected String name;
     protected int dodgeRate = 1;
     protected int xp;
+    protected List<Item> drops = new ArrayList<>();
+    protected int battleHp;
+    protected int coins;
+    protected int tokens;
+    Random r = new Random();
+
+
+    public Enemy() {
+        this.setBaseStats();
+        scaleStats();
+        if (!Main.allEnemies.contains(this)) {
+            Main.allEnemies.add((this)); //adds all enemies to a list
+        }
+        this.battleHp = this.baseHp;
+        //to prevent errors with the list being static sized
+        this.drops = new ArrayList<Item>(this.drops);
+        this.drops.add(ItemData.OmegaShard);
+    }
 
     //create a get type method that returns the string "Enemy"
     public String getType() {
         return "Enemy";
     }
+
     public List<Item> getDrops() {
 
         return drops;
@@ -35,30 +49,15 @@ public abstract class Enemy {
     }
 
     public void addDrops(Item drops) {
-            this.drops.add(drops);
-        }
-
-
-    protected List<Item> drops = new ArrayList<>();
-    protected int battleHp;
-    protected int coins;
-    protected int tokens;
-    Random r = new Random();
-
-    public Enemy() {
-        this.setBaseStats();
-        scaleStats();
-        if(!Main.allEnemies.contains(this)){
-        Main.allEnemies.add((this)); //adds all enemies to a list
-        }
-        this.battleHp = this.baseHp;
-        //to prevent errors with the list being static sized
-        this.drops = new ArrayList<Item>(this.drops);
-        this.drops.add(ItemData.OmegaShard);
+        this.drops.add(drops);
     }
 
     public int getBaseHp() {
         return baseHp;
+    }
+
+    public void setBaseHp(int baseHp) {
+        this.baseHp = baseHp;
     }
 
     public int getDamage() {
@@ -76,12 +75,13 @@ public abstract class Enemy {
     public int getDodgeRate() {
         return dodgeRate;
     }
-    public String getDodgeText(){
-        return " dodged your attack!";
-    }
 
     public void setDodgeRate(int dodgeRate) {
         this.dodgeRate = dodgeRate;
+    }
+
+    public String getDodgeText() {
+        return " dodged your attack!";
     }
 
     public int getCoins() {
@@ -95,11 +95,13 @@ public abstract class Enemy {
     public int getBattleHp() {
         return battleHp;
     }
-    public String displayBattleHp() {
-        return battleHp + "hp";
-    }
+
     public void setBattleHp(int battleHp) {
         this.battleHp = battleHp;
+    }
+
+    public String displayBattleHp() {
+        return battleHp + "hp";
     }
 
     public void scaleStats() {
@@ -126,12 +128,13 @@ public abstract class Enemy {
         player.addMoney(self.getCoins());
         System.out.println(
                 "You gained " + self.getCoins() + Colors.CYAN + "◊" +
-                Colors.RESET);
+                        Colors.RESET);
         p.addXp(xp);
         randDrops(p, this);
     }
+
     public void randDrops(Player p, Enemy e) {
-        if (r.nextInt(1, 2) ==1) {
+        if (r.nextInt(1, 2) == 1) {
             for (Item drop : this.drops) {
                 if (r.nextInt(drop.getRarity()) == 1) {
                     p.addInventory(drop);
@@ -139,9 +142,9 @@ public abstract class Enemy {
                     break;
                 }
             }
-        }else{
-            for(Item drop : Item.allPool){
-                if(r.nextInt(drop.getRarity()) == 1){
+        } else {
+            for (Item drop : Item.allPool) {
+                if (r.nextInt(drop.getRarity()) == 1) {
                     p.addInventory(drop);
                     System.out.println(Colors.CYAN + "You found a " + drop.getName() + "!" + Colors.RESET);
                     break;

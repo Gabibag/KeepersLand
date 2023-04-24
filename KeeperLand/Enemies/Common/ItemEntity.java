@@ -7,6 +7,7 @@ import java.util.Random;
 
 public class ItemEntity extends Enemy {
     Random r = new Random();
+    private int count = 1;
 
     public int getCount() {
         return count;
@@ -15,9 +16,6 @@ public class ItemEntity extends Enemy {
     public void setCount(int count) {
         this.count = count;
     }
-
-    private int count = 1;
-
 
     public void setName(String name) {
         this.name = name;
@@ -32,6 +30,7 @@ public class ItemEntity extends Enemy {
         this.battleHp = baseHp;
         this.coins = 3;
     }
+
     public void setBaseStats(int baseHp, int damage, String ItemName) {
         this.baseHp = baseHp;
         this.damage = damage;

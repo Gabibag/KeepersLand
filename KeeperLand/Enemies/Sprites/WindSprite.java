@@ -1,6 +1,7 @@
 package KeeperLand.Enemies.Sprites;
-import KeeperLand.Abstracts.Spirit;
+
 import KeeperLand.Abstracts.Enemy;
+import KeeperLand.Abstracts.Spirit;
 import KeeperLand.Colors;
 import KeeperLand.Main;
 import KeeperLand.Player;
@@ -26,7 +27,7 @@ public class WindSprite extends Spirit {
         for (Enemy target : allies) {
             target.setDodgeRate(target.getDodgeRate() + 1);
         }
-        System.out.println("The Wind Spirit increases its party's " + Colors.BLACK + "dodge rate"+ Colors.RESET + " by 1");
+        System.out.println("The Wind Spirit increases its party's " + Colors.BLACK + "dodge rate" + Colors.RESET + " by 1");
         return 0;
     }
 }

@@ -13,19 +13,19 @@ public class TokenShop extends Interactable {
     public String getName() {
         //set a string to locked if the player doesn't have a shard in their inventory. if they do, set it to token shop
         for (Item item : Main.player.getInventory()) {
-          if (item.getName().toLowerCase().contains("shard")&&!item.getName().equalsIgnoreCase("Shattered Shard")){
-              if (Main.player.getTokens() >= 10){
-              return Colors.GREEN + "Token Shop" + Colors.PURPLE;
-              }
-              return "Token Shop";
-          }
+            if (item.getName().toLowerCase().contains("shard") && !item.getName().equalsIgnoreCase("Shattered Shard")) {
+                if (Main.player.getTokens() >= 10) {
+                    return Colors.GREEN + "Token Shop" + Colors.PURPLE;
+                }
+                return "Token Shop";
+            }
         }
         return "Locked";
     }
 
     public void onChoose(Player player) {
         //if get name is locked tell the user they cant access this yet
-        if (getName().equalsIgnoreCase("locked")){
+        if (getName().equalsIgnoreCase("locked")) {
             System.out.println("You can't access this yet.");
             Helper.continuePrompt();
             return;
@@ -51,7 +51,7 @@ public class TokenShop extends Interactable {
                 for (int i = 0; i < items.size(); i++) {
                     System.out.println(
                             "[" + (i + 2) + "] " + items.get(i).getName() + Colors.GREEN_BOLD + " " + items.get(i).getTokenCost() +
-                            "₪" + Colors.PURPLE);
+                                    "₪" + Colors.PURPLE);
                 }
             } catch (Exception e) {
                 //items.add(Item.empty);
@@ -59,27 +59,23 @@ public class TokenShop extends Interactable {
             int choice = Helper.getInput("", 0, items.size() + 4);
             if (choice == 0) {
                 return;
-            }
-            else if (choice == 1) {
+            } else if (choice == 1) {
                 for (int i = 0; i < items.size(); i++)
                     System.out.println(
                             "[" + (i + 2) + "] " + items.get(i).getName() + Colors.GREEN_BOLD + " " + items.get(i).getTokenCost() +
-                            "₪" + Colors.PURPLE);
+                                    "₪" + Colors.PURPLE);
                 int sC = Helper.getInput(Colors.RESET + "Enter an item to inspect", 1, items.size());
                 System.out.println(items.get(sC - 1));
                 Helper.Prompt("Press Enter when done");
                 System.out.println(Colors.CLEAR);
-            }
-
-            else {
+            } else {
                 Item i = items.get(choice - 1);
                 if (i.getTokenCost() > player.getTokens()) {
                     System.out.println("Not enough money");
                     Helper.Sleep(1);
-                }
-                else {
+                } else {
                     player.getInventory().add(i);
-                    player.setTokens(player.getTokens()-i.getTokenCost());
+                    player.setTokens(player.getTokens() - i.getTokenCost());
                     System.out.println(
                             "Bought " + i.getName() + " for " + i.getTokenCost() + " \nNew balance: " + player.getTokens());
                 }

@@ -8,8 +8,8 @@ import java.util.List;
 
 public abstract class Enviorment {
     public Enviorment() {
-        if(!Main.allPlaces.contains(this) && !this.getName().equalsIgnoreCase("starter land") /*Hard coding cuz im stupid*/){
-        Main.allPlaces.add((this));
+        if (!Main.allPlaces.contains(this) && !this.getName().equalsIgnoreCase("starter land") /*Hard coding cuz im stupid*/) {
+            Main.allPlaces.add((this));
         }
     }
 
@@ -23,8 +23,9 @@ public abstract class Enviorment {
         }
         //return super.equals(obj);
     }
-    public void BattleStart(Player p, List<Enemy> allies){
-        
+
+    public void BattleStart(Player p, List<Enemy> allies) {
+
     }
 
     public abstract String getDescription();

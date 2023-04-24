@@ -24,6 +24,6 @@ public class DeathSprite extends Spirit {
     public int Attack(Player p, List<Enemy> allies) {
         //remove 10% of the regular player's hp
         System.out.println("The Death Spirit removes 10% of the player's hp");
-        return (int)(p.getHp()*0.1);
+        return (int) (p.getHp() * 0.1);
     }
 }

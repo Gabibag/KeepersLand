@@ -18,8 +18,8 @@ public class Graveyard extends Enviorment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.tombStone,
-                             ItemData.GraveFlower,
-                             ItemData.GhostSpirit);
+                ItemData.GraveFlower,
+                ItemData.GhostSpirit);
     }
 
     @Override

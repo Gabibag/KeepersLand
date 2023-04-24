@@ -10,7 +10,8 @@ import java.util.Random;
 
 public class DeathMinion extends Enemy {
     Random r = new Random();
-public void setBaseStats(){
+
+    public void setBaseStats() {
         this.baseHp = 20;
         this.damage = 3;
         this.xp = 10;

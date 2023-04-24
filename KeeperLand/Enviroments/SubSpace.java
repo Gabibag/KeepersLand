@@ -24,16 +24,17 @@ public class SubSpace extends Enviorment {
         return "Sub Space";
 
     }
+
     public int modifyPlayerDamage(int preChange) {
         return Math.min(preChange, 80);
 
     }
 
     public void playerAction(Player p, List<Enemy> enemies) {
-        if (p.getBattleHp()>p.getBattleHp() *(p.getStageNum() / 5)){
-            System.out.println("The subspace environment limits your health. Your health " + ((p.getBattleHp() / p.getBattleHp() *(p.getStageNum() / 5d ) >0.5 ? "drops" : "plummets" ) + " to " + p.getBattleHp() *(p.getStageNum() / 5)));
+        if (p.getBattleHp() > p.getBattleHp() * (p.getStageNum() / 5)) {
+            System.out.println("The subspace environment limits your health. Your health " + ((p.getBattleHp() / p.getBattleHp() * (p.getStageNum() / 5d) > 0.5 ? "drops" : "plummets") + " to " + p.getBattleHp() * (p.getStageNum() / 5)));
             Helper.continuePrompt();
-            p.setBattleHp(p.getBattleHp() *(p.getStageNum() / 5));
+            p.setBattleHp(p.getBattleHp() * (p.getStageNum() / 5));
         }
     }
 

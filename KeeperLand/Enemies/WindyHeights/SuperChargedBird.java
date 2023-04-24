@@ -8,7 +8,9 @@ import KeeperLand.Player;
 
 import java.util.List;
 
-public class SuperChargedBird extends Enemy{
+public class SuperChargedBird extends Enemy {
+
+    int turnsTillAttack = 3;
 
     @Override
     public void setBaseStats() {
@@ -19,28 +21,29 @@ public class SuperChargedBird extends Enemy{
         this.xp = 5;
         this.name = "Super Charged Bird";
     }
-    int turnsTillAttack = 3;
+
     @Override
-    public int Attack(Player p, List<Enemy> enemies){
-        if(turnsTillAttack == 0){
+    public int Attack(Player p, List<Enemy> enemies) {
+        if (turnsTillAttack == 0) {
             turnsTillAttack = 3;
             System.out.println("The Super Charged Bird's sphere explodes, dealing " + this.damage + " damage");
             return this.damage;
-        }
-        else{
+        } else {
             System.out.println("The Super Charged Bird" + getEnding());
             //return 0;
         }
         turnsTillAttack--;
         return 0;
     }
+
     private String getEnding() {
-        return turnsTillAttack == 3 ? " begins to " + Colors.YELLOW + "glow." + Colors.RESET  : turnsTillAttack == 2 ? Colors.YELLOW + " glows" + Colors.RESET + " even brighter" : turnsTillAttack == 1 ? " is going to "+ Colors.RED + "nuke"+ Colors.RESET + " you next turn" : "";
+        return turnsTillAttack == 3 ? " begins to " + Colors.YELLOW + "glow." + Colors.RESET : turnsTillAttack == 2 ? Colors.YELLOW + " glows" + Colors.RESET + " even brighter" : turnsTillAttack == 1 ? " is going to " + Colors.RED + "nuke" + Colors.RESET + " you next turn" : "";
     }
+
     @Override
     public boolean canSpawn(Player p) {
 
         return Main.currentPlace instanceof WindyHeights;
     }
-    
+
 }

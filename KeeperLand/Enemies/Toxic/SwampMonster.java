@@ -8,7 +8,7 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class SwampMonster extends Enemy {
-    public void setBaseStats(){
+    public void setBaseStats() {
         this.baseHp = 12;
         this.damage = 8;
         this.xp = 10;
@@ -16,6 +16,7 @@ public class SwampMonster extends Enemy {
         this.battleHp = baseHp;
         this.coins = 3;
     }
+
     public int Attack(Player p, List<Enemy> allies) {
         //TODO make this gimmick do more hp the more your missing
         return this.damage;

@@ -225,6 +225,7 @@ public class Player {
     public void addInventory(Item item) {
         this.inventory.add(item);
     }
+
     public void removeInventory(Item item) {
         this.inventory.remove(item);
     }
@@ -257,9 +258,9 @@ public class Player {
             tempHealVar += i.getHealVariance();
         }
         return "Name: " + this.name + "\nHP: " + tempHp + "\nDamage: " + tempDmg + "\nMoney: " + this.money +
-               "\nHeal Variance: " + tempHealVar + "\nHeal Amount: " + tempHeal + "\nLevel: " +
-               this.level + "\nXp: " + this.xp + "\nLevel Requirement: " + this.xpToLevel + "\nStage Number: " +
-               this.stageNum;
+                "\nHeal Variance: " + tempHealVar + "\nHeal Amount: " + tempHeal + "\nLevel: " +
+                this.level + "\nXp: " + this.xp + "\nLevel Requirement: " + this.xpToLevel + "\nStage Number: " +
+                this.stageNum;
 
     }
 

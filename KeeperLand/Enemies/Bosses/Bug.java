@@ -41,20 +41,19 @@ public class Bug extends Boss {
         System.out.println(Colors.RED + "<Error>: multiple abnormal entites detected. Attempting to fix error..." + Colors.RESET);
         for (Enemy e : spawns) {
             int rand = Main.r.nextInt(3);
-            if(rand == 0){
+            if (rand == 0) {
                 System.out.println("Entity " + e.getName() + "<" + e + "> detected with abnormal stats. Attempting to fix...");
                 e.setBattleHp(e.getBattleHp() >> 1);
                 e.setDamage(e.getDamage() << 1);
                 Helper.Sleep(1);
-                System.out.println("Entity " + e.getName() + "<" + e + "> unable to fix, health halved (" + e.getBattleHp()*2 + "->" + e.getBattleHp() + "), damage doubled (" + e.getDamage()/2 + "->" + e.getDamage() + ").");
-            }
-            else if(rand == 1) {
+                System.out.println("Entity " + e.getName() + "<" + e + "> unable to fix, health halved (" + e.getBattleHp() * 2 + "->" + e.getBattleHp() + "), damage doubled (" + e.getDamage() / 2 + "->" + e.getDamage() + ").");
+            } else if (rand == 1) {
                 System.out.println("Entity " + e.getName() + "<" + e + "> detected with abnormal stats. Attempting to fix...");
                 e.setBattleHp(e.getBattleHp() << 1);
                 e.setDamage(e.getDamage() >> 1);
                 Helper.Sleep(1);
                 System.out.println("Entity " + e.getName() + "<" + e + "> unable to fix, health doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + "), damage halved (" + e.getDamage() * 2 + "->" + e.getDamage() + ").");
-            }else if(rand == 2){
+            } else if (rand == 2) {
                 System.out.println("Entity " + e.getName() + "<" + e + "> detected with decreased stats. Attempting to fix...");
                 e.setBattleHp(e.getBattleHp() << 1);
                 e.setDamage(e.getDamage() << 1);
@@ -70,69 +69,70 @@ public class Bug extends Boss {
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
         System.out.println(
-                           " /$$$$$$$            /$$             /$$              \n" +
-                           "| $$__  $$          | $$            | $$              \n" +
-                           "| $$  \\ $$  /$$$$$$ | $$  /$$$$$$  /$$$$$$    /$$$$$$ \n" +
-                           "| $$  | $$ /$$__  $$| $$ /$$__  $$|_  $$_/   /$$__  $$\n" +
-                           "| $$  | $$| $$$$$$$$| $$| $$$$$$$$  | $$    | $$$$$$$$\n" +
-                           "| $$  | $$| $$_____/| $$| $$_____/  | $$ /$$| $$_____/\n" +
-                           "| $$$$$$$/|  $$$$$$$| $$|  $$$$$$$  |  $$$$/|  $$$$$$$\n" +
-                           "|_______/  \\_______/|__/ \\_______/   \\___/   \\_______/");
+                " /$$$$$$$            /$$             /$$              \n" +
+                        "| $$__  $$          | $$            | $$              \n" +
+                        "| $$  \\ $$  /$$$$$$ | $$  /$$$$$$  /$$$$$$    /$$$$$$ \n" +
+                        "| $$  | $$ /$$__  $$| $$ /$$__  $$|_  $$_/   /$$__  $$\n" +
+                        "| $$  | $$| $$$$$$$$| $$| $$$$$$$$  | $$    | $$$$$$$$\n" +
+                        "| $$  | $$| $$_____/| $$| $$_____/  | $$ /$$| $$_____/\n" +
+                        "| $$$$$$$/|  $$$$$$$| $$|  $$$$$$$  |  $$$$/|  $$$$$$$\n" +
+                        "|_______/  \\_______/|__/ \\_______/   \\___/   \\_______/");
         Helper.Sleep(1);
         System.out.println("\n" + Colors.CLEAR +
-                           " /$$$$$$$$/$$                \n" +
-                           "|__  $$__/ $$                \n" +
-                           "   | $$  | $$$$$$$   /$$$$$$ \n" +
-                           "   | $$  | $$__  $$ /$$__  $$\n" +
-                           "   | $$  | $$  \\ $$| $$$$$$$$\n" +
-                           "   | $$  | $$  | $$| $$_____/\n" +
-                           "   | $$  | $$  | $$|  $$$$$$$\n" +
-                           "   |__/  |__/  |__/ \\_______/" );
+                " /$$$$$$$$/$$                \n" +
+                "|__  $$__/ $$                \n" +
+                "   | $$  | $$$$$$$   /$$$$$$ \n" +
+                "   | $$  | $$__  $$ /$$__  $$\n" +
+                "   | $$  | $$  \\ $$| $$$$$$$$\n" +
+                "   | $$  | $$  | $$| $$_____/\n" +
+                "   | $$  | $$  | $$|  $$$$$$$\n" +
+                "   |__/  |__/  |__/ \\_______/");
         Helper.Sleep(1);
         System.out.println("\n" + Colors.CLEAR +
-                           " /$$$$$$$                     \n" +
-                           "| $$__  $$                    \n" +
-                           "| $$  \\ $$ /$$   /$$  /$$$$$$ \n" +
-                           "| $$$$$$$ | $$  | $$ /$$__  $$\n" +
-                           "| $$__  $$| $$  | $$| $$  \\ $$\n" +
-                           "| $$  \\ $$| $$  | $$| $$  | $$\n" +
-                           "| $$$$$$$/|  $$$$$$/|  $$$$$$$\n" +
-                           "|_______/  \\______/  \\____  $$\n" +
-                           "                     /$$  \\ $$\n" +
-                           "                    |  $$$$$$/\n" +
-                           "                     \\______/ ");
+                " /$$$$$$$                     \n" +
+                "| $$__  $$                    \n" +
+                "| $$  \\ $$ /$$   /$$  /$$$$$$ \n" +
+                "| $$$$$$$ | $$  | $$ /$$__  $$\n" +
+                "| $$__  $$| $$  | $$| $$  \\ $$\n" +
+                "| $$  \\ $$| $$  | $$| $$  | $$\n" +
+                "| $$$$$$$/|  $$$$$$/|  $$$$$$$\n" +
+                "|_______/  \\______/  \\____  $$\n" +
+                "                     /$$  \\ $$\n" +
+                "                    |  $$$$$$/\n" +
+                "                     \\______/ ");
         Helper.Sleep(1.5);
         System.out.println(Colors.CLEAR);
     }
+
     public int BossAttack(Player p, List<Enemy> allies) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> future = executor.submit(new Callable<Integer>() {
             /* (non-Javadoc)
              * @see java.util.concurrent.Callable#call()
              */
-            public Integer call()  {
+            public Integer call() {
                 int MissedLeft = 3;
                 String GoalShape = Helper.getRandomElements(Arrays.asList("O", "X", "■"), 1).get(0);
                 String GoalColor = Helper.RandomColor();
                 System.out.println("Hit enter when this shape appears:" + GoalColor + GoalShape + Colors.RESET);
                 String shape = "n";
                 String Color = "n";
-                while(!Bug.End && MissedLeft > 0){
-                     shape = Helper.getRandomElements(Arrays.asList("O", "X", "■"), 1).get(0);
+                while (!Bug.End && MissedLeft > 0) {
+                    shape = Helper.getRandomElements(Arrays.asList("O", "X", "■"), 1).get(0);
                     Color = Helper.RandomColor();
                     System.out.print("\r:" + Color + shape + Colors.RESET);
-                    if(shape.equals(GoalShape) && Color.equals(GoalColor)){
+                    if (shape.equals(GoalShape) && Color.equals(GoalColor)) {
                         MissedLeft--;
                     }
                     Helper.Sleep(0.5);
                 }
                 System.out.println(Colors.RESET);
-                if(MissedLeft ==0){
+                if (MissedLeft == 0) {
                     System.out.println("You failed to dodge");
                     return 0;
                 }
-                int result =  shape.equals(GoalShape) ? 1 : 0;
-                result += (Color.equals(GoalColor)) ? 1 : 0; 
+                int result = shape.equals(GoalShape) ? 1 : 0;
+                result += (Color.equals(GoalColor)) ? 1 : 0;
                 return result;
             }
         });
@@ -141,17 +141,17 @@ public class Bug extends Boss {
             Bug.End = true;
             int res = future.get();
             Bug.End = false;
-            if(res ==0){
+            if (res == 0) {
                 System.out.println("You failed to dodge");
-                 return this.damage;
+                return this.damage;
             }
-            if(res == 2){
+            if (res == 2) {
                 System.out.println("You dodged the attack");
                 return 0;
             }
-            if(res == 1){
+            if (res == 1) {
                 System.out.println("You almost dodged the attack");
-                return this.damage/2;
+                return this.damage / 2;
             }
         } catch (InterruptedException | ExecutionException e) {
             // TODO Auto-generated catch block
@@ -159,15 +159,16 @@ public class Bug extends Boss {
         }
         return -1;
     }
+
     @Override
     //override the attack command in enemy
     public int Attack(Player p, List<Enemy> allies) {
         System.out.println("Bug deals <error> damage");
-        return Main.r.nextInt(damage-(int)(damage*0.2), damage + (int)(damage*0.2));
+        return Main.r.nextInt(damage - (int) (damage * 0.2), damage + (int) (damage * 0.2));
     }
 
     @Override
-    public String displayBattleHp(){
+    public String displayBattleHp() {
         return "<error>";
     }
 }

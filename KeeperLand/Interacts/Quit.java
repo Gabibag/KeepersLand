@@ -1,8 +1,8 @@
 package KeeperLand.Interacts;
 
+import KeeperLand.Abstracts.Interactable;
 import KeeperLand.Main;
 import KeeperLand.Player;
-import KeeperLand.Abstracts.Interactable;
 
 public class Quit extends Interactable {
 

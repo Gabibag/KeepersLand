@@ -9,9 +9,9 @@ import KeeperLand.Player;
 import java.io.File;
 import java.util.List;
 
-public class Settings extends Interactable{
+public class Settings extends Interactable {
 
-    public void onChoose(Player p){
+    public void onChoose(Player p) {
         System.out.println("Settings:");
         System.out.println("[0] Exit");
         System.out.println("[1] Change Name");
@@ -52,8 +52,7 @@ public class Settings extends Interactable{
                         File f = new File(ps.get(choice3 - 1));
                         if (f.delete()) {
                             System.out.println("Save deleted successfully");
-                        }
-                        else {
+                        } else {
                             System.out.println("Failed to delete save");
                         }
                     }
@@ -61,11 +60,11 @@ public class Settings extends Interactable{
             }
             case 3 -> p.Save(p.getName() + ".plr");
             case 4 -> {
-                Helper.speedMode = !Helper.speedMode ;
+                Helper.speedMode = !Helper.speedMode;
                 System.out.println("Toggled Speed mode to " + (Helper.speedMode ? "on" : "off"));
                 Helper.continuePrompt();
             }
-            case 5 ->{
+            case 5 -> {
                 Helper.moreShopInfo = !Helper.moreShopInfo;
                 System.out.println("Toggled More Shop Info to " + (Helper.moreShopInfo ? "on" : "off"));
                 Helper.continuePrompt();
@@ -74,7 +73,8 @@ public class Settings extends Interactable{
         }
         this.onChoose(p);
     }
-    public String getName(){
+
+    public String getName() {
         return "Settings";
     }
 }

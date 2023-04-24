@@ -1,33 +1,37 @@
 package KeeperLand.Enviroments;
 
-import KeeperLand.*;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class LavaZone extends Enviorment {
     int turnsTillLava = 4;
+
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.LavaVial, ItemData.TougherTimes, ItemData.MoltenGem);
     }
+
     public String getName() {
         return "Lava Zone";
     }
 
-    public void playerAction(Player p, List<Enemy> enemies){
+    public void playerAction(Player p, List<Enemy> enemies) {
 
     }
-    public void turnEnd(Player p, List<Enemy> enemies){
+
+    public void turnEnd(Player p, List<Enemy> enemies) {
         turnsTillLava--;
 
-        if(turnsTillLava == 0){
-            System.out.println("The volcano erupts, and everyone takes " + p.getBattleHp()/2 + " damage!");
-            for(Enemy e : enemies){
-                e.setBattleHp(p.getBattleHp()/2+ e.getBattleHp());
+        if (turnsTillLava == 0) {
+            System.out.println("The volcano erupts, and everyone takes " + p.getBattleHp() / 2 + " damage!");
+            for (Enemy e : enemies) {
+                e.setBattleHp(p.getBattleHp() / 2 + e.getBattleHp());
             }
-            p.setBattleHp(p.getBattleHp()/2 + p.getBattleHp());
+            p.setBattleHp(p.getBattleHp() / 2 + p.getBattleHp());
             turnsTillLava = 3;
             Helper.continuePrompt();
             return;

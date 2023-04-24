@@ -6,7 +6,7 @@ import KeeperLand.Player;
 public abstract class Interactable {
     public Interactable() {
         //because Java wont let me load all of the types currently in runtime, we have to use this ugly alternative 
-        if (this.getName()!=null) {
+        if (this.getName() != null) {
             //makes it so its not viewable in the menu
             Main.allInteracts.add(this);
         }

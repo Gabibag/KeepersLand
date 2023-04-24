@@ -1,10 +1,10 @@
 package KeeperLand.Enemies.Graveyard;
 
-import KeeperLand.Player;
 import KeeperLand.Abstracts.Enemy;
+import KeeperLand.Player;
 
 public class SkeletonHand extends Enemy {
-    public void setBaseStats(){
+    public void setBaseStats() {
         this.baseHp = 1;
         this.battleHp = this.baseHp;
         this.damage = 10;
@@ -12,8 +12,11 @@ public class SkeletonHand extends Enemy {
         this.xp = 1;
         this.dodgeRate = 1;
         this.name = "Severed Skeleton Hand";
-        
+
     }
-    public boolean canSpawn(Player p){return false;}
-    
+
+    public boolean canSpawn(Player p) {
+        return false;
+    }
+
 }

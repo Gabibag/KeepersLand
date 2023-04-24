@@ -2,11 +2,7 @@ package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Enviorment;
-import KeeperLand.Colors;
-import KeeperLand.Item;
-import KeeperLand.ItemData;
-import KeeperLand.Main;
-import KeeperLand.Player;
+import KeeperLand.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,8 +11,8 @@ public class ToxicEnv extends Enviorment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.toxicFang,
-                             ItemData.doransBlade,
-                             ItemData.swampPot);
+                ItemData.doransBlade,
+                ItemData.swampPot);
     }
 
     public String getDescription() {
@@ -37,10 +33,11 @@ public class ToxicEnv extends Enviorment {
 
     }
 
-    public void playerAction(Player p, List<Enemy> enemies){
+    public void playerAction(Player p, List<Enemy> enemies) {
 
     }
-    public void turnEnd(Player p, List<Enemy> enemies){
+
+    public void turnEnd(Player p, List<Enemy> enemies) {
 
     }
 

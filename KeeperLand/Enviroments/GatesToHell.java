@@ -12,8 +12,8 @@ public class GatesToHell extends Enviorment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.barFromHell,
-                             ItemData.doransBlade,
-                             ItemData.bloodStone);
+                ItemData.doransBlade,
+                ItemData.bloodStone);
     }
 
     public String getDescription() {
@@ -40,7 +40,7 @@ public class GatesToHell extends Enviorment {
             }
         }
 
-        System.out.println(Colors.CLEAR +  "The gates to hell hurt you for " + (int)(p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02) + " damage!");
+        System.out.println(Colors.CLEAR + "The gates to hell hurt you for " + (int) (p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02) + " damage!");
         Helper.continuePrompt();
     }
 

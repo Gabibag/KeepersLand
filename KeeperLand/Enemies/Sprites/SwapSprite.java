@@ -33,7 +33,7 @@ public class SwapSprite extends Spirit {
                 }
             }
         }
-        System.out.println("The Swap Spirit " + Colors.RED + "swaps"+ Colors.RESET + " the hp of each enemy in the party");
+        System.out.println("The Swap Spirit " + Colors.RED + "swaps" + Colors.RESET + " the hp of each enemy in the party");
         return 0;
     }
 }

@@ -9,7 +9,8 @@ import KeeperLand.Player;
 
 import java.util.Collections;
 import java.util.List;
-public class MutatedZombie extends Enemy{
+
+public class MutatedZombie extends Enemy {
 
     @Override
     public void setBaseStats() {
@@ -25,10 +26,11 @@ public class MutatedZombie extends Enemy{
     public boolean canSpawn(Player p) {
         return Main.currentPlace instanceof AbandonedCity;
     }
+
     public int Attack(Player p, List<Enemy> allies) {
-        this.damage += this.damage*0.1 + 1;
-        System.out.println("The Mutated Zombie's " + Colors.YELLOW + "radiation" + Colors.RESET + Colors.RED + " burns " + Colors.RESET + "the player and grows"  + Colors.RED + " stronger"+ Colors.RESET + " next turn");
+        this.damage += this.damage * 0.1 + 1;
+        System.out.println("The Mutated Zombie's " + Colors.YELLOW + "radiation" + Colors.RESET + Colors.RED + " burns " + Colors.RESET + "the player and grows" + Colors.RED + " stronger" + Colors.RESET + " next turn");
         return this.damage;
     }
-    
+
 }

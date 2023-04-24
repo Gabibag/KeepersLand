@@ -1,11 +1,14 @@
 package KeeperLand.Enemies.Lava;
 
-import KeeperLand.Player;
 import KeeperLand.Abstracts.Enemy;
+import KeeperLand.Player;
 
-public class MiniSlime extends Enemy{
-    public boolean canSpawn(Player p){return false;}
-    public void setBaseStats(){
+public class MiniSlime extends Enemy {
+    public boolean canSpawn(Player p) {
+        return false;
+    }
+
+    public void setBaseStats() {
         this.damage = 2;
         this.baseHp = this.battleHp = 2;
         this.coins = 3;

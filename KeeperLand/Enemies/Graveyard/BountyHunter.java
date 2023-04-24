@@ -2,7 +2,9 @@ package KeeperLand.Enemies.Graveyard;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Enviroments.Graveyard;
-import KeeperLand.*;
+import KeeperLand.ItemData;
+import KeeperLand.Main;
+import KeeperLand.Player;
 
 
 public class BountyHunter extends Enemy {

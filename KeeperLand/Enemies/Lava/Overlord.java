@@ -9,9 +9,10 @@ import java.util.Random;
 
 public class Overlord extends Enemy {
     Random r = new Random();
-public void setBaseStats(){
-        this.baseHp = Integer.MAX_VALUE/10000;
-        this.damage = Integer.MAX_VALUE/10000;
+
+    public void setBaseStats() {
+        this.baseHp = Integer.MAX_VALUE / 10000;
+        this.damage = Integer.MAX_VALUE / 10000;
         this.xp = 1000;
         this.name = "Overlord";
         this.coins = 1000;

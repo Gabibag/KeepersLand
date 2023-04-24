@@ -26,8 +26,8 @@ public class AbsorbSprite extends Spirit {
     public int Attack(Player p, List<Enemy> allies) {
         //add 10% of all the enemies battlehp and damage to its battlehp and damage
         for (Enemy target : allies) {
-            this.setBattleHp(this.getBattleHp() + (int)(target.getBattleHp()*0.02));
-            this.setDamage(this.getDamage() + (int)(target.getDamage()*0.02));
+            this.setBattleHp(this.getBattleHp() + (int) (target.getBattleHp() * 0.02));
+            this.setDamage(this.getDamage() + (int) (target.getDamage() * 0.02));
         }
         System.out.println("The Absorb Spirit " + Colors.BLACK + "absorbs" + Colors.RESET + " 2 % of all the enemies hp and damage");
 

@@ -14,8 +14,8 @@ public class StardewValley extends Enviorment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.DullSkull,
-                             ItemData.GlowingSkull,
-                             ItemData.starDust);
+                ItemData.GlowingSkull,
+                ItemData.starDust);
     }
 
     public String getDescription() {

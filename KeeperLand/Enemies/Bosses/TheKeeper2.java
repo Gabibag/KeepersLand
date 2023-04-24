@@ -41,7 +41,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
             allies.subList(0, allies.size()).clear();
         }
         allies.add(new TheKeeper3());
-        ((FinalBoss)allies.get(0)).bossOnSpawn(allies);
+        ((FinalBoss) allies.get(0)).bossOnSpawn(allies);
     }
 
 
@@ -51,7 +51,6 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
     }
 
 
-
     @Override
     public void bossOnSpawn(List<Enemy> enemies) {
         //for drops in TheKeeper, create a new enemy with the same stats as the drop
@@ -59,7 +58,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
         List<Item> tempItems = new ArrayList<>();
         for (Item item : this.drops) {
             ItemEntity temp = new ItemEntity();
-            temp.setBaseStats(item.getHpIncr()+item.getHealIncrease()+item.getCost(), item.getDmgIncr()+ item.getHealVariance(), "Animated " + item.getName());
+            temp.setBaseStats(item.getHpIncr() + item.getHealIncrease() + item.getCost(), item.getDmgIncr() + item.getHealVariance(), "Animated " + item.getName());
             //if item's hpIncr is 0, don't add it to the list
             //check if the temp's base health is over 100. if it is, set it to 100.
             if (temp.getBaseHp() > 100) {
@@ -68,11 +67,11 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
             if (temp.getDamage() > 10) {
                 temp.setDamage(10);
             }
-            if (temp.getBaseHp() != 0&&item.getDmgIncr()!=0) {
+            if (temp.getBaseHp() != 0 && item.getDmgIncr() != 0) {
                 enemies.add(temp);
             }
         }
-        for (int mainEntity = enemies.size()-1; mainEntity >= 0; mainEntity--) {
+        for (int mainEntity = enemies.size() - 1; mainEntity >= 0; mainEntity--) {
             ItemEntity e = null;
             try {
                 e = ((ItemEntity) enemies.get(mainEntity));

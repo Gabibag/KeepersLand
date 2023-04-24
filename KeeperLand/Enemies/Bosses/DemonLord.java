@@ -1,8 +1,8 @@
 package KeeperLand.Enemies.Bosses;
 
-import KeeperLand.*;
 import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
+import KeeperLand.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -39,54 +39,50 @@ public class DemonLord extends Boss {
     }
 
     @Override
-    public int BossAttack(Player p, List<Enemy> allies){
+    public int BossAttack(Player p, List<Enemy> allies) {
         System.out.println("Hit enter when the numbers are the same to dodge!");
         ExecutorService executor = Executors.newSingleThreadExecutor(); // Create a new thread
         Future<Integer> f = executor.submit(new Callable<Integer>() {
-            public Integer call(){
+            public Integer call() {
                 int Pos = Main.r.nextInt(7);
                 int SPos = Main.r.nextInt(7);
-                if(Pos == SPos){
+                if (Pos == SPos) {
                     SPos = (SPos + 1) % 6;
                 }
-                if(!(Math.abs(Pos - SPos) % 2 == 0) ){
+                if (!(Math.abs(Pos - SPos) % 2 == 0)) {
                     SPos = (SPos + 1);
-                    if(SPos == 7){
+                    if (SPos == 7) {
                         SPos = 0;
                     }
 
                 }
-                if(Pos == SPos){
+                if (Pos == SPos) {
                     SPos = (SPos + 1) % 6;
                 }
                 boolean PDown = false;
                 boolean SDown = true;
-                while(!DemonLord.End){
-                    if(Pos <= 0 ){
-                        PDown = false; 
-                    }
-                    else if(Pos >= 6){
+                while (!DemonLord.End) {
+                    if (Pos <= 0) {
+                        PDown = false;
+                    } else if (Pos >= 6) {
                         PDown = true;
                     }
-                    if(SPos <= 0 ){
-                        SDown = false; 
-                    }
-                    else if(SPos >= 6){
+                    if (SPos <= 0) {
+                        SDown = false;
+                    } else if (SPos >= 6) {
                         SDown = true;
                     }
-                    if(PDown){
+                    if (PDown) {
                         Pos--;
-                    }
-                    else{
+                    } else {
                         Pos++;
                     }
-                    if(SDown){
+                    if (SDown) {
                         SPos--;
-                    }
-                    else{
+                    } else {
 
                         SPos++;
-                    } 
+                    }
 
                     String O = ".......";
                     String S = ".......";
@@ -107,16 +103,14 @@ public class DemonLord extends Boss {
         try {
             int i = f.get();
             int dmg = this.getDamage();
-            if(i == 0){
+            if (i == 0) {
                 System.out.println("You dodged the demon's attack!");
                 dmg = 0;
-            }
-            else if(Math.abs(1 - i) == 1){
+            } else if (Math.abs(1 - i) == 1) {
                 dmg /= 2;
                 System.out.println("You are grazed by the demon's attack!, and take half damage\nYou are hit for " + dmg + " damage");
 
-            }
-            else{
+            } else {
                 System.out.println("The Demon Lord's attack hits you for  " + dmg + " damage");
             }
             System.out.println();
@@ -127,37 +121,37 @@ public class DemonLord extends Boss {
         }
         System.out.println("Failed to get result");
         return 0;
-        
+
     }
 
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
-        System.out.println("\n" +Colors.CLEAR +
-                           " ▄▀▀▀█▄    ▄▀▀█▄   ▄▀▄▄▄▄   ▄▀▀█▄▄▄▄ \n" +
-                           "█  ▄▀  ▀▄ ▐ ▄▀ ▀▄ █ █    ▌ ▐  ▄▀   ▐ \n" +
-                           "▐ █▄▄▄▄     █▄▄▄█ ▐ █        █▄▄▄▄▄  \n" +
-                           " █    ▐    ▄▀   █   █        █    ▌  \n" +
-                           " █        █   ▄▀   ▄▀▄▄▄▄▀  ▄▀▄▄▄▄   \n" +
-                           "█         ▐   ▐   █     ▐   █    ▐   \n" +
-                           "▐                 ▐         ▐        "  );
+        System.out.println("\n" + Colors.CLEAR +
+                " ▄▀▀▀█▄    ▄▀▀█▄   ▄▀▄▄▄▄   ▄▀▀█▄▄▄▄ \n" +
+                "█  ▄▀  ▀▄ ▐ ▄▀ ▀▄ █ █    ▌ ▐  ▄▀   ▐ \n" +
+                "▐ █▄▄▄▄     █▄▄▄█ ▐ █        █▄▄▄▄▄  \n" +
+                " █    ▐    ▄▀   █   █        █    ▌  \n" +
+                " █        █   ▄▀   ▄▀▄▄▄▄▀  ▄▀▄▄▄▄   \n" +
+                "█         ▐   ▐   █     ▐   █    ▐   \n" +
+                "▐                 ▐         ▐        ");
         Helper.Sleep(1.5);
         System.out.println("\n" + Colors.CLEAR +
-                           " ▄▀▀▀█▀▀▄  ▄▀▀▄ ▄▄   ▄▀▀█▄▄▄▄ \n" +
-                           "█    █  ▐ █  █   ▄▀ ▐  ▄▀   ▐ \n" +
-                           "▐   █     ▐  █▄▄▄█    █▄▄▄▄▄  \n" +
-                           "   █         █   █    █    ▌  \n" +
-                           " ▄▀         ▄▀  ▄▀   ▄▀▄▄▄▄   \n" +
-                           "█          █   █     █    ▐   \n" +
-                           "▐          ▐   ▐     ▐         ");
+                " ▄▀▀▀█▀▀▄  ▄▀▀▄ ▄▄   ▄▀▀█▄▄▄▄ \n" +
+                "█    █  ▐ █  █   ▄▀ ▐  ▄▀   ▐ \n" +
+                "▐   █     ▐  █▄▄▄█    █▄▄▄▄▄  \n" +
+                "   █         █   █    █    ▌  \n" +
+                " ▄▀         ▄▀  ▄▀   ▄▀▄▄▄▄   \n" +
+                "█          █   █     █    ▐   \n" +
+                "▐          ▐   ▐     ▐         ");
         Helper.Sleep(1.5);
-        System.out.println("\n" +Colors.CLEAR + Colors.BLACK +
-                           " ▄▀▀█▄▄   ▄▀▀█▄▄▄▄  ▄▀▀▄ ▄▀▄  ▄▀▀▀▀▄   ▄▀▀▄ ▀▄     ▄▀▀▀▀▄    ▄▀▀▀▀▄   ▄▀▀▄▀▀▀▄  ▄▀▀█▄▄  \n" +
-                           "█ ▄▀   █ ▐  ▄▀   ▐ █  █ ▀  █ █      █ █  █ █ █    █    █    █      █ █   █   █ █ ▄▀   █ \n" +
-                           "▐ █    █   █▄▄▄▄▄  ▐  █    █ █      █ ▐  █  ▀█    ▐    █    █      █ ▐  █▀▀█▀  ▐ █    █ \n" +
-                           "  █    █   █    ▌    █    █  ▀▄    ▄▀   █   █         █     ▀▄    ▄▀  ▄▀    █    █    █ \n" +
-                           " ▄▀▄▄▄▄▀  ▄▀▄▄▄▄   ▄▀   ▄▀     ▀▀▀▀   ▄▀   █        ▄▀▄▄▄▄▄▄▀ ▀▀▀▀   █     █    ▄▀▄▄▄▄▀ \n" +
-                           "█     ▐   █    ▐   █    █             █    ▐        █                ▐     ▐   █     ▐  \n" +
-                           "▐         ▐        ▐    ▐             ▐             ▐                          ▐        ");
+        System.out.println("\n" + Colors.CLEAR + Colors.BLACK +
+                " ▄▀▀█▄▄   ▄▀▀█▄▄▄▄  ▄▀▀▄ ▄▀▄  ▄▀▀▀▀▄   ▄▀▀▄ ▀▄     ▄▀▀▀▀▄    ▄▀▀▀▀▄   ▄▀▀▄▀▀▀▄  ▄▀▀█▄▄  \n" +
+                "█ ▄▀   █ ▐  ▄▀   ▐ █  █ ▀  █ █      █ █  █ █ █    █    █    █      █ █   █   █ █ ▄▀   █ \n" +
+                "▐ █    █   █▄▄▄▄▄  ▐  █    █ █      █ ▐  █  ▀█    ▐    █    █      █ ▐  █▀▀█▀  ▐ █    █ \n" +
+                "  █    █   █    ▌    █    █  ▀▄    ▄▀   █   █         █     ▀▄    ▄▀  ▄▀    █    █    █ \n" +
+                " ▄▀▄▄▄▄▀  ▄▀▄▄▄▄   ▄▀   ▄▀     ▀▀▀▀   ▄▀   █        ▄▀▄▄▄▄▄▄▀ ▀▀▀▀   █     █    ▄▀▄▄▄▄▀ \n" +
+                "█     ▐   █    ▐   █    █             █    ▐        █                ▐     ▐   █     ▐  \n" +
+                "▐         ▐        ▐    ▐             ▐             ▐                          ▐        ");
         Helper.Sleep(2);
         System.out.println(Colors.CLEAR);
     }

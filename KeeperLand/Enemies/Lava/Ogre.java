@@ -9,7 +9,8 @@ import java.util.Random;
 
 public class Ogre extends Enemy {
     Random r = new Random();
-public void setBaseStats(){
+
+    public void setBaseStats() {
         this.baseHp = 40;
         this.damage = 5;
         this.xp = 10;
