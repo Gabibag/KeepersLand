@@ -17,8 +17,8 @@ public class Settings extends Interactable{
         System.out.println("[1] Change Name");
         System.out.println("[2] Modify Saves");
         System.out.println("[3] Save");
-        System.out.println("[5] More Shop Info");
         System.out.println((Helper.speedMode ? Colors.GREEN : Colors.RESET) + "[4] Toggle Speed Mode" + Colors.RESET);
+        System.out.println((Helper.moreShopInfo ? Colors.GREEN : Colors.RESET) + "[5] More Shop Info" + Colors.RESET);
         int choice = Helper.getInput("Enter a number: ", 0, 5);
         switch (choice) {
             case 0 -> {

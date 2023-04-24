@@ -3,6 +3,7 @@ package KeeperLand.Enemies.Bosses;
 import KeeperLand.*;
 import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
+import KeeperLand.Enemies.Graveyard.DeathMinion;
 import KeeperLand.Enemies.Sprites.HealingSprite;
 
 import java.util.List;
@@ -33,7 +34,9 @@ public class Angel extends Boss {
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         for (int i = 0; i < 3; i++) {
             allies.add(new HealingSprite());
+
         }
+        allies.add(new DeathMinion()); //the bringer of light is not what it seems...
     }
 
 
@@ -73,5 +76,20 @@ public class Angel extends Boss {
         for (int i = 0; i < 4; i++) {
             allies.add(new HealingSprite());
         }
+    }
+
+    @Override
+    public int Attack(Player p, List<Enemy> allies) {
+        //random chance to spawn a healing sprite
+        if (Main.r.nextInt(4) == 0) {
+            System.out.println("The Angel " + Colors.RED + "summons" + Colors.RESET + " a " + Colors.GREEN + "Healing Sprite" + Colors.RESET);
+            allies.add(new HealingSprite());
+        }
+        else if (Main.r.nextInt(4) == 0) {
+            System.out.println("The Angel " + Colors.YELLOW + "heals" + Colors.RESET + " itself for " + Colors.GREEN + (int) (this.battleHp * 0.2) + Colors.RESET + " health.");
+            this.battleHp += this.battleHp *0.2;
+
+        }
+        return super.Attack(p, allies);
     }
 }

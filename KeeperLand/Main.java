@@ -208,8 +208,8 @@ public class Main {
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(
-                    "You are currently in the " + Colors.RED + currentPlace.getName() + Colors.RESET + ", on stage " +
-                    player.getStageNum() +
+                    "You are currently in the " + Colors.YELLOW + currentPlace.getName() + Colors.RESET + ", " +
+                    (player.getStageNum() % 5 ==0 ? Colors.RED_UNDERLINED + Colors.RED_BOLD + "on stage " + player.getStageNum() : "on stage " + player.getStageNum()) +
                     Colors.PURPLE);
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());
