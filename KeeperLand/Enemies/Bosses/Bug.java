@@ -3,6 +3,7 @@ package KeeperLand.Enemies.Bosses;
 import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.*;
+import KeeperLand.Interacts.Battle;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +35,35 @@ public class Bug extends Boss {
 
     @Override
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
+        List<Enemy> spawns = Battle.getEnemies(p);
+        spawns = Helper.getRandomElements(spawns, 4);
 
+        System.out.println(Colors.RED + "<Error>: multiple abnormal entites detected. Attempting to fix error..." + Colors.RESET);
+        for (Enemy e : spawns) {
+            int rand = Main.r.nextInt(3);
+            if(rand == 0){
+                System.out.println("Entity " + e.getName() + "<" + e + "> detected with abnormal stats. Attempting to fix...");
+                e.setBattleHp(e.getBattleHp() >> 1);
+                e.setDamage(e.getDamage() << 1);
+                Helper.Sleep(1);
+                System.out.println("Entity " + e.getName() + "<" + e + "> unable to fix, health halved (" + e.getBattleHp()*2 + "->" + e.getBattleHp() + "), damage doubled (" + e.getDamage()/2 + "->" + e.getDamage() + ").");
+            }
+            else if(rand == 1) {
+                System.out.println("Entity " + e.getName() + "<" + e + "> detected with abnormal stats. Attempting to fix...");
+                e.setBattleHp(e.getBattleHp() << 1);
+                e.setDamage(e.getDamage() >> 1);
+                Helper.Sleep(1);
+                System.out.println("Entity " + e.getName() + "<" + e + "> unable to fix, health doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + "), damage halved (" + e.getDamage() * 2 + "->" + e.getDamage() + ").");
+            }else if(rand == 2){
+                System.out.println("Entity " + e.getName() + "<" + e + "> detected with decreased stats. Attempting to fix...");
+                e.setBattleHp(e.getBattleHp() << 1);
+                e.setDamage(e.getDamage() << 1);
+                Helper.Sleep(1);
+                System.out.println("Entity " + e.getName() + "<" + e + "> fixed, health doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + "), damage doubled (" + e.getDamage() / 2 + "->" + e.getDamage() + ").");
+            }
+        }
+        allies.addAll(spawns);
+        Helper.Sleep(1);
     }
 
 
@@ -48,10 +77,7 @@ public class Bug extends Boss {
                            "| $$  | $$| $$$$$$$$| $$| $$$$$$$$  | $$    | $$$$$$$$\n" +
                            "| $$  | $$| $$_____/| $$| $$_____/  | $$ /$$| $$_____/\n" +
                            "| $$$$$$$/|  $$$$$$$| $$|  $$$$$$$  |  $$$$/|  $$$$$$$\n" +
-                           "|_______/  \\_______/|__/ \\_______/   \\___/   \\_______/\n" +
-                           "                                                      \n" +
-                           "                                                      \n" +
-                           "                                                      ");
+                           "|_______/  \\_______/|__/ \\_______/   \\___/   \\_______/");
         Helper.Sleep(1);
         System.out.println("\n" + Colors.CLEAR +
                            " /$$$$$$$$/$$                \n" +
@@ -61,10 +87,7 @@ public class Bug extends Boss {
                            "   | $$  | $$  \\ $$| $$$$$$$$\n" +
                            "   | $$  | $$  | $$| $$_____/\n" +
                            "   | $$  | $$  | $$|  $$$$$$$\n" +
-                           "   |__/  |__/  |__/ \\_______/\n" +
-                           "                             \n" +
-                           "                             \n" +
-                           "                             ");
+                           "   |__/  |__/  |__/ \\_______/" );
         Helper.Sleep(1);
         System.out.println("\n" + Colors.CLEAR +
                            " /$$$$$$$                     \n" +
