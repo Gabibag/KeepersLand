@@ -227,11 +227,10 @@ public class Battle extends Interactable {
                     //#region case2
                     case 2 -> {
                         try {
-                            healPlayer(p, tempMaxHp, r);
+                            healPlayer(p, r);
                         } catch (Exception e) {
                             System.out.println("You are at your max health");
                         }
-                        Helper.Sleep(0.4);
                     }
                     //#endregion
                     //#region case3

@@ -30,22 +30,31 @@ public class BossFight extends Interactable {
         }
     }
 
-    static void healPlayer(Player p, int tempMaxHp, Random r) {
+     static void healPlayer(Player p, Random r) {
+        int max = p.getHp();
+        for (Item i : p.getInventory()) {
+            max += (i.getHpIncr());
+        }
+        double h = (double) p.getBattleHp() / (double) max;
+
         int healAmount =
-                (int) ((p.getHealAmount()) /
-                        (((double) p.getBattleHp() / (double) tempMaxHp < 0.5) ? 1 : ((double) p.getBattleHp() / (double) tempMaxHp)));
-        healAmount += r.nextInt((p.getHealVariance() << 1)) - p.getHealVariance();
+                (int) ((p.getHealAmount()) *
+                        ((h< 0.2) ? 0.2 : h + 0.1));
+        healAmount += r.nextInt((p.getHealVariance() *2)) - p.getHealVariance();
         if (healAmount < 0) {
             healAmount = 0;
-        } else if (healAmount + p.getBattleHp() >= tempMaxHp) {
-            healAmount = tempMaxHp - p.getBattleHp();
+        } else if (healAmount + p.getBattleHp() >= max) {
+            healAmount = max - p.getBattleHp();
+            System.out.println("You are already at max health!");
+            Helper.continuePrompt();
+            return;
         }
         p.setBattleHp(p.getBattleHp() + healAmount);
         if (healAmount <= 0) {
             System.out.println("Your heal variance negated your heal..."); //occurs when heal variance is large enough in a negative value
         } else {
             System.out.println(Colors.RED + ((healAmount + p.getBattleHp() ==
-                    tempMaxHp) ? "You healed to full health" :
+                    max) ? "You healed to full health" :
                     "You healed " + healAmount + " health"));
         }
         Helper.continuePrompt();
@@ -223,11 +232,10 @@ public class BossFight extends Interactable {
 
                     case 2 -> {
                         try {
-                            healPlayer(p, tempMaxHp, r);
+                            healPlayer(p, r);
                         } catch (Exception e) {
                             System.out.println("You are at your max health");
                         }
-                        Helper.Sleep(0.4);
                     }
 
                     case 3 -> {

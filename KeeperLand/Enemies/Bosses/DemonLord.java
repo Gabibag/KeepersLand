@@ -27,11 +27,7 @@ public class DemonLord extends Boss {
 //        return false;
     }
 
-    @Override
-    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
 
-
-    }
 
     @Override
     public String getDodgeText() {
