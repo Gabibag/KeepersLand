@@ -4,6 +4,7 @@ import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Enviorment;
 import KeeperLand.Helper;
 import KeeperLand.Item;
+import KeeperLand.ItemData;
 import KeeperLand.Player;
 
 import java.util.Arrays;
@@ -12,7 +13,7 @@ import java.util.List;
 public class SubSpace extends Enviorment {
     @Override
     public List<Item> getShopItems() {
-        return Arrays.asList();
+        return Arrays.asList(ItemData.starDust, ItemData.SubspaceOrb);
     }
 
     public String getDescription() {
@@ -29,10 +30,10 @@ public class SubSpace extends Enviorment {
     }
 
     public void playerAction(Player p, List<Enemy> enemies) {
-        if (p.getBattleHp()>100){
-            System.out.println("The subspace environment limits your health. Your health " + ((p.getBattleHp()<250) ? "drops" : "plummets" ) + " to 100");
+        if (p.getBattleHp()>p.getBattleHp() *(p.getStageNum() / 5)){
+            System.out.println("The subspace environment limits your health. Your health " + ((p.getBattleHp() / p.getBattleHp() *(p.getStageNum() / 5d ) >0.5 ? "drops" : "plummets" ) + " to " + p.getBattleHp() *(p.getStageNum() / 5)));
             Helper.continuePrompt();
-            p.setBattleHp(100);
+            p.setBattleHp(p.getBattleHp() *(p.getStageNum() / 5));
         }
     }
 

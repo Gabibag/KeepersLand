@@ -13,8 +13,8 @@ public class ItemData {
     rarity is cost/100 + 1
     5% discount on higher costed items
     */
-    public static Item Revolver = new Item(5, 0, "Revolver", "A huge ancient revolver, still loaded with bullets", 0, 0);
-    public static Item Meds = new Item(0, 0, "Medication", "A container of Medicine taken from a shop in an destoryed city", 3, 0);
+    public static Item Revolver = new Item(5, 0, "Revolver", "A huge ancient revolver, still loaded with bullets", 0, 0, true);
+    public static Item Meds = new Item(0, 0, "Medication", "A container of Medicine taken from a shop in an destroyed city", 3, 0);
     public static Item RadioactiveRod = new Item(3,3 , "Radioactive Rod", "A rod taken from a reactor an underground room in a empty city", 0, 0);
     public static Item MoltenGem = new Item(0, 5, "Molten Gem", "A gem made of molten lava", 1, 0);
     public static Item demonSword = new Item(10, 0, "Demon Sword", "Where did it come from?", 1, 0);

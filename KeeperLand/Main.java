@@ -36,8 +36,7 @@ public class Main {
         r = new Random();
 
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
-        initTypes();
-        getNewPlace();
+
         //defaults for player
         List<String> saveList = allPlayerFiles();
         int saves = 0;
@@ -52,6 +51,7 @@ public class Main {
             } catch (Exception e) {
                 saves = 0;
             }
+            initTypes();
             getNewPlace();
 
         }
@@ -68,9 +68,11 @@ public class Main {
             player.addMoney(50);
             player.setHealAmount(3);
             player.setHealVariance(1);
+            initTypes();
             Main.currentPlace = new StarterLand();
         }
         else{
+            initTypes();
             getNewPlace();
         }
         if (player.getName().equals("among us") || player.getName().equals("test")) {
@@ -202,7 +204,7 @@ public class Main {
             System.out.println("amogsus");
             System.exit(0);
         }
-        initTypes();
+
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(

@@ -229,6 +229,7 @@ public class BossFight extends Interactable {
                 }
                 else {
                     p.setActionAmount(2);
+                    Main.getNewPlace();
                     break;
                 }
                 System.out.println(Colors.CLEAR);
@@ -247,9 +248,7 @@ public class BossFight extends Interactable {
                 }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
             }
-            System.out.println("Total damage taken: " + Colors.RED + (totalDamage > p.getBattleHp() ? p.getDamage() : totalDamage) + Colors.RESET);
 
-            Helper.continuePrompt();
             if (p.getBattleHp() <= 0) {
                 System.out.println("You lost!");
                 //drop 80% of the items in drops for enemy
@@ -271,6 +270,10 @@ public class BossFight extends Interactable {
                         enemies::remove); //the magic of intellij
                 Helper.Sleep(1);
             }
+            else{
+                System.out.println("Total damage taken: " + Colors.RED + (totalDamage > p.getBattleHp() ? p.getDamage() : totalDamage) + Colors.RESET);
+                Helper.continuePrompt();
+            }
             System.out.println(Colors.RESET + Colors.CLEAR);
             Main.currentPlace.turnEnd(p, enemies);
             Actions = p.getActionAmount();
@@ -282,7 +285,6 @@ public class BossFight extends Interactable {
 
         }
         updateItems(p, 2);
-        Main.getNewPlace();
         p.setBattleHp(p.getHp());
         Helper.Sleep(1);
     }
