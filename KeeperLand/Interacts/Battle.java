@@ -75,16 +75,17 @@ public class Battle extends Interactable {
                     case 1 -> {//attack
                         System.out.println(Colors.CLEAR);
 
-                        enemyAttackChoice(enemies);
-                        choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
-                        System.out.println(Colors.CLEAR);
+                        if (enemies.size() > 1) {
+                            enemyAttackChoice(enemies);
+                            choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
+                            System.out.println(Colors.CLEAR);
+                        }else choice = 1;
 
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             playerAttack(p, enemies, choice);
                             checkIfDead(p, enemies, choice);
                         } else {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
-                            Helper.Sleep(1);
                         }
                     }
                     case 2 -> healPlayer(p, r);
@@ -97,12 +98,17 @@ public class Battle extends Interactable {
                     break;
                 }
             }
-            printHealth(enemies);
-            System.out.println("\n\n\n\n\n"); //seems a bit empty here? maybe add some additional info?
+            printHealth(enemies);//print out a ui to make it look like its just changing stuff. Idk looks cool
+            System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
+            System.out.println(Colors.PURPLE + "[0] Attack");
+            System.out.println("[0] Heal");
+            System.out.println("[0] Info " + Colors.RESET);
+            System.out.println("Current Health: " + p.getBattleHp());
             Helper.continuePrompt();
+
             System.out.println(Colors.CLEAR);
-            attackEnemies(p, enemies);
             if (enemies.size() > 0) {
+                attackEnemies(p, enemies);
                 System.out.println(Colors.RESET);
                 Main.currentPlace.turnEnd(p, enemies);
             }
@@ -241,12 +247,13 @@ public class Battle extends Interactable {
 
     private static void enemyAttackChoice(List<Enemy> enemies) {
         printHealth(enemies);
-        int newLineCount = 4 - enemies.size();
+        System.out.print(Colors.CYAN + "\nUsing action..." + Colors.RESET);
+        int newLineCount = 3 - enemies.size();
         for (int i = 0; i < newLineCount; i++) {
             System.out.println();
         }
         for (int i = 0; i < enemies.size(); i++) {
-            System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
+            System.out.print("\n" + Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
             System.out.print(Colors.RESET);
         }
     }
@@ -270,10 +277,10 @@ public class Battle extends Interactable {
         enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
         if(pDamage < p.getBattleDamage()){
             System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
-                    enemies.get(choice - 1).getName() + Colors.RESET + "(⬇ " + p.getBattleDamage() + " -> " + pDamage + " )");
+                    enemies.get(choice - 1).getName() + Colors.RESET + " (⬇ " + p.getBattleDamage() + " -> " + pDamage + " )");
         }else if(pDamage > p.getBattleDamage()){
             System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
-                    enemies.get(choice - 1).getName() + Colors.RESET + "(⬆ " + p.getBattleDamage() + " -> " + pDamage + " )");
+                    enemies.get(choice - 1).getName() + Colors.RESET + " (⬆ " + p.getBattleDamage() + " -> " + pDamage + " )");
         }else {
             System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
                     enemies.get(choice - 1).getName() + Colors.RESET);

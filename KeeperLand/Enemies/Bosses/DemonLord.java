@@ -39,6 +39,7 @@ public class DemonLord extends Boss {
         System.out.println("Hit enter when the numbers are the same to dodge!");
         ExecutorService executor = Executors.newSingleThreadExecutor(); // Create a new thread
         Future<Integer> f = executor.submit(new Callable<Integer>() {
+
             public Integer call() {
                 int Pos = Main.r.nextInt(7);
                 int SPos = Main.r.nextInt(7);
@@ -86,8 +87,9 @@ public class DemonLord extends Boss {
                     S = S.substring(0, SPos) + SPos + S.substring(SPos + 1);
                     System.out.println(O + "\n" + S);
                     //Helper.Prompt("a");
-                    Helper.Sleep(0.1);
+                    Helper.Sleep(0.2);
                     System.out.println(Colors.CLEAR);
+                    System.out.println("Hit enter when the numbers are the same to dodge!");
                 }
                 System.out.println(Colors.CLEAR);
                 return Math.abs(Pos - SPos);

@@ -71,10 +71,9 @@ public class Main {
             player.addMoney(50);
             player.setHealAmount(3);
             player.setHealVariance(1);
-            initTypes();
             Main.currentPlace = new StarterLand();
         } else {
-            initTypes();
+//            initTypes();
             getNewPlace();
         }
         if (player.getName().equals("among us") || player.getName().equals("test")) {
