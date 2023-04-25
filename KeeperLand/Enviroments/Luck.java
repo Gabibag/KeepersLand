@@ -28,11 +28,10 @@ public class Luck extends Enviorment {
 
         int chance = Main.r.nextInt(3);
         if (chance == 0) {
-            System.out.println("Your damage has " + Colors.RED + "doubled!" + Colors.RESET);
             return preChange << 1;
 
         } else if (chance == 1) {
-            System.out.println("Your damage has " + Colors.RED + "halved!" + Colors.RESET);
+
             return preChange / 2;
         } else {
             return preChange;

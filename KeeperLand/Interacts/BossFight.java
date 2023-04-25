@@ -57,20 +57,18 @@ public class BossFight extends Interactable {
             healAmount = 0;
         } else if (healAmount + p.getBattleHp() >= max) {
             p.setBattleHp(max);
-            System.out.println("You healed to full health!");
-            Helper.continuePrompt();
+            System.out.println("You healed to"+ Colors.RED + " full"+ Colors.RESET + " health!");
             return;
         }
         p.setBattleHp(p.getBattleHp() + healAmount);
         if (healAmount <= 0) {
-            System.out.println("Your heal variance negated your heal..."); //occurs when heal variance is large enough in a negative value
+            System.out.println("Your heal variance"+ Colors.RED + " negated"+ Colors.RESET + " your heal..."); //occurs when heal variance is large enough in a negative value
 
         } else {
             System.out.println(Colors.RED + ((healAmount + p.getBattleHp() ==
                     max) ? "You healed to full health" :
-                    "You healed " + healAmount + " health"));
+                    "You healed " + healAmount + " health") + Colors.RESET);
         }
-        Helper.continuePrompt();
     }
 
     @Override

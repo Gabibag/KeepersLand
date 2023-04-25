@@ -74,6 +74,7 @@ public class Battle extends Interactable {
                     //#region case1
                     case 1 -> {//attack
                         System.out.println(Colors.CLEAR);
+
                         enemyAttackChoice(enemies);
                         choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
                         System.out.println(Colors.CLEAR);
@@ -96,7 +97,10 @@ public class Battle extends Interactable {
                     break;
                 }
             }
-
+            printHealth(enemies);
+            System.out.println("\n\n\n\n\n"); //seems a bit empty here? maybe add some additional info?
+            Helper.continuePrompt();
+            System.out.println(Colors.CLEAR);
             attackEnemies(p, enemies);
             if (enemies.size() > 0) {
                 System.out.println(Colors.RESET);
@@ -181,9 +185,10 @@ public class Battle extends Interactable {
 
         System.out.println("[" + (enemies.size() + 1) + "] Environment Info" + Colors.RESET);
         int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
-        Enemy e = enemies.get(choiceInfo - 1);
+
         if (choiceInfo == 0) return;
-        else if (choiceInfo == (enemies.size() + 1)) {
+        Enemy e = enemies.get(choiceInfo - 1);
+        if (choiceInfo == (enemies.size() + 1)) {
             System.out.println(
                     "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
             Helper.Prompt("Press Enter");
@@ -204,7 +209,6 @@ public class Battle extends Interactable {
     }  //TODO get location + opponent info
 
     public static void attackEnemies(Player p, List<Enemy> enemies) {
-        System.out.println(Colors.CLEAR);
         System.out.println("Enemies Turn!");
         int currentHp = p.getBattleHp();
         for (int i = 0; i < enemies.size(); i++) {
@@ -236,6 +240,11 @@ public class Battle extends Interactable {
     }
 
     private static void enemyAttackChoice(List<Enemy> enemies) {
+        printHealth(enemies);
+        int newLineCount = 4 - enemies.size();
+        for (int i = 0; i < newLineCount; i++) {
+            System.out.println();
+        }
         for (int i = 0; i < enemies.size(); i++) {
             System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
             System.out.print(Colors.RESET);
@@ -259,11 +268,19 @@ public class Battle extends Interactable {
     private static void playerAttack(Player p, List<Enemy> enemies, int choice) {
         int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
         enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
-        System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
-                enemies.get(choice - 1).getName() + Colors.RESET);
+        if(pDamage < p.getBattleDamage()){
+            System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
+                    enemies.get(choice - 1).getName() + Colors.RESET + "(⬇ " + p.getBattleDamage() + " -> " + pDamage + " )");
+        }else if(pDamage > p.getBattleDamage()){
+            System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
+                    enemies.get(choice - 1).getName() + Colors.RESET + "(⬆ " + p.getBattleDamage() + " -> " + pDamage + " )");
+        }else {
+            System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
+                    enemies.get(choice - 1).getName() + Colors.RESET);
+        }
     }
 
-    private void printHealth(List<Enemy> enemies) {
+    private static void printHealth(List<Enemy> enemies) {
         StringBuilder Names = new StringBuilder();
         StringBuilder HpAmounts = new StringBuilder();
         StringBuilder hpBars = new StringBuilder();

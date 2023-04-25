@@ -25,9 +25,9 @@ public class WasteLand extends Enviorment {
     }
 
     public int modifyPlayerDamage(int preChange) {
-        System.out.println("Damage Decrease! (" + Colors.RED + preChange + " -> " + (int) (preChange * (0.8)) + Colors.RESET + ")");
 
-        return preChange - (int) (preChange * (0.8));
+
+        return preChange - (int) (preChange * (0.2));
 
     }
 
@@ -43,7 +43,7 @@ public class WasteLand extends Enviorment {
 
     public int modifyEnemyDamage(int preChange) {
         if (preChange % 3 == 2) {
-            System.out.println("Damage Decrease! (" + preChange + " -> " + (int) (preChange * (0.2)) + ")");
+            System.out.println("Damage Decrease! (" + preChange + " -> " + (int) (preChange * (0.8)) + ")");
             return preChange - (int) (preChange * (0.2));
         }
         return preChange;

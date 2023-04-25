@@ -2,6 +2,7 @@ package KeeperLand.Enemies.Sprites;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Spirit;
+import KeeperLand.Colors;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
@@ -26,7 +27,7 @@ public class TankSprite extends Spirit {
         for (Enemy e : allies) {
             if (e.getBattleHp() < this.getBattleHp()) {
                 e.setBattleHp(this.getBattleHp());
-                System.out.print("The Tank Spirit has resets the battle hp of " + e.getName() + " to " + this.getBattleHp());
+                System.out.print("The Tank Spirit has "+ Colors.BLACK + "resets" + Colors.RESET + " the battle hp of " + Colors.RED + e.getName() + Colors.RESET + " to " + Colors.RED + this.getBattleHp());
                 System.out.println(", you must kill the Tank Spirit first");
             }
         }

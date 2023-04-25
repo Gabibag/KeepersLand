@@ -60,7 +60,6 @@ public class AbandonedCity extends Enviorment {
                 return preChange;
             }
         }
-        System.out.println(Colors.GREEN + "You are exposed to the city's radiation and deal 2 less damage, you should buy a radiation suit" + Colors.RESET);
         return preChange - 2;
     }
 
