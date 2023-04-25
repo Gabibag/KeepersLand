@@ -18,8 +18,9 @@
     2. Windows - Open the start menu and type in "cmd"
 3. Type in `java -jar`
 4. Drag in the .jar file onto your terminal
-5. Hit enter
-   Note: Hitting control c will force close the game without saving.
+5. Hit enter \
+\
+Note: Hitting control c will force close the game without saving.
 
 # About This Game
 
