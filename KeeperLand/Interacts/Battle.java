@@ -15,121 +15,6 @@ import static KeeperLand.Main.player;
 
 public class Battle extends Interactable {
 
-    static void updateItems(Player p, int battleEnd) {
-
-        if (battleEnd == 1) {
-            for (Item i : p.getInventory()) {
-                p.setBattleHp(p.getBattleHp() + i.getHpIncr());
-                p.setBattleDamage(p.getBattleDamage() + i.getDmgIncr());
-                p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
-                p.setHealVariance(p.getHealVariance() + i.getHealVariance());
-            }
-        } else if (battleEnd == 2) {
-            for (Item i : p.getInventory()) {
-                p.setBattleHp(p.getHp() - i.getHpIncr());
-                p.setBattleDamage(p.getBattleDamage() - i.getDmgIncr());
-                p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
-                p.setHealVariance(p.getHealVariance() - i.getHealVariance());
-            }
-        } else {
-            updateItems(p, 2);
-            updateItems(p, 1);
-        }
-    }
-
-    public static List<Enemy> getEnemies(Player p) {
-
-        List<Enemy> returned = new ArrayList<>();
-        for (Enemy e : Main.allEnemies) {
-            if (e.canSpawn(p)) {
-                if (p.getStageNum() % 5 == 0) {
-                    if (e instanceof Boss) {
-                        returned.add(e);
-                    }
-                } else if (!(e instanceof Boss)) {
-                    returned.add((e));
-                }
-            }
-
-        }
-
-        return returned;
-    }
-
-    //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
-    public static void removeDead(List<Enemy> enemies) {
-        for (int i = enemies.size() - 1; i >= 0; i--) {
-            Enemy choice = enemies.get(i);
-            if (choice.getBattleHp() <= 0) {
-                choice.onDeath(player, enemies, choice);
-                enemies.remove(choice);
-            }
-        }
-    }
-
-    public static void inv(List<Enemy> enemies) {
-
-        System.out.println(Colors.PURPLE + "[0] Go Back");
-        for (int i = 0; i < enemies.size(); i++) {
-            System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
-        }
-
-        System.out.println("[" + (enemies.size() + 1) + "] Environment Info" + Colors.RESET);
-        int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
-        if (choiceInfo == 0) {
-            return;
-        } else if (choiceInfo == (enemies.size() + 1)) {
-            System.out.println(
-                    "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
-            Helper.Prompt("Press Enter");
-        } else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
-            System.out.println(enemies.get(choiceInfo - 1).getName() + ":");
-            System.out.println(
-                    Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
-            System.out.println(Colors.RED_BOLD + "Damage: " + enemies.get(choiceInfo - 1).getDamage() + Colors.RESET);
-            System.out.println(
-                    Colors.RED_BRIGHT + "Current Health: " + enemies.get(choiceInfo - 1).getBattleHp() + Colors.RESET);
-            System.out.println(
-                    Colors.RED_BRIGHT + "Dodge Rate: " + enemies.get(choiceInfo - 1).getDodgeRate()
-                            + Colors.RESET);
-            Helper.continuePrompt();
-        }
-        inv(enemies);
-
-    }  //TODO get location + opponent info
-
-    public static void attackEnemies(Player p, List<Enemy> enemies) {
-        System.out.println(Colors.CLEAR);
-        System.out.println("Enemies Turn!");
-        int currentHp = p.getBattleHp();
-        for (int i = 0; i < enemies.size(); i++) {
-            Enemy enemy = enemies.get(i);
-            int damage;
-            if (enemy instanceof Boss) {
-                damage = ((Boss) enemy).BossAttack(p, enemies);
-            } else {
-                damage = enemy.Attack(p, enemies);
-            }
-            damage = Main.currentPlace.modifyEnemyDamage(damage);
-            if (damage > 0) {
-                p.setBattleHp(p.getBattleHp() - damage);
-//                    System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
-            }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
-
-        }
-
-        System.out.println("Total damage taken: " + Colors.RED + (currentHp - p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (Math.max(p.getBattleHp(), 0)) + Colors.RESET + "]");
-        Helper.continuePrompt();
-        System.out.println(Colors.CLEAR);
-        if (p.getBattleHp() <= 0) {
-            System.out.println("You lost!");
-            IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
-                    enemies::remove); //the magic of intellij
-            p.Save(p.getName() + ".plr");
-            Helper.Sleep(1);
-        }
-    }
-
     @Override
     public void onChoose(Player p) {
         p.setBattleHp(p.getHp());
@@ -189,60 +74,24 @@ public class Battle extends Interactable {
                     //#region case1
                     case 1 -> {//attack
                         System.out.println(Colors.CLEAR);
-                        if (enemies.size() > 1) {
-                            for (int i = 0; i < enemies.size(); i++) {
-                                System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
-                                System.out.print(Colors.RESET);
-                            }
-                            choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
-                            System.out.println(Colors.CLEAR);
-                        }
+                        enemyAttackChoice(enemies);
+                        choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
+                        System.out.println(Colors.CLEAR);
+
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
-
-                            int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
-                            enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
-                            System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
-                                    enemies.get(choice - 1).getName() + Colors.RESET);
-                            for (int i = enemies.size() - 1; i >= 0; i--) {
-                                if (enemies.get(choice - 1).getBattleHp() <= 0) {
-                                    try {
-                                        enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
-                                    } catch (Exception e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                    enemies.remove(choice - 1);
-                                    i--;
-                                }
-                            }
-
-
-
+                            playerAttack(p, enemies, choice);
+                            checkIfDead(p, enemies, choice);
                         } else {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                             Helper.Sleep(1);
                         }
                     }
-                    //#endregion
-                    //#region case2
-                    case 2 -> {
-                        try {
-                            healPlayer(p, r);
-                        } catch (Exception e) {
-                            System.out.println("You are at your max health");
-                        }
-                    }
-                    //#endregion
-                    //#region case3
-                    case 3 -> {
-                        inv(enemies);
-                        continue;
-                    }
-                    //#endregion
+                    case 2 -> healPlayer(p, r);
+                    case 3 -> inv(enemies);
                 }
                 Main.currentPlace.playerAction(p, enemies);
-                if (enemies.size() > 0) {
-                    Actions--;
-                } else {
+                if (enemies.size() > 0) Actions--;
+                else {
                     p.setActionAmount(2);
                     break;
                 }
@@ -262,12 +111,156 @@ public class Battle extends Interactable {
             p.Save(p.getName() + ".plr");
 
         }
+        //occurs after battle ends
         updateItems(p, 2);
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
         p.setActionAmount(2);
         Helper.Sleep(1);
 
+    }
+
+    static void updateItems(Player p, int battleEnd) {
+
+        if (battleEnd == 1) {
+            for (Item i : p.getInventory()) {
+                p.setBattleHp(p.getBattleHp() + i.getHpIncr());
+                p.setBattleDamage(p.getBattleDamage() + i.getDmgIncr());
+                p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
+                p.setHealVariance(p.getHealVariance() + i.getHealVariance());
+            }
+        } else if (battleEnd == 2) {
+            for (Item i : p.getInventory()) {
+                p.setBattleHp(p.getHp() - i.getHpIncr());
+                p.setBattleDamage(p.getBattleDamage() - i.getDmgIncr());
+                p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
+                p.setHealVariance(p.getHealVariance() - i.getHealVariance());
+            }
+        } else {
+            updateItems(p, 2);
+            updateItems(p, 1);
+        }
+    }
+
+    public static List<Enemy> getEnemies(Player p) {
+
+        List<Enemy> returned = new ArrayList<>();
+        for (Enemy e : Main.allEnemies) {
+            if (e.canSpawn(p)) {
+                if (p.getStageNum() % 5 == 0) {
+                    if (e instanceof Boss) {
+                        returned.add(e);
+                    }
+                } else if (!(e instanceof Boss)) {
+                    returned.add((e));
+                }
+            }
+
+        }
+
+        return returned;
+    }
+    //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
+
+    public static void removeDead(List<Enemy> enemies) {
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            Enemy choice = enemies.get(i);
+            if (choice.getBattleHp() <= 0) {
+                choice.onDeath(player, enemies, choice);
+                enemies.remove(choice);
+            }
+        }
+    }
+
+    public static void inv(List<Enemy> enemies) {
+
+        System.out.println(Colors.PURPLE + "[0] Go Back");
+        for (int i = 0; i < enemies.size(); i++) {
+            System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
+        }
+
+        System.out.println("[" + (enemies.size() + 1) + "] Environment Info" + Colors.RESET);
+        int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
+        Enemy e = enemies.get(choiceInfo - 1);
+        if (choiceInfo == 0) return;
+        else if (choiceInfo == (enemies.size() + 1)) {
+            System.out.println(
+                    "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
+            Helper.Prompt("Press Enter");
+        } else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
+            System.out.println(e.getName() + ":");
+            System.out.println(
+                    Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
+            System.out.println(Colors.RED_BOLD + "Damage: " + e.getDamage() + Colors.RESET);
+            System.out.println(
+                    Colors.RED_BRIGHT + "Current Health: " + e.getBattleHp() + Colors.RESET);
+            System.out.println(
+                    Colors.RED_BRIGHT + "Dodge Rate: " + e.getDodgeRate()
+                            + Colors.RESET);
+            Helper.continuePrompt();
+        }
+        inv(enemies);
+
+    }  //TODO get location + opponent info
+
+    public static void attackEnemies(Player p, List<Enemy> enemies) {
+        System.out.println(Colors.CLEAR);
+        System.out.println("Enemies Turn!");
+        int currentHp = p.getBattleHp();
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy enemy = enemies.get(i);
+            int damage;
+            if (enemy instanceof Boss) {
+                damage = ((Boss) enemy).BossAttack(p, enemies);
+            } else {
+                damage = enemy.Attack(p, enemies);
+            }
+            damage = Main.currentPlace.modifyEnemyDamage(damage);
+            if (damage > 0) {
+                p.setBattleHp(p.getBattleHp() - damage);
+//                    System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
+            }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
+
+        }
+
+        System.out.println("Total damage taken: " + Colors.RED + (currentHp - p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (Math.max(p.getBattleHp(), 0)) + Colors.RESET + "]");
+        Helper.continuePrompt();
+        System.out.println(Colors.CLEAR);
+        if (p.getBattleHp() <= 0) {
+            System.out.println("You lost!");
+            IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
+                    enemies::remove); //the magic of intellij
+            p.Save(p.getName() + ".plr");
+            Helper.Sleep(1);
+        }
+    }
+
+    private static void enemyAttackChoice(List<Enemy> enemies) {
+        for (int i = 0; i < enemies.size(); i++) {
+            System.out.println(Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
+            System.out.print(Colors.RESET);
+        }
+    }
+
+    private static void checkIfDead(Player p, List<Enemy> enemies, int choice) {
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            try {
+                if (enemies.get(choice - 1).getBattleHp() > 0) { // i have no idea why this is erroring
+                    continue;
+                }
+            } catch (Exception e) {
+                continue;
+            }
+            enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
+            enemies.remove(choice - 1);
+        }
+    }
+
+    private static void playerAttack(Player p, List<Enemy> enemies, int choice) {
+        int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
+        enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
+        System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
+                enemies.get(choice - 1).getName() + Colors.RESET);
     }
 
     private void printHealth(List<Enemy> enemies) {
