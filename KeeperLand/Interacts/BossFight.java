@@ -31,27 +31,40 @@ public class BossFight extends Interactable {
     }
 
      static void healPlayer(Player p, Random r) {
-        int max = p.getHp();
+
+        int max = (int) (p.getHp() + p.getHp()*0.2); //allows a slight over heal
         for (Item i : p.getInventory()) {
             max += (i.getHpIncr());
         }
-        double h = (double) p.getBattleHp() / (double) max;
+         if(p.getBattleHp() >= max){
+            System.out.println("You are already at full health!");
+            Helper.continuePrompt();
+            return;
+         }
+        double h = (double) p.getBattleHp() / (double) max; // heals less the lower your health is.
 
         int healAmount =
                 (int) ((p.getHealAmount()) *
-                        ((h< 0.2) ? 0.2 : h + 0.1));
-        healAmount += r.nextInt((p.getHealVariance() *2)) - p.getHealVariance();
+                        ((h< 0.1) ? 0.1 : h + 0.1));
+        int variance = (r.nextInt((p.getHealVariance() *2)) - p.getHealVariance());
+        if (variance>0){
+            variance *=h;
+        }
+        healAmount += variance;
+
+
         if (healAmount < 0) {
             healAmount = 0;
         } else if (healAmount + p.getBattleHp() >= max) {
-            healAmount = max - p.getBattleHp();
-            System.out.println("You are already at max health!");
+            p.setBattleHp(max);
+            System.out.println("You healed to full health!");
             Helper.continuePrompt();
             return;
         }
         p.setBattleHp(p.getBattleHp() + healAmount);
         if (healAmount <= 0) {
             System.out.println("Your heal variance negated your heal..."); //occurs when heal variance is large enough in a negative value
+
         } else {
             System.out.println(Colors.RED + ((healAmount + p.getBattleHp() ==
                     max) ? "You healed to full health" :

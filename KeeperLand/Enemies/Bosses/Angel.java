@@ -82,7 +82,8 @@ public class Angel extends Boss {
     public int Attack(Player p, List<Enemy> allies) {
         //random chance to spawn a healing sprite
         int r = Main.r.nextInt(3);
-        if (r == 0) {
+        int t = Main.r.nextInt(3);
+        if (r == 0 && t == 0) {
             System.out.println("The Angel " + Colors.RED + "summons" + Colors.RESET + " a " + Colors.GREEN + "Healing Sprite" + Colors.RESET);
             allies.add(new HealingSprite());
         } else if (r == 1) {

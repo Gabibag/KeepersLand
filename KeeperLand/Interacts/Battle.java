@@ -20,14 +20,14 @@ public class Battle extends Interactable {
         if (battleEnd == 1) {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getBattleHp() + i.getHpIncr());
-                p.setBattleDamage(p.getDamage() + i.getDmgIncr());
+                p.setBattleDamage(p.getBattleDamage() + i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() + i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() + i.getHealVariance());
             }
         } else if (battleEnd == 2) {
             for (Item i : p.getInventory()) {
                 p.setBattleHp(p.getHp() - i.getHpIncr());
-                p.setBattleDamage(p.getDamage() - i.getDmgIncr());
+                p.setBattleDamage(p.getBattleDamage() - i.getDmgIncr());
                 p.setHealAmount(p.getHealAmount() - i.getHealIncrease());
                 p.setHealVariance(p.getHealVariance() - i.getHealVariance());
             }
@@ -74,7 +74,7 @@ public class Battle extends Interactable {
             System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
         }
 
-        System.out.println("[" + (enemies.size() + 1) + "] Enviroment Info" + Colors.RESET);
+        System.out.println("[" + (enemies.size() + 1) + "] Environment Info" + Colors.RESET);
         int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
         if (choiceInfo == 0) {
             return;
@@ -100,7 +100,7 @@ public class Battle extends Interactable {
 
     public static void attackEnemies(Player p, List<Enemy> enemies) {
         System.out.println(Colors.CLEAR);
-        int totalDamage = 0;
+        System.out.println("Enemies Turn!");
         int currentHp = p.getBattleHp();
         for (int i = 0; i < enemies.size(); i++) {
             Enemy enemy = enemies.get(i);
@@ -115,12 +115,12 @@ public class Battle extends Interactable {
                 p.setBattleHp(p.getBattleHp() - damage);
 //                    System.out.println(enemy.getName() + " deals " + Colors.RED +  damage + Colors.RESET +  " damage");
             }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
-            totalDamage += damage;
 
         }
 
-        System.out.println("\nTotal damage taken: " + Colors.RED + (currentHp - p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (p.getBattleHp() < 0 ? 0 : p.getBattleHp()) + Colors.RESET + "]");
+        System.out.println("Total damage taken: " + Colors.RED + (currentHp - p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (Math.max(p.getBattleHp(), 0)) + Colors.RESET + "]");
         Helper.continuePrompt();
+        System.out.println(Colors.CLEAR);
         if (p.getBattleHp() <= 0) {
             System.out.println("You lost!");
             IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
@@ -132,19 +132,14 @@ public class Battle extends Interactable {
 
     @Override
     public void onChoose(Player p) {
-        int tempMaxHp = p.getHp();
-        for (Item i : p.getInventory()) {
-            tempMaxHp += i.getHpIncr();
-        }
         p.setBattleHp(p.getHp());
+        p.setBattleDamage(p.getDamage());
         updateItems(p, 1);
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
         while (spawns.size() < 3) {
             spawns = getEnemies(p);
-
-
             //check if spawns contains duplicates, if it does, remove it
             for (int i = spawns.size() - 1; i >= 0; i--) {
                 for (int j = spawns.size() - 1; j >= i + 1; j--) {
@@ -178,12 +173,12 @@ public class Battle extends Interactable {
         Main.currentPlace.BattleStart(p, enemies);
         while (enemies.size() > 0) {
             removeDead(enemies);
-            //tell user their stage number and enviorment
+            //tell user their stage number and environment
             while (Actions > 0) {
                 System.out.print("You are in the " + Main.currentPlace.getName() + Colors.RESET);
                 System.out.println();
                 //updateItems(p, 3);
-                printHealth(enemies, p);
+                printHealth(enemies);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
                         "[1] Attack");
@@ -200,24 +195,28 @@ public class Battle extends Interactable {
                                 System.out.print(Colors.RESET);
                             }
                             choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
+                            System.out.println(Colors.CLEAR);
                         }
-                        System.out.println(Colors.CLEAR);
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
+
                             int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
                             enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
-                            System.out.println("Dealt " + Colors.RED_BOLD + pDamage + Colors.RESET + " damage to " +
-                                    enemies.get(choice - 1).getName());
-
-                            if (enemies.get(choice - 1).getBattleHp() <= 0) {
-                                try {
-                                    enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
+                            System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
+                                    enemies.get(choice - 1).getName() + Colors.RESET);
+                            for (int i = enemies.size() - 1; i >= 0; i--) {
+                                if (enemies.get(choice - 1).getBattleHp() <= 0) {
+                                    try {
+                                        enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
+                                    } catch (Exception e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                    enemies.remove(choice - 1);
+                                    i--;
                                 }
-                                enemies.remove(choice - 1);
                             }
 
-                            Helper.continuePrompt();
+
+
                         } else {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                             Helper.Sleep(1);
@@ -247,12 +246,11 @@ public class Battle extends Interactable {
                     p.setActionAmount(2);
                     break;
                 }
-                System.out.println(Colors.CLEAR);
             }
 
             attackEnemies(p, enemies);
             if (enemies.size() > 0) {
-                System.out.println(Colors.CLEAR + Colors.RESET);
+                System.out.println(Colors.RESET);
                 Main.currentPlace.turnEnd(p, enemies);
             }
             Actions = p.getActionAmount();
@@ -267,11 +265,12 @@ public class Battle extends Interactable {
         updateItems(p, 2);
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
+        p.setActionAmount(2);
         Helper.Sleep(1);
 
     }
 
-    private void printHealth(List<Enemy> enemies, Player p) {
+    private void printHealth(List<Enemy> enemies) {
         StringBuilder Names = new StringBuilder();
         StringBuilder HpAmounts = new StringBuilder();
         StringBuilder hpBars = new StringBuilder();

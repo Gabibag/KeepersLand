@@ -123,12 +123,10 @@ public abstract class Enemy {
 
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         //by default, just gives xp and money
-        System.out.println("You defeated " + name + "!");
-        p.addMoney(coins);
+        System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
+                Colors.RESET + ")");
+        p.addMoney(coins); //uhhh
         player.addMoney(self.getCoins());
-        System.out.println(
-                "You gained " + self.getCoins() + Colors.CYAN + "◊" +
-                        Colors.RESET);
         p.addXp(xp);
         randDrops(p, this);
     }

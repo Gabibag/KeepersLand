@@ -2,7 +2,6 @@ package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Enviorment;
-import KeeperLand.Helper;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
@@ -37,7 +36,6 @@ public class SubSpace extends Enviorment {
         }
         if (p.getBattleHp() > min) {
             System.out.println("The subspace environment limits your health. Your health " + (min > 0.5 ? "drops" : "plummets") + " to " + min);
-            Helper.continuePrompt();
             p.setBattleHp(p.getBattleHp() * (p.getStageNum() / 5));
         }
     }

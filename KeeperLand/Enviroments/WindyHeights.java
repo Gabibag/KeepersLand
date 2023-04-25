@@ -35,7 +35,7 @@ public class WindyHeights extends Enviorment {
 
     public void turnEnd(Player p, List<Enemy> enemies) {
         //increase the dodge rate of the enemy by 1 every other turn
-        if (turn % 2 == 0) {
+        if (turn % 4 == 0) {
             for (Enemy e : enemies) {
                 e.setDodgeRate(e.getDodgeRate() + 1);
             }

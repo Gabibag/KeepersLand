@@ -97,7 +97,7 @@ public class Death extends Boss {
                     if (Death.End) {
                         return progress - 1;
                     }
-                    Helper.Sleep(0.08);
+                    Helper.Sleep(0.06);
                 }
 
             }

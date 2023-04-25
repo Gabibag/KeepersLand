@@ -185,8 +185,8 @@ public class Player {
         return battleHp;
     }
 
-    public void setBattleHp(int battleHp) {
-        this.battleHp = battleHp;
+    public void setBattleHp(int hp) {
+        this.battleHp = hp;
     }
 
     public String getName() {
@@ -247,10 +247,10 @@ public class Player {
     }
 
     public String toString() {
-        int tempHp = 0;
-        int tempDmg = 0;
-        int tempHeal = 0;
-        int tempHealVar = 0;
+        int tempHp = this.hp;
+        int tempDmg = this.dmg;
+        int tempHeal = this.healAmount;
+        int tempHealVar = this.healVariance;
         for (Item i : inventory) {
             tempHp += i.getHpIncr();
             tempDmg += i.getDmgIncr();
@@ -268,8 +268,8 @@ public class Player {
         return battleDamage;
     }
 
-    public void setBattleDamage(int battleDamage) {
-        this.battleDamage = battleDamage;
+    public void setBattleDamage(int dmg) {
+        this.battleDamage = dmg;
     }
 
     public int getTokens() {
