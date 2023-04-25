@@ -42,12 +42,18 @@ public class Helper {
         if (Main.player == null) {
             return 1;
         }
-        float multi = (Main.player.getLevel() / 7f > 1f ? Main.player.getLevel() / 7f : 1f);
+        int tempHp = Main.player.getHp();
+        int tempDmg = Main.player.getDamage();
+        for (Item i : Main.player.getInventory()) {
+            tempHp += i.getHpIncr();
+            tempDmg += i.getDmgIncr();
+        }
+        float multi = (Math.max(Main.player.getLevel() / 7f, 1f));
         if (type == 0) {//hp scale
-            float num = (Main.player.getStageNum() / 3f) * multi;
+            float num = (Main.player.getStageNum() / 5f) * multi * ((float) 5*Main.player.getStageNum()/tempDmg );
             return (num) <= 1 ? 1 : (num);
         } else if (type == 1) {// damage scale
-            float num = (((Main.player.getStageNum()) / 7.5f) * multi);
+            float num = (((Main.player.getStageNum()) / 5f) * multi * ((float) 5*Main.player.getStageNum()/tempHp ));
             return num <= 1 ? 1 : num;
         } else if (type == 2) {
             float num = Main.player.getStageNum() / 100f;

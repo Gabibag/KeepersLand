@@ -44,8 +44,7 @@ public class BossFight extends Interactable {
         double h = (double) p.getBattleHp() / (double) max; // heals less the lower your health is.
 
         int healAmount =
-                (int) ((p.getHealAmount()) *
-                        ((h< 0.1) ? 0.1 : h + 0.1));
+                (int) ((p.getHealAmount()) * Math.min(h, 0.2));
         int variance = (r.nextInt((p.getHealVariance() *2)) - p.getHealVariance());
         if (variance>0){
             variance *=h;

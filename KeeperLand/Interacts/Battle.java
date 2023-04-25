@@ -100,13 +100,14 @@ public class Battle extends Interactable {
             }
             printHealth(enemies);//print out a ui to make it look like its just changing stuff. Idk looks cool
             System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
-            System.out.println(Colors.PURPLE + "[0] Attack");
+            System.out.println(Colors.BLACK_BRIGHT + "[0] Attack");
             System.out.println("[0] Heal");
             System.out.println("[0] Info " + Colors.RESET);
             System.out.println("Current Health: " + p.getBattleHp());
             Helper.continuePrompt();
 
             System.out.println(Colors.CLEAR);
+            instaAttackMode(p, enemies);
             if (enemies.size() > 0) {
                 attackEnemies(p, enemies);
                 System.out.println(Colors.RESET);
@@ -114,7 +115,7 @@ public class Battle extends Interactable {
             }
             Actions = p.getActionAmount();
         }
-        if (p.getBattleHp() > 0) {
+        if (p.getBattleHp() > 0 && enemies.size() == 0) {
             //TODO drops
             System.out.println("You won!");
             p.incStageNum(1);
@@ -128,6 +129,29 @@ public class Battle extends Interactable {
         p.setActionAmount(2);
         Helper.Sleep(1);
 
+    }
+
+    private static void instaAttackMode(Player p, List<Enemy> enemies) {
+        //check if enemies can deal damage
+        boolean canDamage = false;
+        for (int i = 0; i < enemies.size(); i++) {
+            if (enemies.get(i).getDamage() > 0) {
+                canDamage = true;
+            }
+        }
+        if (!canDamage && enemies.size() > 0 && p.getBattleHp() > 0){
+            System.out.println("Insta attack mode!");
+            Helper.Sleep(1);
+            //make player attack them repeatedly until all enemies are dead
+            while (enemies.size() > 0){
+                for (int i = 0; i < enemies.size(); i++) {
+                    playerAttack(p, enemies, i + 1);
+                    printHealth(enemies);
+                    Helper.Sleep(0.5);
+                    checkIfDead(p, enemies, i + 1);
+                }
+            }
+        }
     }
 
     static void updateItems(Player p, int battleEnd) {
@@ -241,6 +265,9 @@ public class Battle extends Interactable {
             IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                     enemies::remove); //the magic of intellij
             p.Save(p.getName() + ".plr");
+            if(p.getStageNum() % 5 == 0){
+                p.setStageNum(p.getStageNum() - 1);
+            }
             Helper.Sleep(1);
         }
     }
@@ -253,7 +280,7 @@ public class Battle extends Interactable {
             System.out.println();
         }
         for (int i = 0; i < enemies.size(); i++) {
-            System.out.print("\n" + Colors.PURPLE + "[" + (i + 1) + "] " + enemies.get(i).getName());
+            System.out.print("\n" + Colors.RED + "[" + (i + 1) + "] " + enemies.get(i).getName());
             System.out.print(Colors.RESET);
         }
     }

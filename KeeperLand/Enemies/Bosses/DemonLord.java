@@ -12,7 +12,7 @@ public class DemonLord extends Boss {
     public static boolean End = false;
 
     public void setBaseStats() {
-        this.baseHp = 120;
+        this.baseHp = 90;
         this.damage = 20;
         this.xp = 100;
         this.name = "Demon Lord";
@@ -89,7 +89,6 @@ public class DemonLord extends Boss {
                     //Helper.Prompt("a");
                     Helper.Sleep(0.2);
                     System.out.println(Colors.CLEAR);
-                    System.out.println("Hit enter when the numbers are the same to dodge!");
                 }
                 System.out.println(Colors.CLEAR);
                 return Math.abs(Pos - SPos);
