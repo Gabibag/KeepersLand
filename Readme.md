@@ -87,7 +87,7 @@ Note: Hitting control c will force close the game without saving.
     - Waste Land
         - Always deal less damage and a chance to take damage
     - Windy Heights
-        - Every turn, the enemies' dodge rate increases
+        - Every 4 turns, the enemies' dodge rate increases
 
 ### Enemy types
 
