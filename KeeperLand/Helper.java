@@ -1,5 +1,6 @@
 package KeeperLand;
 
+import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Enemies.Common.Archer;
 import KeeperLand.Enemies.Common.Goblin;
 import KeeperLand.Enemies.Common.Warrior;
@@ -36,9 +37,12 @@ public class Helper {
 
     /**
      * returns the scale factor
+     * @param type 0 for hp, 1 for damage, 2 for coins, Enemy e
+     *             @return the scale factor proportional to the level of the enemy
      */
 
-    public static float getScaleFactor(int type) {
+    public static float getScaleFactor(int type, Enemy e) {
+        int level = e.getLevel();
         if (Main.player == null) {
             return 1;
         }
@@ -48,18 +52,18 @@ public class Helper {
             tempHp += i.getHpIncr();
             tempDmg += i.getDmgIncr();
         }
-        float multi = (Math.max(Main.player.getLevel() / 7f, 1f));
+        float multi = (Math.max(level / 7f, 1f));
         if (type == 0) {//hp scale
-            float num = (Main.player.getStageNum() / 5f) * multi * ((float) 5*Main.player.getStageNum()/tempDmg );
+            float num = (level / 5f) * multi * ((float) 5*level/tempDmg );
             return (num) <= 1 ? 1 : (num);
         } else if (type == 1) {// damage scale
-            float num = (((Main.player.getStageNum()) / 5f) * multi * ((float) 5*Main.player.getStageNum()/tempHp ));
+            float num = (((level) / 5f) * multi * ((float) 5*level/tempHp ));
             return num <= 1 ? 1 : num;
         } else if (type == 2) {
-            float num = Main.player.getStageNum() / 100f;
+            float num = level / 100f;
             return (num) <= 1 ? 1 : (num); //coins scale
         }
-        return 1 + (Main.player.getStageNum() / 5f);
+        return 1 + (level / 5f);
     }
 
     /**

@@ -7,6 +7,7 @@ import KeeperLand.Enviroments.NullZone;
 import KeeperLand.Enviroments.StarterLand;
 import KeeperLand.Interacts.Battle;
 import KeeperLand.Interacts.LevelUp;
+import KeeperLand.Interacts.Shop;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -104,6 +105,7 @@ public class Main {
             Main.currentPlace = new LavaZone();
         } else if (player.getName().equalsIgnoreCase("runThrough") || player.getName().equalsIgnoreCase("rtest")) {
             int lvl = Helper.getInput("What level would you like to be at?", 99999999);
+            initTypes();
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < lvl; i++) {
@@ -114,9 +116,9 @@ public class Main {
                     e.randDrops(player, e);
                 }
 
-                /*if (player.getStageNum()%9 == 0){
+                if (player.getStageNum()%9 == 0){
                     Shop.superBuy(player);
-                }*/
+                }
                 player.incStageNum(1);
                 getNewPlace();
             }

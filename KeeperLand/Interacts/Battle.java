@@ -319,7 +319,8 @@ public class Battle extends Interactable {
         StringBuilder HpAmounts = new StringBuilder();
         StringBuilder hpBars = new StringBuilder();
         for (Enemy enemy : enemies) {
-            StringBuilder nameAdd = new StringBuilder(enemy.getName());
+
+            StringBuilder nameAdd = new StringBuilder("lvl " + enemy.getLevel() + " " + enemy.getName());
             StringBuilder hpAdd = new StringBuilder(enemy.getBattleHp() + "hp");
             if (nameAdd.length() > hpAdd.length()) {
                 //find the difference
@@ -341,6 +342,7 @@ public class Battle extends Interactable {
                     nameAdd.append(" ");
                 }
             }
+
             int barLength = Math.max(nameAdd.length(), hpAdd.length());
             StringBuilder bar = new StringBuilder("[=]");
             if (!(barLength < 3)) {

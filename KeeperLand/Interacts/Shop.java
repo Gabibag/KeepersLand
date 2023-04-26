@@ -29,7 +29,16 @@ public class Shop extends Interactable {
 
     public static void superBuy(Player p) {
         int money = p.getMoney();
-        List<Item> tempItems = Main.currentPlace.getShopItems();
+        List<Item> tempItems = new ArrayList<>();
+        for (int i = 0; i < Main.currentPlace.getShopItems().size(); i++) {
+            if(!Main.currentPlace.getShopItems().get(i).getName().equalsIgnoreCase("dull skull")){
+                tempItems.add(Main.currentPlace.getShopItems().get(i));
+            }
+
+
+        }
+
+
         //sort items by cost ascending
         for (int i = 0; i < tempItems.size(); i++) {
             for (int j = 0; j < tempItems.size() - 1; j++) {
@@ -97,16 +106,49 @@ public class Shop extends Interactable {
             System.out.println("[3] Inspect");
             System.out.println("[4] Sell Items");
             //System.out.print(Colors.RESET);
+            int maxNameLength = 0;
+            for (int i = 0; i < items.size(); i++) {
+                if (items.get(i).getName().length() > maxNameLength) {
+                    maxNameLength = items.get(i).getName().length();
+                }
+            }
+            int maxColLength = 0;
+            for(int i = 0; i<items.size(); i++){
+                if(String.valueOf(items.get(i).getHealVariance()).length() > maxColLength){
+                    maxColLength = String.valueOf(items.get(i).getHealVariance()).length();
+                } if (String.valueOf(items.get(i).getHealIncrease()).length() > maxColLength){
+                    maxColLength = String.valueOf(items.get(i).getHealIncrease()).length();
+                } if (String.valueOf(items.get(i).getHpIncr()).length() > maxColLength){
+                    maxColLength = String.valueOf(items.get(i).getHpIncr()).length();
+                } if (String.valueOf(items.get(i).getDmgIncr()).length() > maxColLength) {
+                    maxColLength = String.valueOf(items.get(i).getDmgIncr()).length();
+                }
+            }
             try {
                 for (int i = 0; i < items.size(); i++) {
-                    String color = Colors.PURPLE;
-                    if (player.getMoney() >= items.get(i).getCost()) {
-                        color = Colors.GREEN;
+                    String spaceCount = "";
+                    String variCount = "";
+                    String hpCount = "";
+                    String healCount = "";
+                    String dmgCount = "";
+                    for (int j = 0; j < maxNameLength - items.get(i).getName().length() + 2; j++) {
+                        spaceCount += " ";
+                    }
+                    for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHealVariance()).length(); j++) {
+                        variCount += " ";
+                    }
+                    for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHpIncr()).length(); j++) {
+                        hpCount += " ";
+                    }
+                    for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHealIncrease()).length(); j++) {
+                        healCount += " ";
+                    }
+                    for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getDmgIncr()).length(); j++) {
+                        dmgCount += " ";
                     }
                     System.out.println(
-                            "[" + (i + 5) + "] " + color + items.get(i).getName() + Colors.CYAN + " " + items.get(i).getCost() +
-                                    "◊" +
-                                    Colors.RED + " ⚔ " + items.get(i).getDmgIncr() + Colors.GREEN + " ❤ " + items.get(i).getHpIncr() + (Helper.moreShopInfo ? Colors.RESET + " (" + items.get(i).getDescription() + ")" : "") + Colors.PURPLE);
+                            Colors.CYAN+"[" + (i + 5) +"] " +  Colors.PURPLE + items.get(i).getName() + spaceCount +
+                                    Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + (items).get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + (items).get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + (items).get(i).getHealVariance() + variCount + (Helper.moreShopInfo ? Colors.RESET + " (" + (items).get(i).getDescription() + ")" : "") + Colors.RESET);
                 }
             } catch (Exception e) {
                 //items.add(Item.empty);

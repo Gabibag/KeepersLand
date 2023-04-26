@@ -27,7 +27,7 @@ public class TheKeeper extends FinalBoss {
     }
 
     @Override
-    public void scaleStats() {
+    public void scaleStats(Enemy e) {
         //do nothing
     }
 

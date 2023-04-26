@@ -9,14 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.*;
 
-public class Bug extends Boss {
+public class Glitch extends Boss {
     protected static boolean End;
 
     public void setBaseStats() {
         this.baseHp = 75;
         this.damage = 5;
         this.xp = 120;
-        this.name = "Bug";
+        this.name = "Glitch";
         this.coins = 50;
         this.tokens = 1;
         this.drops.add(ItemData.GlitchedShard);
@@ -58,17 +58,17 @@ public class Bug extends Boss {
                 System.out.println("Unable to fix, health doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + "), damage halved (" + e.getDamage() * 2 + "->" + e.getDamage() + ").");
             } else if (rand == 2) {
                 System.out.println("Entity " + e.getName() + "<" + e + "> detected with decreased stats. Attempting to fix...");
-                e.setBattleHp(e.getBattleHp() << 1);
-                e.setDamage(e.getDamage() << 1);
+                e.setBattleHp((int) (e.getBattleHp() * 1.5));
+                e.setDamage((int) (e.getDamage() * 1.5));
                 Helper.Sleep(2);
-                System.out.println("Fixed, health doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + "), damage doubled (" + e.getDamage() / 2 + "->" + e.getDamage() + ").");
+                System.out.println("Fixed, health doubled (" + ((int) (e.getBattleHp() / 1.5)) + "->" + e.getBattleHp() + "), damage doubled (" + ((int) (e.getDamage() / 1.5)) + "->" + e.getDamage() + ").");
             }
 
         }
         allies.addAll(spawns);
         System.out.println("Player " + p.getName() + " detected with abnormal stats. Attempting to fix...");
         p.setBattleHp(p.getBattleHp() + p.getHp()/2);
-        System.out.println("Fixed, health increased (" + p.getBattleHp() + "->" + p.getBattleHp() + ").");
+        System.out.println("Fixed, health increased (" + p.getBattleHp()/2 + "->" + p.getBattleHp() + ").");
         Helper.Sleep(1);
     }
 
@@ -95,18 +95,15 @@ public class Bug extends Boss {
                 "   | $$  | $$  | $$|  $$$$$$$\n" +
                 "   |__/  |__/  |__/ \\_______/");
         Helper.Sleep(1);
-        System.out.println("\n" + Colors.CLEAR +
-                " /$$$$$$$                     \n" +
-                "| $$__  $$                    \n" +
-                "| $$  \\ $$ /$$   /$$  /$$$$$$ \n" +
-                "| $$$$$$$ | $$  | $$ /$$__  $$\n" +
-                "| $$__  $$| $$  | $$| $$  \\ $$\n" +
-                "| $$  \\ $$| $$  | $$| $$  | $$\n" +
-                "| $$$$$$$/|  $$$$$$/|  $$$$$$$\n" +
-                "|_______/  \\______/  \\____  $$\n" +
-                "                     /$$  \\ $$\n" +
-                "                    |  $$$$$$/\n" +
-                "                     \\______/ ");
+        System.out.println("\n" + " Colors.CLEAR + " +
+                "  /$$$$$$  /$$ /$$   /$$               /$$      \n" +
+                " /$$__  $$| $$|__/  | $$              | $$      \n" +
+                "| $$  \\__/| $$ /$$ /$$$$$$    /$$$$$$$| $$$$$$$ \n" +
+                "| $$ /$$$$| $$| $$|_  $$_/   /$$_____/| $$__  $$\n" +
+                "| $$|_  $$| $$| $$  | $$    | $$      | $$  \\ $$\n" +
+                "| $$  \\ $$| $$| $$  | $$ /$$| $$      | $$  | $$\n" +
+                "|  $$$$$$/| $$| $$  |  $$$$/|  $$$$$$$| $$  | $$\n" +
+                " \\______/ |__/|__/   \\___/   \\_______/|__/  |__/");
         Helper.Sleep(1.5);
         System.out.println(Colors.CLEAR);
     }
@@ -124,7 +121,7 @@ public class Bug extends Boss {
                 System.out.println("Hit enter when this shape appears:" + GoalColor + GoalShape + Colors.RESET);
                 String shape = "n";
                 String Color = "n";
-                while (!Bug.End && MissedLeft > 0) {
+                while (!Glitch.End && MissedLeft > 0) {
                     shape = Helper.getRandomElements(Arrays.asList("O", "X", "■"), 1).get(0);
                     Color = Helper.RandomColor();
                     System.out.print("\r:" + Color + shape + Colors.RESET);
@@ -145,9 +142,9 @@ public class Bug extends Boss {
         });
         try {
             Main.s.nextLine();
-            Bug.End = true;
+            Glitch.End = true;
             int res = future.get();
-            Bug.End = false;
+            Glitch.End = false;
             if (res == 0) {
                 System.out.println("You failed to dodge");
                 return this.damage;
@@ -170,7 +167,7 @@ public class Bug extends Boss {
     @Override
     //override the attack command in enemy
     public int Attack(Player p, List<Enemy> allies) {
-        System.out.println("Bug deals <error> damage");
+        System.out.println("Glitch deals <error> damage");
         return Main.r.nextInt(damage - (int) (damage * 0.2), damage + (int) (damage * 0.2));
     }
 

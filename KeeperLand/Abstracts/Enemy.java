@@ -18,20 +18,36 @@ public abstract class Enemy {
     protected int battleHp;
     protected int coins;
     protected int tokens;
+    protected int level;
     Random r = new Random();
-
 
     public Enemy() {
         this.setBaseStats();
-        scaleStats();
+        scaleStats(this);
         if (!Main.allEnemies.contains(this)) {
             Main.allEnemies.add((this)); //adds all enemies to a list
         }
         this.battleHp = this.baseHp;
         //to prevent errors with the list being static sized
-        this.drops = new ArrayList<Item>(this.drops);
+        this.drops = new ArrayList<>(this.drops);
         this.drops.add(ItemData.OmegaShard);
+        try {
+            this.level = Main.player.getStageNum() + (r.nextInt(-3,3));
+        } catch (Exception e) {
+            this.level = 1;
+        }
     }
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+
+
+
 
     //create a get type method that returns the string "Enemy"
     public String getType() {
@@ -104,10 +120,10 @@ public abstract class Enemy {
         return battleHp + "hp";
     }
 
-    public void scaleStats() {
-        this.baseHp *= Helper.getScaleFactor(0);
-        this.damage *= Helper.getScaleFactor(1);
-        this.coins *= Helper.getScaleFactor(2);
+    public void scaleStats(Enemy e) {
+        this.baseHp *= Helper.getScaleFactor(0, e);
+        this.damage *= Helper.getScaleFactor(1, e);
+        this.coins *= Helper.getScaleFactor(2, e);
 //        this.xp *= Helper.getScaleFactor();
     }
 

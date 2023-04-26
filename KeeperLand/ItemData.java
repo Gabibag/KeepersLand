@@ -51,7 +51,7 @@ public class ItemData {
     public static Item StoneShield = new Item(1, 8, "Stone Shield", "Its a shield... made of stone. I don't think that would be easy to hold.");
     public static Item StoneSword = new Item(4, 0, "Stone Sword", "Good luck swinging with this.");
     public static Item HealingShard = new Item(0, 0, "Healing Shard", "Said to only be dropped by the Angel. 1 of 7 Shards.", 7, 0, 2, 10);
-    public static Item GlitchedShard = new Item(2, 2, "glitched Shard", "Said to only be dropped by the Bug. 1 of 7 Shards.", 2, 2, 2, 10);
+    public static Item GlitchedShard = new Item(2, 2, "glitched Shard", "Said to only be dropped by the Glitch. 1 of 7 Shards.", 2, 2, 2, 10);
     public static Item DeathShard = new Item(7, 0, "Death Shard", "Said to only be dropped by Death. 1 of 7 Shards.", 0, 0, 2, 10);
     public static Item ShatteredShard = new Item(7, 0, "Shattered Shard", "Said to only be dropped by the Mega Lava Slime. 1 of 7 Shards.", 0, 0, 2, 10);
     public static Item SpriteShard = new Item(0, 0, "Sprite Shard", "Said to only be dropped by the Sprite Lord. 1 of 7 Shards.", 0, 7, 2, 10);

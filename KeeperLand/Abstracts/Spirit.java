@@ -5,7 +5,7 @@ import KeeperLand.Main;
 public abstract class Spirit extends Enemy {
     public Spirit() {
         this.setBaseStats();
-        scaleStats();
+        scaleStats(this);
         if (!Main.allSpirits.contains(this)) {
             Main.allSpirits.add((this)); //adds all enemies to a list
         }
