@@ -29,7 +29,7 @@ public class HelperSprite extends Spirit {
             System.out.println("The Helper Spirit deals " + Colors.RED + "100000 damage" + Colors.RESET + " to the player");
         } else {
             for (Enemy target : allies) {
-                if (allies != (Enemy) this) {
+                if (allies != this) {
                     target.setBattleHp(target.getBattleHp() - 1);
                 }
             }

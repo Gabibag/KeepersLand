@@ -129,7 +129,7 @@ public class Helper {
      * @param <T>    type of objects in the array
      * @param list   the list to choose from
      * @param amount the size of the returned array
-     * @return
+     * @return       list of random entities given in list
      */
     public static <T> List<T> getRandomElements(List<T> list, int amount) {
         List<T> r = new ArrayList<>();

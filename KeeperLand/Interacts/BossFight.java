@@ -45,7 +45,7 @@ public class BossFight extends Interactable {
 
         int healAmount =
                 (int) ((p.getHealAmount()) * Math.min(h, 0.2));
-        int variance = (r.nextInt((p.getHealVariance() *2)) - p.getHealVariance());
+        int variance = (r.nextInt((p.getHealVariance() << 1)) - p.getHealVariance());
         if (variance>0){
             variance *=h;
         }
@@ -60,7 +60,7 @@ public class BossFight extends Interactable {
             return;
         }
         p.setBattleHp(p.getBattleHp() + healAmount);
-        if (healAmount <= 0) {
+        if (healAmount == 0) {
             System.out.println("Your heal variance"+ Colors.RED + " negated"+ Colors.RESET + " your heal..."); //occurs when heal variance is large enough in a negative value
 
         } else {

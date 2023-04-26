@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Player {
-    private int stageNum = 0;
+    private int stageNum;
     private int money;
     private String name;
     private int hp;

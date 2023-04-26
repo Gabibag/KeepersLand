@@ -126,25 +126,25 @@ public class Shop extends Interactable {
             }
             try {
                 for (int i = 0; i < items.size(); i++) {
-                    String spaceCount = "";
-                    String variCount = "";
-                    String hpCount = "";
-                    String healCount = "";
-                    String dmgCount = "";
+                    StringBuilder spaceCount = new StringBuilder();
+                    StringBuilder variCount = new StringBuilder();
+                    StringBuilder hpCount = new StringBuilder();
+                    StringBuilder healCount = new StringBuilder();
+                    StringBuilder dmgCount = new StringBuilder();
                     for (int j = 0; j < maxNameLength - items.get(i).getName().length() + 2; j++) {
-                        spaceCount += " ";
+                        spaceCount.append(" ");
                     }
                     for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHealVariance()).length(); j++) {
-                        variCount += " ";
+                        variCount.append(" ");
                     }
                     for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHpIncr()).length(); j++) {
-                        hpCount += " ";
+                        hpCount.append(" ");
                     }
                     for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHealIncrease()).length(); j++) {
-                        healCount += " ";
+                        healCount.append(" ");
                     }
                     for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getDmgIncr()).length(); j++) {
-                        dmgCount += " ";
+                        dmgCount.append(" ");
                     }
                     System.out.println(
                             Colors.CYAN+"[" + (i + 5) +"] " +  Colors.PURPLE + items.get(i).getName() + spaceCount +
@@ -206,7 +206,6 @@ public class Shop extends Interactable {
     }
 
     public ArrayList<Item> getItems(Player p) {
-        ArrayList<Item> tmp = new ArrayList<Item>(Main.currentPlace.getShopItems());
-        return tmp;
+        return new ArrayList<Item>(Main.currentPlace.getShopItems());
     }
 }

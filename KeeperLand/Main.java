@@ -277,7 +277,6 @@ public class Main {
                             } catch (Exception e) {
                                 //    System.out.println("failed to load class " + e);
                                 //       System.out.println(className.length());
-                                continue;
                             }
                         }
                     }

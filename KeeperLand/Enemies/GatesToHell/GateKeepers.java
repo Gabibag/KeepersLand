@@ -36,7 +36,7 @@ public class GateKeepers extends Enemy {
         int dmg = (int) Helper.getScaleFactor(1, this) * 5;
         System.out.println("The Gate Keeper" + Colors.RED + " steals" + Colors.RESET + " your health!");
         for (Enemy e : allies) {
-            e.setBattleHp((int) (e.getBattleHp() + (dmg * ((allies.size()-1) / 2))));
+            e.setBattleHp(e.getBattleHp() + (dmg * ((allies.size()-1) / 2)));
         }
         p.setBattleHp(p.getBattleHp() - dmg * (allies.size()-1)/2);
         return 0;

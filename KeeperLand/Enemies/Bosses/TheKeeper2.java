@@ -72,7 +72,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
             }
         }
         for (int mainEntity = enemies.size() - 1; mainEntity >= 0; mainEntity--) {
-            ItemEntity e = null;
+            ItemEntity e;
             try {
                 e = ((ItemEntity) enemies.get(mainEntity));
             } catch (Exception ex) {

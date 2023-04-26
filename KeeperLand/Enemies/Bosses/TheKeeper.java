@@ -94,7 +94,6 @@ public class TheKeeper extends FinalBoss {
                     Item item = p.getInventory().get(i);
                     if (item.getName().contains("Shard")) {
                         p.getInventory().remove(i);
-                        i--;
                         System.out.println("The " + item.getName() + " shatters in your inventory...");
                         p.setBattleHp(p.getBattleHp() - item.getHpIncr());
                         p.setDamage(p.getDamage() - item.getDmgIncr());

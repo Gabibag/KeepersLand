@@ -6,7 +6,6 @@ import KeeperLand.Helper;
 import KeeperLand.Item;
 import KeeperLand.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,8 +37,8 @@ public class Inventory extends Interactable {
                 iCount.put(i.getName(), 1);
             }
         }
-        List<Item> printItems = new ArrayList<>();
-        printItems.addAll(p.getInventory());
+        List<Item> printItems = p.getInventory();
+//        printItems.addAll(p.getInventory());
         //check if the item is already in the list, if it is, remove the item from the list
         for (int i = 0; i < printItems.size(); i++) {
             for (int j = i + 1; j < printItems.size(); j++) {
@@ -72,7 +71,7 @@ public class Inventory extends Interactable {
         
         int count = 1;
         //if the item in printItems is a shard, bring it to the top
-        for (int i = 0; i < printItems.size(); i++) {
+        for (int i = printItems.size() - 1; i >= 0; i--) {
             if (printItems.get(i).getName().toLowerCase().contains("shard")) {
                 Item temp = printItems.get(i);
                 printItems.remove(i);
@@ -94,25 +93,25 @@ public class Inventory extends Interactable {
             if (items.getName().toLowerCase().contains("shard")) {
                 col = Colors.BLUE;
             }
-            String spaceCount = "";
-            String variCount = "";
-            String hpCount = "";
-            String healCount = "";
-            String dmgCount = "";
+            StringBuilder spaceCount = new StringBuilder();
+            StringBuilder variCount = new StringBuilder();
+            StringBuilder hpCount = new StringBuilder();
+            StringBuilder healCount = new StringBuilder();
+            StringBuilder dmgCount = new StringBuilder();
             for (int j = 0; j < maxNameLength - items.getName().length() + 2 - String.valueOf(count).length(); j++) {
-                spaceCount += " ";
+                spaceCount.append(" ");
             }
             for (int j = 0; j < maxColLength - String.valueOf(items.getHealVariance()).length(); j++) {
-                variCount += " ";
+                variCount.append(" ");
             }
             for (int j = 0; j < maxColLength - String.valueOf(items.getHpIncr()).length(); j++) {
-                hpCount += " ";
+                hpCount.append(" ");
             }
             for (int j = 0; j < maxColLength - String.valueOf(items.getHealIncrease()).length(); j++) {
-                healCount += " ";
+                healCount.append(" ");
             }
             for (int j = 0; j < maxColLength - String.valueOf(items.getDmgIncr()).length(); j++) {
-                dmgCount += " ";
+                dmgCount.append(" ");
             }
             System.out.println(
                     Colors.CYAN+"[" + (count) +"] " +  col + items.getName() + spaceCount +
