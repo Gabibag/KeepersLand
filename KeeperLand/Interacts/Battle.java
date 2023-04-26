@@ -88,7 +88,7 @@ public class Battle extends Interactable {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                         }
                     }
-                    case 2 -> healPlayer(p, r);
+                    case 2 -> healPlayer(p, r, enemies);
                     case 3 -> inv(enemies);
                 }
                 Main.currentPlace.playerAction(p, enemies);
@@ -286,15 +286,24 @@ public class Battle extends Interactable {
     }
 
     private static void checkIfDead(Player p, List<Enemy> enemies, int choice) {
-        for (int i = enemies.size() - 1; i >= 0; i--) {
-            try {
-                if (enemies.get(choice - 1).getBattleHp() > 0) { // i have no idea why this is erroring
-                    continue;
-                }
-            } catch (Exception e) {
+        ArrayList<Enemy> mutated = new ArrayList<>();
+        for (Enemy e : enemies) {
+            if(e.getMutate() == null){
                 continue;
             }
-            enemies.get(choice - 1).onDeath(p, enemies, enemies.get(choice - 1));
+            mutated.add(e);
+        }
+
+        for (int i = enemies.size() - 1; i >= 0; i--) {
+            if (enemies.get(i).getBattleHp() > 0) {
+                continue;
+            }
+            enemies.get(i).onDeath(p, enemies, enemies.get(i));
+
+            for (Enemy e : mutated) {
+                e.getMutate().onKill(enemies, e, enemies.get(i));
+            }
+
             enemies.remove(choice - 1);
         }
     }
@@ -312,6 +321,10 @@ public class Battle extends Interactable {
             System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
                     enemies.get(choice - 1).getName() + Colors.RESET);
         }
+        if (enemies.get(choice-1).getMutate() == null){
+            return;
+        }
+        enemies.get(choice-1).getMutate().onHurt(enemies, pDamage, enemies.get(choice-1)); //mutation damage.
     }
 
     private static void printHealth(List<Enemy> enemies) {

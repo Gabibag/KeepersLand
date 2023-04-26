@@ -23,6 +23,7 @@ public class Main {
     public static Enviorment currentPlace;
     public static List<Enemy> allEnemies = new ArrayList<>();
     public static List<Item> allItem = new ArrayList<>();
+    public static List<Mutations> allMutations = new ArrayList<>();
 
     public static List<Spirit> allSpirits = new ArrayList<>();
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static KeeperLand.Main.allMutations;
 import static KeeperLand.Main.player;
 
 public abstract class Enemy {
@@ -19,6 +20,16 @@ public abstract class Enemy {
     protected int coins;
     protected int tokens;
     protected int level;
+
+    public Mutations getMutate() {
+        return mutate;
+    }
+
+    public void setMutate(Mutations mutate) {
+        this.mutate = mutate;
+    }
+
+    protected Mutations mutate;
     Random r = new Random();
 
     public Enemy() {
@@ -35,6 +46,10 @@ public abstract class Enemy {
             this.level = Main.player.getStageNum() + (r.nextInt(-3,3));
         } catch (Exception e) {
             this.level = 1;
+        }
+        //random 1 in 20 chance to mutate
+        if (r.nextInt(20) == 0) {
+            this.mutate = allMutations.get(r.nextInt(allMutations.size()));
         }
     }
     public int getLevel() {
@@ -139,6 +154,9 @@ public abstract class Enemy {
 
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         //by default, just gives xp and money
+        if (mutate != null) {
+            mutate.onDeath(allies, self);
+        }
         System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
                 Colors.RESET + ")");
         p.addMoney(coins); //uhhh

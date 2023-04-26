@@ -30,9 +30,16 @@ public class BossFight extends Interactable {
         }
     }
 
-     static void healPlayer(Player p, Random r) {
+     static void healPlayer(Player p, Random r, List<Enemy> enemies) {
+        ArrayList<Enemy> mutated = new ArrayList<>();
+         for (Enemy e : enemies) {
+             if (e.getMutate()==null){
+                 continue;
+             }
+             mutated.add(e);
+         }
 
-        int max = (int) (p.getHp() + p.getHp()*0.2); //allows a slight over heal
+         int max = (int) (p.getHp() + p.getHp()*0.2); //allows a slight over heal
         for (Item i : p.getInventory()) {
             max += (i.getHpIncr());
         }
@@ -57,6 +64,9 @@ public class BossFight extends Interactable {
         } else if (healAmount + p.getBattleHp() >= max) {
             p.setBattleHp(max);
             System.out.println("You healed to"+ Colors.RED + " full"+ Colors.RESET + " health!");
+            for (Enemy e : mutated) {
+                e.getMutate().onHeal(enemies, healAmount, e);
+            }
             return;
         }
         p.setBattleHp(p.getBattleHp() + healAmount);
@@ -68,6 +78,9 @@ public class BossFight extends Interactable {
                     max) ? "You healed to full health" :
                     "You healed " + healAmount + " health") + Colors.RESET);
         }
+         for (Enemy e : mutated) {
+             e.getMutate().onHeal(enemies, healAmount, e);
+         }
     }
 
     @Override
@@ -242,7 +255,7 @@ public class BossFight extends Interactable {
 
                     case 2 -> {
                         try {
-                            healPlayer(p, r);
+                            healPlayer(p, r, enemies);
                         } catch (Exception e) {
                             System.out.println("You are at your max health");
                         }
