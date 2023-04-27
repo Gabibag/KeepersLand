@@ -1,5 +1,7 @@
 package KeeperLand;
 
+import KeeperLand.Abstracts.StatusEffects;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,6 +25,19 @@ public class Player {
     private int healVariance = 2;
     private int xpToLevel = 100;
     private int tokens = 0;
+
+    public List<StatusEffects> getStatusEffects() {
+        return statusEffects;
+    }
+
+    public void addStatusEffects(StatusEffects effect) {
+        this.statusEffects.add(effect);
+    }
+    public void removeStatusEffects(StatusEffects effect) {
+        this.statusEffects.remove(effect);
+    }
+
+    private List<StatusEffects> statusEffects = new ArrayList<>();
 
     public Player(String name, int hp, int dmg, List<Item> inventory) {
         this.name = name;

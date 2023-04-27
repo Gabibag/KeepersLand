@@ -24,6 +24,7 @@ public class Main {
     public static List<Enemy> allEnemies = new ArrayList<>();
     public static List<Item> allItem = new ArrayList<>();
     public static List<Mutations> allMutations = new ArrayList<>();
+    public static List<StatusEffects> allStatusEffects = new ArrayList<>();
 
     public static List<Spirit> allSpirits = new ArrayList<>();
 

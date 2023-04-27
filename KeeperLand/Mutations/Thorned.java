@@ -5,7 +5,6 @@ import KeeperLand.Abstracts.Mutations;
 import KeeperLand.Colors;
 import KeeperLand.Main;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Thorned extends Mutations {
@@ -20,7 +19,7 @@ public class Thorned extends Mutations {
     }
 
     @Override
-    public void onDeath(ArrayList<Enemy> e, int damage, Enemy self) {
+    public void onDeath(List<Enemy> e, Enemy self) {
         Main.player.setBattleHp((int) (Main.player.getBattleHp() - self.getDamage()*0.2));
         for (Enemy enemy : e) {
             if(enemy == self) {

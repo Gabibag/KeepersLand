@@ -3,6 +3,7 @@ package KeeperLand.Interacts;
 import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Interactable;
+import KeeperLand.Abstracts.StatusEffects;
 import KeeperLand.*;
 
 import java.util.ArrayList;
@@ -75,11 +76,13 @@ public class Battle extends Interactable {
                     case 1 -> {//attack
                         System.out.println(Colors.CLEAR);
 
-                        if (enemies.size() > 1) {
+                        if (enemies.size() == 1) {
+                            choice = 1;
+                        } else {
                             enemyAttackChoice(enemies);
                             choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
                             System.out.println(Colors.CLEAR);
-                        }else choice = 1;
+                        }
 
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             playerAttack(p, enemies, choice);
@@ -109,11 +112,16 @@ public class Battle extends Interactable {
             System.out.println(Colors.CLEAR);
             instaAttackMode(p, enemies);
             if (enemies.size() > 0) {
-                attackEnemies(p, enemies);
+                enemyAttacks(p, enemies);
                 System.out.println(Colors.RESET);
                 Main.currentPlace.turnEnd(p, enemies);
+                for (StatusEffects s : player.getStatusEffects()) {
+                    s.tickEffect(p, null, enemies, "turnEnd", 0);
+
+                }
             }
             Actions = p.getActionAmount();
+
         }
         if (p.getBattleHp() > 0 && enemies.size() == 0) {
             //TODO drops
@@ -238,7 +246,7 @@ public class Battle extends Interactable {
 
     }  //TODO get location + opponent info
 
-    public static void attackEnemies(Player p, List<Enemy> enemies) {
+    public static void enemyAttacks(Player p, List<Enemy> enemies) {
         System.out.println("Enemies Turn!");
         int currentHp = p.getBattleHp();
         for (int i = 0; i < enemies.size(); i++) {
@@ -256,6 +264,11 @@ public class Battle extends Interactable {
             }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
         }
+        for (StatusEffects s : player.getStatusEffects()) {
+            s.tickEffect(p, null, enemies, "enemyAttack", currentHp-p.getBattleHp()); //"currentHp-p.getBattleHp()" is damage dealt to player
+
+        }
+
 
         System.out.println("Total damage taken: " + Colors.RED + (currentHp - p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (Math.max(p.getBattleHp(), 0)) + Colors.RESET + "]");
         Helper.continuePrompt();
@@ -321,10 +334,15 @@ public class Battle extends Interactable {
             System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
                     enemies.get(choice - 1).getName() + Colors.RESET);
         }
-        if (enemies.get(choice-1).getMutate() == null){
-            return;
+        if (enemies.get(choice-1).getMutate() != null ){
+            enemies.get(choice-1).getMutate().onHurt(enemies, pDamage, enemies.get(choice-1)); //mutation damage.
         }
-        enemies.get(choice-1).getMutate().onHurt(enemies, pDamage, enemies.get(choice-1)); //mutation damage.
+        if(player.getStatusEffects().size() != 0){
+            for (StatusEffects s : player.getStatusEffects()) {
+                s.tickEffect(p, enemies.get(choice-1), enemies, "playerAttack", pDamage);
+            }
+        }
+
     }
 
     private static void printHealth(List<Enemy> enemies) {

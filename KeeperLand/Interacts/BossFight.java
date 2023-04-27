@@ -4,6 +4,7 @@ import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Interactable;
 import KeeperLand.*;
+import KeeperLand.Abstracts.StatusEffects;
 import KeeperLand.Enemies.Bosses.TheKeeper;
 import KeeperLand.Enviroments.NullZone;
 
@@ -81,7 +82,11 @@ public class BossFight extends Interactable {
          for (Enemy e : mutated) {
              e.getMutate().onHeal(enemies, healAmount, e);
          }
-    }
+         for (StatusEffects s : p.getStatusEffects()) {
+             s.tickEffect(p, null, enemies, "playerHeal", healAmount);
+         }
+
+     }
 
     @Override
     public String getName() {
@@ -281,7 +286,7 @@ public class BossFight extends Interactable {
                 System.out.println(Colors.CLEAR);
             }
 
-            Battle.attackEnemies(p, enemies);
+            Battle.enemyAttacks(p, enemies);
             System.out.println(Colors.CLEAR);
             Main.currentPlace.turnEnd(p, enemies);
             Actions = p.getActionAmount();
