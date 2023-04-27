@@ -25,6 +25,8 @@ public abstract class Mutations {
     public void onKill(List<Enemy> e, Enemy self, Enemy killed){
 
     }
+    
+    public void onDeath(ArrayList<Enemy> e, int damage, Enemy self){
 
-    public abstract void onDeath(ArrayList<Enemy> e, Enemy self);
+    }
 }

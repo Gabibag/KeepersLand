@@ -20,7 +20,7 @@ public class Thorned extends Mutations {
     }
 
     @Override
-    public void onDeath(ArrayList<Enemy> e, Enemy self) {
+    public void onDeath(ArrayList<Enemy> e, int damage, Enemy self) {
         Main.player.setBattleHp((int) (Main.player.getBattleHp() - self.getDamage()*0.2));
         for (Enemy enemy : e) {
             if(enemy == self) {
@@ -30,4 +30,5 @@ public class Thorned extends Mutations {
         }
         System.out.println("The Thorned " + self.getName() + Colors.RED + "explodes." + Colors.RESET);
     }
+
 }
