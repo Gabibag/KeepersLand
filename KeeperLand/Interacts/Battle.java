@@ -61,6 +61,10 @@ public class Battle extends Interactable {
             removeDead(enemies);
             //tell user their stage number and environment
             while (Actions > 0) {
+                String col = Colors.RESET;
+                if (player.getStatusEffects().size() != 0){
+                    col = player.getStatusEffects().get(player.getStatusEffects().size()-1).getEffectColor();
+                }
                 System.out.print("You are in the " + Main.currentPlace.getName() + Colors.RESET);
                 System.out.println();
                 //updateItems(p, 3);
@@ -70,7 +74,7 @@ public class Battle extends Interactable {
                         "[1] Attack");
                 System.out.println("[2] Heal");
                 System.out.println("[3] Info" + Colors.RESET);
-                int choice = Helper.getInputDefault(Colors.RESET + "Current Health: " + p.getBattleHp(), 3, 1);
+                int choice = Helper.getInputDefault(Colors.RESET + "Current Health: " + col+ p.getBattleHp() + Colors.RESET, 3, 1);
                 switch (choice) {
                     //#region case1
                     case 1 -> {//attack
@@ -102,11 +106,15 @@ public class Battle extends Interactable {
                 }
             }
             printHealth(enemies);//print out a ui to make it look like its just changing stuff. Idk looks cool
+            String col = Colors.RESET;
+            if (player.getStatusEffects().size() != 0){
+                col = player.getStatusEffects().get(player.getStatusEffects().size()-1).getEffectColor();
+            }
             System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
             System.out.println(Colors.BLACK_BRIGHT + "[0] Attack");
             System.out.println("[0] Heal");
             System.out.println("[0] Info " + Colors.RESET);
-            System.out.println("Current Health: " + p.getBattleHp());
+            System.out.println("Current Health: " + col +  p.getBattleHp() + Colors.RESET);
             Helper.continuePrompt();
 
             System.out.println(Colors.CLEAR);
@@ -350,8 +358,11 @@ public class Battle extends Interactable {
         StringBuilder HpAmounts = new StringBuilder();
         StringBuilder hpBars = new StringBuilder();
         for (Enemy enemy : enemies) {
-
-            StringBuilder nameAdd = new StringBuilder("lvl " + enemy.getLevel() + " " + enemy.getName());
+            String mutate = "";
+            if(enemy.getMutate()!=null){
+                mutate = enemy.getMutate().getMutationType();
+            }
+            StringBuilder nameAdd = new StringBuilder("lvl " + enemy.getLevel() + " " + mutate + " " + enemy.getName());
             StringBuilder hpAdd = new StringBuilder(enemy.getBattleHp() + "hp");
             if (nameAdd.length() > hpAdd.length()) {
                 //find the difference

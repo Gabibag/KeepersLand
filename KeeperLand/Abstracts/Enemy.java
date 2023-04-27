@@ -156,10 +156,11 @@ public abstract class Enemy {
         //by default, just gives xp and money
         if (mutate != null) {
             mutate.onDeath(allies, self);
+        }else {
+            System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
+                    Colors.RESET + ")");
         }
-        System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
-                Colors.RESET + ")");
-        p.addMoney(coins); //uhhh
+        p.addMoney(coins);
         player.addMoney(self.getCoins());
         p.addXp(xp);
         randDrops(p, this);

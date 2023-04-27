@@ -5,6 +5,14 @@ import KeeperLand.Main;
 import java.util.List;
 
 public abstract class Mutations {
+    public String getMutationType() {
+        return mutationType;
+    }
+
+    public void setMutationType(String mutationType) {
+        this.mutationType = mutationType;
+    }
+
     protected String mutationType;
     public Mutations(String type){
         Main.allMutations.add(this);

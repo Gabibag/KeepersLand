@@ -76,9 +76,9 @@ public class Main {
             player.setHealVariance(1);
             Main.currentPlace = new StarterLand();
         } else {
-//            initTypes();
-            getNewPlace();
+            initTypes();
         }
+        //region testing
         if (player.getName().equals("among us") || player.getName().equals("test")) {
             player.incStageNum(10);
             player.setHealAmount(100);
@@ -205,6 +205,7 @@ public class Main {
             System.out.println("amogsus");
             System.exit(0);
         }
+        //endregion
 
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);

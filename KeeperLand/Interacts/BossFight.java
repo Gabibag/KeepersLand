@@ -14,6 +14,7 @@ import java.util.Random;
 
 import static KeeperLand.Interacts.Battle.removeDead;
 import static KeeperLand.Interacts.Battle.updateItems;
+import static KeeperLand.Main.player;
 
 public class BossFight extends Interactable {
     static void updateBossItems(Enemy e, boolean battleEnd) {
@@ -215,6 +216,10 @@ public class BossFight extends Interactable {
 
                 //TODO: add a check if the health exceeds the text length of the char so the names spread out
                 printHealth(enemies, p);
+                String col = Colors.RESET;
+                if (player.getStatusEffects().size() != 0){
+                    col = player.getStatusEffects().get(player.getStatusEffects().size()-1).getEffectColor();
+                }
                 // updateItems(p, 3);
                 System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
                 System.out.println(Colors.PURPLE +
@@ -222,7 +227,8 @@ public class BossFight extends Interactable {
                 System.out.println("[2] Heal");
                 System.out.println("[3] Info");
                 System.out.println("[4] Inventory" + Colors.RESET);
-                int choice = Helper.getInput(Colors.RESET + "Current Health: " + p.getBattleHp(), 4);
+
+                int choice = Helper.getInput(Colors.RESET + "Current Health: " + col + p.getBattleHp() + Colors.RESET, 4);
                 switch (choice) {
                     //#region case1
                     case 1 -> {//attack

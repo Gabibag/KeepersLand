@@ -6,7 +6,25 @@ import KeeperLand.Player;
 import java.util.List;
 
 public abstract class StatusEffects { //basically does something each turn
+    public String getEffectColor() {
+        return effectColor;
+    }
+
+    public void setEffectColor(String effectColor) {
+        this.effectColor = effectColor;
+    }
+
     protected String effectColor;
+
+    public String getEffectName() {
+        return effectName;
+    }
+
+    public void setEffectName(String effectName) {
+        this.effectName = effectName;
+    }
+
+    protected String effectName;
     protected int duration = 0;
 
     public StatusEffects(String col, int duration) {

@@ -14,8 +14,11 @@ public class Thorned extends Mutations {
 
     @Override
     public void onHurt(List<Enemy> e, int damage, Enemy self) {
+        if(self.getBattleHp() <= 0){
+            return;
+        }
         Main.player.setBattleHp((int) (Main.player.getBattleHp() - damage*0.2));
-        System.out.println("The Thorned " +self.getName() + Colors.BLACK + " reflects " + Colors.RESET + damage*0.2 + " damage to the player");
+        System.out.println("The Thorned " +self.getName() + Colors.BLACK + " reflects " + Colors.RESET + ((int) (damage * 0.2)) + " damage to the player");
     }
 
     @Override
@@ -27,7 +30,7 @@ public class Thorned extends Mutations {
             }
             enemy.setBattleHp((int) (enemy.getBattleHp() - self.getDamage()*0.2));
         }
-        System.out.println("The Thorned " + self.getName() + Colors.RED + "explodes." + Colors.RESET);
+        System.out.println("The Thorned " + self.getName() + Colors.RED + " explodes on death!" + Colors.RESET + "(" + self.getCoins() + Colors.CYAN + "◊" + Colors.RESET + ")");
     }
 
 }
