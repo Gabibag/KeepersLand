@@ -21,9 +21,9 @@ public class Player {
     private int battleHp;
     private int xp = 0;
     private int level = 1;
-    private int healAmount = 2;
+    private int healAmount = 4;
     private int healVariance = 2;
-    private int xpToLevel = 100;
+    private int xpToLevel = 200;
     private int tokens = 0;
 
     public List<StatusEffects> getStatusEffects() {

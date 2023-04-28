@@ -123,6 +123,7 @@ public class Battle extends Interactable {
                 enemyAttacks(p, enemies);
                 System.out.println(Colors.RESET);
                 Main.currentPlace.turnEnd(p, enemies);
+                checkIfDead(p, enemies, 0);
                 for (StatusEffects s : player.getStatusEffects()) {
                     s.tickEffect(p, null, enemies, "turnEnd", 0);
 
@@ -158,13 +159,14 @@ public class Battle extends Interactable {
         if (!canDamage && enemies.size() > 0 && p.getBattleHp() > 0){
             System.out.println("Insta attack mode!");
             Helper.Sleep(1);
-            //make player attack them repeatedly until all enemies are dead
+            //make player attack them repeatedly until all enemies are dead if the enemies cant deal damage
             while (enemies.size() > 0){
                 for (int i = 0; i < enemies.size(); i++) {
                     playerAttack(p, enemies, i + 1);
+                    checkIfDead(p, enemies, i + 1);
                     printHealth(enemies);
                     Helper.Sleep(0.5);
-                    checkIfDead(p, enemies, i + 1);
+                    System.out.println(Colors.CLEAR);
                 }
             }
         }
@@ -325,7 +327,7 @@ public class Battle extends Interactable {
                 e.getMutate().onKill(enemies, e, enemies.get(i));
             }
 
-            enemies.remove(choice - 1);
+            enemies.remove(i);
         }
     }
 

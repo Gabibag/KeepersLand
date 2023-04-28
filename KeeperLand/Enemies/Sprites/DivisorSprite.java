@@ -1,14 +1,14 @@
 package KeeperLand.Enemies.Sprites;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Spirit;
+import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
 
-public class DivisorSprite extends Spirit {
+public class DivisorSprite extends Sprite {
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;
@@ -24,7 +24,7 @@ public class DivisorSprite extends Spirit {
     @Override
     public int Attack(Player p, List<Enemy> allies) {
         //return the player's battle hp divided by two
-        System.out.println("The Divisor Spirit " + Colors.RED + "divides" + Colors.RESET + " the player's hp by two");
+        System.out.println("The Divisor Sprite " + Colors.RED + "divides" + Colors.RESET + " the player's hp by two");
         return p.getBattleHp() / 2;
     }
 }

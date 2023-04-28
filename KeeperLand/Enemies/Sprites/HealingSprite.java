@@ -1,7 +1,7 @@
 package KeeperLand.Enemies.Sprites;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Spirit;
+import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
 import KeeperLand.Enviroments.ToxicEnv;
 import KeeperLand.Main;
@@ -9,7 +9,7 @@ import KeeperLand.Player;
 
 import java.util.List;
 
-public class HealingSprite extends Spirit {
+public class HealingSprite extends Sprite {
     public void setBaseStats() {
         this.baseHp = 7;
         this.coins = 5;
@@ -28,7 +28,7 @@ public class HealingSprite extends Spirit {
         for (Enemy target : allies) {
             target.setBattleHp(target.getBattleHp() + (int) (target.getBaseHp() * 0.1));
         }
-        System.out.println("The Healing Spirit heals heals its party for " + Colors.GREEN + "10% of it's hp" + Colors.RESET);
+        System.out.println("The Healing Sprite heals heals its party for " + Colors.GREEN + "10% of it's hp" + Colors.RESET);
         return 0;
     }
 }

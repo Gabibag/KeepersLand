@@ -70,7 +70,7 @@ public class Luck extends Enviorment {
         }
         if (chance == 0) {
             try {
-                enemies.add(Main.allSpirits.get(Main.r.nextInt(0, Main.allSpirits.size() - 1)).getClass().getDeclaredConstructor().newInstance());
+                enemies.add(Main.allSprites.get(Main.r.nextInt(0, Main.allSprites.size() - 1)).getClass().getDeclaredConstructor().newInstance());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);

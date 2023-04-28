@@ -26,7 +26,7 @@ public class Main {
     public static List<Mutations> allMutations = new ArrayList<>();
     public static List<StatusEffects> allStatusEffects = new ArrayList<>();
 
-    public static List<Spirit> allSpirits = new ArrayList<>();
+    public static List<Sprite> allSprites = new ArrayList<>();
 
     public static List<Boss> allBosses = new ArrayList<>();
     public static Random r;
@@ -39,6 +39,8 @@ public class Main {
         s = new Scanner(System.in);
         r = new Random();
 
+        initTypes();
+        Enemy.loaded = true;
         System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
 
         //defaults for player
@@ -57,7 +59,6 @@ public class Main {
             } catch (Exception e) {
                 saves = 0;
             }
-            initTypes();
             getNewPlace();
 
         }
@@ -72,11 +73,9 @@ public class Main {
             player = new Player(name, 40, 5,
                     new ArrayList<>());
             player.addMoney(50);
-            player.setHealAmount(3);
+            player.setHealAmount(4);
             player.setHealVariance(1);
             Main.currentPlace = new StarterLand();
-        } else {
-            initTypes();
         }
         //region testing
         if (player.getName().equals("among us") || player.getName().equals("test")) {
@@ -107,7 +106,6 @@ public class Main {
             Main.currentPlace = new LavaZone();
         } else if (player.getName().equalsIgnoreCase("runThrough") || player.getName().equalsIgnoreCase("rtest")) {
             int lvl = Helper.getInput("What level would you like to be at?", 99999999);
-            initTypes();
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < lvl; i++) {

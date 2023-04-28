@@ -146,9 +146,13 @@ public class Shop extends Interactable {
                     for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getDmgIncr()).length(); j++) {
                         dmgCount.append(" ");
                     }
+                    String col = Colors.PURPLE;
+                    if (items.get(i).getCost()<= player.getMoney()){
+                        col = Colors.GREEN;
+                    }
                     System.out.println(
-                            Colors.CYAN+"[" + (i + 5) +"] " +  Colors.PURPLE + items.get(i).getName() + spaceCount +
-                                    Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + (items).get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + (items).get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + (items).get(i).getHealVariance() + variCount + (Helper.moreShopInfo ? Colors.RESET + " (" + (items).get(i).getDescription() + ")" : "") + Colors.RESET);
+                            Colors.CYAN+"[" + (i + 5) +"] " +  col + items.get(i).getName() + spaceCount +
+                                    Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + (items).get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + (items).get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + (items).get(i).getHealVariance() + variCount + Colors.CYAN + " ◊" + (items).get(i).getCost() + Colors.RESET+ (Helper.moreShopInfo ? Colors.RESET + " (" + (items).get(i).getDescription() + ")" : "") + Colors.RESET);
                 }
             } catch (Exception e) {
                 //items.add(Item.empty);

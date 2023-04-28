@@ -31,9 +31,9 @@ public class SpriteLord extends Boss {
     @Override
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         for (int i = 0; i < 5; i++) {
-            //add random elements of the list allSpirits in main to allies
+            //add random elements of the list allSprites in main to allies
             try {
-                allies.add(Main.allSpirits.get(Main.r.nextInt(0, Main.allSpirits.size() - 1)).getClass().getDeclaredConstructor().newInstance());
+                allies.add(Main.allSprites.get(Main.r.nextInt(0, Main.allSprites.size() - 1)).getClass().getDeclaredConstructor().newInstance());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
@@ -45,7 +45,7 @@ public class SpriteLord extends Boss {
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
         for (int i = 0; i < 4; i++) {
-            allies.add(Main.allSpirits.get(Main.r.nextInt(0, Main.allSpirits.size() - 1)));
+            allies.add(Main.allSprites.get(Main.r.nextInt(0, Main.allSprites.size() - 1)));
         }
         System.out.println("""
 

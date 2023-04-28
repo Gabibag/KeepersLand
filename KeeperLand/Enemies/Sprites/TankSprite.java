@@ -1,14 +1,14 @@
 package KeeperLand.Enemies.Sprites;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Spirit;
+import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
 
-public class TankSprite extends Spirit {
+public class TankSprite extends Sprite {
     public void setBaseStats() {
         this.baseHp = 15;
         this.coins = 5;
@@ -27,8 +27,8 @@ public class TankSprite extends Spirit {
         for (Enemy e : allies) {
             if (e.getBattleHp() < this.getBattleHp()) {
                 e.setBattleHp(this.getBattleHp());
-                System.out.print("The Tank Spirit has "+ Colors.BLACK + "resets" + Colors.RESET + " the battle hp of " + Colors.RED + e.getName() + Colors.RESET + " to " + Colors.RED + this.getBattleHp());
-                System.out.println(", you must kill the Tank Spirit first");
+                System.out.print("The Tank Sprite has "+ Colors.BLACK + "resets" + Colors.RESET + " the battle hp of " + Colors.RED + e.getName() + Colors.RESET + " to " + Colors.RED + this.getBattleHp());
+                System.out.println(", you must kill the Tank Sprite first");
             }
         }
 

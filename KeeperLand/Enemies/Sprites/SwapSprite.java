@@ -1,14 +1,14 @@
 package KeeperLand.Enemies.Sprites;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Spirit;
+import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
 
-public class SwapSprite extends Spirit {
+public class SwapSprite extends Sprite {
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;
@@ -33,7 +33,7 @@ public class SwapSprite extends Spirit {
                 }
             }
         }
-        System.out.println("The Swap Spirit " + Colors.RED + "swaps" + Colors.RESET + " the hp of each enemy in the party");
+        System.out.println("The Swap Sprite " + Colors.RED + "swaps" + Colors.RESET + " the hp of each enemy in the party");
         return 0;
     }
 }

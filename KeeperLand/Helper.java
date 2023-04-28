@@ -52,16 +52,22 @@ public class Helper {
             tempHp += i.getHpIncr();
             tempDmg += i.getDmgIncr();
         }
-        float multi = (Math.max(level / 7f, 1f));
+        float multi = level/5f + 1;
         if (type == 0) {//hp scale
-            float num = (level / 5f) * multi * ((float) 5*level/tempDmg );
+            float num = (level / 4f) * multi;
             return (num) <= 1 ? 1 : (num);
         } else if (type == 1) {// damage scale
-            float num = (((level) / 5f) * multi * ((float) 5*level/tempHp ));
+            float num = (((level) / 9f) * multi ) ;
             return num <= 1 ? 1 : num;
         } else if (type == 2) {
-            float num = level / 100f;
+            float num = level / 10f;
             return (num) <= 1 ? 1 : (num); //coins scale
+        }
+        if(e.getName().contains("Sprite")){
+            System.out.println("Sprite scale: " + (1 + (level / 5f)));
+        }
+        else{
+            System.out.println("Enemy scale: " + (1 + (level / 5f)));
         }
         return 1 + (level / 5f);
     }

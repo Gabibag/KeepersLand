@@ -1,14 +1,14 @@
 package KeeperLand.Enemies.Sprites;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Spirit;
+import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
 
-public class AbsorbSprite extends Spirit {
+public class AbsorbSprite extends Sprite {
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;
@@ -29,7 +29,7 @@ public class AbsorbSprite extends Spirit {
             this.setBattleHp(this.getBattleHp() + (int) (target.getBattleHp() * 0.02));
             this.setDamage(this.getDamage() + (int) (target.getDamage() * 0.02));
         }
-        System.out.println("The Absorb Spirit " + Colors.BLACK + "absorbs" + Colors.RESET + " 2 % of all the enemies hp and damage");
+        System.out.println("The Absorb Sprite " + Colors.BLACK + "absorbs" + Colors.RESET + " 2 % of all the enemies hp and damage");
 
         return damage;
     }

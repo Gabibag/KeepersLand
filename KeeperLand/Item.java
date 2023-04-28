@@ -29,7 +29,7 @@ public class Item {
         this.hpIncr = hpIncr;
         this.name = name;
         this.description = description;
-        this.cost = (dmgIncr * 30) + (hpIncr * 25);
+        this.cost = (dmgIncr * 40) + (hpIncr * 25);
         if (this.cost < 50) {
             this.rarity = 2;
         } else {
@@ -45,7 +45,7 @@ public class Item {
         this.name = name;
         this.description = description;
 
-        int cost = (dmgIncr * 30) + (hpIncr * 25) + (heal * (heal <= 2 ? 20 : (heal <= 4 ? 30 : 40))) + (healvair * 5);
+        int cost = (dmgIncr * 40) + (hpIncr * 25) + (heal * (heal <= 2 ? 20 : (heal <= 4 ? 30 : 40))) + (healvair * 5);
         if (cost < 50) {
             this.rarity = 2;
             this.cost = cost;
@@ -65,7 +65,7 @@ public class Item {
         this.name = name;
         this.description = description;
 
-        int cost = (dmgIncr * 30) + (hpIncr * 25) + (heal * (heal <= 2 ? 20 : (heal <= 4 ? 30 : 40))) + (healvair * 5);
+        int cost = (dmgIncr * 40) + (hpIncr * 25) + (heal * (heal <= 2 ? 20 : (heal <= 4 ? 30 : 40))) + (healvair * 5);
         if (cost < 50) {
             this.rarity = 2;
             this.cost = cost;
@@ -89,7 +89,7 @@ public class Item {
         this.name = name;
         this.description = description;
 
-        cost = ((dmgIncr * 30) + (hpIncr * 25) + (heal * 60) + (healvair * 15)) * costMultiplier;
+        cost = ((dmgIncr * 40) + (hpIncr * 25) + (heal * 60) + (healvair * 15)) * costMultiplier;
         this.tokenCost = 10;
         this.rarity = dropRate;
         this.healIncrease = heal;

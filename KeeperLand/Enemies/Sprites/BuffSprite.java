@@ -1,14 +1,14 @@
 package KeeperLand.Enemies.Sprites;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Spirit;
+import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
 
-public class BuffSprite extends Spirit {
+public class BuffSprite extends Sprite {
     public void setBaseStats() {
         this.baseHp = 40;
         this.coins = 5;
@@ -26,7 +26,7 @@ public class BuffSprite extends Spirit {
         for (Enemy target : allies) {
             target.setDamage(target.getDamage() + (int) (target.getDamage() * 0.1));
         }
-        System.out.println("The Buff Spirit" + Colors.GREEN + " buffs" + Colors.RESET + " it's party for" + Colors.RED + " 10% " + Colors.RESET + "of their damage");
+        System.out.println("The Buff Sprite" + Colors.GREEN + " buffs" + Colors.RESET + " it's party for" + Colors.RED + " 10% " + Colors.RESET + "of their damage");
         return 0;
     }
 }

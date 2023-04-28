@@ -12,6 +12,11 @@ import static KeeperLand.Main.player;
 public abstract class Enemy {
     protected int damage;
     protected int baseHp;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     protected String name;
     protected int dodgeRate = 1;
     protected int xp;
@@ -31,9 +36,16 @@ public abstract class Enemy {
 
     protected Mutations mutate;
     Random r = new Random();
-
+    public static boolean loaded = false;
     public Enemy() {
         this.setBaseStats();
+        try {
+            this.level = Main.player.getStageNum() + (r.nextInt(-3,3));
+            System.out.println();
+            if (this.level < 1) this.level = 1;
+        } catch (Exception e) {
+            this.level = 1;
+        }
         scaleStats(this);
         if (!Main.allEnemies.contains(this)) {
             Main.allEnemies.add((this)); //adds all enemies to a list
@@ -42,11 +54,6 @@ public abstract class Enemy {
         //to prevent errors with the list being static sized
         this.drops = new ArrayList<>(this.drops);
         this.drops.add(ItemData.OmegaShard);
-        try {
-            this.level = Main.player.getStageNum() + (r.nextInt(-3,3));
-        } catch (Exception e) {
-            this.level = 1;
-        }
         //random 1 in 20 chance to mutate
         if (r.nextInt(20) == 0) {
             this.mutate = allMutations.get(r.nextInt(allMutations.size()));
@@ -136,9 +143,10 @@ public abstract class Enemy {
     }
 
     public void scaleStats(Enemy e) {
-        this.baseHp *= Helper.getScaleFactor(0, e);
-        this.damage *= Helper.getScaleFactor(1, e);
-        this.coins *= Helper.getScaleFactor(2, e);
+        e.setBaseHp((int) (e.getBaseHp() * Helper.getScaleFactor(0, e)));
+        e.setDamage((int) (e.getDamage() * Helper.getScaleFactor(1, e)));
+        e.setCoins((int) (e.getCoins() * Helper.getScaleFactor(2, e)));
+
 //        this.xp *= Helper.getScaleFactor();
     }
 
@@ -157,35 +165,40 @@ public abstract class Enemy {
         if (mutate != null) {
             mutate.onDeath(allies, self);
         }else {
-            System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
-                    Colors.RESET + ")");
+            String drops = randDrops(p, this);
+            if( drops != null){
+                System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
+                        Colors.RESET + ") and got a " + Colors.CYAN + drops + Colors.CYAN+ "!");
+            }else {
+                System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
+                        Colors.RESET + ")");
+            }
         }
         p.addMoney(coins);
         player.addMoney(self.getCoins());
         p.addXp(xp);
-        randDrops(p, this);
+
     }
 
-    public void randDrops(Player p, Enemy e) {
+    public String randDrops(Player p, Enemy e) {
         if (r.nextInt(1, 2) == 1) {
             for (Item drop : this.drops) {
                 if (r.nextInt(drop.getRarity()) == 1) {
                     p.addInventory(drop);
-                    System.out.println(Colors.CYAN + "You found a " + drop.getName() + "!" + Colors.RESET);
-                    break;
+                    return drop.getName();
                 }
             }
         } else {
             for (Item drop : Item.allPool) {
                 if (r.nextInt(drop.getRarity()) == 1) {
                     p.addInventory(drop);
-                    System.out.println(Colors.CYAN + "You found a " + drop.getName() + "!" + Colors.RESET);
-                    break;
+                    return drop.getName();
                 }
             }
         }
 
         p.addMoney(e.getCoins());
         p.addXp(e.xp);
+        return null;
     }
 }
