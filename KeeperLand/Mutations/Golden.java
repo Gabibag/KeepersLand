@@ -20,7 +20,7 @@ public class Golden extends Mutations {
 
     @Override
     public void onHurt(List<Enemy> e, int damage, Enemy self) {
-        System.out.println("The Golden " + self.getName() + " drops some coins");
-        Main.player.addMoney((int) (self.getCoins() * 0.2));
+        System.out.println("The Golden " + self.getName() + " drops " + (int)(self.getCoins() * 0.5) +  "coins");
+        Main.player.addMoney((int) (self.getCoins() * 0.5));
     }
 }

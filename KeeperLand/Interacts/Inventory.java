@@ -16,9 +16,11 @@ public class Inventory extends Interactable {
         System.out.println("[2] Stats" + Colors.RESET);
         int c = Helper.getInput("", 0, 2);
         //if c is 1, show inventory, case c is 2, print player p
-        if (c == 1) {
+        if  (c == 0){
+            return;
+        }else if (c == 1) {
             inventory(p);
-        } else {
+        } else if (c == 2) {
             System.out.println(p);
             Helper.continuePrompt();
         }

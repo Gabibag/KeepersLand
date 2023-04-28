@@ -90,7 +90,7 @@ public class Battle extends Interactable {
 
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             playerAttack(p, enemies, choice);
-                            checkIfDead(p, enemies, choice);
+                            checkIfDead(p, enemies);
                         } else {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                         }
@@ -123,11 +123,14 @@ public class Battle extends Interactable {
                 enemyAttacks(p, enemies);
                 System.out.println(Colors.RESET);
                 Main.currentPlace.turnEnd(p, enemies);
-                checkIfDead(p, enemies, 0);
-                for (StatusEffects s : player.getStatusEffects()) {
+                checkIfDead(p, enemies);
+                List<StatusEffects> statusEffects = player.getStatusEffects();
+                for (int i = 0; i < statusEffects.size(); i++) {
+                    StatusEffects s = statusEffects.get(i);
                     s.tickEffect(p, null, enemies, "turnEnd", 0);
 
                 }
+                checkIfDead(p, enemies);
             }
             Actions = p.getActionAmount();
 
@@ -140,6 +143,7 @@ public class Battle extends Interactable {
 
         }
         //occurs after battle ends
+        p.setDead(false);
         updateItems(p, 2);
         Main.getNewPlace();
         p.setBattleHp(p.getHp());
@@ -152,7 +156,7 @@ public class Battle extends Interactable {
         //check if enemies can deal damage
         boolean canDamage = false;
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).getDamage() > 0) {
+            if (enemies.get(i).getDamage() > 0 && enemies.get(i).getMutate() == null) {
                 canDamage = true;
             }
         }
@@ -163,7 +167,7 @@ public class Battle extends Interactable {
             while (enemies.size() > 0){
                 for (int i = 0; i < enemies.size(); i++) {
                     playerAttack(p, enemies, i + 1);
-                    checkIfDead(p, enemies, i + 1);
+                    checkIfDead(p, enemies);
                     printHealth(enemies);
                     Helper.Sleep(0.5);
                     System.out.println(Colors.CLEAR);
@@ -274,24 +278,15 @@ public class Battle extends Interactable {
             }//       Helper.Sleep(enemies.size()>=4 ? 0.5 : 1);
 
         }
-        for (StatusEffects s : player.getStatusEffects()) {
-            s.tickEffect(p, null, enemies, "enemyAttack", currentHp-p.getBattleHp()); //"currentHp-p.getBattleHp()" is damage dealt to player
-
-        }
+        for (StatusEffects s : player.getStatusEffects())
+            s.tickEffect(p, null, enemies, "enemyAttack", currentHp - p.getBattleHp()); //"currentHp-p.getBattleHp()" is damage dealt to player
 
 
         System.out.println("Total damage taken: " + Colors.RED + (currentHp - p.getBattleHp()) + Colors.RESET + " [" + Colors.RED + "❤ " + (Math.max(p.getBattleHp(), 0)) + Colors.RESET + "]");
         Helper.continuePrompt();
         System.out.println(Colors.CLEAR);
         if (p.getBattleHp() <= 0) {
-            System.out.println("You lost!");
-            IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
-                    enemies::remove); //the magic of intellij
-            p.Save(p.getName() + ".plr");
-            if(p.getStageNum() % 5 == 0){
-                p.setStageNum(p.getStageNum() - 1);
-            }
-            Helper.Sleep(1);
+            killPlayer(p, enemies);
         }
     }
 
@@ -308,7 +303,7 @@ public class Battle extends Interactable {
         }
     }
 
-    private static void checkIfDead(Player p, List<Enemy> enemies, int choice) {
+    private static void checkIfDead(Player p, List<Enemy> enemies) {
         ArrayList<Enemy> mutated = new ArrayList<>();
         for (Enemy e : enemies) {
             if(e.getMutate() == null){
@@ -329,6 +324,28 @@ public class Battle extends Interactable {
 
             enemies.remove(i);
         }
+        if (p.getBattleHp() <= 0) {
+            killPlayer(p, enemies);
+        }
+    }
+
+    private static void killPlayer(Player p, List<Enemy> enemies) {
+        if(p.isDead()){
+           return;
+        }
+        System.out.println("You lost!");
+        IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
+                enemies::remove); //the magic of intellij
+        p.Save(p.getName() + ".plr");
+        if(p.getStageNum() % 5 == 0){
+            p.setStageNum(p.getStageNum() - 1);
+        }
+        //remove all status effects
+        for (int i = p.getStatusEffects().size() - 2; i >= 0; i--) {
+            p.removeStatusEffects(p.getStatusEffects().get(i));
+        }
+        p.setDead(true);
+        Helper.Sleep(1);
     }
 
     private static void playerAttack(Player p, List<Enemy> enemies, int choice) {
@@ -348,9 +365,12 @@ public class Battle extends Interactable {
             enemies.get(choice-1).getMutate().onHurt(enemies, pDamage, enemies.get(choice-1)); //mutation damage.
         }
         if(player.getStatusEffects().size() != 0){
-            for (StatusEffects s : player.getStatusEffects()) {
-                s.tickEffect(p, enemies.get(choice-1), enemies, "playerAttack", pDamage);
+            List<StatusEffects> statusEffects = player.getStatusEffects();
+            for (int i = 0; i < statusEffects.size(); i++) {
+                StatusEffects s = statusEffects.get(i);
+                s.tickEffect(p, enemies.get(choice - 1), enemies, "playerAttack", pDamage);
             }
+
         }
 
     }

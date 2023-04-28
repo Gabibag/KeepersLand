@@ -21,22 +21,11 @@ public class Player {
     private int battleHp;
     private int xp = 0;
     private int level = 1;
-    private int healAmount = 4;
+    private int healAmount = 10;
     private int healVariance = 2;
     private int xpToLevel = 200;
     private int tokens = 0;
-
-    public List<StatusEffects> getStatusEffects() {
-        return statusEffects;
-    }
-
-    public void addStatusEffects(StatusEffects effect) {
-        this.statusEffects.add(effect);
-    }
-    public void removeStatusEffects(StatusEffects effect) {
-        this.statusEffects.remove(effect);
-    }
-
+    private boolean isDead = false;
     private List<StatusEffects> statusEffects = new ArrayList<>();
 
     public Player(String name, int hp, int dmg, List<Item> inventory) {
@@ -92,6 +81,26 @@ public class Player {
             return null;
         }
 
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+    public List<StatusEffects> getStatusEffects() {
+        return statusEffects;
+    }
+
+    public void addStatusEffects(StatusEffects effect) {
+        this.statusEffects.add(effect);
+    }
+
+    public void removeStatusEffects(StatusEffects effect) {
+        this.statusEffects.remove(effect);
     }
 
     public void Save(String file) {

@@ -47,11 +47,15 @@ public class Main {
         List<String> saveList = allPlayerFiles();
         int saves = 0;
         if (saveList.size() != 0) {
-            saves = Helper.getInput("[0] New save \n[1] Load Save", 0, 1);
+            System.out.println("[-1] New Save");
+            for (int i = 0; i < saveList.size(); i++) {
+                System.out.println("[" + i + "] " + saveList.get(i));
+            }
+            saves = Helper.getInput( "",-1, saveList.size() - 1);
         }
-        if (saves == 1) {
+        if (saves > -1) {
             try {
-                player = loadSave();
+                player = Player.loadFromFile((saveList.get(saves)));
                 if (player == null) {
                     System.out.println("Corrupted Save, creating new player instead");
                     saves = 0;
@@ -62,7 +66,7 @@ public class Main {
             getNewPlace();
 
         }
-        if (saves == 0) {
+        if (saves == -1) {
             List<String> takenNames = allPlayerFiles();
             takenNames.replaceAll(s1 -> s1.substring(0, s1.length() - 4));
             String name = Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET);
@@ -73,7 +77,7 @@ public class Main {
             player = new Player(name, 40, 5,
                     new ArrayList<>());
             player.addMoney(50);
-            player.setHealAmount(4);
+            player.setHealAmount(10);
             player.setHealVariance(1);
             Main.currentPlace = new StarterLand();
         }
