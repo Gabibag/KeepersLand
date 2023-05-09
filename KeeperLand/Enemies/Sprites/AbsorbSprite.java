@@ -3,7 +3,6 @@ package KeeperLand.Enemies.Sprites;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -18,9 +17,6 @@ public class AbsorbSprite extends Sprite {
         this.damage = 1;
     }
 
-    public boolean canSpawn(Player p) {
-        return Main.r.nextInt(1, 40) == 2;
-    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

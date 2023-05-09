@@ -14,6 +14,7 @@ public class DivisorSprite extends Sprite {
         this.coins = 5;
         this.dodgeRate = 1;
         this.xp = 5;
+        this.damage = 1;
         this.name = "Divisor Sprite";
     }
 

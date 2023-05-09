@@ -3,7 +3,6 @@ package KeeperLand.Enemies.Sprites;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -15,10 +14,6 @@ public class WindSprite extends Sprite {
         this.dodgeRate = 1;
         this.xp = 5;
         this.name = "Wind Sprite";
-    }
-
-    public boolean canSpawn(Player p) {
-        return Main.r.nextInt(1, 40) == 2;
     }
 
     @Override

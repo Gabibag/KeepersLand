@@ -164,13 +164,19 @@ public class Battle extends Interactable {
             System.out.println("Insta attack mode!");
             Helper.Sleep(1);
             //make player attack them repeatedly until all enemies are dead if the enemies cant deal damage
+            int counter = 0;
+            double sleepTime = 0.7F;
             while (enemies.size() > 0){
                 for (int i = 0; i < enemies.size(); i++) {
                     playerAttack(p, enemies, i + 1);
                     checkIfDead(p, enemies);
                     printHealth(enemies);
-                    Helper.Sleep(0.5);
+                    Helper.Sleep(sleepTime);
                     System.out.println(Colors.CLEAR);
+                }
+                counter++;
+                if (counter%2 == 0){
+                    sleepTime = 0.2F;
                 }
             }
         }

@@ -14,21 +14,22 @@ public class Undead extends Mutations {
     @Override
     public void onHeal(List<Enemy> e, int healamt, Enemy self) {
         //take heal damage
-        self.setBattleHp(self.getBattleHp() - healamt);
-        System.out.println("The Undead " + self.getName() + " takes " + healamt + " damage from your healing!");
+        self.setBattleHp(self.getBattleHp() - (healamt << 1));
+        System.out.println("The Undead " + self.getName() + " takes " + (healamt << 1) + " damage from your healing!");
     }
 
     @Override
     public void onHurt(List<Enemy> e, int damage, Enemy self) {
+        int heal = damage / e.size() / 2;
         //heal damage
-        for (int i = 0; i < e.size(); i++) {
-            if(!e.get(i).getName().contains("Revived") || e.get(i) == self){
+        for (Enemy enemy : e) {
+            if (!enemy.getName().contains("Revived") || enemy == self) {
                 continue;
             }
-            e.get(i).setBattleHp(e.get(i).getBattleHp() + damage);
+            enemy.setBattleHp(enemy.getBattleHp() + heal);
         }
-        self.setBattleHp(self.getBattleHp() + damage);
-        System.out.println("The Undead " + self.getName() + " heals " + damage + " damage from your attack!");
+        self.setBattleHp(self.getBattleHp() + heal);
+        System.out.println("The Undead " + self.getName() + " heals its allies for  " + heal + " hp!");
     }
 
     @Override

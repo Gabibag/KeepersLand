@@ -3,8 +3,6 @@ package KeeperLand.Enemies.Sprites;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.ToxicEnv;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -18,9 +16,6 @@ public class HealingSprite extends Sprite {
         this.name = "Healing Sprite";
     }
 
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof ToxicEnv;
-    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

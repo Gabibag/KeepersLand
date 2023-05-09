@@ -3,7 +3,6 @@ package KeeperLand.Enemies.Sprites;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -17,9 +16,6 @@ public class DebuffSprite extends Sprite {
         this.name = "Debuff Sprite";
     }
 
-    public boolean canSpawn(Player p) {
-        return Main.r.nextInt(1, 40) == 2;
-    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

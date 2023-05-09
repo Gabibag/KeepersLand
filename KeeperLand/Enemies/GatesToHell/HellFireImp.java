@@ -27,7 +27,6 @@ public class HellFireImp extends Enemy {
             allies.add(new Fireball());
             return 0;
         } else {
-            System.out.println("The imp " + Colors.RED + "burns" + Colors.RESET + " the player.");
             return this.damage;
         }
 

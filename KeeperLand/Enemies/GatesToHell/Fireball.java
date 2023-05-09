@@ -16,6 +16,7 @@ public class Fireball extends Enemy {
         this.damage = 20;
         this.name = "Fireball";
         this.xp = 1;
+        this.dodgeRate = 4;
     }
 
     public int Attack(Player p, List<Enemy> allies) {
@@ -35,4 +36,8 @@ public class Fireball extends Enemy {
         return false;
     }
 
+    @Override
+    public String getDodgeText() {
+        return "You miss the fireball.";
+    }
 }

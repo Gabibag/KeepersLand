@@ -21,7 +21,9 @@ public class LavaSlime extends Enemy {
         super.onDeath(p, allies, self);
         System.out.println("The Lava Slime splits into 3 mini slimes");
         for (int i = 0; i < 3; i++) {
-            allies.add(new MiniSlime());
+            MiniSlime l = new MiniSlime();
+            l.setMutate(self.getMutate());
+            allies.add(l);
 
         }
     }
