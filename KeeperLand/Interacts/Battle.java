@@ -404,6 +404,7 @@ public class Battle extends Interactable {
             System.out.println(Colors.CLEAR);
             instaAttackMode(p, enemies);
             if (enemies.size() > 0) {
+                p.setActionAmount(2);
                 enemyAttacks(p, enemies);
                 System.out.println(Colors.RESET);
                 Main.currentPlace.turnEnd(p, enemies);
@@ -416,7 +417,7 @@ public class Battle extends Interactable {
                 }
                 checkIfDead(p, enemies);
             }
-            Actions = 2;
+            Actions = p.getActionAmount();
 
         }
         if (p.getBattleHp() > 0 && enemies.size() == 0) {
