@@ -2,13 +2,17 @@ package KeeperLand.Mutations;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Mutations;
+import KeeperLand.Colors;
 import KeeperLand.Main;
 import KeeperLand.StatusEffects.Poison;
 
 import java.util.List;
 
 public class Toxic extends Mutations {
-
+    @Override
+    public String getColor() {
+        return Colors.GREEN_BRIGHT;
+    }
     public Toxic() {
         super("Toxic");
     }

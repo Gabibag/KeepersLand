@@ -8,6 +8,10 @@ import KeeperLand.Main;
 import java.util.List;
 
 public class Thorned extends Mutations {
+    @Override
+    public String getColor() {
+        return Colors.GREEN;
+    }
     public Thorned() {
         super("Thorned");
     }

@@ -1,10 +1,15 @@
 package KeeperLand.Abstracts;
 
+import KeeperLand.Colors;
 import KeeperLand.Main;
 
 import java.util.List;
 
+
 public abstract class Mutations {
+    public String getColor() {
+        return Colors.RESET;
+    }
     public String getMutationType() {
         return mutationType;
     }
@@ -34,4 +39,6 @@ public abstract class Mutations {
     public void onDeath(List<Enemy> e, Enemy self){
 
     }
+
+
 }

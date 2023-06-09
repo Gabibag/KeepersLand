@@ -55,7 +55,7 @@ public abstract class Enemy {
         this.drops = new ArrayList<>(this.drops);
         this.drops.add(ItemData.OmegaShard);
         //random 1 in 20 chance to mutate
-        if (r.nextInt(20) == 0) {
+        if (r.nextInt(2) == 0) {
             this.mutate = allMutations.get(r.nextInt(allMutations.size()));
         }
     }

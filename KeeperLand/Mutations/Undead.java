@@ -2,6 +2,7 @@ package KeeperLand.Mutations;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Mutations;
+import KeeperLand.Colors;
 
 import java.util.List;
 
@@ -16,6 +17,10 @@ public class Undead extends Mutations {
         //take heal damage
         self.setBattleHp(self.getBattleHp() - (healamt << 1));
         System.out.println("The Undead " + self.getName() + " takes " + (healamt << 1) + " damage from your healing!");
+    }
+    @Override
+    public String getColor() {
+        return Colors.BLACK_UNDERLINED;
     }
 
     @Override

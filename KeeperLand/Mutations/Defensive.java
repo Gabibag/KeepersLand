@@ -2,6 +2,7 @@ package KeeperLand.Mutations;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Mutations;
+import KeeperLand.Colors;
 
 import java.util.List;
 
@@ -9,6 +10,10 @@ import static KeeperLand.Main.r;
 
 public class Defensive extends Mutations {
 
+    @Override
+    public String getColor() {
+        return Colors.BLACK;
+    }
     public Defensive() {
         super("Defensive");
     }

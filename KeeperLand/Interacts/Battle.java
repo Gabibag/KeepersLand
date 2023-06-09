@@ -5,6 +5,7 @@ import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Interactable;
 import KeeperLand.Abstracts.StatusEffects;
 import KeeperLand.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,13 +155,13 @@ public class Battle extends Interactable {
 
     private static void instaAttackMode(Player p, List<Enemy> enemies) {
         //check if enemies can deal damage
-        boolean canDamage = false;
-        for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).getDamage() > 0 && enemies.get(i).getMutate() == null) {
-                canDamage = true;
+        if (p.getLevel() %5 == 0) return;
+        for (Enemy enemy : enemies) {
+            if ((enemy.getDamage() > 0 && enemy.getMutate() == null ) ) {
+                return;
             }
         }
-        if (!canDamage && enemies.size() > 0 && p.getBattleHp() > 0){
+        if (enemies.size() > 0 && p.getBattleHp() > 0){
             System.out.println("Insta attack mode!");
             Helper.Sleep(1);
             //make player attack them repeatedly until all enemies are dead if the enemies cant deal damage
@@ -176,7 +177,7 @@ public class Battle extends Interactable {
                 }
                 counter++;
                 if (counter%2 == 0){
-                    sleepTime = 0.2F;
+                    sleepTime -= 0.1F;
                 }
             }
         }
@@ -381,16 +382,14 @@ public class Battle extends Interactable {
 
     }
 
-    private static void printHealth(List<Enemy> enemies) {
+    private static void printHealth(@NotNull List<Enemy> enemies) {
         StringBuilder Names = new StringBuilder();
         StringBuilder HpAmounts = new StringBuilder();
         StringBuilder hpBars = new StringBuilder();
         for (Enemy enemy : enemies) {
             String mutate = "";
-            if(enemy.getMutate()!=null){
-                mutate = enemy.getMutate().getMutationType();
-            }
-            StringBuilder nameAdd = new StringBuilder("lvl " + enemy.getLevel() + " " + mutate + " " + enemy.getName());
+            if(enemy.getMutate()!=null) mutate = enemy.getMutate().getMutationType();
+            StringBuilder nameAdd = new StringBuilder("lvl " + enemy.getLevel() + " " + enemy.getMutate().getColor() + mutate + " " + enemy.getName() + Colors.RESET);
             StringBuilder hpAdd = new StringBuilder(enemy.getBattleHp() + "hp");
             if (nameAdd.length() > hpAdd.length()) {
                 //find the difference
