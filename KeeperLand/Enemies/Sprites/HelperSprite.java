@@ -3,6 +3,7 @@ package KeeperLand.Enemies.Sprites;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Sprite;
 import KeeperLand.Colors;
+import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -17,6 +18,10 @@ public class HelperSprite extends Sprite {
         this.damage = 100000;
     }
 
+    @Override
+    public boolean canSpawn(Player p) {
+        return Main.r.nextInt(1, 100) == 2;
+    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

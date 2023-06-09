@@ -54,6 +54,7 @@ public class Player {
             Scanner r = new Scanner(f);
             Player p = new Player(r.nextLine(), r.nextInt(), r.nextInt(), new ArrayList<>());
             p.setMoney(r.nextInt());
+            System.out.println(p.getMoney());
             p.setActionAmount(r.nextInt());
             p.setHealVariance(r.nextInt());
             p.setHealAmount(r.nextInt());
@@ -61,9 +62,10 @@ public class Player {
             p.setStageNum(r.nextInt());
             p.setXp(r.nextInt());
             p.setXpToLevel(r.nextInt());
+            System.out.println(p.getXpToLevel());
             int invSize = r.nextInt();
             for (int i = 0; i < invSize; i++) {
-//                r.nextLine();//idk why this is needed but item breaks if you remove it soooo
+                r.nextLine();//idk why this is needed but item breaks if you remove it soooo
                 String name = r.nextLine();
                 int cost = Integer.parseInt(r.nextLine());
                 Item is = new Item(0, 0, name, null, 0, cost);
@@ -121,6 +123,7 @@ public class Player {
             f.write(this.xp + "\n");
             f.write(this.xpToLevel + "\n");
             f.write(this.inventory.size() + "\n");
+            System.out.println(this.inventory.size());
             for (Item item : inventory) {
                 f.write(item.getName() + "\n");
                 f.write(item.getCost() + "\n");
