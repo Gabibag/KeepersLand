@@ -9,7 +9,7 @@ import java.util.List;
 public class Undead extends Mutations {
 
     public Undead() {
-        super("Undead");
+        super("Undead", Colors.BLACK_UNDERLINED);
     }
 
     @Override
@@ -18,10 +18,7 @@ public class Undead extends Mutations {
         self.setBattleHp(self.getBattleHp() - (healamt << 1));
         System.out.println("The Undead " + self.getName() + " takes " + (healamt << 1) + " damage from your healing!");
     }
-    @Override
-    public String getColor() {
-        return Colors.BLACK_UNDERLINED;
-    }
+
 
     @Override
     public void onHurt(List<Enemy> e, int damage, Enemy self) {
@@ -46,7 +43,9 @@ public class Undead extends Mutations {
         //revive killed with 40% hp and rename it to add "Undead" to the name
         killed.setBattleHp((int) (killed.getBaseHp() * 0.4));
         killed.setName("Revived " + killed.getName());
+        //duplicate killed and add it to the list
         System.out.println("The Undead " + self.getName() + " revives " + killed.getName() + "!");
+        e.add(killed);
     }
 
     @Override

@@ -9,13 +9,8 @@ import java.util.List;
 import static KeeperLand.Main.r;
 
 public class Defensive extends Mutations {
-
-    @Override
-    public String getColor() {
-        return Colors.BLACK;
-    }
     public Defensive() {
-        super("Defensive");
+        super("Defensive", Colors.BLACK);
     }
 
     @Override

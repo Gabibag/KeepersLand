@@ -1,15 +1,23 @@
 package KeeperLand.Abstracts;
 
-import KeeperLand.Colors;
 import KeeperLand.Main;
 
 import java.util.List;
 
-
 public abstract class Mutations {
-    public String getColor() {
-        return Colors.RESET;
+    protected String mutationType;
+    protected String color;
+
+    public Mutations(String type, String c) {
+        Main.allMutations.add(this);
+        this.mutationType = type;
+        this.color = c;
     }
+
+    public String getColor() {
+        return color;
+    }
+
     public String getMutationType() {
         return mutationType;
     }
@@ -18,25 +26,19 @@ public abstract class Mutations {
         this.mutationType = mutationType;
     }
 
-    protected String mutationType;
-    public Mutations(String type){
-        Main.allMutations.add(this);
-        this.mutationType = type;
-    }
-
-
-    public void onHurt(List<Enemy> e, int damage, Enemy self){
+    public void onHurt(List<Enemy> e, int damage, Enemy self) {
 
     }
 
-    public void onHeal(List<Enemy> e, int healamt, Enemy self){
-
-    }
-    public void onKill(List<Enemy> e, Enemy self, Enemy killed){
+    public void onHeal(List<Enemy> e, int healamt, Enemy self) {
 
     }
 
-    public void onDeath(List<Enemy> e, Enemy self){
+    public void onKill(List<Enemy> e, Enemy self, Enemy killed) {
+
+    }
+
+    public void onDeath(List<Enemy> e, Enemy self) {
 
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 public class Golden extends Mutations {
 
     public Golden() {
-        super("Golden");
+        super("Golden", Colors.YELLOW);
     }
 
     @Override

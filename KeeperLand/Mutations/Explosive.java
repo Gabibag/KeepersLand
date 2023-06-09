@@ -10,13 +10,10 @@ import static KeeperLand.Main.player;
 import static KeeperLand.Main.r;
 
 public class Explosive extends Mutations {
-    @Override
-    public String getColor() {
-        return Colors.RED;
-    }
+
 
     public Explosive() {
-        super("Explosive");
+        super("Explosive", Colors.RED);
     }
 
     @Override

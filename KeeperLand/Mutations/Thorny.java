@@ -7,13 +7,9 @@ import KeeperLand.Main;
 
 import java.util.List;
 
-public class Thorned extends Mutations {
-    @Override
-    public String getColor() {
-        return Colors.GREEN;
-    }
-    public Thorned() {
-        super("Thorned");
+public class Thorny extends Mutations {
+    public Thorny() {
+        super("Thorny", Colors.GREEN);
     }
 
     @Override
@@ -22,7 +18,7 @@ public class Thorned extends Mutations {
             return;
         }
         Main.player.setBattleHp((int) (Main.player.getBattleHp() - damage*0.2));
-        System.out.println("The Thorned " +self.getName() + Colors.BLACK + " reflects " + Colors.RESET + ((int) (damage * 0.2)) + " damage to the player");
+        System.out.println("The Thorny " +self.getName() + Colors.BLACK + " reflects " + Colors.RESET + ((int) (damage * 0.2)) + " damage to the player");
     }
 
     @Override
@@ -34,7 +30,7 @@ public class Thorned extends Mutations {
             }
             enemy.setBattleHp((int) (enemy.getBattleHp() - self.getDamage()*0.2));
         }
-        System.out.println("The Thorned " + self.getName() + Colors.RED + " explodes on death!" + Colors.RESET + "(" + self.getCoins() + Colors.CYAN + "◊" + Colors.RESET + ")");
+        System.out.println("The Thorny " + self.getName() + Colors.RED + " explodes on death!" + Colors.RESET + "(" + self.getCoins() + Colors.CYAN + "◊" + Colors.RESET + ")");
     }
 
 }

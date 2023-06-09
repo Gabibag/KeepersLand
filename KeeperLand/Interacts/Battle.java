@@ -1,10 +1,8 @@
 package KeeperLand.Interacts;
 
-import KeeperLand.Abstracts.Boss;
-import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Interactable;
-import KeeperLand.Abstracts.StatusEffects;
+import KeeperLand.Abstracts.*;
 import KeeperLand.*;
+import KeeperLand.Mutations.None;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -17,157 +15,21 @@ import static KeeperLand.Main.player;
 
 public class Battle extends Interactable {
 
-    @Override
-    public void onChoose(Player p) {
-        p.setBattleHp(p.getHp());
-        p.setBattleDamage(p.getDamage());
-        updateItems(p, 1);
-        Random r = new Random();
-        int Actions = p.getActionAmount();
-        List<Enemy> spawns = getEnemies(p);
-        while (spawns.size() < 3) {
-            spawns = getEnemies(p);
-            //check if spawns contains duplicates, if it does, remove it
-            for (int i = spawns.size() - 1; i >= 0; i--) {
-                for (int j = spawns.size() - 1; j >= i + 1; j--) {
-                    if (spawns.get(i).getName().equalsIgnoreCase(spawns.get(j).getName())) {
-                        spawns.remove(j);
-                    }
-                }
-            }
-        }
-        List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
-
-
-        try {
-            for (int i = 0; i < enemies.size(); i++) {
-                enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to create a new enemy object, check your cnstr type:");
-            e.printStackTrace();
-        }
-        System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
-        Helper.Sleep(1);
-        System.out.print(Colors.CLEAR);
-        if ((p.getStageNum() % 5 == 0)) {
-            try {
-                ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        Main.currentPlace.BattleStart(p, enemies);
-        while (enemies.size() > 0) {
-            removeDead(enemies);
-            //tell user their stage number and environment
-            while (Actions > 0) {
-                String col = Colors.RESET;
-                if (player.getStatusEffects().size() != 0){
-                    col = player.getStatusEffects().get(player.getStatusEffects().size()-1).getEffectColor();
-                }
-                System.out.print("You are in the " + Main.currentPlace.getName() + Colors.RESET);
-                System.out.println();
-                //updateItems(p, 3);
-                printHealth(enemies);
-                System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
-                System.out.println(Colors.PURPLE +
-                        "[1] Attack");
-                System.out.println("[2] Heal");
-                System.out.println("[3] Info" + Colors.RESET);
-                int choice = Helper.getInputDefault(Colors.RESET + "Current Health: " + col+ p.getBattleHp() + Colors.RESET, 3, 1);
-                switch (choice) {
-                    //#region case1
-                    case 1 -> {//attack
-                        System.out.println(Colors.CLEAR);
-
-                        if (enemies.size() == 1) {
-                            choice = 1;
-                        } else {
-                            enemyAttackChoice(enemies);
-                            choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
-                            System.out.println(Colors.CLEAR);
-                        }
-
-                        if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
-                            playerAttack(p, enemies, choice);
-                            checkIfDead(p, enemies);
-                        } else {
-                            System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
-                        }
-                    }
-                    case 2 -> healPlayer(p, r, enemies);
-                    case 3 -> inv(enemies);
-                }
-                Main.currentPlace.playerAction(p, enemies);
-                if (enemies.size() > 0) Actions--;
-                else {
-                    p.setActionAmount(2);
-                    break;
-                }
-            }
-            printHealth(enemies);//print out a ui to make it look like its just changing stuff. Idk looks cool
-            String col = Colors.RESET;
-            if (player.getStatusEffects().size() != 0){
-                col = player.getStatusEffects().get(player.getStatusEffects().size()-1).getEffectColor();
-            }
-            System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
-            System.out.println(Colors.BLACK_BRIGHT + "[0] Attack");
-            System.out.println("[0] Heal");
-            System.out.println("[0] Info " + Colors.RESET);
-            System.out.println("Current Health: " + col +  p.getBattleHp() + Colors.RESET);
-            Helper.continuePrompt();
-
-            System.out.println(Colors.CLEAR);
-            instaAttackMode(p, enemies);
-            if (enemies.size() > 0) {
-                enemyAttacks(p, enemies);
-                System.out.println(Colors.RESET);
-                Main.currentPlace.turnEnd(p, enemies);
-                checkIfDead(p, enemies);
-                List<StatusEffects> statusEffects = player.getStatusEffects();
-                for (int i = 0; i < statusEffects.size(); i++) {
-                    StatusEffects s = statusEffects.get(i);
-                    s.tickEffect(p, null, enemies, "turnEnd", 0);
-
-                }
-                checkIfDead(p, enemies);
-            }
-            Actions = p.getActionAmount();
-
-        }
-        if (p.getBattleHp() > 0 && enemies.size() == 0) {
-            //TODO drops
-            System.out.println("You won!");
-            p.incStageNum(1);
-            p.Save(p.getName() + ".plr");
-
-        }
-        //occurs after battle ends
-        p.setDead(false);
-        updateItems(p, 2);
-        Main.getNewPlace();
-        p.setBattleHp(p.getHp());
-        p.setActionAmount(2);
-        Helper.Sleep(1);
-
-    }
-
     private static void instaAttackMode(Player p, List<Enemy> enemies) {
         //check if enemies can deal damage
-        if (p.getLevel() %5 == 0) return;
+        if (p.getLevel() % 5 == 0) return;
         for (Enemy enemy : enemies) {
-            if ((enemy.getDamage() > 0 && enemy.getMutate() == null ) ) {
+            if ((enemy.getDamage() > 0 && enemy.getMutate() == null)) {
                 return;
             }
         }
-        if (enemies.size() > 0 && p.getBattleHp() > 0){
+        if (enemies.size() > 0 && p.getBattleHp() > 0) {
             System.out.println("Insta attack mode!");
             Helper.Sleep(1);
             //make player attack them repeatedly until all enemies are dead if the enemies cant deal damage
             int counter = 0;
             double sleepTime = 0.7F;
-            while (enemies.size() > 0){
+            while (enemies.size() > 0) {
                 for (int i = 0; i < enemies.size(); i++) {
                     playerAttack(p, enemies, i + 1);
                     checkIfDead(p, enemies);
@@ -176,7 +38,7 @@ public class Battle extends Interactable {
                     System.out.println(Colors.CLEAR);
                 }
                 counter++;
-                if (counter%2 == 0){
+                if (counter % 2 == 0) {
                     sleepTime -= 0.1F;
                 }
             }
@@ -223,7 +85,6 @@ public class Battle extends Interactable {
 
         return returned;
     }
-    //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
 
     public static void removeDead(List<Enemy> enemies) {
         for (int i = enemies.size() - 1; i >= 0; i--) {
@@ -234,6 +95,7 @@ public class Battle extends Interactable {
             }
         }
     }
+    //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
 
     public static void inv(List<Enemy> enemies) {
 
@@ -313,7 +175,7 @@ public class Battle extends Interactable {
     private static void checkIfDead(Player p, List<Enemy> enemies) {
         ArrayList<Enemy> mutated = new ArrayList<>();
         for (Enemy e : enemies) {
-            if(e.getMutate() == null){
+            if (e.getMutate() == null) {
                 continue;
             }
             mutated.add(e);
@@ -337,14 +199,14 @@ public class Battle extends Interactable {
     }
 
     private static void killPlayer(Player p, List<Enemy> enemies) {
-        if(p.isDead()){
-           return;
+        if (p.isDead()) {
+            return;
         }
         System.out.println("You lost!");
         IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                 enemies::remove); //the magic of intellij
         p.Save(p.getName() + ".plr");
-        if(p.getStageNum() % 5 == 0){
+        if (p.getStageNum() % 5 == 0) {
             p.setStageNum(p.getStageNum() - 1);
         }
         //remove all status effects
@@ -358,20 +220,20 @@ public class Battle extends Interactable {
     private static void playerAttack(Player p, List<Enemy> enemies, int choice) {
         int pDamage = Main.currentPlace.modifyPlayerDamage(p.getBattleDamage());
         enemies.get(choice - 1).setBattleHp(enemies.get(choice - 1).getBattleHp() - pDamage);
-        if(pDamage < p.getBattleDamage()){
+        if (pDamage < p.getBattleDamage()) {
             System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
                     enemies.get(choice - 1).getName() + Colors.RESET + " (⬇ " + p.getBattleDamage() + " -> " + pDamage + " )");
-        }else if(pDamage > p.getBattleDamage()){
+        } else if (pDamage > p.getBattleDamage()) {
             System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
                     enemies.get(choice - 1).getName() + Colors.RESET + " (⬆ " + p.getBattleDamage() + " -> " + pDamage + " )");
-        }else {
+        } else {
             System.out.println(Colors.RED + "Dealt " + pDamage + " damage to " +
                     enemies.get(choice - 1).getName() + Colors.RESET);
         }
-        if (enemies.get(choice-1).getMutate() != null ){
-            enemies.get(choice-1).getMutate().onHurt(enemies, pDamage, enemies.get(choice-1)); //mutation damage.
+        if (enemies.get(choice - 1).getMutate() != null) {
+            enemies.get(choice - 1).getMutate().onHurt(enemies, pDamage, enemies.get(choice - 1)); //mutation damage.
         }
-        if(player.getStatusEffects().size() != 0){
+        if (player.getStatusEffects().size() != 0) {
             List<StatusEffects> statusEffects = player.getStatusEffects();
             for (int i = 0; i < statusEffects.size(); i++) {
                 StatusEffects s = statusEffects.get(i);
@@ -387,21 +249,20 @@ public class Battle extends Interactable {
         StringBuilder HpAmounts = new StringBuilder();
         StringBuilder hpBars = new StringBuilder();
         for (Enemy enemy : enemies) {
-            String mutate = "";
-            if(enemy.getMutate()!=null) mutate = enemy.getMutate().getMutationType();
-            StringBuilder nameAdd = new StringBuilder("lvl " + enemy.getLevel() + " " + enemy.getMutate().getColor() + mutate + " " + enemy.getName() + Colors.RESET);
+            Mutations mutate;
+
+            if (enemy.getMutate() != null) mutate = enemy.getMutate();
+            else mutate = new None();
+            StringBuilder nameAdd = new StringBuilder(" lvl " + enemy.getLevel() + " " + mutate.getColor() +  mutate.getMutationType() + Colors.RED + " " + enemy.getName());
             StringBuilder hpAdd = new StringBuilder(enemy.getBattleHp() + "hp");
-            if (nameAdd.length() > hpAdd.length()) {
+            int actualNameLength = nameAdd.length() - mutate.getColor().length() - Colors.RED.length();
+            if (actualNameLength > hpAdd.length()) {
                 //find the difference
-                int diff = nameAdd.length() - hpAdd.length();
+                int diff = actualNameLength - hpAdd.length();
                 int offset = diff / 2;
-                for (int i = 0; i < offset; i++) {
-                    hpAdd = new StringBuilder(" " + hpAdd + " ");
-                }
-                if (diff % 2 != 0) {
-                    hpAdd.append(" ");
-                }
-            } else if (nameAdd.length() < hpAdd.length()) {
+                for (int i = 0; i < offset; i++) hpAdd = new StringBuilder(" " + hpAdd + " ");
+                if (diff % 2 != 0) hpAdd.append(" ");
+            } else if (actualNameLength < hpAdd.length()) {
                 int diff = hpAdd.length() - nameAdd.length();
                 int offset = diff / 2;
                 for (int i = 0; i < offset; i++) {
@@ -412,18 +273,16 @@ public class Battle extends Interactable {
                 }
             }
 
-            int barLength = Math.max(nameAdd.length(), hpAdd.length());
+            int barLength = Math.max(actualNameLength, hpAdd.length());
             StringBuilder bar = new StringBuilder("[=]");
             if (!(barLength < 3)) {
+                bar.append("=");
                 bar = new StringBuilder("[");
                 for (int i = 0; i < barLength - 2; i++) {
                     double percentHp = enemy.getBattleHp() / (double) enemy.getBaseHp();
                     double barPercent = i / (double) (barLength - 2);
-                    if (barPercent < percentHp) {
-                        bar.append("=");
-                    } else {
-                        bar.append(" ");
-                    }
+                    if (barPercent < percentHp) bar.append("=");
+                    else bar.append(" ");
                 }
                 bar.append("]");
             }
@@ -434,6 +293,142 @@ public class Battle extends Interactable {
         System.out.println(Colors.RED + Names);
         System.out.println(hpBars);
         System.out.println(HpAmounts + Colors.RESET);
+    }
+
+    @Override
+    public void onChoose(Player p) {
+        p.setBattleHp(p.getHp());
+        p.setBattleDamage(p.getDamage());
+        updateItems(p, 1);
+        Random r = new Random();
+        int Actions = p.getActionAmount();
+        List<Enemy> spawns = getEnemies(p);
+        while (spawns.size() < 3) {
+            spawns = getEnemies(p);
+            //check if spawns contains duplicates, if it does, remove it
+            for (int i = spawns.size() - 1; i >= 0; i--) {
+                for (int j = spawns.size() - 1; j >= i + 1; j--) {
+                    if (spawns.get(i).getName().equalsIgnoreCase(spawns.get(j).getName())) {
+                        spawns.remove(j);
+                    }
+                }
+            }
+        }
+        List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
+
+
+        try {
+            for (int i = 0; i < enemies.size(); i++) {
+                enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to create a new enemy object, check your cnstr type:");
+            e.printStackTrace();
+        }
+        System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
+        Helper.Sleep(1);
+        System.out.print(Colors.CLEAR);
+        if ((p.getStageNum() % 5 == 0)) {
+            try {
+                ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Main.currentPlace.BattleStart(p, enemies);
+        while (enemies.size() > 0) {
+            removeDead(enemies);
+            //tell user their stage number and environment
+            while (Actions > 0) {
+                String col = Colors.RESET;
+                if (player.getStatusEffects().size() != 0) {
+                    col = player.getStatusEffects().get(player.getStatusEffects().size() - 1).getEffectColor();
+                }
+                System.out.print("You are in the " + Main.currentPlace.getName() + Colors.RESET);
+                System.out.println();
+                //updateItems(p, 3);
+                printHealth(enemies);
+                System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
+                System.out.println(Colors.PURPLE +
+                        "[1] Attack");
+                System.out.println("[2] Heal");
+                System.out.println("[3] Info" + Colors.RESET);
+                int choice = Helper.getInputDefault(Colors.RESET + "Current Health: " + col + p.getBattleHp() + Colors.RESET, 3, 1);
+                switch (choice) {
+                    //#region case1
+                    case 1 -> {//attack
+                        System.out.println(Colors.CLEAR);
+
+                        if (enemies.size() == 1) {
+                            choice = 1;
+                        } else {
+                            enemyAttackChoice(enemies);
+                            choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
+                            System.out.println(Colors.CLEAR);
+                        }
+
+                        if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
+                            playerAttack(p, enemies, choice);
+                            checkIfDead(p, enemies);
+                        } else {
+                            System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
+                        }
+                    }
+                    case 2 -> healPlayer(p, r, enemies);
+                    case 3 -> inv(enemies);
+                }
+                Main.currentPlace.playerAction(p, enemies);
+                if (enemies.size() > 0) Actions--;
+                else {
+                    p.setActionAmount(2);
+                    break;
+                }
+            }
+            printHealth(enemies);//print out a ui to make it look like its just changing stuff. Idk looks cool
+            String col = Colors.RESET;
+            if (player.getStatusEffects().size() != 0) {
+                col = player.getStatusEffects().get(player.getStatusEffects().size() - 1).getEffectColor();
+            }
+            System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
+            System.out.println(Colors.BLACK_BRIGHT + "[0] Attack");
+            System.out.println("[0] Heal");
+            System.out.println("[0] Info " + Colors.RESET);
+            System.out.println("Current Health: " + col + p.getBattleHp() + Colors.RESET);
+            Helper.continuePrompt();
+
+            System.out.println(Colors.CLEAR);
+            instaAttackMode(p, enemies);
+            if (enemies.size() > 0) {
+                enemyAttacks(p, enemies);
+                System.out.println(Colors.RESET);
+                Main.currentPlace.turnEnd(p, enemies);
+                checkIfDead(p, enemies);
+                List<StatusEffects> statusEffects = player.getStatusEffects();
+                for (int i = 0; i < statusEffects.size(); i++) {
+                    StatusEffects s = statusEffects.get(i);
+                    s.tickEffect(p, null, enemies, "turnEnd", 0);
+
+                }
+                checkIfDead(p, enemies);
+            }
+            Actions = p.getActionAmount();
+
+        }
+        if (p.getBattleHp() > 0 && enemies.size() == 0) {
+            //TODO drops
+            System.out.println("You won!");
+            p.incStageNum(1);
+            p.Save(p.getName() + ".plr");
+
+        }
+        //occurs after battle ends
+        p.setDead(false);
+        updateItems(p, 2);
+        Main.getNewPlace();
+        p.setBattleHp(p.getHp());
+        p.setActionAmount(2);
+        Helper.Sleep(1);
+
     }
 
     @Override

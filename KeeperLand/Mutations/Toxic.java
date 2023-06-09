@@ -9,12 +9,9 @@ import KeeperLand.StatusEffects.Poison;
 import java.util.List;
 
 public class Toxic extends Mutations {
-    @Override
-    public String getColor() {
-        return Colors.GREEN_BRIGHT;
-    }
+
     public Toxic() {
-        super("Toxic");
+        super("Toxic", Colors.GREEN_BRIGHT);
     }
 
     @Override
