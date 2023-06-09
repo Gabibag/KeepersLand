@@ -23,7 +23,7 @@ public class Player {
     private int level = 1;
     private int healAmount = 10;
     private int healVariance = 2;
-    private int xpToLevel = 200;
+    private int xpToLevel = 100;
     private int tokens = 0;
     private boolean isDead = false;
     private List<StatusEffects> statusEffects = new ArrayList<>();
@@ -59,9 +59,11 @@ public class Player {
             p.setHealAmount(r.nextInt());
             p.setLevel(r.nextInt());
             p.setStageNum(r.nextInt());
+            p.setXp(r.nextInt());
+            p.setXpToLevel(r.nextInt());
             int invSize = r.nextInt();
             for (int i = 0; i < invSize; i++) {
-                r.nextLine();//idk why this is needed but it breaks if you remove it soooo
+//                r.nextLine();//idk why this is needed but item breaks if you remove it soooo
                 String name = r.nextLine();
                 int cost = Integer.parseInt(r.nextLine());
                 Item is = new Item(0, 0, name, null, 0, cost);
@@ -116,6 +118,8 @@ public class Player {
             f.write(this.healAmount + "\n");
             f.write(this.level + "\n");
             f.write(this.stageNum + "\n");
+            f.write(this.xp + "\n");
+            f.write(this.xpToLevel + "\n");
             f.write(this.inventory.size() + "\n");
             for (Item item : inventory) {
                 f.write(item.getName() + "\n");

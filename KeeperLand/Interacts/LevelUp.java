@@ -30,7 +30,7 @@ public class LevelUp extends Interactable {
 
                 p.setHp(p.getHp() + Math.max(p.getLevel() << 1, 3));
                 p.setDamage((int) (p.getDamage() + Math.max(p.getLevel() * 0.5f, 2)));
-                p.setHealAmount(Math.max(p.getLevel(), 1));
+                p.setHealAmount(p.getHealAmount() + Math.max(p.getLevel(), 1));
 
             }
             System.out.println("You leveled up! You are now level " + p.getLevel() + "!");

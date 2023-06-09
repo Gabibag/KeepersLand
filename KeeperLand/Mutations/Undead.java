@@ -37,7 +37,7 @@ public class Undead extends Mutations {
     @Override
     public void onKill(List<Enemy> e, Enemy self, Enemy killed) {
 
-        if(killed.getName().contains("Revived ")){
+        if(killed.getName().contains("Revived ") || killed == self){
             return;
         }
         //revive killed with 40% hp and rename it to add "Undead" to the name

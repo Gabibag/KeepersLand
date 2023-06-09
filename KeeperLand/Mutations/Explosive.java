@@ -13,7 +13,7 @@ public class Explosive extends Mutations {
 
 
     public Explosive() {
-        super("Explosive", Colors.RED);
+        super("Explosive", Colors.RED_BRIGHT);
     }
 
     @Override

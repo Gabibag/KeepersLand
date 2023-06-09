@@ -52,16 +52,18 @@ public class Main {
                 System.out.println("[" + i + "] " + saveList.get(i));
             }
             saves = Helper.getInput( "",-1, saveList.size() - 1);
+        }else{
+            saves = -1;
         }
         if (saves > -1) {
             try {
                 player = Player.loadFromFile((saveList.get(saves)));
                 if (player == null) {
                     System.out.println("Corrupted Save, creating new player instead");
-                    saves = 0;
+                    saves = -1;
                 }
             } catch (Exception e) {
-                saves = 0;
+                saves = -1;
             }
             getNewPlace();
 

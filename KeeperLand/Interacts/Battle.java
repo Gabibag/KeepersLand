@@ -2,6 +2,7 @@ package KeeperLand.Interacts;
 
 import KeeperLand.Abstracts.*;
 import KeeperLand.*;
+import KeeperLand.Enemies.Sprites.HelperSprite;
 import KeeperLand.Mutations.None;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,7 +20,9 @@ public class Battle extends Interactable {
         //check if enemies can deal damage
         if (p.getLevel() % 5 == 0) return;
         for (Enemy enemy : enemies) {
-            if ((enemy.getDamage() > 0 && enemy.getMutate() == null)) {
+            if (enemy.getDamage() > 0 || !(enemy.getMutate() instanceof None || enemy.getMutate() == null) || enemy instanceof Boss || enemy instanceof HelperSprite) {
+
+
                 return;
             }
         }
@@ -71,15 +74,17 @@ public class Battle extends Interactable {
 
         List<Enemy> returned = new ArrayList<>();
         for (Enemy e : Main.allEnemies) {
-            if (e.canSpawn(p)) {
-                if (p.getStageNum() % 5 == 0) {
-                    if (e instanceof Boss) {
-                        returned.add(e);
-                    }
-                } else if (!(e instanceof Boss)) {
-                    returned.add((e));
-                }
+            if (!e.canSpawn(p)) {
+                continue;
             }
+            if (p.getStageNum() % 5 == 0) {
+                if (e instanceof Boss) {
+                    returned.add(e);
+                }
+            } else if (!(e instanceof Boss)) {
+                returned.add((e));
+            }
+
 
         }
 
@@ -206,9 +211,10 @@ public class Battle extends Interactable {
         IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                 enemies::remove); //the magic of intellij
         p.Save(p.getName() + ".plr");
-        if (p.getStageNum() % 5 == 0) {
+        if(p.getStageNum()%5 == 0||(p.getStageNum() -1 % 5 == 0)){
             p.setStageNum(p.getStageNum() - 1);
         }
+
         //remove all status effects
         for (int i = p.getStatusEffects().size() - 2; i >= 0; i--) {
             p.removeStatusEffects(p.getStatusEffects().get(i));

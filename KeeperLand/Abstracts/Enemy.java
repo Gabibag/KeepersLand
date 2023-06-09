@@ -40,7 +40,17 @@ public abstract class Enemy {
     public Enemy() {
         this.setBaseStats();
         try {
-            this.level = Main.player.getStageNum() + (r.nextInt(-3,3));
+            int rand = r.nextInt(100);
+            if (rand >=90){
+                rand = 3;
+            } else if (rand >= 50) {
+                rand = 2;
+            }else{
+                rand = 1;
+            }
+            rand *= r.nextBoolean() ? 1 : -1;
+
+            this.level = Main.player.getStageNum() + rand;
             System.out.println();
             if (this.level < 1) this.level = 1;
         } catch (Exception e) {
