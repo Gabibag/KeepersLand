@@ -41,12 +41,14 @@ public abstract class Enemy {
         this.setBaseStats();
         try {
             int rand = r.nextInt(100);
-            if (rand >=90){
+            if (rand >=95){
                 rand = 3;
-            } else if (rand >= 50) {
+            } else if (rand >= 80) {
                 rand = 2;
-            }else{
+            }else if (rand >=50){
                 rand = 1;
+            }else{
+                rand = 0;
             }
             rand *= r.nextBoolean() ? 1 : -1;
 

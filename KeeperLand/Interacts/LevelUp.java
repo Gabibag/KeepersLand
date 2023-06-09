@@ -26,8 +26,7 @@ public class LevelUp extends Interactable {
             while (p.getXp() >= p.getXpToLevel()) {
                 p.setLevel(p.getLevel() + 1);
                 p.setXp(p.getXp() - p.getXpToLevel());
-                p.setXpToLevel((int) (p.getXpToLevel() + Math.max(p.getXpToLevel() * 0.1, 20)));
-
+                p.setXpToLevel((int) (p.getXpToLevel() + Math.max(p.getXpToLevel() * 0.05, 10)));
                 p.setHp(p.getHp() + Math.max(p.getLevel() << 1, 3));
                 p.setDamage((int) (p.getDamage() + Math.max(p.getLevel() * 0.5f, 2)));
                 p.setHealAmount(p.getHealAmount() + Math.max(p.getLevel(), 1));

@@ -42,6 +42,8 @@ public class Helper {
      */
 
     public static float getScaleFactor(int type, Enemy e) {
+//        System.out.println("Scaling " + e.getName() + " Type:  " + type);
+
         int level = e.getLevel();
         if (Main.player == null) {
             return 1;
@@ -54,22 +56,26 @@ public class Helper {
         }
         float multi = level/5f + 1;
         if (type == 0) {//hp scale
-            float num = (level / 4f) * multi;
+//            System.out.print("Initial hp: " + e.getBaseHp());
+            float num = (multi*  2) + (multi*0.2f);
+//            System.out.println(" -> " + (e.getBaseHp() * ((num) <= 1 ? 1 : (num))));
             return (num) <= 1 ? 1 : (num);
         } else if (type == 1) {// damage scale
-            float num = (((level) / 9f) * multi ) ;
-            return num <= 1 ? 1 : num;
+//            System.out.println("Initial damage: " + e.getDamage() + " -> " + (e.getDamage() * (level / 18f) * multi));
+            float num = (multi*  2) + (multi*0.2f) ;
+            return (num/e.getDamage()) <= 1 ? 1 : num/e.getDamage();
         } else if (type == 2) {
+//            System.out.println("Initial coins: " + e.getCoins() + " -> " + (e.getCoins() * (level / 10f)));
             float num = level / 10f;
             return (num) <= 1 ? 1 : (num); //coins scale
         }
-        if(e.getName().contains("Sprite")){
-            System.out.println("Sprite scale: " + (1 + (level / 5f)));
-        }
-        else{
-            System.out.println("Enemy scale: " + (1 + (level / 5f)));
-        }
         return 1 + (level / 5f);
+    }
+    public static int intendedHitsTaken(Enemy e){
+        return e.getBaseHp()/5;
+    }
+    public static int intendedHitsDealt(Enemy e){
+        return 40/e.getDamage();
     }
 
     /**

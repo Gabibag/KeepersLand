@@ -49,7 +49,7 @@ public class Main {
         if (saveList.size() != 0) {
             System.out.println("[-1] New Save");
             for (int i = 0; i < saveList.size(); i++) {
-                System.out.println("[" + i + "] " + saveList.get(i));
+                System.out.println("[" + i + "] " + saveList.get(i).substring(0, saveList.get(i).length() - 4));
             }
             saves = Helper.getInput( "",-1, saveList.size() - 1);
         }else{

@@ -361,7 +361,6 @@ public class Battle extends Interactable {
                 System.out.println("[3] Info" + Colors.RESET);
                 int choice = Helper.getInputDefault(Colors.RESET + "Current Health: " + col + p.getBattleHp() + Colors.RESET, 3, 1);
                 switch (choice) {
-                    //#region case1
                     case 1 -> {//attack
                         System.out.println(Colors.CLEAR);
 
@@ -417,7 +416,7 @@ public class Battle extends Interactable {
                 }
                 checkIfDead(p, enemies);
             }
-            Actions = p.getActionAmount();
+            Actions = 2;
 
         }
         if (p.getBattleHp() > 0 && enemies.size() == 0) {

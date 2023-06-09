@@ -68,8 +68,10 @@ public class Shop extends Interactable {
         //sort the list items by cost descending
         try {
             List<Item> items = getItems(Main.player);
-            if (Main.player.getMoney() >= items.get(0).getCost()) {
-                return Colors.GREEN + "Shop" + Colors.PURPLE;
+            for (int i = 0; i < items.size(); i++) {
+                if (Main.player.getMoney() >= items.get(i).getCost()) {
+                    return Colors.GREEN + "Shop" + Colors.PURPLE;
+                }
             }
         } catch (Exception e) {
             return "Shop";
