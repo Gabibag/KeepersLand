@@ -29,7 +29,7 @@ public class MutatedZombie extends Enemy {
 
     public int Attack(Player p, List<Enemy> allies) {
         this.damage += this.damage * 0.1 + 1;
-        System.out.println("The Mutated Zombie's " + Colors.YELLOW + "radiation" + Colors.RESET + Colors.RED + " burns " + Colors.RESET + "the player and grows" + Colors.RED + " stronger" + Colors.RESET + " next turn");
+        System.out.println("The Mutated Zombie's " + Colors.YELLOW + "radiation" + Colors.RESET + Colors.RED + " burns " + Colors.RESET + "the player and grows" + Colors.RED + " stronger" + Colors.RESET + " next turn " + "[" + Colors.RED + this.damage + Colors.RESET + "]");
         return this.damage;
     }
 

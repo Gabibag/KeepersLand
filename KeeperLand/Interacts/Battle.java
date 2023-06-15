@@ -377,6 +377,7 @@ public class Battle extends Interactable {
                             checkIfDead(p, enemies);
                         } else {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
+                            Helper.Sleep(1.5);
                         }
                     }
                     case 2 -> healPlayer(p, r, enemies);

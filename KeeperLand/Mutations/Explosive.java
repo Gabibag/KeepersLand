@@ -40,12 +40,13 @@ public class Explosive extends Mutations {
             self.setBattleHp(0);
         }
         if(rand <= 4){
-            System.out.println("The Explosive " + self.getName() + " fragments on being hit!" + "(" + self.getCoins() + Colors.CYAN + "◊" + Colors.CYAN + ")");
+            System.out.println("The Explosive " + self.getName() + " fragments on being hit!" + " (" + ((int) (self.getCoins() * 0.4)) + Colors.CYAN + "◊" + Colors.RESET + ")");
             for (Enemy enemy : e ) {
                 enemy.setBattleHp((int) (enemy.getBattleHp() - self.getDamage()*0.4));
             }
 
             player.setBattleHp((int) (player.getBattleHp() - self.getDamage()*0.4));
+            player.addMoney((int) (self.getCoins() * 0.4));
         }
     }
 }

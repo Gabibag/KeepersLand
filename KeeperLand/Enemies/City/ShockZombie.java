@@ -26,7 +26,7 @@ public class ShockZombie extends Enemy {
     }
 
     public int Attack(Player p, List<Enemy> allies) {
-        System.out.println("The mutant " + Colors.YELLOW + "shocks " + Colors.RESET + "everything around it");
+        System.out.println("The mutant " + Colors.YELLOW + "shocks " + Colors.RESET + "everything around it" + "[" + Colors.RED + (this.damage / 3) + Colors.RESET + "]");
         for (Enemy e : allies) {
             if (e != this) {
                 e.setBattleHp(e.getBattleHp() - (this.damage / 3));

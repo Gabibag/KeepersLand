@@ -55,19 +55,34 @@ public class Helper {
             tempDmg += i.getDmgIncr();
         }
         float multi = level/5f + 1;
-        if (type == 0) {//hp scale
-//            System.out.print("Initial hp: " + e.getBaseHp());
-            float num = (multi*  2) + (multi*0.2f);
-//            System.out.println(" -> " + (e.getBaseHp() * ((num) <= 1 ? 1 : (num))));
-            return (num) <= 1 ? 1 : (num);
-        } else if (type == 1) {// damage scale
-//            System.out.println("Initial damage: " + e.getDamage() + " -> " + (e.getDamage() * (level / 18f) * multi));
-            float num = (multi*  2) + (multi*0.2f) ;
-            return (num/e.getDamage()) <= 1 ? 1 : num/e.getDamage();
-        } else if (type == 2) {
-//            System.out.println("Initial coins: " + e.getCoins() + " -> " + (e.getCoins() * (level / 10f)));
-            float num = level / 10f;
-            return (num) <= 1 ? 1 : (num); //coins scale
+
+        if (Main.player.getStageNum() >= 10) { // scale diffrently in midgame
+            if (type == 0) {
+                float num = (multi*  2) + (multi*0.2f);
+                return (num) <= 1 ? 1 : (num);
+            }
+            else if (type == 1) {
+                float num = (multi*  2) + (multi*0.2f) ;
+                return (num/e.getDamage()) <= 1 ? 1 : num/e.getDamage();
+            }
+            else if (type == 2) {
+                float num = level / 20f;
+                return (num) <= 1 ? 1 : (num); //coins scale
+            }
+        }else if (Main.player.getStageNum() < 10){
+            if (type == 0) {
+                float num = (level / 4f) * multi;
+                return (num) <= 1 ? 1 : (num);
+            }
+            else if (type == 1) {
+                float num = (((level) / 9f) * multi );
+                return (num/e.getDamage()) <= 1 ? 1 : num/e.getDamage();
+            }
+            else if (type == 2) {
+                float num = level / 20f;
+                return (num) <= 1 ? 1 : (num); //coins scale
+            }
+
         }
         return 1 + (level / 5f);
     }
