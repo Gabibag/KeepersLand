@@ -108,57 +108,7 @@ public class Shop extends Interactable {
             System.out.println("[3] Inspect");
             System.out.println("[4] Sell Items");
             //System.out.print(Colors.RESET);
-            int maxNameLength = 0;
-            for (int i = 0; i < items.size(); i++) {
-                if (items.get(i).getName().length() > maxNameLength) {
-                    maxNameLength = items.get(i).getName().length();
-                }
-            }
-            int maxColLength = 0;
-            for(int i = 0; i<items.size(); i++){
-                if(String.valueOf(items.get(i).getHealVariance()).length() > maxColLength){
-                    maxColLength = String.valueOf(items.get(i).getHealVariance()).length();
-                } if (String.valueOf(items.get(i).getHealIncrease()).length() > maxColLength){
-                    maxColLength = String.valueOf(items.get(i).getHealIncrease()).length();
-                } if (String.valueOf(items.get(i).getHpIncr()).length() > maxColLength){
-                    maxColLength = String.valueOf(items.get(i).getHpIncr()).length();
-                } if (String.valueOf(items.get(i).getDmgIncr()).length() > maxColLength) {
-                    maxColLength = String.valueOf(items.get(i).getDmgIncr()).length();
-                }
-            }
-            try {
-                for (int i = 0; i < items.size(); i++) {
-                    StringBuilder spaceCount = new StringBuilder();
-                    StringBuilder variCount = new StringBuilder();
-                    StringBuilder hpCount = new StringBuilder();
-                    StringBuilder healCount = new StringBuilder();
-                    StringBuilder dmgCount = new StringBuilder();
-                    for (int j = 0; j < maxNameLength - items.get(i).getName().length() + 2; j++) {
-                        spaceCount.append(" ");
-                    }
-                    for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHealVariance()).length(); j++) {
-                        variCount.append(" ");
-                    }
-                    for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHpIncr()).length(); j++) {
-                        hpCount.append(" ");
-                    }
-                    for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHealIncrease()).length(); j++) {
-                        healCount.append(" ");
-                    }
-                    for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getDmgIncr()).length(); j++) {
-                        dmgCount.append(" ");
-                    }
-                    String col = Colors.PURPLE;
-                    if (items.get(i).getCost()<= player.getMoney()){
-                        col = Colors.GREEN;
-                    }
-                    System.out.println(
-                            Colors.CYAN+"[" + (i + 5) +"] " +  col + items.get(i).getName() + spaceCount +
-                                    Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + (items).get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + (items).get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + (items).get(i).getHealVariance() + variCount + Colors.CYAN + " ◊" + (items).get(i).getCost() + Colors.RESET+ (Helper.moreShopInfo ? Colors.RESET + " (" + (items).get(i).getDescription() + ")" : "") + Colors.RESET);
-                }
-            } catch (Exception e) {
-                //items.add(Item.empty);
-            }
+            displayList(items);
             int choice = Helper.getInput("", 0,
                     items.size() + 4);
             if (choice == 0) {
@@ -208,6 +158,64 @@ public class Shop extends Interactable {
                             "Bought " + i.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
                 }
             }
+        }
+    }
+
+    private static void displayList(List<Item> items) {
+        Player player = Main.player;
+        int maxNameLength = 0;
+        for (Item value : items) {
+            if (value.getName().length() > maxNameLength) {
+                maxNameLength = value.getName().length();
+            }
+        }
+        int maxColLength = 0;
+        for (Item item : items) {
+            if (String.valueOf(item.getHealVariance()).length() > maxColLength) {
+                maxColLength = String.valueOf(item.getHealVariance()).length();
+            }
+            if (String.valueOf(item.getHealIncrease()).length() > maxColLength) {
+                maxColLength = String.valueOf(item.getHealIncrease()).length();
+            }
+            if (String.valueOf(item.getHpIncr()).length() > maxColLength) {
+                maxColLength = String.valueOf(item.getHpIncr()).length();
+            }
+            if (String.valueOf(item.getDmgIncr()).length() > maxColLength) {
+                maxColLength = String.valueOf(item.getDmgIncr()).length();
+            }
+        }
+        try {
+            for (int i = 0; i < items.size(); i++) {
+                StringBuilder spaceCount = new StringBuilder();
+                StringBuilder variCount = new StringBuilder();
+                StringBuilder hpCount = new StringBuilder();
+                StringBuilder healCount = new StringBuilder();
+                StringBuilder dmgCount = new StringBuilder();
+                for (int j = 0; j < maxNameLength - items.get(i).getName().length() + 2; j++) {
+                    spaceCount.append(" ");
+                }
+                for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHealVariance()).length(); j++) {
+                    variCount.append(" ");
+                }
+                for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHpIncr()).length(); j++) {
+                    hpCount.append(" ");
+                }
+                for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getHealIncrease()).length(); j++) {
+                    healCount.append(" ");
+                }
+                for (int j = 0; j < maxColLength - String.valueOf(items.get(i).getDmgIncr()).length(); j++) {
+                    dmgCount.append(" ");
+                }
+                String col = Colors.PURPLE;
+                if (items.get(i).getCost()<= player.getMoney()){
+                    col = Colors.GREEN;
+                }
+                System.out.println(
+                        Colors.CYAN+"[" + (i + 5) +"] " +  col + items.get(i).getName() + spaceCount +
+                                Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + items.get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + items.get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + items.get(i).getHealVariance() + variCount + Colors.CYAN + " ◊" + items.get(i).getCost() + Colors.RESET+ (Helper.moreShopInfo ? Colors.RESET + " (" + items.get(i).getDescription() + ")" : "") + Colors.RESET);
+            }
+        } catch (Exception e) {
+            //items.add(Item.empty);
         }
     }
 

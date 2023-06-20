@@ -1,11 +1,10 @@
 package KeeperLand.Interacts;
 
 import KeeperLand.Abstracts.Interactable;
-import KeeperLand.Colors;
-import KeeperLand.Helper;
-import KeeperLand.Item;
-import KeeperLand.Player;
+import KeeperLand.*;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,6 +27,64 @@ public class Inventory extends Interactable {
     }
 
     private void inventory(Player p) {
+        List<Item> printItems = displayList(p);
+        int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info \n[0] Exit" + Colors.RESET, 0,
+                p.getInventory().size());
+
+        if (input != 0) {
+            Item inspect = printItems.get(input - 1);
+            System.out.println(inspect);
+            if (inspect.getName().toLowerCase().contains("shard")){
+                System.out.println(Colors.PURPLE + "[0]" + " Back" + Colors.RESET);
+                System.out.println(Colors.YELLOW + "[1]" + " Shatter" + Colors.RESET);
+                int c = Helper.getInput("", 0, 1);
+                if (c == 1){
+                    System.out.println(Colors.YELLOW + "Shattered " + inspect.getName() + Colors.RESET);
+                    p.getInventory().remove(inspect);
+                    //random number between 1 and 3
+                    int ran = (int) (Math.random() * 3) + 1;
+                    if (ran ==3){
+                        //assign a random item to the player using allItem from Main.java
+                        Item randomItem = Main.allItem.get((int) (Math.random() * Main.allItem.size()));
+                        while (randomItem.getName().toLowerCase().contains("shard")){
+                            randomItem = Main.allItem.get((int) (Math.random() * Main.allItem.size()));
+                        }
+                        System.out.println(Colors.YELLOW + "You got a " + randomItem.getName() + Colors.RESET);
+                        p.getInventory().add(randomItem);
+                    } else{
+                        //give back a percentage of the stats of the item to the player
+                        p.setDamage(p.getDamage() + inspect.getDmgIncr() / 3);
+                        p.setHp(p.getHp() + inspect.getHpIncr() / 3);
+                        p.setHealAmount(p.getHealAmount() + inspect.getHealIncrease() / 3);
+                        p.setHealVariance(p.getHealVariance() + inspect.getHealVariance() / 3);
+                        printAdded(inspect);
+                    }
+                    Helper.continuePrompt();
+                }
+            }
+            else Helper.Prompt("Press a enter when done");
+            System.out.println(Colors.CLEAR);
+            inventory(p);
+        }
+    }
+
+    private static void printAdded(Item inspect) {
+        if (inspect.getHealIncrease() / 3 > 0 || inspect.getHealVariance() / 3 > 0 || inspect.getHpIncr() / 3 > 0 || inspect.getDmgIncr() / 3 > 0) {
+            String printString = "You got ";
+            if (inspect.getDmgIncr() / 3 > 0)
+                printString += Colors.YELLOW + inspect.getDmgIncr() / 3 + " damage, " + Colors.RESET;
+            if (inspect.getHpIncr() / 3 > 0)
+                printString += Colors.YELLOW + inspect.getHpIncr() / 3 + " health, " + Colors.RESET;
+            if (inspect.getHealIncrease() / 3 > 0)
+                printString += Colors.YELLOW + inspect.getHealIncrease() / 3 + " heal amount, " + Colors.RESET;
+            if (inspect.getHealVariance() / 3 > 0)
+                printString += Colors.YELLOW + inspect.getHealVariance() / 3 + " heal variance, " + Colors.RESET;
+            printString = printString.substring(0, printString.length() - 2);
+            System.out.println(printString);
+        }
+    }
+
+    private static @NotNull List<Item> displayList(Player p) {
         System.out.println(p.getName() + "'s inventory: ");
         System.out.println("Current Balance " + Colors.CYAN + p.getMoney() + "◊");
         System.out.println("⚔ = Damage, ❤ = Health, ✧ = Heal, ⚕ = Heal Variance");
@@ -39,7 +96,8 @@ public class Inventory extends Interactable {
                 iCount.put(i.getName(), 1);
             }
         }
-        List<Item> printItems = p.getInventory();
+        //copy the player's inventory to a new list
+        List<Item> printItems = new ArrayList<>(p.getInventory());
 //        printItems.addAll(p.getInventory());
         //check if the item is already in the list, if it is, remove the item from the list
         for (int i = 0; i < printItems.size(); i++) {
@@ -69,8 +127,8 @@ public class Inventory extends Interactable {
                 maxColLength = String.valueOf(printItems.get(i).getDmgIncr()).length();
             }
         }
-        
-        
+
+
         int count = 1;
         //if the item in printItems is a shard, bring it to the top
         for (int i = printItems.size() - 1; i >= 0; i--) {
@@ -120,16 +178,8 @@ public class Inventory extends Interactable {
                             Colors.RED + " ⚔" + items.getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + (items).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + (items).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + (items).getHealVariance() + variCount + " x" + iCount.get(items.getName()) + " " + (Helper.moreShopInfo ? Colors.RESET + " (" + (items).getDescription() + ")" : "") + Colors.RESET);
             count++;
         }
-        int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info \n[0] Exit" + Colors.RESET, 0,
-                p.getInventory().size());
 
-        if (input != 0) {
-            Item inspect = printItems.get(input - 1);
-            System.out.println(inspect);
-            Helper.Prompt("Press a enter when done");
-            System.out.println(Colors.CLEAR);
-            inventory(p);
-        }
+        return printItems;
     }
 
     public String getName() {
