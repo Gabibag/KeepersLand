@@ -27,7 +27,7 @@ public class Helper {
     }
 
     public static void Sleep(double s) {
-        s = (speedMode ? s / 4 : s);
+        s = (speedMode ? 0 : s);
         try {
             TimeUnit.MILLISECONDS.sleep((long) (s * 1000));
         } catch (InterruptedException e) {

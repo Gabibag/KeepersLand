@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import static KeeperLand.Interacts.BossFight.healPlayer;
 import static KeeperLand.Main.player;
 
 public class Battle extends Interactable {
@@ -327,7 +326,8 @@ public class Battle extends Interactable {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println("Failed to create a new enemy object, check your cnstr type:");
             e.printStackTrace();
         }
@@ -342,6 +342,33 @@ public class Battle extends Interactable {
             }
         }
         Main.currentPlace.BattleStart(p, enemies);
+        whileAlive(enemies);
+        battleEnd(enemies);
+
+    }
+
+    static void battleEnd(List<Enemy> enemies) {
+        Player p = Main.player;
+        if (p.getBattleHp() > 0 && enemies.size() == 0) {
+            //TODO drops
+            System.out.println("You won!");
+            p.incStageNum(1);
+            p.Save(p.getName() + ".plr");
+
+        }
+        //occurs after battle ends
+        p.setDead(false);
+        updateItems(p, 2);
+        Main.getNewPlace();
+        p.setBattleHp(p.getHp());
+        p.setActionAmount(2);
+        Helper.Sleep(1);
+    }
+
+    static void whileAlive(List<Enemy> enemies) {
+        Player p = Main.player;
+        Random r = new Random();
+        int Actions = p.getActionAmount();
         while (enemies.size() > 0) {
             removeDead(enemies);
             //tell user their stage number and environment
@@ -354,11 +381,7 @@ public class Battle extends Interactable {
                 System.out.println();
                 //updateItems(p, 3);
                 printHealth(enemies);
-                System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
-                System.out.println(Colors.PURPLE +
-                        "[1] Attack");
-                System.out.println("[2] Heal");
-                System.out.println("[3] Info" + Colors.RESET);
+                printActions(Actions);
                 int choice = Helper.getInputDefault(Colors.RESET + "Current Health: " + col + p.getBattleHp() + Colors.RESET, 3, 1);
                 switch (choice) {
                     case 1 -> {//attack
@@ -369,9 +392,14 @@ public class Battle extends Interactable {
                         } else {
                             enemyAttackChoice(enemies);
                             choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
+                            if (enemies.get(choice).getName().contains("Keeper")){
+                                System.out.println("You are not allowed to attack the Keeper until you kill the other enemies!");
+                                Helper.Sleep(1);
+                                Actions++;
+                                continue;
+                            }
                             System.out.println(Colors.CLEAR);
                         }
-
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             playerAttack(p, enemies, choice);
                             checkIfDead(p, enemies);
@@ -421,21 +449,14 @@ public class Battle extends Interactable {
             Actions = p.getActionAmount();
 
         }
-        if (p.getBattleHp() > 0 && enemies.size() == 0) {
-            //TODO drops
-            System.out.println("You won!");
-            p.incStageNum(1);
-            p.Save(p.getName() + ".plr");
+    }
 
-        }
-        //occurs after battle ends
-        p.setDead(false);
-        updateItems(p, 2);
-        Main.getNewPlace();
-        p.setBattleHp(p.getHp());
-        p.setActionAmount(2);
-        Helper.Sleep(1);
-
+    public static void printActions(int Actions) {
+        System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
+        System.out.println(Colors.PURPLE +
+                "[1] Attack");
+        System.out.println("[2] Heal");
+        System.out.println("[3] Info" + Colors.RESET);
     }
 
     @Override
@@ -443,5 +464,59 @@ public class Battle extends Interactable {
         return "Battle";
     }
 
+    static void healPlayer(Player p, Random r, List<Enemy> enemies) {
+        ArrayList<Enemy> mutated = new ArrayList<>();
+        for (Enemy e : enemies) {
+            if (e.getMutate()==null){
+                continue;
+            }
+            mutated.add(e);
+        }
 
+        int max = (int) (p.getHp() + p.getHp()*0.2); //allows a slight over heal
+        for (Item i : p.getInventory()) {
+            max += (i.getHpIncr());
+        }
+        if(p.getBattleHp() >= max){
+            System.out.println("You are already at full health!");
+            Helper.continuePrompt();
+            return;
+        }
+        double h = (double) p.getBattleHp() / (double) max; // heals less the lower your health is.
+
+        int healAmount =
+                (int) ((p.getHealAmount()) * Math.min(h, 0.5));
+        int variance = (r.nextInt((p.getHealVariance() << 1)) - p.getHealVariance());
+        if (variance>0){
+            variance *=h;
+        }
+        healAmount += variance;
+
+
+        if (healAmount < 0) {
+            healAmount = 0;
+        } else if (healAmount + p.getBattleHp() >= max) {
+            p.setBattleHp(max);
+            System.out.println("You healed to"+ Colors.RED + " full"+ Colors.RESET + " health!");
+            for (Enemy e : mutated) {
+                e.getMutate().onHeal(enemies, healAmount, e);
+            }
+            return;
+        }
+        if (healAmount == 0) {
+            healAmount = 1;
+        }
+        p.setBattleHp(p.getBattleHp() + healAmount);
+        System.out.println(Colors.RED + ((healAmount + p.getBattleHp() ==
+                max) ? "You healed to full health" :
+                "You healed " + healAmount + " health") + Colors.RESET);
+
+        for (Enemy e : mutated) {
+            e.getMutate().onHeal(enemies, healAmount, e);
+        }
+        for (StatusEffects s : p.getStatusEffects()) {
+            s.tickEffect(p, null, enemies, "playerHeal", healAmount);
+        }
+
+    }
 }

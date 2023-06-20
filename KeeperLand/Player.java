@@ -285,9 +285,13 @@ public class Player {
             tempHeal += i.getHealIncrease();
             tempHealVar += i.getHealVariance();
         }
-        return "Name: " + this.name + "\nHP: " + tempHp + "\nDamage: " + tempDmg + "\nMoney: " + this.money +
-                "\nHeal Variance: " + tempHealVar + "\nHeal Amount: " + tempHeal + "\nLevel: " +
-                this.level + "\nXp: " + this.xp + "\nLevel Requirement: " + this.xpToLevel + "\nStage Number: " +
+        String c = Colors.PURPLE;
+        String r = Colors.RESET;
+        return c + "Name: " + r + this.name + c + "\nHP: " + Colors.RED + tempHp + c + "\nDamage: " + Colors.RED + tempDmg
+                + c + "\nMoney: " + Colors.CYAN +  this.money + c +
+                "\nHeal Variance: " + Colors.YELLOW + tempHealVar + c + "\nHeal Amount: " + Colors.YELLOW+  tempHeal +c +  "\nLevel: " +
+                 Colors.BLUE + this.level +c + "\nXp: " + Colors.BLUE + this.xp + c + "\nLevel Requirement: " + r+ this.xpToLevel
+                + c + "\nStage Number: " + r+
                 this.stageNum;
 
     }

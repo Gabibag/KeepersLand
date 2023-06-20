@@ -113,7 +113,8 @@ public class DemonLord extends Boss {
             System.out.println();
             DemonLord.End = false;
             return dmg;
-        } catch (InterruptedException | ExecutionException e) {
+        }
+        catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         System.out.println("Failed to get result");

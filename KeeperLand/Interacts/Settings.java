@@ -13,12 +13,12 @@ public class Settings extends Interactable {
 
     public void onChoose(Player p) {
         System.out.println("Settings:");
-        System.out.println("[0] Exit");
+        System.out.println(Colors.PURPLE + "[0] Exit");
         System.out.println("[1] Change Name");
         System.out.println("[2] Modify Saves");
         System.out.println("[3] Save");
-        System.out.println((Helper.speedMode ? Colors.GREEN : Colors.RESET) + "[4] Toggle Speed Mode" + Colors.RESET);
-        System.out.println((Helper.moreShopInfo ? Colors.GREEN : Colors.RESET) + "[5] More Shop Info" + Colors.RESET);
+        System.out.println((Helper.speedMode ? Colors.GREEN : Colors.PURPLE) + "[4] Toggle Speed Mode" + Colors.PURPLE);
+        System.out.println((Helper.moreShopInfo ? Colors.GREEN : Colors.PURPLE) + "[5] More Shop Info" + Colors.RESET);
         int choice = Helper.getInput("Enter a number: ", 0, 5);
         switch (choice) {
             case 0 -> {
