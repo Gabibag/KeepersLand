@@ -392,10 +392,10 @@ public class Battle extends Interactable {
                         } else {
                             enemyAttackChoice(enemies);
                             choice = Helper.getInput("\nPlayer " + p.getBattleHp() + "hp: ", enemies.size());
-                            if (enemies.get(choice).getName().contains("Keeper")){
+                            if (enemies.get(choice-1).getName().contains("Keeper")){
                                 System.out.println("You are not allowed to attack the Keeper until you kill the other enemies!");
                                 Helper.Sleep(1);
-                                Actions++;
+//                                Actions++;
                                 continue;
                             }
                             System.out.println(Colors.CLEAR);

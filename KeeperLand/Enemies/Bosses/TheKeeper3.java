@@ -1,8 +1,12 @@
 package KeeperLand.Enemies.Bosses;
 
+import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.FinalBoss;
 import KeeperLand.*;
+import KeeperLand.Enemies.Common.ItemEntity;
+import KeeperLand.Enemies.Graveyard.Skeleton;
+import KeeperLand.Mutations.None;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -76,33 +80,66 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
     @Override
     public int Attack(Player p, List<Enemy> allies) {
         //make the keeper add 2 more enemies to the list of allies if allies has 0 enemies other than itself
-        if (allies.size() == 1) {
-            List<Enemy> temp = Main.allEnemies;
-            for (Enemy e : temp) {
-                //check if the enemy's name is "invalid" or "Severed Skeleton Hand" or "The Keeper". if it is, remove it from temp
-                if (e.getName().equals("invalid") || e.getName().equals("Severed Skeleton Hand") || e.getName().contains("The Keeper")) {
-                    temp.remove(e);
-                }
-            }
-
+        if (allies.size() <=1) {
+            List<Enemy> temp = new ArrayList<>(Main.allEnemies);
             try {
-                allies.add(temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance());
-                allies.add(temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance());
+                for (int i = 0; i < 2; i++) {
+                    Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
+                    while (e instanceof FinalBoss || e instanceof ItemEntity ) {
+                        e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
+                    }
+                    allies.add(e);
+                }
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println("The keeper created 2 more allies! (Tip: make sure you have one action to deal damage to the keeper before killing the other enemies.)");
+            Helper.continuePrompt();
         }
-        System.out.println("The keeper created 2 more allies! (Tip: make sure you have one action to deal damage to the keeper before killing the other enemies.)");
-        Helper.continuePrompt();
         return 0;
     }
 
     @Override
     public void bossOnSpawn(List<Enemy> enemies) {
+        enemies.add(this);
+        this.mutate = new None();
         //for drops in TheKeeper, create a new enemy with the same stats as the drop
         //then add it to the list of enemies
         List<Item> tempItems = new ArrayList<>();
+        displayBossSpawnMessage();
+        System.out.println(Colors.CLEAR);
+        List<Enemy> temp = new ArrayList<>(Main.allEnemies);
+        /*for (int i = 0; i < temp.size(); i++) {
+            if (temp.get(i).getName().equalsIgnoreCase("Invalid") || temp.get(i).getName().equalsIgnoreCase("Severed Skeleton Hand") || temp.get(i).getName().equals("The Keeper")) {
+                temp.remove(i);
+                i--;
+            }
+        }*/
+        //remove all ItemEntity s in the list of enemies
+        for (int i = temp.size() - 1; i >= 0; i--) {
+            if (temp.get(i) instanceof ItemEntity) {
+                temp.remove(i);
+                i--;
+            }
+        }
+
+        try {
+            for (int i = 0; i < 2; i++) {
+                Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
+                if (e instanceof ItemEntity || e instanceof Boss){
+                    e = new Skeleton();
+                }
+                enemies.add(e);
+            }
+
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void displayBossSpawnMessage() {
         //tell the user that they're going to die in a threatning paragraph
         int essay = Main.r.nextInt(10);
         if (essay == 2) {
@@ -208,20 +245,6 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
             System.out.println(" are just a mere player");
             Helper.Sleep(1);
             Helper.continuePrompt();
-        }
-        System.out.println(Colors.CLEAR);
-        //Uh so yeah that worked. we're keeping this.
-        List<Enemy> temp = Main.allEnemies;
-        //check if the enemy's name is "invalid" or "Severed Skeleton Hand" or "The Keeper". if it is, remove it from temp
-        temp.removeIf(e -> e.getName().equals("invalid") || e.getName().equals("Severed Skeleton Hand") ||
-                e.getName().contains("The Keeper"));
-
-        try {
-            enemies.add(temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance());
-            enemies.add(temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance());
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                 NoSuchMethodException e) {
-            throw new RuntimeException(e);
         }
     }
 

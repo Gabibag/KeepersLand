@@ -1,8 +1,8 @@
 package KeeperLand.Interacts;
 
-import KeeperLand.*;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Interactable;
+import KeeperLand.*;
 import KeeperLand.Enemies.Bosses.TheKeeper;
 import KeeperLand.Enviroments.NullZone;
 
@@ -22,25 +22,23 @@ public class BossFight extends Interactable {
         //if it doesn't, return "Locked"
         if (Main.player != null) {
             ArrayList<Item> inventoryTrunk = new ArrayList<>(Main.player.getInventory());
-            for (int i = inventoryTrunk.size() - 1; i >= 0; i--) {
-                if (!inventoryTrunk.get(i).getName().contains("Shard")) {
-                    inventoryTrunk.remove(inventoryTrunk.get(i));
-                }
-            }
+            inventoryTrunk.removeIf(item -> !item.getName().contains("Shard"));
             int shardCounter = 0;
             for (int j = inventoryTrunk.size() - 1; j >= 0; ) {
                 Item item = inventoryTrunk.get(j);
-                for (int i = inventoryTrunk.size() - 1; i >= 0; i--) {
+                for (int i = 0; i < inventoryTrunk.size(); i++) {
                     //check if item1's name is the same as item's name, if it is, remove it
                     if (inventoryTrunk.get(i).getName().equals(item.getName())) {
-                        inventoryTrunk.remove(inventoryTrunk.get(i));
-                        j--;
+                        int count = inventoryTrunk.size();
+                        inventoryTrunk.removeIf(item1 -> item1.getName().equals(item.getName()) && item1 != item);
+                        count -= inventoryTrunk.size();
+                        j -= count;
                     }
                 }
                 shardCounter++;
-
+                if (shardCounter >= 6) break;
             }
-            return shardCounter >= 6 ? "Boss Fight" : "Locked";
+            return shardCounter == 6 ? "Boss Fight" : "Locked";
         }
         return "Locked";
     }

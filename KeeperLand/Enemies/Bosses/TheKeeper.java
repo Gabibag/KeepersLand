@@ -2,8 +2,10 @@ package KeeperLand.Enemies.Bosses;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.FinalBoss;
+import KeeperLand.Helper;
 import KeeperLand.Item;
 import KeeperLand.Main;
+import KeeperLand.Mutations.None;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -35,10 +37,11 @@ public class TheKeeper extends FinalBoss {
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         System.out.println("The Keeper has been defeated!");
         System.out.println("The Keeper has ascended to stage two!");
+        Helper.continuePrompt();
         List<Item> items = allies.get(0).getDrops();
         allies.clear();
         allies.add(new TheKeeper2());
-        (allies.get(0)).setDrops(items);
+//        (allies.get(0)).setDrops(items);
         ((FinalBoss) allies.get(0)).bossOnSpawn(allies);
 
 
@@ -53,6 +56,7 @@ public class TheKeeper extends FinalBoss {
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
 
+        this.mutate = new None();
     }
 
     @Override

@@ -5,9 +5,10 @@ import KeeperLand.Abstracts.FinalBoss;
 import KeeperLand.Colors;
 import KeeperLand.Enemies.Common.ItemEntity;
 import KeeperLand.Item;
+import KeeperLand.Main;
+import KeeperLand.Mutations.None;
 import KeeperLand.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
@@ -29,16 +30,19 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
 
     @Override
     public boolean canSpawn(Player p) {
-        return false; //75% spawn chance
+        return false;
     }
 
     @Override
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         allies.clear();
         System.out.println(Colors.CLEAR);
-        System.out.println("You found a Mystical Crystal!");
+        System.out.println("You found a" + Colors.YELLOW + " Keeper Shard" + Colors.RESET + "!");
         if (allies.size() > 0) {
             allies.subList(0, allies.size()).clear();
+        }
+        for (Item drop : this.getDrops()) {
+            Main.player.getInventory().add(drop);
         }
         allies.add(new TheKeeper3());
         ((FinalBoss) allies.get(0)).bossOnSpawn(allies);
@@ -53,40 +57,52 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
 
     @Override
     public void bossOnSpawn(List<Enemy> enemies) {
+        enemies.add(this);
+        this.mutate = new None();
         //for drops in TheKeeper, create a new enemy with the same stats as the drop
         //then add it to the list of enemies
-        List<Item> tempItems = new ArrayList<>();
-        for (Item item : this.drops) {
+//        List<Item> tempItems = new ArrayList<>();
+        List<Item> inventory = Main.player.getInventory();
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
             ItemEntity temp = new ItemEntity();
-            temp.setBaseStats(item.getHpIncr() + item.getHealIncrease() + item.getCost(), item.getDmgIncr() + item.getHealVariance(), "Animated " + item.getName());
-            //if item's hpIncr is 0, don't add it to the list
-            //check if the temp's base health is over 100. if it is, set it to 100.
-            if (temp.getBaseHp() > 100) {
-                temp.setBaseHp(100);
-            }//do the same with damage but set the cap to 10
-            if (temp.getDamage() > 10) {
-                temp.setDamage(10);
-            }
+            temp.setBaseStats(item.getHpIncr() + item.getHealIncrease(), item.getDmgIncr() + item.getHealVariance(), "Animated " + item.getName());
             if (temp.getBaseHp() != 0 && item.getDmgIncr() != 0) {
                 enemies.add(temp);
+                Main.player.getInventory().remove(item);
+                this.addDrops(item);
             }
         }
         for (int mainEntity = enemies.size() - 1; mainEntity >= 0; mainEntity--) {
             ItemEntity e;
-            try {
+            try { //if item is self, skip
                 e = ((ItemEntity) enemies.get(mainEntity));
             } catch (Exception ex) {
                 continue;
             }
             for (int j = enemies.size() - 1; j >= 0; j--) {
-                if (e.getName().equals(enemies.get(j).getName()) && mainEntity != j) {
+                if (e.getName().contains(enemies.get(j).getName()) && mainEntity != j) {
                     e.setBaseHp(enemies.get(j).getBaseHp() + e.getBaseHp());
+                    e.setBattleHp(e.getBaseHp());
+                    e.setDamage((int) (enemies.get(j).getDamage()*0.5 + e.getDamage()));
                     enemies.remove(j);
                     mainEntity--;
                     e.setCount(e.getCount() + 1);
-//                  e.setName(e.getName() + " x" + e.getCount());
+
+
                 }
             }
         }
+        //add the count of the item to the name
+        for (Enemy e : enemies) {
+            if (e instanceof ItemEntity temp) {
+                if (temp.getCount() > 1) {
+                    temp.setName(temp.getName() + " x" + temp.getCount());
+                }
+            }
+        }
+
+
+
     }
 }
