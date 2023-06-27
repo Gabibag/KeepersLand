@@ -18,7 +18,7 @@ public class Explosive extends Mutations {
 
     @Override
     public void onDeath(List<Enemy> e, Enemy self) {
-        System.out.println("The Explosive " + self.getName() + " explodes on death!" + "(" + self.getCoins() + Colors.CYAN + "◊" + Colors.CYAN + ")");
+        System.out.println("The Explosive " + self.getName() + " explodes on death!" + "(" + self.getCoins() + Colors.CYAN + "◊" + Colors.RESET + ")");
         for (Enemy enemy : e) {
             if(enemy == self) {
                 continue;

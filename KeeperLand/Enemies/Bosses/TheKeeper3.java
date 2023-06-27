@@ -6,6 +6,7 @@ import KeeperLand.Abstracts.FinalBoss;
 import KeeperLand.*;
 import KeeperLand.Enemies.Common.ItemEntity;
 import KeeperLand.Enemies.Graveyard.Skeleton;
+import KeeperLand.Enemies.Lava.Overlord;
 import KeeperLand.Mutations.None;
 
 import java.lang.reflect.InvocationTargetException;
@@ -94,10 +95,15 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("The keeper created 2 more allies! (Tip: make sure you have one action to deal damage to the keeper before killing the other enemies.)");
-            Helper.continuePrompt();
+            System.out.println("The Keeper " + Colors.RED + "summons " + Colors.RESET + " " +checkIfaN(allies.get(1).getName()) + allies.get(1).getName() + " and " + checkIfaN(allies.get(2).getName() ) + " " + allies.get(2).getName() + " to fight for him!");
         }
         return 0;
+    }
+    public String checkIfaN(String str){
+        if (str.startsWith("a") || str.startsWith("e") || str.startsWith("i") || str.startsWith("o") || str.startsWith("u")) {
+            return "an";
+        }
+        return "a";
     }
 
     @Override
@@ -127,9 +133,13 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
         try {
             for (int i = 0; i < 2; i++) {
                 Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
-                if (e instanceof ItemEntity || e instanceof Boss){
+                while (e instanceof ItemEntity || e instanceof Boss){
+                    e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
+                }
+                if(e instanceof Overlord && Main.r.nextInt(10) != 1){
                     e = new Skeleton();
                 }
+
                 enemies.add(e);
             }
 

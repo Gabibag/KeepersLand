@@ -1,5 +1,6 @@
 package KeeperLand.Mutations;
 
+import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Mutations;
 import KeeperLand.Colors;
@@ -37,7 +38,7 @@ public class Undead extends Mutations {
     @Override
     public void onKill(List<Enemy> e, Enemy self, Enemy killed) {
 
-        if(killed.getName().contains("Revived ") || killed == self){
+        if(killed.getName().contains("Revived ") || killed == self|| killed instanceof Boss){
             return;
         }
         //revive killed with 40% hp and rename it to add "Undead" to the name

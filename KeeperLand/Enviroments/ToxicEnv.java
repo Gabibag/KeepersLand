@@ -42,7 +42,7 @@ public class ToxicEnv extends Enviorment {
     }
 
     public int modifyEnemyDamage(int preChange) {
-        int dmgInc = Main.r.nextInt(3);
+        int dmgInc = Main.r.nextInt(3 * Main.player.getStageNum()/2);
         if ((dmgInc == 0) || (preChange == 0)) {
             return preChange;
         }

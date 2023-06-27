@@ -84,7 +84,7 @@ public class Main {
             Main.currentPlace = new StarterLand();
         }
         //region testing
-        if (player.getName().equals("among us") || player.getName().equals("test")) {
+        if (player.getName().contains("among us") || player.getName().contains("atest")) {
             player.incStageNum(10);
             player.setHealAmount(100);
             player.addMoney(99999);
@@ -95,7 +95,7 @@ public class Main {
                     Arrays.asList(ItemData.ShatteredShard, ItemData.HellShard, ItemData.DeathShard, ItemData.OmegaShard,
                             ItemData.SpriteShard, ItemData.HealingShard, ItemData.GlitchedShard));
             Main.currentPlace = new GatesToHell();
-        } else if (player.getName().equalsIgnoreCase("playtest") || player.getName().equalsIgnoreCase("ptest")) {
+        } else if (player.getName().contains("playtest") || player.getName().contains("ptest")) {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < 19; i++) {
@@ -110,7 +110,7 @@ public class Main {
             player.incStageNum(19);
             System.out.println("sussy");
             Main.currentPlace = new LavaZone();
-        } else if (player.getName().equalsIgnoreCase("runThrough") || player.getName().equalsIgnoreCase("rtest")) {
+        } else if (player.getName().contains("runThrough") || player.getName().contains("rtest")) {
             int lvl = Helper.getInput("What level would you like to be at?", 99999999);
             List<Enemy> spawns;
             List<Enemy> tempenemies;
@@ -143,7 +143,7 @@ public class Main {
             currentPlace = allPlaces.get(location);
             //add all items that have the word "shard" in them from the list allItems
             for (Item i : allItem) {
-                if (i.getName().toLowerCase().contains("shard")) {
+                if (i.getName().toLowerCase().contains("shard") && !i.getName().toLowerCase().contains("keeper")) {
                     player.addInventory(i);
                 }
             }

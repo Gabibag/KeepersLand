@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import static KeeperLand.Main.player;
+
 public class Helper {
     public static boolean speedMode = false;
     public static boolean moreShopInfo = false;
@@ -43,48 +45,41 @@ public class Helper {
 
     public static float getScaleFactor(int type, Enemy e) {
 //        System.out.println("Scaling " + e.getName() + " Type:  " + type);
-
+        //type 0 = hp, 1 = damage, 2 = coins
         int level = e.getLevel();
-        if (Main.player == null) {
+        if (player == null) {
             return 1;
         }
-        int tempHp = Main.player.getHp();
-        int tempDmg = Main.player.getDamage();
-        for (Item i : Main.player.getInventory()) {
+        int tempHp = player.getHp();
+        int tempDmg = player.getDamage();
+        for (Item i : player.getInventory()) {
             tempHp += i.getHpIncr();
             tempDmg += i.getDmgIncr();
         }
         float multi = level/5f + 1;
 
-        if (Main.player.getStageNum() >= 10) { // scale diffrently in midgame
-            if (type == 0) {
-                float num = (multi*  2) + (multi*0.2f);
-                return (num) <= 1 ? 1 : (num);
-            }
-            else if (type == 1) {
-                float num = (multi*  2) + (multi*0.2f) ;
-                return (num/e.getDamage()) <= 1 ? 1 : num/e.getDamage();
-            }
-            else if (type == 2) {
-                float num = level / 20f;
-                return (num) <= 1 ? 1 : (num); //coins scale
-            }
-        }else if (Main.player.getStageNum() < 10){
-            if (type == 0) {
-                float num = (level / 4f) * multi;
-                return (num) <= 1 ? 1 : (num);
-            }
-            else if (type == 1) {
-                float num = (((level) / 9f) * multi );
-                return (num/e.getDamage()) <= 1 ? 1 : num/e.getDamage();
-            }
-            else if (type == 2) {
-                float num = level / 20f;
-                return (num) <= 1 ? 1 : (num); //coins scale
-            }
-
+        if (type == 0) {
+            float num = (multi*  2) + (multi*0.2f);
+            return (num) <= 1 ? 1 : (num);
         }
-        return 1 + (level / 5f);
+        else if (type == 1) {
+            float num = (multi*  2) + (tempHp *0.05f) ;
+            if (e.getLevel() >= 20 && e.getLevel() < 30 ) {
+                num = (multi*  2) + (tempHp*0.1f) ;
+            }else if (e.getLevel() >= 30 && e.getLevel() < 40 ) {
+                num = (multi*  2) + (tempHp*0.2f) ;
+            } else if (e.getLevel() >= 40) {
+                num = (multi*  2) + (tempHp * 0.3f);
+
+            }
+            return Math.max((num/e.getDamage()), 1);
+        }
+        else if (type == 2) {
+            float num = level / 20f;
+            return (num) <= 1 ? 1 : (num); //coins scale
+        }
+
+        return 1 + (level / 5f); //just in case
     }
     public static int intendedHitsTaken(Enemy e){
         return e.getBaseHp()/5;

@@ -108,16 +108,23 @@ public class Battle extends Interactable {
             System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
         }
 
-        System.out.println("[" + (enemies.size() + 1) + "] Environment Info" + Colors.RESET);
-        int choiceInfo = Helper.getInput("", 0, enemies.size() + 1);
+        System.out.println("[" + (enemies.size() + 1) + "] Environment Info");
+        System.out.println("[" + (enemies.size() + 2) + "] Stats");
+        System.out.println("[" + (enemies.size() + 3) + "] Inventory" +  Colors.RESET);
+        int choiceInfo = Helper.getInput("", 0, enemies.size() + 3);
 
         if (choiceInfo == 0) return;
-        Enemy e = enemies.get(choiceInfo - 1);
-        if (choiceInfo == (enemies.size() + 1)) {
+        else if (choiceInfo == (enemies.size() + 1)) {
             System.out.println(
                     "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
-            Helper.Prompt("Press Enter");
+        }
+        else if (choiceInfo == enemies.size() + 2) {
+            System.out.println(player);
+        } else if (choiceInfo == enemies.size() + 3) {
+
+            new Inventory().inventory(player);
         } else if (choiceInfo > 0 && choiceInfo < enemies.size() + 1) {
+            Enemy e = enemies.get(choiceInfo - 1);
             System.out.println(e.getName() + ":");
             System.out.println(
                     Colors.RED_BRIGHT + "Max Health: " + enemies.get((choiceInfo - 1)).getBaseHp() + Colors.RESET);
@@ -127,8 +134,8 @@ public class Battle extends Interactable {
             System.out.println(
                     Colors.RED_BRIGHT + "Dodge Rate: " + e.getDodgeRate()
                             + Colors.RESET);
-            Helper.continuePrompt();
         }
+        Helper.continuePrompt();
         inv(enemies);
 
     }  //TODO get location + opponent info

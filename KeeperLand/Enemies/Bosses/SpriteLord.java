@@ -33,7 +33,10 @@ public class SpriteLord extends Boss {
         for (int i = 0; i < 5; i++) {
             //add random elements of the list allSprites in main to allies
             try {
-                allies.add(Main.allSprites.get(Main.r.nextInt(0, Main.allSprites.size() - 1)).getClass().getDeclaredConstructor().newInstance());
+                Enemy e = Main.allSprites.get(Main.r.nextInt(0, Main.allSprites.size() - 1)).getClass().getDeclaredConstructor().newInstance();
+                e.setLevel(this.getLevel());
+                e.setMutate(Main.allMutations.get(Main.r.nextInt(0, Main.allMutations.size() - 1)));
+                allies.add(e);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
@@ -45,7 +48,15 @@ public class SpriteLord extends Boss {
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
         for (int i = 0; i < 4; i++) {
-            allies.add(Main.allSprites.get(Main.r.nextInt(0, Main.allSprites.size() - 1)));
+            Enemy e = null;
+            try {
+                e = Main.allSprites.get(Main.r.nextInt(0, Main.allSprites.size() - 1)).getClass().getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+                throw new RuntimeException(ex);
+            }
+            e.setLevel(this.getLevel());
+            e.setMutate(Main.allMutations.get(Main.r.nextInt(0, Main.allMutations.size() - 1)));
+            allies.add(e);
         }
         System.out.println("""
 

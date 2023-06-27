@@ -21,7 +21,7 @@ public class Poison extends StatusEffects {
             this.duration--;
         } else if (turnType.equals("playerHeal")) {
             double rand = r.nextDouble(0.1, 0.3);
-            System.out.println("Your poison effect reduces your healing by " + (int) (rand * 100) + "% (" + (num + "->" + (int)(num * rand) + ")"));
+            System.out.println("Your poison effect reduces your healing by " + (int) (rand * 100) + "% (" + (num + "->" + (int)(num - (num * rand)) + ")"));
             p.setBattleHp((int) (p.getBattleHp() - num * rand));
         }
         super.tickEffect(p, e, enemies, turnType, num);

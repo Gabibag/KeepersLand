@@ -18,7 +18,7 @@ public abstract class Boss extends Enemy {
         return "Boss";
     }
 
-    public abstract void bossOnSpawn(List<Enemy> enemies);
+    public abstract void bossOnSpawn(List<Enemy> enemies) ;
 
     public int getTokens() {
         return tokens;

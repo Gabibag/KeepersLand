@@ -26,7 +26,7 @@ public class Inventory extends Interactable {
 
     }
 
-    private void inventory(Player p) {
+    public void inventory(Player p) {
         List<Item> printItems = displayList(p);
         int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info \n[0] Exit" + Colors.RESET, 0,
                 p.getInventory().size());
