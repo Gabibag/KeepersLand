@@ -75,7 +75,7 @@ public class Helper {
             return Math.max((num/e.getDamage()), 1);
         }
         else if (type == 2) {
-            float num = level / 20f;
+            float num = level / 40f;
             return (num) <= 1 ? 1 : (num); //coins scale
         }
 

@@ -22,6 +22,9 @@ public class Inventory extends Interactable {
         } else if (c == 2) {
             System.out.println(p);
             Helper.continuePrompt();
+        }else {
+            System.out.println("Invalid input");
+            onChoose(p);
         }
 
     }
@@ -62,7 +65,15 @@ public class Inventory extends Interactable {
                     Helper.continuePrompt();
                 }
             }
-            else Helper.Prompt("Press a enter when done");
+            else {
+                System.out.println(Colors.PURPLE + "[0]" + " Back" + Colors.RESET);
+                int c = Helper.getInput(Colors.YELLOW + "[1]" + " Sell" + Colors.RESET, 0, 1);
+                if (c == 1) {
+                    sellItems(inspect);
+                    Helper.continuePrompt();
+                }
+
+            }
             System.out.println(Colors.CLEAR);
             inventory(p);
         }
@@ -82,6 +93,36 @@ public class Inventory extends Interactable {
             printString = printString.substring(0, printString.length() - 2);
             System.out.println(printString);
         }
+    }
+    private static void sellItems(Item item) {
+        Player player = Main.player;
+        //ask user how many to sell
+        int num = 0;
+        for (Item i : player.getInventory()) {
+            if(!i.getName().equalsIgnoreCase(item.getName())){
+                continue;
+            }
+            num++;
+        }
+        if (num == 1) {
+            System.out.println(Colors.RED + "Confirm selling " + item.getName() + "?" + Colors.RESET);
+            System.out.println(Colors.PURPLE + "[1]" +Colors.RED +" Yes");
+            System.out.println(Colors.PURPLE + "[2] No" + Colors.RESET);
+            int c = Helper.getInput("", 1, 2);
+            if (c == 2) {
+                return;
+            }
+            System.out.println(Colors.PURPLE + "Sold " + item.getName() + " for " + (int) (item.getCost() * (9f / 10)));
+            player.addMoney((int) (item.getCost() * (9f / 10)));
+            player.getInventory().remove(item);
+            return;
+        }
+        System.out.println(Colors.RED + "How many " + item.getName() + " would you like to sell? [1-" + num + "]" + Colors.RESET);
+        System.out.println(Colors.PURPLE + "[0] Cancel" + Colors.RESET);
+        int c = Helper.getInput("", 1, num);
+        System.out.println("Sold " + item.getName() + " for " + (int) (item.getCost() * (9f / 10)));
+        player.addMoney((int) (item.getCost() * (9f / 10)));
+        player.getInventory().remove(item);
     }
 
     private static @NotNull List<Item> displayList(Player p) {
@@ -162,14 +203,16 @@ public class Inventory extends Interactable {
             StringBuilder hpCount = new StringBuilder();
             StringBuilder healCount = new StringBuilder();
             StringBuilder dmgCount = new StringBuilder();
+            StringBuilder countString = new StringBuilder();
             spaceCount.append(" ".repeat(Math.max(0, maxNameLength - items.getName().length() + 2 - String.valueOf(count).length())));
             variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getHealVariance()).length())));
             hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getHpIncr()).length())));
             healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getHealIncrease()).length())));
             dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getDmgIncr()).length())));
+            countString.append(" ".repeat(Math.max(0, (maxColLength +3) - String.valueOf(iCount.get(items.getName())).length())));
             System.out.println(
                     Colors.CYAN + "[" + (count) + "] " + col + items.getName() + spaceCount +
-                            Colors.RED + " ⚔" + items.getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + (items).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + (items).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + (items).getHealVariance() + variCount + " x" + iCount.get(items.getName()) + " " + (Helper.moreShopInfo ? Colors.RESET + " (" + (items).getDescription() + ")" : "") + Colors.RESET);
+                            Colors.RED + " ⚔" + items.getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + (items).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + (items).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + (items).getHealVariance() + variCount + " x" + iCount.get(items.getName()) + countString + ( Colors.RESET + " " + (items).getDescription() ) + Colors.RESET);
             count++;
         }
 

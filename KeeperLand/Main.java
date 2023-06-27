@@ -52,7 +52,8 @@ public class Main {
                 System.out.println("[" + i + "] " + saveList.get(i).substring(0, saveList.get(i).length() - 4));
             }
             saves = Helper.getInput( "",-1, saveList.size() - 1);
-        }else{
+        }
+        else{
             saves = -1;
         }
         if (saves > -1) {
@@ -174,8 +175,6 @@ public class Main {
             //add all items that have the word "shard" in them from the list allItems
             for (Item i : allItem) {
                 if (i.getName().toLowerCase().contains("shard")) {
-                    player.addInventory(i);
-                    player.addInventory(i);
                     player.addInventory(i);
                 }
             }

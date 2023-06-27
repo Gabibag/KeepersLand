@@ -99,11 +99,48 @@ public class Item {
 
 
     public String toString() {
-        return this.getName() + ":" + "\n" + this.getDescription() + Colors.RED + "\nDamage Increase: " +
-                this.getDmgIncr() +
-                "\nHealth Increase: " + this.getHpIncr() + "\nHealing Increase: " + this.healIncrease +
-                "\nHeal Variance: " + this.HealVariance + "\n" + Colors.RESET + "Rarity: " +
-                Helper.getWordRarity(this) + (this.tokenCost == 0 ? "\nCost: " + this.getCost() : "\nToken Cost: " + this.tokenCost) + "\n";
+
+        return displayItem(this);
+    }
+    private static String displayItem(Item item) {
+        //sort items by cost descending
+
+        Player player = Main.player;
+        int maxNameLength = item.getName().length();
+        int maxColLength = 0;
+        if (String.valueOf(item.getHealVariance()).length() > maxColLength) {
+            maxColLength = String.valueOf(item.getHealVariance()).length();
+        }
+        if (String.valueOf(item.getHealIncrease()).length() > maxColLength) {
+            maxColLength = String.valueOf(item.getHealIncrease()).length();
+        }
+        if (String.valueOf(item.getHpIncr()).length() > maxColLength) {
+            maxColLength = String.valueOf(item.getHpIncr()).length();
+        }
+        if (String.valueOf(item.getDmgIncr()).length() > maxColLength) {
+            maxColLength = String.valueOf(item.getDmgIncr()).length();
+        }
+
+        try {
+            StringBuilder spaceCount = new StringBuilder();
+            StringBuilder variCount = new StringBuilder();
+            StringBuilder hpCount = new StringBuilder();
+            StringBuilder healCount = new StringBuilder();
+            StringBuilder dmgCount = new StringBuilder();
+            spaceCount.append(" ".repeat(Math.max(0, maxNameLength - item.getName().length() + 2)));
+            variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealVariance()).length())));
+            hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHpIncr()).length())));
+            healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealIncrease()).length())));
+            dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getDmgIncr()).length())));
+            String col = Colors.PURPLE;
+            return (
+                    col + item.getName() + spaceCount +
+                            Colors.RED + " ⚔" + item.getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + item.getHpIncr() + hpCount + Colors.YELLOW + " ✧" + item.getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + item.getHealVariance() + variCount + Colors.CYAN + " ◊" + item.getCost() + Colors.RESET + " (" + item.getDescription() + ")");
+
+        } catch (Exception e) {
+            //items.add(Item.empty);
+        }
+        return "Error displaying item";
     }
 
     public int getHealVariance() {
