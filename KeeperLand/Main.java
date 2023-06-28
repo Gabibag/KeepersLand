@@ -300,14 +300,14 @@ public class Main {
         System.out.println(".jar load failed retrying with different method, checking for java files");
         File folder = new File(".");
         initDirc(folder, "");
-        for (Interactable i : allInteracts) {
+        /*for (Interactable i : allInteracts) {
             if (i.getName().equalsIgnoreCase("quit")) {
                 allInteracts.remove(i);
                 allInteracts.add(i);
                 break;
 
             }
-        }
+        }*/
         //Items?
 
     }

@@ -12,6 +12,9 @@ public class TokenShop extends Interactable {
     @Override
     public String getName() {
         //set a string to locked if the player doesn't have a shard in their inventory. if they do, set it to token shop
+        if (Main.player == null) {
+            return "Locked";
+        }
         for (Item item : Main.player.getInventory()) {
             if (item.getName().toLowerCase().contains("shard") && !item.getName().equalsIgnoreCase("Shattered Shard")) {
                 if (Main.player.getTokens() >= 10) {
@@ -22,7 +25,7 @@ public class TokenShop extends Interactable {
         }
         return "Locked";
     }
-
+    @Override
     public void onChoose(Player player) {
         //if get name is locked tell the user they cant access this yet
         if (getName().equalsIgnoreCase("locked")) {
@@ -63,7 +66,8 @@ public class TokenShop extends Interactable {
             int choice = Helper.getInput("", 0, items.size() + 4);
             if (choice == 0) {
                 return;
-            } else if (choice == 1) {
+            }
+            else if (choice == 1) {
                 for (int i = 0; i < items.size(); i++)
                     System.out.println(
                             "[" + (i + 2) + "] " + items.get(i).getName() + Colors.GREEN_BOLD + " " + items.get(i).getTokenCost() +
@@ -87,7 +91,8 @@ public class TokenShop extends Interactable {
         }
     }
 
-    public ArrayList<Item> getItems(Player p) {
+    public ArrayList<Item> getItems() {
         return new ArrayList<>(Main.currentPlace.getShopItems());
     }
+
 }

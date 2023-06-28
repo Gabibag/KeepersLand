@@ -109,7 +109,7 @@ public class Shop extends Interactable {
             //System.out.print(Colors.RESET);
             displayList(items);
             int choice = Helper.getInput("", 0,
-                    items.size() + 4);
+                    items.size() + 3);
             if (choice == 0) {
                 return;
             } else if (choice == 1) {
@@ -196,7 +196,7 @@ public class Shop extends Interactable {
                     col = Colors.GREEN;
                 }
                 System.out.println(
-                        Colors.CYAN+"[" + (i + 5) +"] " +  col + items.get(i).getName() + spaceCount +
+                        Colors.CYAN+"[" + (i + 4) +"] " +  col + items.get(i).getName() + spaceCount +
                                 Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + items.get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + items.get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + items.get(i).getHealVariance() + variCount + Colors.CYAN + " ◊" + items.get(i).getCost() + Colors.RESET+ (Helper.moreShopInfo ? Colors.RESET + " (" + items.get(i).getDescription() + ")" : "") + Colors.RESET);
             }
         } catch (Exception e) {
