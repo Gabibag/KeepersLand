@@ -5,10 +5,13 @@ import KeeperLand.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
 public class Inventory extends Interactable {
+    static List<Item> printItems = null;
+    static String inventoryDisplay = "";
     public void onChoose(Player p) {
         System.out.println(Colors.PURPLE + "[0] Go Back");
         System.out.println("[1] Inventory");
@@ -30,13 +33,75 @@ public class Inventory extends Interactable {
     }
 
     public void inventory(Player p) {
-        List<Item> printItems = displayList(p);
+        printItems = displayList(p);
         int input = Helper.getInput(Colors.PURPLE + "Enter an item number for more info \n[0] Exit" + Colors.RESET, 0,
                 p.getInventory().size());
 
         if (input != 0) {
+            int tempMaxDmg = 0;
+            int tempMaxHealth = 0;
+            int tempMaxHeal = 0;
+            int tempMaxHealVar = 0;
+            for (Item i :p.getInventory()) {
+
+                tempMaxDmg += i.getDmgIncr();
+                tempMaxHealth += i.getHpIncr();
+                tempMaxHeal += i.getHealIncrease();
+                tempMaxHealVar += i.getHealVariance();
+            }
+
+
             Item inspect = printItems.get(input - 1);
-            System.out.println(inspect);
+            ArrayList<Item> inspectList = new ArrayList<>();
+            //go through the player's inventory and add all items with the same name as the inspected item to inspectList
+            for (Item item : p.getInventory()) {
+                if (item.getName().equalsIgnoreCase(inspect.getName())) {
+                    inspectList.add(item);
+                }
+            }
+            //count the number of duplicate items with the same tier in inspectList
+            HashMap<Integer, Integer> tierCount = new HashMap<>();
+            for (Item item : inspectList) {
+                if (tierCount.containsKey(item.getTier())) {
+                    tierCount.put(item.getTier(), tierCount.get(item.getTier()) + 1);
+                } else {
+                    tierCount.put(item.getTier(), 1);
+                }
+            }
+            int totalItems = inspectList.size();
+            for (int i = inspectList.size() - 1; i >= 0; i--) {
+                for (int j = inspectList.size() - 2; j >= 0; j--) {
+                    if ((inspectList.get(i).getTier() == inspectList.get(j).getTier()) && i != j) {
+                        inspectList.remove(j);
+                        break;
+                    }
+                }
+            }
+
+            //sort items in inspectList by tier
+            inspectList.sort(Comparator.comparingInt(Item::getTier));
+            System.out.println(Colors.YELLOW + "You have " + tierCount.get(inspectList.get(0).getTier()) + " " + inspectList.get(0).getName() + "s" + Colors.RESET);
+            System.out.println(inspectList.get(0) + Colors.CYAN + " x" + tierCount.get(inspectList.get(0).getTier()) + Colors.RESET + "  " + inspectList.get(0).getDescription());
+            for (int i = 1; i < inspectList.size(); i++) {
+                Item item = inspectList.get(i);
+                System.out.println(item + Colors.CYAN + " x" + tierCount.get(item.getTier()) + Colors.RESET);
+            }
+
+            int totalDmg = inspect.getDmgIncr() * totalItems;
+            int totalHp = inspect.getHpIncr() * totalItems;
+            int totalHeal = inspect.getHealIncrease() * totalItems;
+            int totalHealVariance = inspect.getHealVariance() * totalItems;
+            System.out.println("Total stats:");
+            if (inspectList.get(0).getDmgIncr() != 0) {
+                System.out.println( " + " + totalDmg + " damage (Contributes to " + Math.round((totalDmg/ ((float) tempMaxDmg)) *10000)/100f + "%) of total damage");
+            }if (inspectList.get(0).getHpIncr() != 0) {
+                System.out.println( " + " + totalHp + " health (Contributes to " + Math.round((totalHp/ ((float) tempMaxHealth)) *10000)/100f + "%) of total health");
+            }if (inspectList.get(0).getHealIncrease() != 0) {
+                System.out.println( " + " + totalHeal + " healing (Contributes to " + Math.round((totalHeal/ ((float) tempMaxHeal)) *10000)/100f + "%) of total healing");
+            }if (inspectList.get(0).getHealVariance() != 0) {
+                System.out.println( " + " + totalHealVariance + " healing variance (Contributes to " + Math.round((totalHealVariance/ ((float) tempMaxHealVar)) *10000)/100f + "%) of total healing variance");
+            }
+            System.out.println(Colors.RESET);;
             if (inspect.getName().toLowerCase().contains("shard")){
                 System.out.println(Colors.PURPLE + "[0]" + " Back" + Colors.RESET);
                 System.out.println(Colors.YELLOW + "[1]" + " Shatter" + Colors.RESET);
@@ -77,6 +142,8 @@ public class Inventory extends Interactable {
             System.out.println(Colors.CLEAR);
             inventory(p);
         }
+        inventoryDisplay = "";
+        printItems = null;
     }
 
     private static void printAdded(Item inspect) {
@@ -129,18 +196,23 @@ public class Inventory extends Interactable {
         System.out.println(p.getName() + "'s inventory: ");
         System.out.println("Current Balance " + Colors.CYAN + p.getMoney() + "◊");
         System.out.println("⚔ = Damage, ❤ = Health, ✧ = Heal, ⚕ = Heal Variance");
+        if (!inventoryDisplay.equals("")) {
+            System.out.println(inventoryDisplay);
+            return printItems;
+        }
+
+
         HashMap<String, Integer> iCount = new HashMap<>();
         for (Item i : p.getInventory()) {
-            if (iCount.containsKey(i.getName())) {
-                iCount.put(i.getName(), iCount.get(i.getName()) + 1);
+            String name = i.getName();
+            if (iCount.containsKey(name)) {
+                iCount.put(name, iCount.get(name) + 1);
             } else {
-                iCount.put(i.getName(), 1);
+                iCount.put(name, 1);
             }
         }
-        //copy the player's inventory to a new list
         List<Item> printItems = new ArrayList<>(p.getInventory());
-//        printItems.addAll(p.getInventory());
-        //check if the item is already in the list, if it is, remove the item from the list
+        //check if item is in list and has the same tier, if so remove it
         for (int i = 0; i < printItems.size(); i++) {
             for (int j = i + 1; j < printItems.size(); j++) {
                 if (printItems.get(i).getName().equals(printItems.get(j).getName())) {
@@ -149,6 +221,7 @@ public class Inventory extends Interactable {
                 }
             }
         }
+
 
         int maxNameLength = 0;
         for (Item item : printItems) {
@@ -180,20 +253,21 @@ public class Inventory extends Interactable {
                 Item temp = printItems.get(i);
                 printItems.remove(i);
                 printItems.add(0, temp);
-//                i++;
-
             }
         }
+        //number of unique items
+        float avgPercent = printItems.size() / ((float) p.getInventory().size());
         for (Item items : printItems) {
+            String itemType = items.getName();
+            float itemPercent = iCount.get(itemType) / ((float) p.getInventory().size());
+            float diff = avgPercent - itemPercent;
             String col = Colors.RESET;
-            if (iCount.get(items.getName()) > 100) {
+            if (diff > 0.25 && iCount.get(itemType) > 40) {
                 col = Colors.RED_BRIGHT;
-            } else if (iCount.get(items.getName()) > 50) {
+            } else if (diff > 0.1 && iCount.get(itemType) > 20) {
                 col = Colors.RED;
-            } else if (iCount.get(items.getName()) > 25) {
+            } else if (diff > 0.05 && iCount.get(itemType) > 10) {
                 col = Colors.YELLOW;
-            } else if (iCount.get(items.getName()) > 10) {
-                col = Colors.GREEN;
             }
             if (items.getName().toLowerCase().contains("shard")) {
                 col = Colors.BLUE;
@@ -209,16 +283,22 @@ public class Inventory extends Interactable {
             hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getHpIncr()).length())));
             healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getHealIncrease()).length())));
             dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getDmgIncr()).length())));
-            countString.append(" ".repeat(Math.max(0, (maxColLength +3) - String.valueOf(iCount.get(items.getName())).length())));
-            System.out.println(
+            countString.append(" ".repeat(Math.max(0, (maxColLength +3) - String.valueOf(iCount.get(itemType)).length())));
+            inventoryDisplay +=
                     Colors.CYAN + "[" + (count) + "] " + col + items.getName() + spaceCount +
-                            Colors.RED + " ⚔" + items.getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + (items).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + (items).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + (items).getHealVariance() + variCount + " x" + iCount.get(items.getName()) + countString + ( Colors.RESET + " " + (items).getDescription() ) + Colors.RESET);
+                            isNot0(Colors.RED,items.getDmgIncr()) + " ⚔" + items.getDmgIncr() + dmgCount + isNot0(Colors.GREEN, items.getHpIncr()) + " ❤" + (items).getHpIncr() + hpCount + isNot0(Colors.YELLOW, items.getHealIncrease()) + " ✧" + (items).getHealIncrease() + healCount + isNot0(Colors.PURPLE, items.getHealVariance()) + " ⚕" + (items).getHealVariance() + variCount + Colors.CYAN+ " x" + iCount.get(itemType) + countString + ( Colors.RESET + " " + (items).getDescription() ) + Colors.RESET + "\n";
             count++;
         }
+        System.out.println(inventoryDisplay);
 
         return printItems;
     }
-
+    public static String isNot0(String col, int stat){
+        if(stat != 0){
+            return col;
+        }
+        return Colors.WHITE;
+    }
     public String getName() {
         return "Info";
     }

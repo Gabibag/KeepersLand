@@ -1,8 +1,12 @@
 package KeeperLand;
 
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static KeeperLand.Interacts.Inventory.isNot0;
 
 public class Item {
     public static List<Item> allPool = new ArrayList<>();
@@ -13,6 +17,7 @@ public class Item {
     private String name;
     private String description;
     private int rarity;
+    private int tier = 1;
     private int tokenCost = 0;
     /*make this a number from 1-1000, for drop chance, also doubles as epic, common, etc.
     1-10  - common
@@ -30,11 +35,6 @@ public class Item {
         this.name = name;
         this.description = description;
         this.cost = (dmgIncr * 60) + (hpIncr * 25);
-        if (this.cost < 50) {
-            this.rarity = 2;
-        } else {
-            this.rarity = (this.cost / 10) + 1;
-        }
 
         Main.allItem.add(this);
     }
@@ -97,6 +97,19 @@ public class Item {
         Main.allItem.add(this);
     }
 
+    public Item(Item i) {
+        this.dmgIncr = i.getDmgIncr();
+        this.hpIncr = i.getHpIncr();
+        this.name = i.getName();
+        this.description = i.getDescription();
+        this.cost = i.getCost();
+        this.rarity = i.getRarity();
+        this.healIncrease = i.getHealIncrease();
+        this.HealVariance = i.getHealVariance();
+        this.tokenCost = i.getTokenCost();
+        this.tier = i.getTier();
+    }
+
 
     public String toString() {
 
@@ -107,7 +120,7 @@ public class Item {
 
         Player player = Main.player;
         int maxNameLength = item.getName().length();
-        int maxColLength = 0;
+        int maxColLength = 8;
         if (String.valueOf(item.getHealVariance()).length() > maxColLength) {
             maxColLength = String.valueOf(item.getHealVariance()).length();
         }
@@ -121,21 +134,30 @@ public class Item {
             maxColLength = String.valueOf(item.getDmgIncr()).length();
         }
 
+
         try {
             StringBuilder spaceCount = new StringBuilder();
             StringBuilder variCount = new StringBuilder();
             StringBuilder hpCount = new StringBuilder();
             StringBuilder healCount = new StringBuilder();
             StringBuilder dmgCount = new StringBuilder();
+            StringBuilder tierCount = new StringBuilder();
             spaceCount.append(" ".repeat(Math.max(0, maxNameLength - item.getName().length() + 2)));
             variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealVariance()).length())));
             hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHpIncr()).length())));
             healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealIncrease()).length())));
             dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getDmgIncr()).length())));
+            tierCount.append(" ".repeat(Math.max(0, maxColLength -item.getStrTier().length()) + 8));
             String col = Colors.PURPLE;
+
             return (
                     col + item.getName() + spaceCount +
-                            Colors.RED + " ⚔" + item.getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + item.getHpIncr() + hpCount + Colors.YELLOW + " ✧" + item.getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + item.getHealVariance() + variCount + Colors.CYAN + " ◊" + item.getCost() + Colors.RESET + " (" + item.getDescription() + ")");
+                            isNot0(Colors.RED, item.getDmgIncr()) + " ⚔" + item.getDmgIncr() + dmgCount +
+                            isNot0(Colors.GREEN, item.getHpIncr()) + " ❤" + item.getHpIncr() + hpCount +
+                            isNot0(Colors.YELLOW, item.getHealIncrease()) + " ✧" + item.getHealIncrease() + healCount +
+                            isNot0(Colors.PURPLE, item.getHealVariance()) + " ⚕" + item.getHealVariance() + variCount +
+                            item.getColTier() + item.getStrTier() + tierCount + Colors.CYAN + " ◊" + item.getCost());
+
 
         } catch (Exception e) {
             //items.add(Item.empty);
@@ -214,6 +236,47 @@ public class Item {
     public void setTokenCost(int tokenCost) {
         this.tokenCost = tokenCost;
     }
+
+    public int getTier() {
+        return tier;
+    }
+    public String getStrTier()
+    {
+        String romanNumeral = getNumeral();
+
+        return "Type " + romanNumeral;
+    }
+
+    @NotNull
+    public String getNumeral() {
+        return switch (this.tier) {
+            case 1 -> "I";
+            case 2 -> "II";
+            case 3 -> "III";
+            case 4 -> "IV";
+            case 5 -> "V";
+            case 6 -> "Z";
+            default -> "I";
+        };
+    }
+
+    public  String getColTier(){
+        String col = switch (this.tier) {
+            case 2 -> Colors.GREEN;
+            case 3 -> Colors.BLUE;
+            case 4 -> Colors.PURPLE;
+            case 5 -> Colors.YELLOW;
+            case 6 -> Colors.CYAN;
+            default -> Colors.WHITE;
+        };
+        return col;
+    }
+    public void setTier(int tier) {
+        this.tier = tier;
+    }
+
+
+
 
     //Items
 

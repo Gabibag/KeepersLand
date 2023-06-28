@@ -128,7 +128,7 @@ public class Helper {
     public static String getWordRarity(Item i) {
         int rarity = i.getRarity();
         if (i.getName().contains("Shard")) {
-            return Colors.YELLOW_UNDERLINED + "legendary" + Colors.RESET;
+            return Colors.BLUE + "Shard" + Colors.RESET;
         }
         if (rarity < 10) {
             return "common";

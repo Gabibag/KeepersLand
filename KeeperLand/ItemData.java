@@ -35,7 +35,7 @@ public class ItemData {
     public static Item bloodStone = new Item(0, 5, "Blood Stone", "Not made of blood.", 6, 8);
     public static Item skeletonBone = new Item(5, 0, "Skeleton Bone",
             "Why does a ribcage deal more damage than a sword?", 0, 0);
-    public static Item soul = new Item(1, 20, "Soul", "I-it's just a soul why does it give you health?", 0, 0);
+    public static Item soul = new Item(1, 20, "Soul", "I-it's just a soul why does it give you health?", 20, 0);
     public static Item empty = new Item(69420, 69420, "Empty", "Nothing to see here.", 69420, 69420);
     public static Item GhostSpirit = new Item(0, 3, "Ghost Sprite in a Bottle", "Really a skill issue if you get stuck in a bottle imo", 3, 0);
     public static Item toxicWaste = new Item(8, 2, "Toxic Waste", "Where did it come from?", 0, 0);

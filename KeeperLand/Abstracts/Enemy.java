@@ -178,39 +178,70 @@ public abstract class Enemy {
             mutate.onDeath(allies, self);
         }else {
             String drops = randDrops(p, this);
-            if( drops != null){
+            /*if( drops != null){
                 System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
                         Colors.RESET + ") and got a " + Colors.CYAN + drops + Colors.CYAN+ "!");
             }else {
                 System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
                         Colors.RESET + ")");
+            }*/
+            String out= "You killed a " + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" +
+                    Colors.RESET + ")";
+            if (drops != null) {
+                out += " and got " + isAn(drops) + Colors.YELLOW + drops + Colors.RESET + "!";
             }
+            System.out.println(out);
         }
         p.addMoney(coins);
         player.addMoney(self.getCoins());
         p.addXp(xp);
 
     }
+    public static String isAn(String str){
+        return (str.matches("^[aeiou].*") ? "an " : "a ");
+    }
 
     public String randDrops(Player p, Enemy e) {
+        p.addMoney(e.getCoins());
+        p.addXp(e.xp);
+        Item item = null;
         if (r.nextInt(1, 2) == 1) {
             for (Item drop : this.drops) {
                 if (r.nextInt(drop.getRarity()) == 1) {
-                    p.addInventory(drop);
-                    return drop.getName();
+                    item = drop;
+                    break;
                 }
             }
         } else {
             for (Item drop : Item.allPool) {
                 if (r.nextInt(drop.getRarity()) == 1) {
-                    p.addInventory(drop);
-                    return drop.getName();
+                    item = drop;
+                    break;
                 }
             }
         }
 
-        p.addMoney(e.getCoins());
-        p.addXp(e.xp);
-        return null;
+        if (item == null) {
+            return null;
+        }
+        /*generates tier 1-6.
+        1 = Type 1 50% chance
+        2 = Type 2 25% chance
+        3 = Type 3 Rare 15% chance
+        4 = Type 4 7% chance
+        5 = Type 5 2.5% chance
+        6 = Type 6 0.5% chance
+        */
+        int tier = r.nextInt(6) + 1;
+        //copy over stats from the item to another one
+        Item newItem = new Item(item);
+        newItem.setTier(tier);
+        newItem.setHealIncrease((int) (newItem.getHealIncrease() * ((tier * 0.2) +1)));
+        newItem.setDmgIncr((int) (newItem.getDmgIncr() * ((tier * 0.2) +1)));
+        newItem.setHpIncr((int) (newItem.getHpIncr() * ((tier * 0.2) +1)));
+        newItem.setCost((int) (newItem.getCost() * ((tier * 0.2) +1)));
+        newItem.setHealVariance((int) (newItem.getHealVariance() * ((tier / 0.2) +1)));
+        p.addInventory(newItem);
+        return newItem.getStrTier() +  newItem.getName();
     }
 }
