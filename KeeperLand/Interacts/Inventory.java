@@ -38,10 +38,10 @@ public class Inventory extends Interactable {
                 p.getInventory().size());
 
         if (input != 0) {
-            int tempMaxDmg = 0;
-            int tempMaxHealth = 0;
-            int tempMaxHeal = 0;
-            int tempMaxHealVar = 0;
+            int tempMaxDmg = p.getDamage();
+            int tempMaxHealth = p.getHp();
+            int tempMaxHeal = p.getHealAmount();
+            int tempMaxHealVar = p.getHealVariance();
             for (Item i :p.getInventory()) {
 
                 tempMaxDmg += i.getDmgIncr();
@@ -107,7 +107,7 @@ public class Inventory extends Interactable {
                 System.out.println(Colors.YELLOW + "[1]" + " Shatter" + Colors.RESET);
                 int c = Helper.getInput("", 0, 1);
                 if (c == 1){
-                    System.out.println(Colors.YELLOW + "Shattered " + inspect.getName() + Colors.RESET);
+                    System.out.println(Colors.YELLOW + "Shattered " + inspectList.get(0) + Colors.RESET);
                     p.getInventory().remove(inspect);
                     //random number between 1 and 3
                     int ran = (int) (Math.random() * 3) + 1;
@@ -150,15 +150,15 @@ public class Inventory extends Interactable {
         if (inspect.getHealIncrease() / 3 > 0 || inspect.getHealVariance() / 3 > 0 || inspect.getHpIncr() / 3 > 0 || inspect.getDmgIncr() / 3 > 0) {
             String printString = "You got ";
             if (inspect.getDmgIncr() / 3 > 0)
-                printString += Colors.YELLOW + inspect.getDmgIncr() / 3 + " damage, " + Colors.RESET;
+                printString += Colors.YELLOW + inspect.getDmgIncr() / 3 + " damage, ";
             if (inspect.getHpIncr() / 3 > 0)
-                printString += Colors.YELLOW + inspect.getHpIncr() / 3 + " health, " + Colors.RESET;
+                printString += Colors.YELLOW + inspect.getHpIncr() / 3 + " health, ";
             if (inspect.getHealIncrease() / 3 > 0)
-                printString += Colors.YELLOW + inspect.getHealIncrease() / 3 + " heal amount, " + Colors.RESET;
+                printString += Colors.YELLOW + inspect.getHealIncrease() / 3 + " heal amount, ";
             if (inspect.getHealVariance() / 3 > 0)
-                printString += Colors.YELLOW + inspect.getHealVariance() / 3 + " heal variance, " + Colors.RESET;
+                printString += Colors.YELLOW + inspect.getHealVariance() / 3 + " heal variance, ";
             printString = printString.substring(0, printString.length() - 2);
-            System.out.println(printString);
+            System.out.println(printString + Colors.RESET);
         }
     }
     private static void sellItems(Item item) {
@@ -196,6 +196,7 @@ public class Inventory extends Interactable {
         System.out.println(p.getName() + "'s inventory: ");
         System.out.println("Current Balance " + Colors.CYAN + p.getMoney() + "◊");
         System.out.println("⚔ = Damage, ❤ = Health, ✧ = Heal, ⚕ = Heal Variance");
+
         if (!inventoryDisplay.equals("")) {
             System.out.println(inventoryDisplay);
             return printItems;
@@ -221,7 +222,39 @@ public class Inventory extends Interactable {
                 }
             }
         }
+        int maxTotalDmg = 0;
+        int maxTotalHp = 0;
+        int maxTotalHeal = 0;
+        int maxTotalHealVariance = 0;
 
+        for (Item item : printItems) {
+            String itemType = item.getName();
+            int totalDmg = 0;
+            int totalHp = 0;
+            int totalHeal = 0;
+            int totalHealVariance = 0;
+            for (Item i : p.getInventory()) {
+                if (i.getName().equals(itemType)) {
+                    totalDmg += i.getDmgIncr();
+                    totalHp += i.getHpIncr();
+                    totalHeal += i.getHealIncrease();
+                    totalHealVariance += i.getHealVariance();
+                }
+            }
+            if (totalDmg > maxTotalDmg) {
+                maxTotalDmg = totalDmg;
+            }
+            if (totalHp > maxTotalHp) {
+                maxTotalHp = totalHp;
+            }
+            if (totalHeal > maxTotalHeal) {
+                maxTotalHeal = totalHeal;
+            }
+            if (totalHealVariance > maxTotalHealVariance) {
+                maxTotalHealVariance = totalHealVariance;
+            }
+
+        }
 
         int maxNameLength = 0;
         for (Item item : printItems) {
@@ -230,21 +263,11 @@ public class Inventory extends Interactable {
             }
         }
         int maxColLength = 0;
-        for (Item printItem : printItems) {
-            if (String.valueOf(printItem.getHealVariance()).length() > maxColLength) {
-                maxColLength = String.valueOf(printItem.getHealVariance()).length();
-            }
-            if (String.valueOf(printItem.getHealIncrease()).length() > maxColLength) {
-                maxColLength = String.valueOf(printItem.getHealIncrease()).length();
-            }
-            if (String.valueOf(printItem.getHpIncr()).length() > maxColLength) {
-                maxColLength = String.valueOf(printItem.getHpIncr()).length();
-            }
-            if (String.valueOf(printItem.getDmgIncr()).length() > maxColLength) {
-                maxColLength = String.valueOf(printItem.getDmgIncr()).length();
-            }
-        }
-
+        maxColLength = Math.max(maxColLength, String.valueOf(maxTotalDmg).length());
+        maxColLength = Math.max(maxColLength, String.valueOf(maxTotalHp).length());
+        maxColLength = Math.max(maxColLength, String.valueOf(maxTotalHeal).length());
+        maxColLength = Math.max(maxColLength, String.valueOf(maxTotalHealVariance).length());
+        maxColLength += 2;
 
         int count = 1;
         //if the item in printItems is a shard, bring it to the top
@@ -258,7 +281,12 @@ public class Inventory extends Interactable {
         //number of unique items
         float avgPercent = printItems.size() / ((float) p.getInventory().size());
         for (Item items : printItems) {
+
             String itemType = items.getName();
+            int totalDmg = items.getDmgIncr() * iCount.get(itemType);
+            int totalHp = items.getHpIncr() * iCount.get(itemType);
+            int totalHeal = items.getHealIncrease() * iCount.get(itemType);
+            int totalHealVariance = items.getHealVariance() * iCount.get(itemType);
             float itemPercent = iCount.get(itemType) / ((float) p.getInventory().size());
             float diff = avgPercent - itemPercent;
             String col = Colors.RESET;
@@ -279,15 +307,48 @@ public class Inventory extends Interactable {
             StringBuilder dmgCount = new StringBuilder();
             StringBuilder countString = new StringBuilder();
             spaceCount.append(" ".repeat(Math.max(0, maxNameLength - items.getName().length() + 2 - String.valueOf(count).length())));
-            variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getHealVariance()).length())));
-            hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getHpIncr()).length())));
-            healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getHealIncrease()).length())));
-            dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.getDmgIncr()).length())));
+            variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(totalHealVariance).length())));
+            hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(totalHp).length())));
+            healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(totalHeal).length())));
+            dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(totalDmg).length())));
             countString.append(" ".repeat(Math.max(0, (maxColLength +3) - String.valueOf(iCount.get(itemType)).length())));
+
             inventoryDisplay +=
                     Colors.CYAN + "[" + (count) + "] " + col + items.getName() + spaceCount +
-                            isNot0(Colors.RED,items.getDmgIncr()) + " ⚔" + items.getDmgIncr() + dmgCount + isNot0(Colors.GREEN, items.getHpIncr()) + " ❤" + (items).getHpIncr() + hpCount + isNot0(Colors.YELLOW, items.getHealIncrease()) + " ✧" + (items).getHealIncrease() + healCount + isNot0(Colors.PURPLE, items.getHealVariance()) + " ⚕" + (items).getHealVariance() + variCount + Colors.CYAN+ " x" + iCount.get(itemType) + countString + ( Colors.RESET + " " + (items).getDescription() ) + Colors.RESET + "\n";
+                            isNot0(Colors.RED,totalDmg) + " ⚔" + totalDmg + dmgCount + isNot0(Colors.GREEN, totalHp) + " ❤" + totalHp + hpCount + isNot0(Colors.YELLOW, totalHeal) + " ✧" + totalHeal + healCount + isNot0(Colors.PURPLE, totalHealVariance) + " ⚕" + totalHealVariance + variCount + Colors.CYAN+ " x" + iCount.get(itemType) + countString + ( Colors.RESET + " " + (items).getDescription() ) + Colors.RESET + "\n";
             count++;
+        }
+
+        int tempMaxDmg = p.getDamage();
+        int tempMaxHealth = p.getHp();
+        int tempMaxHeal = p.getHealAmount();
+        int tempMaxHealVar = p.getHealVariance();
+        for (Item i :p.getInventory()) {
+
+            tempMaxDmg += i.getDmgIncr();
+            tempMaxHealth += i.getHpIncr();
+            tempMaxHeal += i.getHealIncrease();
+            tempMaxHealVar += i.getHealVariance();
+        }
+        int totalDmg = 0;
+        int totalHp = 0;
+        int totalHeal = 0;
+        int totalHealVariance = 0;
+        for (Item i : p.getInventory()) {
+            totalDmg += i.getDmgIncr();
+            totalHp += i.getHpIncr();
+            totalHeal += i.getHealIncrease();
+            totalHealVariance += i.getHealVariance();
+        }
+        inventoryDisplay += "\n" + Colors.CYAN + "Total Benefits: \n" + Colors.RESET;
+        if (totalDmg != 0) {
+            inventoryDisplay +=( " + " + totalDmg + " damage (Contributes to " + Math.round((totalDmg/ ((float) tempMaxDmg)) *10000)/100f + "%) of total damage \n");
+        }if (totalHp != 0) {
+            inventoryDisplay +=( " + " + totalHp + " health (Contributes to " + Math.round((totalHp/ ((float) tempMaxHealth)) *10000)/100f + "%) of total health \n");
+        }if (totalHeal != 0) {
+            inventoryDisplay +=( " + " + totalHeal + " healing (Contributes to " + Math.round((totalHeal/ ((float) tempMaxHeal)) *10000)/100f + "%) of total healing \n");
+        }if (totalHealVariance != 0) {
+            inventoryDisplay +=( " + " + totalHealVariance + " healing variance (Contributes to " + Math.round((totalHealVariance/ ((float) tempMaxHealVar)) *10000)/100f + "%) of total healing variance \n");
         }
         System.out.println(inventoryDisplay);
 

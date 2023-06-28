@@ -232,15 +232,28 @@ public abstract class Enemy {
         5 = Type 5 2.5% chance
         6 = Type 6 0.5% chance
         */
-        int tier = r.nextInt(6) + 1;
+
+        int tier = 1;
+        int rand = r.nextInt(1000);
+        if (rand >500 && rand <= 750){
+            tier = 2;
+        }else if (rand > 750 && rand <= 900){
+            tier = 3;
+        }else if (rand > 900 && rand <= 970){
+            tier = 4;
+        }else if (rand > 970 && rand <= 995){
+            tier = 5;
+        }else if (rand > 995){
+            tier = 6;
+        }
         //copy over stats from the item to another one
         Item newItem = new Item(item);
         newItem.setTier(tier);
-        newItem.setHealIncrease((int) (newItem.getHealIncrease() * ((tier * 0.2) +1)));
-        newItem.setDmgIncr((int) (newItem.getDmgIncr() * ((tier * 0.2) +1)));
-        newItem.setHpIncr((int) (newItem.getHpIncr() * ((tier * 0.2) +1)));
-        newItem.setCost((int) (newItem.getCost() * ((tier * 0.2) +1)));
-        newItem.setHealVariance((int) (newItem.getHealVariance() * ((tier / 0.2) +1)));
+        newItem.setHealIncrease((int) (newItem.getHealIncrease() * ((tier*0.4) +1)));
+        newItem.setDmgIncr((int) (newItem.getDmgIncr() * ((tier*0.4) +1)));
+        newItem.setHpIncr((int) (newItem.getHpIncr() * ((tier*0.4) +1)));
+        newItem.setCost((int) (newItem.getCost() * ((tier*0.4) +1)));
+        newItem.setHealVariance((int) (newItem.getHealVariance() * ((tier *0.7))));
         p.addInventory(newItem);
         return newItem.getStrTier() +  newItem.getName();
     }
