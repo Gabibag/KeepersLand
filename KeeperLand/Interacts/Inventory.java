@@ -270,6 +270,10 @@ public class Inventory extends Interactable {
         maxColLength += 2;
 
         int count = 1;
+
+        //sort list by count
+        printItems.sort((o1, o2) -> iCount.get(o2.getName()).compareTo(iCount.get(o1.getName())));
+
         //if the item in printItems is a shard, bring it to the top
         for(int i = 0; i < printItems.size(); i++){
             if(printItems.get(i).getName().toLowerCase().contains("shard")){
