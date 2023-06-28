@@ -4,7 +4,7 @@ import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Interactable;
 import KeeperLand.*;
 import KeeperLand.Enemies.Bosses.TheKeeper;
-import KeeperLand.Enviroments.NullZone;
+import KeeperLand.Enviroments.KeepersLand;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class BossFight extends Interactable {
         System.out.println(Colors.RED + "BOSS FIGHT" + Colors.RESET);
         Helper.Sleep(1);
         System.out.print(Colors.CLEAR);
-        Main.currentPlace = new NullZone();
+        Main.currentPlace = new KeepersLand();
         whileAlive(enemies);
         battleEnd(enemies);
     }

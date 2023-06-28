@@ -91,11 +91,12 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
                     }
                     allies.add(e);
                 }
+
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("The Keeper " + Colors.RED + "summons " + Colors.RESET + " " +checkIfaN(allies.get(1).getName()) + allies.get(1).getName() + " and " + checkIfaN(allies.get(2).getName() ) + " " + allies.get(2).getName() + " to fight for him!");
+            System.out.println("The Keeper " + Colors.RED + "summons" + Colors.RESET + " " +checkIfaN(allies.get(1).getName()) + " " + allies.get(1).getName() + " and "+   checkIfaN(allies.get(2).getName())+ " " + allies.get(2).getName() +   " to fight for him!");
         }
         return 0;
     }

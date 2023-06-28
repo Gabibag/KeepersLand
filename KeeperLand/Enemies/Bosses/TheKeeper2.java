@@ -1,13 +1,10 @@
 package KeeperLand.Enemies.Bosses;
 
+import KeeperLand.*;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.FinalBoss;
-import KeeperLand.Colors;
 import KeeperLand.Enemies.Common.ItemEntity;
-import KeeperLand.Item;
-import KeeperLand.Main;
 import KeeperLand.Mutations.None;
-import KeeperLand.Player;
 
 import java.util.List;
 
@@ -38,6 +35,9 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
         allies.clear();
         System.out.println(Colors.CLEAR);
         System.out.println("You found a" + Colors.YELLOW + " Keeper Shard" + Colors.RESET + "!");
+        p.addInventory(new Item(ItemData.KeeperShard));
+        p.setBattleHp( p.getBattleDamage() + ItemData.KeeperShard.getHpIncr());
+
         if (allies.size() > 0) {
             allies.subList(0, allies.size()).clear();
         }

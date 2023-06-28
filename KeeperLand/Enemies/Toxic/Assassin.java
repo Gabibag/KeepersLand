@@ -17,7 +17,7 @@ public class Assassin extends Enemy {
         this.name = "Assassin";
         this.battleHp = baseHp;
         this.coins = 3;
-        this.dodgeRate = 15;
+        this.dodgeRate = 10;
     }
 
     @Override

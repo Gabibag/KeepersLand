@@ -184,6 +184,8 @@ public class Battle extends Interactable {
     }
 
     private static void checkIfDead(Player p, List<Enemy> enemies) {
+        //cycle through enemies and check if they are dead
+
         ArrayList<Enemy> mutated = new ArrayList<>();
         for (Enemy e : enemies) {
             if (e.getMutate() == null) {
@@ -193,20 +195,20 @@ public class Battle extends Interactable {
         }
 
         for (int i = enemies.size() - 1; i >= 0; i--) {
-            if (enemies.get(i).getBattleHp() > 0) {
-                continue;
-            }
-            enemies.get(i).onDeath(p, enemies, enemies.get(i));
+            if (enemies.get(i).getBattleHp() > 0) continue;
 
+            if (enemies.get(i).getMutate() == null) {
+                return;
+            }
             for (Enemy e : mutated) {
+                if (e == enemies.get(i)) continue;
                 e.getMutate().onKill(enemies, e, enemies.get(i));
             }
-
-            enemies.remove(i);
         }
         if (p.getBattleHp() <= 0) {
             killPlayer(p, enemies);
         }
+        removeDead(enemies);
     }
 
     private static void killPlayer(Player p, List<Enemy> enemies) {
@@ -377,7 +379,7 @@ public class Battle extends Interactable {
         Random r = new Random();
         int Actions = p.getActionAmount();
         while (enemies.size() > 0) {
-            removeDead(enemies);
+            checkIfDead(p,enemies);
             //tell user their stage number and environment
             while (Actions > 0) {
                 String col = Colors.RESET;
@@ -409,7 +411,7 @@ public class Battle extends Interactable {
                         }
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             playerAttack(p, enemies, choice);
-                            checkIfDead(p, enemies);
+
                         } else {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                             Helper.Sleep(1.5);
@@ -417,6 +419,7 @@ public class Battle extends Interactable {
                     }
                     case 2 -> healPlayer(p, r, enemies);
                     case 3 -> inv(enemies);
+
                 }
                 Main.currentPlace.playerAction(p, enemies);
                 if (enemies.size() > 0) Actions--;
@@ -424,6 +427,7 @@ public class Battle extends Interactable {
                     p.setActionAmount(2);
                     break;
                 }
+                checkIfDead(p, enemies);
             }
             printHealth(enemies);//print out a ui to make it look like its just changing stuff. Idk looks cool
             String col = Colors.RESET;
@@ -444,10 +448,8 @@ public class Battle extends Interactable {
                 enemyAttacks(p, enemies);
                 System.out.println(Colors.RESET);
                 Main.currentPlace.turnEnd(p, enemies);
-                checkIfDead(p, enemies);
                 List<StatusEffects> statusEffects = player.getStatusEffects();
-                for (int i = 0; i < statusEffects.size(); i++) {
-                    StatusEffects s = statusEffects.get(i);
+                for (StatusEffects s : statusEffects) {
                     s.tickEffect(p, null, enemies, "turnEnd", 0);
 
                 }

@@ -185,7 +185,7 @@ public abstract class Enemy {
                 System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
                         Colors.RESET + ")");
             }*/
-            String out= "You killed a " + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" +
+            String out= "You killed " + isAn(name) + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" +
                     Colors.RESET + ")";
             if (drops != null) {
                 out += " and got " + isAn(drops) + Colors.YELLOW + drops + Colors.RESET + "!";
@@ -255,6 +255,6 @@ public abstract class Enemy {
         newItem.setCost((int) (newItem.getCost() * ((tier*0.4) +1)));
         newItem.setHealVariance((int) (newItem.getHealVariance() * ((tier *0.7))));
         p.addInventory(newItem);
-        return newItem.getStrTier() +  newItem.getName();
+        return newItem.getStrTier() + " " + newItem.getName();
     }
 }
