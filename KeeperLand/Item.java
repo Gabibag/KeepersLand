@@ -272,6 +272,11 @@ public class Item {
         return col;
     }
     public void setTier(int tier) {
+        this.setHealIncrease((int) (this.getHealIncrease() * ((tier*0.4) +1)));
+        this.setDmgIncr((int) (this.getDmgIncr() * ((tier*0.4) +1)));
+        this.setHpIncr((int) (this.getHpIncr() * ((tier*0.4) +1)));
+        this.setCost((int) (this.getCost() * ((tier*0.4) +1)));
+        this.setHealVariance((int) (this.getHealVariance() * ((tier *0.7))));
         this.tier = tier;
     }
 

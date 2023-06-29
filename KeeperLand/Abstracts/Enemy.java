@@ -249,11 +249,7 @@ public abstract class Enemy {
         //copy over stats from the item to another one
         Item newItem = new Item(item);
         newItem.setTier(tier);
-        newItem.setHealIncrease((int) (newItem.getHealIncrease() * ((tier*0.4) +1)));
-        newItem.setDmgIncr((int) (newItem.getDmgIncr() * ((tier*0.4) +1)));
-        newItem.setHpIncr((int) (newItem.getHpIncr() * ((tier*0.4) +1)));
-        newItem.setCost((int) (newItem.getCost() * ((tier*0.4) +1)));
-        newItem.setHealVariance((int) (newItem.getHealVariance() * ((tier *0.7))));
+
         p.addInventory(newItem);
         return newItem.getStrTier() + " " + newItem.getName();
     }

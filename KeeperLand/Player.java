@@ -62,9 +62,10 @@ public class Player {
             p.setXp(r.nextInt());
             p.setXpToLevel(r.nextInt());
             int invSize = r.nextInt();
-            for (int i = 0; i < invSize; i++) {
                 r.nextLine();//idk why this is needed but item breaks if you remove it soooo
-                String name = r.nextLine();
+            for (int i = 0; i < invSize; i++) {
+                //cuz next int doesn't move to next line
+                /*String name = r.nextLine();
                 int cost = Integer.parseInt(r.nextLine());
                 Item is = new Item(0, 0, name, null, 0, cost);
                 is.setDmgIncr(r.nextInt());
@@ -74,11 +75,30 @@ public class Player {
                 is.setHealVariance(r.nextInt());
                 is.setHpIncr(r.nextInt());
                 is.setRarity(r.nextInt());
-                p.inventory.add(is);
+                p.inventory.add(is);*/
+
+                String name = r.nextLine();
+                int tier = Integer.parseInt(r.nextLine().trim());
+                Main.allItem.forEach(item -> {
+                    if (item.getName().equalsIgnoreCase(name)) {
+                        Item invItem = new Item(item);
+                        invItem.setTier(tier);
+                        p.inventory.add(invItem);
+                    }
+                });
             }
             r.close();
             return p;
-        } catch (Exception e) {
+        }catch  (NumberFormatException e){
+            System.out.println("File is using an outdated format, please delete the file and create a new one. (Number Format Exception)");
+            Helper.continuePrompt();
+            return null;
+
+        }
+
+        catch (Exception e) {
+            System.out.println("File not found");
+
             e.printStackTrace();
             return null;
         }
@@ -123,13 +143,7 @@ public class Player {
             f.write(this.inventory.size() + "\n");
             for (Item item : inventory) {
                 f.write(item.getName() + "\n");
-                f.write(item.getCost() + "\n");
-                f.write(item.getDmgIncr() + "\n");
-                f.write(item.getDescription().replace("\n", "*n") + "\n");
-                f.write(item.getHealIncrease() + "\n");
-                f.write(item.getHealVariance() + "\n");
-                f.write(item.getHpIncr() + "\n");
-                f.write(item.getRarity() + "\n");
+                f.write(item.getTier() + "\n");
             }
             f.close();
 

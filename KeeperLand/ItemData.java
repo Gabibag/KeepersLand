@@ -57,7 +57,7 @@ public class ItemData {
     public static Item SpriteShard = new Item(0, 0, "Sprite Shard", "Said to only be dropped by the Sprite Lord. 1 of 7 Shards.", 0, 7, 2, 10);
     public static Item HellShard = new Item(7, 0, "Hell Shard", "Said to only be dropped by the Demon Lord. 1 of 7 Shards.", 0, 0, 2, 10);
     public static Item OmegaShard = new Item(5, 5, "Omega Shard", "The most rare shard, and yet, the least rare shard. 1 of 7 Shards.", 2, 22, 100, 10);
-    public static Item KeeperShard = new Item(0, 1000, "Keeper Shard", "Powerful. But if you live, you won't be needing it.", 0, 0, Integer.MIN_VALUE / 1000, Integer.MIN_VALUE / 100000);
+    public static Item KeeperShard = new Item(0, 1000, "Keeper Shard", "Powerful. But if you live, you won't be needing it.", 0, 0, Integer.MIN_VALUE / 1000, 0);
     public static Item LockedItem = new Item(0, 0, "Locked Item", "Sorry, you can't buy this yet.", 0, 0);
     public static Item SubspaceOrb = new Item(1, 1, "Subspace Orb", "Kinda small don't you think? Wait, you can't see it yet.", 1, 0, true);
     public static Item glitch = new Item(-2, 4, "Glitch", "DO NOT USE.", -5, 99, true);
