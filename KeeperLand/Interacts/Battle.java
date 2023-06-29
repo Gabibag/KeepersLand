@@ -15,6 +15,53 @@ import static KeeperLand.Main.player;
 
 public class Battle extends Interactable {
 
+    @Override
+    public void onChoose(Player p) {
+        p.setBattleHp(p.getHp());
+        p.setBattleDamage(p.getDamage());
+        updateItems(p, 1);
+        Random r = new Random();
+        int Actions = p.getActionAmount();
+        List<Enemy> spawns = getEnemies(p);
+        while (spawns.size() < 3) {
+            spawns = getEnemies(p);
+            //check if spawns contains duplicates, if it does, remove it
+            for (int i = spawns.size() - 1; i >= 0; i--) {
+                for (int j = spawns.size() - 1; j >= i + 1; j--) {
+                    if (spawns.get(i).getName().equalsIgnoreCase(spawns.get(j).getName())) {
+                        spawns.remove(j);
+                    }
+                }
+            }
+        }
+        List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
+
+
+        try {
+            for (int i = 0; i < enemies.size(); i++) {
+                enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Failed to create a new enemy object, check your cnstr type:");
+            e.printStackTrace();
+        }
+        System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
+        Helper.Sleep(1);
+        System.out.print(Colors.CLEAR);
+        if ((p.getStageNum() % 5 == 0)) {
+            try {
+                ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Main.currentPlace.BattleStart(p, enemies);
+        whileAlive(enemies);
+        battleEnd(enemies);
+
+    }
+
     private static void instaAttackMode(Player p, List<Enemy> enemies) {
         //check if enemies can deal damage
         if (p.getLevel() % 5 == 0) return;
@@ -35,6 +82,7 @@ public class Battle extends Interactable {
                 for (int i = 0; i < enemies.size(); i++) {
                     playerAttack(p, enemies, i + 1);
                     checkIfDead(p, enemies);
+                    removeDead(enemies);
                     printHealth(enemies);
                     Helper.Sleep(sleepTime);
                     System.out.println(Colors.CLEAR);
@@ -89,7 +137,6 @@ public class Battle extends Interactable {
 
         return returned;
     }
-
     public static void removeDead(List<Enemy> enemies) {
         for (int i = enemies.size() - 1; i >= 0; i--) {
             Enemy choice = enemies.get(i);
@@ -99,6 +146,7 @@ public class Battle extends Interactable {
             }
         }
     }
+
     //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
 
     public static void inv(List<Enemy> enemies) {
@@ -208,7 +256,7 @@ public class Battle extends Interactable {
         if (p.getBattleHp() <= 0) {
             killPlayer(p, enemies);
         }
-        removeDead(enemies);
+
     }
 
     private static void killPlayer(Player p, List<Enemy> enemies) {
@@ -249,15 +297,13 @@ public class Battle extends Interactable {
         }
         if (player.getStatusEffects().size() != 0) {
             List<StatusEffects> statusEffects = player.getStatusEffects();
-            for (int i = 0; i < statusEffects.size(); i++) {
-                StatusEffects s = statusEffects.get(i);
+            for (StatusEffects s : statusEffects) {
                 s.tickEffect(p, enemies.get(choice - 1), enemies, "playerAttack", pDamage);
             }
 
         }
 
     }
-
     private static void printHealth(@NotNull List<Enemy> enemies) {
         StringBuilder Names = new StringBuilder();
         StringBuilder HpAmounts = new StringBuilder();
@@ -309,52 +355,6 @@ public class Battle extends Interactable {
         System.out.println(HpAmounts + Colors.RESET);
     }
 
-    @Override
-    public void onChoose(Player p) {
-        p.setBattleHp(p.getHp());
-        p.setBattleDamage(p.getDamage());
-        updateItems(p, 1);
-        Random r = new Random();
-        int Actions = p.getActionAmount();
-        List<Enemy> spawns = getEnemies(p);
-        while (spawns.size() < 3) {
-            spawns = getEnemies(p);
-            //check if spawns contains duplicates, if it does, remove it
-            for (int i = spawns.size() - 1; i >= 0; i--) {
-                for (int j = spawns.size() - 1; j >= i + 1; j--) {
-                    if (spawns.get(i).getName().equalsIgnoreCase(spawns.get(j).getName())) {
-                        spawns.remove(j);
-                    }
-                }
-            }
-        }
-        List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
-
-
-        try {
-            for (int i = 0; i < enemies.size(); i++) {
-                enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
-            }
-        }
-        catch (Exception e) {
-            System.out.println("Failed to create a new enemy object, check your cnstr type:");
-            e.printStackTrace();
-        }
-        System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
-        Helper.Sleep(1);
-        System.out.print(Colors.CLEAR);
-        if ((p.getStageNum() % 5 == 0)) {
-            try {
-                ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-        Main.currentPlace.BattleStart(p, enemies);
-        whileAlive(enemies);
-        battleEnd(enemies);
-
-    }
 
     static void battleEnd(List<Enemy> enemies) {
         Player p = Main.player;
@@ -380,6 +380,7 @@ public class Battle extends Interactable {
         int Actions = p.getActionAmount();
         while (enemies.size() > 0) {
             checkIfDead(p,enemies);
+            removeDead(enemies);
             //tell user their stage number and environment
             while (Actions > 0) {
                 String col = Colors.RESET;
@@ -404,14 +405,14 @@ public class Battle extends Interactable {
                             if (enemies.get(choice-1).getName().contains("Keeper")){
                                 System.out.println("You are not allowed to attack the Keeper until you kill the other enemies!");
                                 Helper.Sleep(1);
-//                                Actions++;
                                 continue;
                             }
                             System.out.println(Colors.CLEAR);
                         }
                         if (r.nextInt(25 / enemies.get(choice - 1).getDodgeRate()) != 0) {
                             playerAttack(p, enemies, choice);
-
+                            checkIfDead(p, enemies);
+                            removeDead(enemies);
                         } else {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                             Helper.Sleep(1.5);
@@ -427,7 +428,7 @@ public class Battle extends Interactable {
                     p.setActionAmount(2);
                     break;
                 }
-                checkIfDead(p, enemies);
+
             }
             printHealth(enemies);//print out a ui to make it look like its just changing stuff. Idk looks cool
             String col = Colors.RESET;
@@ -454,6 +455,7 @@ public class Battle extends Interactable {
 
                 }
                 checkIfDead(p, enemies);
+                removeDead(enemies);
             }
             Actions = p.getActionAmount();
 

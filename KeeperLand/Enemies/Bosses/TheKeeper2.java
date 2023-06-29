@@ -57,7 +57,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
 
     @Override
     public void bossOnSpawn(List<Enemy> enemies) {
-        enemies.add(this);
+//        enemies.add(this);
         this.mutate = new None();
         //for drops in TheKeeper, create a new enemy with the same stats as the drop
         //then add it to the list of enemies

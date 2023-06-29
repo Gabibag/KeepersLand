@@ -35,6 +35,12 @@ public class TheKeeper extends FinalBoss {
 
     @Override
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
+        for (Enemy e : allies) {
+            if (e.getName().equalsIgnoreCase("The Keeper (Stage 2)")) {
+                return;
+            }
+        }
+
         System.out.println("The Keeper has been defeated!");
         System.out.println("The Keeper has ascended to stage two!");
         Helper.continuePrompt();
