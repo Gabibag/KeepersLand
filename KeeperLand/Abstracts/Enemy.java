@@ -26,8 +26,12 @@ public abstract class Enemy {
     protected int tokens;
     protected int level;
 
+
     public Mutations getMutate() {
         return mutate;
+    }
+    public boolean isBoss(){
+        return false;
     }
 
     public void setMutate(Mutations mutate) {
@@ -58,7 +62,7 @@ public abstract class Enemy {
         } catch (Exception e) {
             this.level = 1;
         }
-        scaleStats(this);
+        scaleStats();
         if (!Main.allEnemies.contains(this)) {
             Main.allEnemies.add((this)); //adds all enemies to a list
         }
@@ -71,6 +75,7 @@ public abstract class Enemy {
             this.mutate = allMutations.get(r.nextInt(allMutations.size()));
         }
     }
+
     public int getLevel() {
         return level;
     }
@@ -154,7 +159,8 @@ public abstract class Enemy {
         return battleHp + "hp";
     }
 
-    public void scaleStats(Enemy e) {
+    public void scaleStats() {
+        Enemy e = this;
         e.setBaseHp((int) (e.getBaseHp() * Helper.getScaleFactor(0, e)));
         e.setDamage((int) (e.getDamage() * Helper.getScaleFactor(1, e)));
         e.setCoins((int) (e.getCoins() * Helper.getScaleFactor(2, e)));

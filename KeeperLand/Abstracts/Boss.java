@@ -20,6 +20,11 @@ public abstract class Boss extends Enemy {
 
     public abstract void bossOnSpawn(List<Enemy> enemies) ;
 
+    @Override
+    public boolean isBoss() {
+        return true;
+    }
+
     public int getTokens() {
         return tokens;
     }

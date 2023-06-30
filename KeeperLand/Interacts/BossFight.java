@@ -53,13 +53,30 @@ public class BossFight extends Interactable {
         Random r = new Random();
         int Actions = p.getActionAmount();
         List<Enemy> enemies = new ArrayList<>();
-        enemies.add(new TheKeeper());
-        System.out.println(Colors.RED + "BOSS FIGHT" + Colors.RESET);
+        TheKeeper boss = new TheKeeper();
+        enemies.add(boss);
+        boss.bossOnSpawn(enemies);
+        updateItems(p, 1);
         Helper.Sleep(1);
         System.out.print(Colors.CLEAR);
         Main.currentPlace = new KeepersLand();
         whileAlive(enemies);
         battleEnd(enemies);
+        //loop through player's inventory and remove Keeper Shards
+        ArrayList<Item> inventoryTrunk = new ArrayList<>(Main.player.getInventory());
+        inventoryTrunk.removeIf(item -> !item.getName().equalsIgnoreCase("Keeper Shard"));
+        //check if the current boss is a keeper stage 1 or 2. If it is, add 80% of the enemy's drops to the player's inventory
+        /*if (enemies.get(0).getName().equalsIgnoreCase("The Keeper") || enemies.get(0).getName().equalsIgnoreCase("The Keeper (Stage 2)")) {
+            for (Item item : enemies.get(0).getDrops()) {
+                if (r.nextInt(100) < 80) {
+                    inventoryTrunk.add(item);
+                    continue;
+                }
+                System.out.println("You didn't get " + item.getName() + "!");
+                Helper.Sleep(0.2);
+            }
+        }*/
+
     }
 
 

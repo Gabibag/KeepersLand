@@ -4,6 +4,7 @@ import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Mutations;
 import KeeperLand.Colors;
+import KeeperLand.Main;
 
 import java.util.List;
 
@@ -53,7 +54,8 @@ public class Undead extends Mutations {
     public void onDeath(List<Enemy> e, Enemy self) {
         for (Enemy enemy : e) {
             if(enemy.getName().contains("Revived ")){
-                enemy.setBattleHp(0);
+                enemy.onDeath(Main.player, e, enemy);
+                e.remove(enemy);
                 System.out.println("The Undead " + self.getName() + " brings down " + enemy.getName() + "!");
             }
         }

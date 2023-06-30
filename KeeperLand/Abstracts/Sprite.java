@@ -6,7 +6,7 @@ import KeeperLand.Player;
 public abstract class Sprite extends Enemy {
     public Sprite() {
         this.setBaseStats();
-        this.scaleStats(this);
+        this.scaleStats();
         if (!Main.allSprites.contains(this)) {
             Main.allSprites.add((this)); //adds all enemies to a list
         }

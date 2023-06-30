@@ -297,7 +297,8 @@ public class Battle extends Interactable {
         }
         if (player.getStatusEffects().size() != 0) {
             List<StatusEffects> statusEffects = player.getStatusEffects();
-            for (StatusEffects s : statusEffects) {
+            for (int i = statusEffects.size() - 1; i >= 0; i--) {
+                StatusEffects s = statusEffects.get(i);
                 s.tickEffect(p, enemies.get(choice - 1), enemies, "playerAttack", pDamage);
             }
 
@@ -366,6 +367,8 @@ public class Battle extends Interactable {
 
         }
         //occurs after battle ends
+        ArrayList<Item> inventoryTrunk = new ArrayList<>(Main.player.getInventory());
+
         p.setDead(false);
         updateItems(p, 2);
         Main.getNewPlace();

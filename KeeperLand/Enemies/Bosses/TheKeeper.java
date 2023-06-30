@@ -2,11 +2,8 @@ package KeeperLand.Enemies.Bosses;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.FinalBoss;
-import KeeperLand.Helper;
-import KeeperLand.Item;
-import KeeperLand.Main;
+import KeeperLand.*;
 import KeeperLand.Mutations.None;
-import KeeperLand.Player;
 
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class TheKeeper extends FinalBoss {
     }
 
     @Override
-    public void scaleStats(Enemy e) {
+    public void scaleStats() {
         //do nothing
     }
 
@@ -46,9 +43,11 @@ public class TheKeeper extends FinalBoss {
         Helper.continuePrompt();
         List<Item> items = allies.get(0).getDrops();
         allies.clear();
-        allies.add(new TheKeeper2());
-//        (allies.get(0)).setDrops(items);
-        ((FinalBoss) allies.get(0)).bossOnSpawn(allies);
+        TheKeeper2 keeper2 = new TheKeeper2();
+        keeper2.setMutate(new None());
+        keeper2.setDrops(items);
+        allies.add(keeper2);
+        (keeper2).bossOnSpawn(allies);
 
 
         //tell the user that the keeper has ascended to stage two
@@ -59,10 +58,31 @@ public class TheKeeper extends FinalBoss {
         return " defies your attack.";
     }
 
+
     @Override
     public void bossOnSpawn(List<Enemy> allies) {
-
+        System.out.println(Colors.CLEAR + Colors.RED);
+        flashText();
         this.mutate = new None();
+    }
+    private void flashText(){
+        for (int i = 0; i < 3; i++) {
+            bossText();
+            Helper.Sleep(0.5);
+            System.out.println(Colors.CLEAR);
+            Helper.Sleep(0.5);
+        }
+    }
+
+    private void bossText(){
+        System.out.println("""
+                ██████╗  ██████╗ ███████╗███████╗    ███████╗██╗ ██████╗ ██╗  ██╗████████╗██╗
+                ██╔══██╗██╔═══██╗██╔════╝██╔════╝    ██╔════╝██║██╔════╝ ██║  ██║╚══██╔══╝██║
+                ██████╔╝██║   ██║███████╗███████╗    █████╗  ██║██║  ███╗███████║   ██║   ██║
+                ██╔══██╗██║   ██║╚════██║╚════██║    ██╔══╝  ██║██║   ██║██╔══██║   ██║   ╚═╝
+                ██████╔╝╚██████╔╝███████║███████║    ██║     ██║╚██████╔╝██║  ██║   ██║   ██╗
+                ╚═════╝  ╚═════╝ ╚══════╝╚══════╝    ╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝""");
+
     }
 
     @Override

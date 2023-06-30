@@ -34,7 +34,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         allies.clear();
         System.out.println(Colors.CLEAR);
-        System.out.println("You found a" + Colors.YELLOW + " Keeper Shard" + Colors.RESET + "!");
+        System.out.println("You defeated the Keeper and found a" + Colors.YELLOW + " Keeper Shard" + Colors.RESET + "!");
         p.addInventory(new Item(ItemData.KeeperShard));
         p.setBattleHp( p.getBattleDamage() + ItemData.KeeperShard.getHpIncr());
 
@@ -62,16 +62,18 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
         //for drops in TheKeeper, create a new enemy with the same stats as the drop
         //then add it to the list of enemies
 //        List<Item> tempItems = new ArrayList<>();
+        System.out.println("The Keeper has stolen your items and brought them to life!");
         List<Item> inventory = Main.player.getInventory();
         for (int i = 0; i < inventory.size(); i++) {
             Item item = inventory.get(i);
             ItemEntity temp = new ItemEntity();
-            temp.setBaseStats(item.getHpIncr() + item.getHealIncrease(), item.getDmgIncr() + item.getHealVariance(), "Animated " + item.getName());
+            int costReformatted = item.getCost() / (item.getDmgIncr() + 1);
+            temp.setBaseStats(item.getHpIncr() + item.getHealIncrease() + costReformatted, (int) (item.getDmgIncr() + item.getHealVariance()), "Animated " + item.getName());
             if (temp.getBaseHp() != 0 && item.getDmgIncr() != 0) {
                 enemies.add(temp);
-                Main.player.getInventory().remove(item);
-                this.addDrops(item);
             }
+            inventory.remove(item);
+            this.addDrops(item);
         }
         for (int mainEntity = enemies.size() - 1; mainEntity >= 0; mainEntity--) {
             ItemEntity e;
@@ -84,7 +86,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
                 if (e.getName().contains(enemies.get(j).getName()) && mainEntity != j) {
                     e.setBaseHp(enemies.get(j).getBaseHp() + e.getBaseHp());
                     e.setBattleHp(e.getBaseHp());
-                    e.setDamage((int) (enemies.get(j).getDamage()*0.5 + e.getDamage()));
+                    e.setDamage(enemies.get(j).getDamage() + e.getDamage());
                     enemies.remove(j);
                     mainEntity--;
                     e.setCount(e.getCount() + 1);

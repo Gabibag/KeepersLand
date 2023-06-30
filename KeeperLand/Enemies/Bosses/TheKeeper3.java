@@ -1,12 +1,9 @@
 package KeeperLand.Enemies.Bosses;
 
-import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.FinalBoss;
 import KeeperLand.*;
 import KeeperLand.Enemies.Common.ItemEntity;
-import KeeperLand.Enemies.Graveyard.Skeleton;
-import KeeperLand.Enemies.Lava.Overlord;
 import KeeperLand.Mutations.None;
 
 import java.lang.reflect.InvocationTargetException;
@@ -86,9 +83,13 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
             try {
                 for (int i = 0; i < 2; i++) {
                     Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
-                    while (e instanceof FinalBoss || e instanceof ItemEntity ) {
+                    while (e instanceof FinalBoss || e instanceof ItemEntity || e.isBoss()) {
                         e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
                     }
+                    if (e.getLevel()> 20){
+                        e.setLevel(e.getLevel() - 20);
+                    }
+                    e.scaleStats();
                     allies.add(e);
                 }
 
@@ -134,13 +135,13 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
         try {
             for (int i = 0; i < 2; i++) {
                 Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
-                while (e instanceof ItemEntity || e instanceof Boss){
+                while (e instanceof FinalBoss || e instanceof ItemEntity || e.isBoss()) {
                     e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
                 }
-                if(e instanceof Overlord && Main.r.nextInt(10) != 1){
-                    e = new Skeleton();
+                if (e.getLevel()> 20){
+                    e.setLevel(e.getLevel() - 20);
                 }
-
+                e.scaleStats();
                 enemies.add(e);
             }
 
