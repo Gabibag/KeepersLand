@@ -8,7 +8,7 @@ import KeeperLand.Player;
 import java.util.Random;
 
 public class Ninja extends Enemy {
-    Random r = new Random();
+    Random r = Main.r;
 
 
     @Override

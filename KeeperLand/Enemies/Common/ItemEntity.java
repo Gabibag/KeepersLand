@@ -1,12 +1,13 @@
 package KeeperLand.Enemies.Common;
 
 import KeeperLand.Abstracts.Enemy;
+import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.Random;
 
 public class ItemEntity extends Enemy {
-    Random r = new Random();
+    Random r = Main.r;
     private int count = 1;
 
     public int getCount() {

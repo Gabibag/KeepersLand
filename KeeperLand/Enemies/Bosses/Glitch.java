@@ -13,7 +13,7 @@ public class Glitch extends Boss {
     protected static boolean End;
 
     public void setBaseStats() {
-        this.baseHp = 75;
+        this.baseHp = 50;
         this.damage = 5;
         this.xp = 120;
         this.name = "Glitch";
@@ -40,35 +40,35 @@ public class Glitch extends Boss {
         p.setStageNum(p.getStageNum()+1);
         spawns = Helper.getRandomElements(spawns, 3);
 
-        System.out.println(Colors.RED + "<Error>: multiple abnormal entites detected. Attempting to fix error..." + Colors.RESET);
+        System.out.println(Colors.RED + "<Error>: multiple abnormal entities detected. Attempting to fix error..." + Colors.RESET);
         for (Enemy e : spawns) {
             int rand = Main.r.nextInt(3);
             Helper.Sleep(2);
             if (rand == 0) {
-                System.out.println("Entity " + e.getName() + "<" + e + "> detected with abnormal stats. Attempting to fix...");
+                System.out.println("Entity " + Colors.RED + e.getName() + "<" + e + ">" + Colors.RESET + " detected with" +Colors.RED+" abnormal stats." + Colors.RESET + " Attempting to fix...");
                 e.setBattleHp(e.getBattleHp() >> 1);
                 e.setDamage(e.getDamage() << 1);
                 Helper.Sleep(2);
-                System.out.println("Unable to fix, health halved (" + (e.getBattleHp() << 1) + "->" + e.getBattleHp() + "), damage doubled (" + e.getDamage() / 2 + "->" + e.getDamage() + ").");
+                System.out.println("Unable to fix, health " + Colors.RED +"halved (" + (e.getBattleHp() << 1) + "->" + e.getBattleHp() + ")" + Colors.RESET + ", damage " + Colors.RED + "doubled (" + e.getDamage() / 2 + "->" + e.getDamage() + ")." + Colors.RESET);
             } else if (rand == 1) {
-                System.out.println("Entity " + e.getName() + "<" + e + "> detected with abnormal stats. Attempting to fix...");
+                System.out.println("Entity " + Colors.RED + e.getName() + "<" + e + ">" + Colors.RESET + " detected with" +Colors.RED+" abnormal stats." + Colors.RESET + " Attempting to fix...");
                 e.setBattleHp(e.getBattleHp() << 1);
                 e.setDamage(e.getDamage() >> 1);
                 Helper.Sleep(2);
-                System.out.println("Unable to fix, health doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + "), damage halved (" + (e.getDamage() << 1) + "->" + e.getDamage() + ").");
+                System.out.println("Unable to fix, health"  +Colors.RED+" doubled (" + e.getBattleHp() / 2 + "->" + e.getBattleHp() + ")" + Colors.RESET + ", damage" +Colors.RED+" halved (" + (e.getDamage() << 1) + "->" + e.getDamage() + ")." + Colors.RESET);
             } else{
-                System.out.println("Entity " + e.getName() + "<" + e + "> detected with decreased stats. Attempting to fix...");
+                System.out.println("Entity " + Colors.RED + e.getName() + "<" + e + ">" + Colors.RESET + " detected with" +Colors.RED+" decreased stats." + Colors.RESET + " Attempting to fix...");
                 e.setBattleHp((int) (e.getBattleHp() * 1.5));
                 e.setDamage((int) (e.getDamage() * 1.5));
                 Helper.Sleep(2);
-                System.out.println("Fixed, health doubled (" + ((int) (e.getBattleHp() / 1.5)) + "->" + e.getBattleHp() + "), damage doubled (" + ((int) (e.getDamage() / 1.5)) + "->" + e.getDamage() + ").");
+                System.out.println("Fixed, health" +Colors.RED+" doubled (" + ((int) (e.getBattleHp() / 1.5)) + "->" + e.getBattleHp() + ")," + Colors.RESET + " damage" +Colors.RED+" doubled (" + ((int) (e.getDamage() / 1.5)) + "->" + e.getDamage() + ")." + Colors.RESET);
             }
 
         }
         allies.addAll(spawns);
-        System.out.println("Player " + p.getName() + " detected with abnormal stats. Attempting to fix...");
+        System.out.println("Player " + p.getName() + " detected with" +Colors.RED+" abnormal stats." + Colors.RESET + " Attempting to fix...");
         p.setBattleHp(p.getBattleHp() + p.getHp()/2);
-        System.out.println("Fixed, health increased (" + p.getBattleHp()/2 + "->" + p.getBattleHp() + ").");
+        System.out.println("Fixed, health" +Colors.RED+" increased (" + p.getBattleHp()/2 + "->" + p.getBattleHp() + ")." +Colors.RESET);
         Helper.Sleep(1);
     }
 

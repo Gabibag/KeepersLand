@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Gargoyle extends Enemy {
-    Random r = new Random();
+    Random r = Main.r;
 
 
     @Override

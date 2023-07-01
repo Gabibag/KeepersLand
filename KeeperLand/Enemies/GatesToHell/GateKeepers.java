@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GateKeepers extends Enemy {
-    Random r = new Random();
+    Random r = Main.r;
 
 
     @Override
@@ -19,7 +19,7 @@ public class GateKeepers extends Enemy {
         this.baseHp = 10;
         this.damage = 0;
         this.xp = 20;
-        this.name = "GateKeepers";
+        this.name = "Gate Defenders";
         this.battleHp = baseHp;
         this.coins = 3;
     }
@@ -34,7 +34,7 @@ public class GateKeepers extends Enemy {
     @Override
     public int Attack(Player p, List<Enemy> allies) {
         int dmg = (int) Helper.getScaleFactor(1, this) * 5;
-        System.out.println("The Gate Keeper" + Colors.RED + " steals" + Colors.RESET + " your health!");
+        System.out.println("The Gate Defender" + Colors.RED + " steals" + Colors.RESET + " your health!");
         for (Enemy e : allies) {
             e.setBattleHp(e.getBattleHp() + (dmg * ((allies.size()-1) / 2)));
         }

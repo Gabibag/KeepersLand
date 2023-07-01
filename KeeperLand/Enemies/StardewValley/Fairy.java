@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Fairy extends Enemy {
-    Random r = new Random();
+    Random r = Main.r;
 
 
     @Override

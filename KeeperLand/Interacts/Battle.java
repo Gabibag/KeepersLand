@@ -20,7 +20,7 @@ public class Battle extends Interactable {
         p.setBattleHp(p.getHp());
         p.setBattleDamage(p.getDamage());
         updateItems(p, 1);
-        Random r = new Random();
+        Random r = Main.r;
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
         while (spawns.size() < 3) {
@@ -29,6 +29,9 @@ public class Battle extends Interactable {
             for (int i = spawns.size() - 1; i >= 0; i--) {
                 for (int j = spawns.size() - 1; j >= i + 1; j--) {
                     if (spawns.get(i).getName().equalsIgnoreCase(spawns.get(j).getName())) {
+                        spawns.remove(j);
+                    }
+                    if (spawns.get(i).getName().contains("Sprite") && spawns.get(j).getName().contains("Sprite")){
                         spawns.remove(j);
                     }
                 }
@@ -267,7 +270,7 @@ public class Battle extends Interactable {
         IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                 enemies::remove); //the magic of intellij
         p.Save(p.getName() + ".plr");
-        if(p.getStageNum()%5 == 0||(p.getStageNum() -1 % 5 == 0)){
+        if((p.getStageNum() % 5 == 0 || (p.getStageNum() - 1 % 5 == 0)) || (p.getStageNum() == 0 || p.getStageNum() == 1)){
             p.setStageNum(p.getStageNum() - 1);
         }
 
@@ -379,7 +382,7 @@ public class Battle extends Interactable {
 
     static void whileAlive(List<Enemy> enemies) {
         Player p = Main.player;
-        Random r = new Random();
+        Random r = Main.r;
         int Actions = p.getActionAmount();
         while (enemies.size() > 0) {
             checkIfDead(p,enemies);

@@ -301,12 +301,51 @@ public class Player {
         }
         String c = Colors.PURPLE;
         String r = Colors.RESET;
-        return c + "Name: " + r + this.name + c + "\nHP: " + Colors.RED + tempHp + c + "\nDamage: " + Colors.RED + tempDmg
-                + c + "\nMoney: " + Colors.CYAN +  this.money + c +
-                "\nHeal Variance: " + Colors.YELLOW + tempHealVar + c + "\nHeal Amount: " + Colors.YELLOW+  tempHeal +c +  "\nLevel: " +
-                 Colors.BLUE + this.level +c + "\nXp: " + Colors.BLUE + this.xp + c + "\nLevel Requirement: " + r+ this.xpToLevel
-                + c + "\nStage Number: " + r+
-                this.stageNum;
+        String s = Colors.RED;
+        int maxSize = this.name.length();
+        maxSize = Math.max(String.valueOf(tempHp).length(),maxSize);
+        maxSize = Math.max(String.valueOf(tempDmg).length(),maxSize);
+        maxSize = Math.max(String.valueOf(tempHealVar).length(),maxSize);
+        maxSize = Math.max(String.valueOf(tempHeal).length(),maxSize);
+        maxSize = Math.max(String.valueOf(this.level).length(),maxSize);
+        maxSize = Math.max(String.valueOf(this.money).length(),maxSize);
+        maxSize = Math.max(String.valueOf(this.xp).length(),maxSize);
+        maxSize = Math.max(String.valueOf(this.xpToLevel).length(),maxSize);
+        maxSize = Math.max(String.valueOf(this.stageNum).length(),maxSize);
+        maxSize +=29;
+        StringBuilder nameSpace = new StringBuilder();
+        StringBuilder hpSpace = new StringBuilder();
+        StringBuilder dmgSpace = new StringBuilder();
+        StringBuilder variSpace = new StringBuilder();
+        StringBuilder healSpace = new StringBuilder();
+        StringBuilder levelSpace = new StringBuilder();
+        StringBuilder moneySpace = new StringBuilder();
+        StringBuilder xpSpace = new StringBuilder();
+        StringBuilder toLevelSpace = new StringBuilder();
+        StringBuilder stageSpace = new StringBuilder();
+        nameSpace.append(" ".repeat(Math.max(0, maxSize - this.name.length()-4)));
+        hpSpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(tempHp).length()-2)));
+        dmgSpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(tempDmg).length()-6)));
+        variSpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(tempHealVar).length()-13)));
+        healSpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(tempHeal).length()-4)));
+        levelSpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(level).length()-5)));
+        moneySpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(money).length()-5)));
+        xpSpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(xp).length()-2)));
+        toLevelSpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(xpToLevel).length()-17)));
+        stageSpace.append(" ".repeat(Math.max(0, maxSize - String.valueOf(stageNum).length()-12)));
+
+        String ret = c + "Name: " + r +nameSpace + this.getName() + c;
+        ret       += "\nHP: " +  s + hpSpace + tempHp + c;
+        ret       += "\nDamage: " + s + dmgSpace + tempDmg + c;
+        ret       += "\nHeal Variance: " + Colors.YELLOW + variSpace + tempHealVar + c;
+        ret       += "\nHeal: " + Colors.YELLOW + healSpace + tempHeal + c;
+        ret       += "\nMoney: " + Colors.CYAN + moneySpace + this.money + c;
+        ret       += "\nLevel: " + Colors.BLUE + levelSpace + level + c;
+        ret       += "\nXP: " + Colors.BLUE + xpSpace + xp + c;
+        ret       += "\nLevel Requirement: " + Colors.RESET + toLevelSpace + xpToLevel + c;
+        ret       += "\nStage Number: " + Colors.RESET + stageSpace + stageNum + c;
+
+        return ret;
 
     }
 

@@ -47,10 +47,15 @@ public class BossFight extends Interactable {
 
     @Override
     public void onChoose(Player p) { //yeah same exact thing. Just some sliiiight tweaks.
+        if(getName() == "Locked") {
+            System.out.println("You need 6 shards to enter the boss fight.");
+            Helper.continuePrompt();
+            return;
+        }
         p.setBattleHp(p.getHp());
         p.setBattleDamage(p.getDamage());
         updateItems(p, 1);
-        Random r = new Random();
+        Random r = Main.r;
         int Actions = p.getActionAmount();
         List<Enemy> enemies = new ArrayList<>();
         TheKeeper boss = new TheKeeper();

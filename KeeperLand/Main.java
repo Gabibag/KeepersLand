@@ -82,6 +82,8 @@ public class Main {
             player.addMoney(50);
             player.setHealAmount(10);
             player.setHealVariance(1);
+            player.addInventory(ItemData.starterWeapon);
+
             Main.currentPlace = new StarterLand();
         }
         //region testing
@@ -209,7 +211,29 @@ public class Main {
             System.exit(0);
         }
         //endregion
-
+        for (int i = allInteracts.size() - 2; i >= 0; i--) {
+            if (allInteracts.get(i).getName().contains("Quit")){
+                Interactable inter = allInteracts.get(allInteracts.size()-1);
+                allInteracts.set(allInteracts.size()-1, allInteracts.get(i));
+                allInteracts.set(i, inter);
+            }else if (allInteracts.get(i).getName().contains("Battle")){
+                Interactable inter = allInteracts.get(0);
+                allInteracts.set(0, allInteracts.get(i));
+                allInteracts.set(i, inter);
+            }else if (allInteracts.get(i).getName().contains("Shop")){
+                Interactable inter = allInteracts.get(2);
+                allInteracts.set(2, allInteracts.get(i));
+                allInteracts.set(i, inter);
+            }else if (allInteracts.get(i).getName().contains("Settings")){
+                Interactable inter = allInteracts.get(allInteracts.size()-2);
+                allInteracts.set(allInteracts.size()-2, allInteracts.get(i));
+                allInteracts.set(i, inter);
+            }else if (allInteracts.get(i).getName().contains("Level Up")){
+                Interactable inter = allInteracts.get(1);
+                allInteracts.set(1, allInteracts.get(i));
+                allInteracts.set(i, inter);
+            }
+        }
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(

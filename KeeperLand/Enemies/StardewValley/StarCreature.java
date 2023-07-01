@@ -9,7 +9,7 @@ import KeeperLand.Player;
 import java.util.Random;
 
 public class StarCreature extends Enemy {
-    Random r = new Random();
+    Random r = Main.r;
 
 
     @Override

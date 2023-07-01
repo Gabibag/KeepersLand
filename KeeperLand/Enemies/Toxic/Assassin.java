@@ -8,7 +8,7 @@ import KeeperLand.Player;
 import java.util.Random;
 
 public class Assassin extends Enemy {
-    Random r = new Random();
+    Random r = Main.r;
 
     public void setBaseStats() {
         this.baseHp = 1;

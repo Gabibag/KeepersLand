@@ -15,6 +15,6 @@ public abstract class Sprite extends Enemy {
 
     @Override
     public boolean canSpawn(Player p) {
-        return Main.r.nextInt(1, 30) == 2;
+        return Main.r.nextInt(30) == 2;
     }
 }

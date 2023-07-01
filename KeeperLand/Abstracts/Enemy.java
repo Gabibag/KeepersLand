@@ -39,17 +39,17 @@ public abstract class Enemy {
     }
 
     protected Mutations mutate;
-    Random r = new Random();
+    Random r = Main.r;
     public static boolean loaded = false;
     public Enemy() {
         this.setBaseStats();
         try {
             int rand = r.nextInt(100);
-            if (rand >=95){
+            if (rand == 99){
                 rand = 3;
-            } else if (rand >= 80) {
+            } else if (rand >= 90) {
                 rand = 2;
-            }else if (rand >=50){
+            }else if (rand >=75){
                 rand = 1;
             }else{
                 rand = 0;
@@ -71,7 +71,7 @@ public abstract class Enemy {
         this.drops = new ArrayList<>(this.drops);
         this.drops.add(ItemData.OmegaShard);
         //random 1 in 20 chance to mutate
-        if (r.nextInt(2) == 0) {
+        if (r.nextInt(10) == 0) {
             this.mutate = allMutations.get(r.nextInt(allMutations.size()));
         }
     }
