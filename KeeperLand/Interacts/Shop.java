@@ -4,9 +4,10 @@ import KeeperLand.Abstracts.Interactable;
 import KeeperLand.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-import static java.util.stream.IntStream.range;
+import static KeeperLand.Main.player;
 
 public class Shop extends Interactable {
     public static void quickBuy(Player p, List<Item> items) {
@@ -30,67 +31,34 @@ public class Shop extends Interactable {
     }
 
     public static void superBuy(Player p) {
-        int money = p.getMoney();
-        List<Item> tempItems = new ArrayList<>();
-        for (int i = 0; i < Main.currentPlace.getShopItems().size(); i++) {
-            if (!Main.currentPlace.getShopItems().get(i).getName().equalsIgnoreCase("dull skull")) {
-                tempItems.add(Main.currentPlace.getShopItems().get(i));
-            }
-
-
-        }
-
-
+        if (Main.currentPlace.getShopItems().size() == 0) return;
+        List<Item> tempItems = new ArrayList<>(Main.currentPlace.getShopItems().stream().filter(o1 -> !o1.getName().equalsIgnoreCase("dull skull")).toList());
         //sort items by cost ascending
-        for (int i = 0; i < tempItems.size(); i++) {
-            for (int j = 0; j < tempItems.size() - 1; j++) {
-                if (tempItems.get(j).getCost() > tempItems.get(j + 1).getCost()) {
-                    Item temp = tempItems.get(j);
-                    tempItems.set(j, tempItems.get(j + 1));
-                    tempItems.set(j + 1, temp);
-                }
-            }
-        }
-
-        for (int i = 0; i < tempItems.size(); i++) {
-            if (tempItems.get(i).getCost() <= money) {
-                p.getInventory().add(tempItems.get(i));
-                p.chargeMoney(tempItems.get(i).getCost());
-                money = p.getMoney();
-                i--;
-            }
+        tempItems.sort(Comparator.comparingInt(Item::getCost));
+        int i = 0;
+        while (tempItems.stream().anyMatch(o1 -> o1.getCost() <= p.getMoney())) {
+            if (tempItems.get(i).getCost() > p.getMoney()) continue;
+            int index = i % tempItems.size();
+            buyItem(player, tempItems.get(index));
+            i++;
         }
         System.out.println("Bought all items you could afford");
     }
 
     public static void statBuy(Player p) {
-        int money = p.getMoney();
-        List<Item> tempItems = new ArrayList<>();
-        for (int i = 0; i < Main.currentPlace.getShopItems().size(); i++) {
-            if (!Main.currentPlace.getShopItems().get(i).getName().equalsIgnoreCase("dull skull")) {
-                tempItems.add(Main.currentPlace.getShopItems().get(i));
-            }
-
-
-        }
-
-
+        if (Main.currentPlace.getShopItems().size() == 0) return;
+        List<Item> tempItems = new ArrayList<>(Main.currentPlace.getShopItems().stream().filter(o1 -> !o1.getName().equalsIgnoreCase("dull skull")).toList());
         //sort items by cost ascending
-        range(0, tempItems.size()).flatMap(i -> range(0, tempItems.size() - 1)).filter(j -> tempItems.get(j).getCost() > tempItems.get(j + 1).getCost()).forEachOrdered(j -> {
-            Item temp = tempItems.get(j);
-            tempItems.set(j, tempItems.get(j + 1));
-            tempItems.set(j + 1, temp);
-        });
-
-        for (int i = 0; i < tempItems.size(); i++) {
-            if (tempItems.get(i).getCost() <= money) {
-                p.getInventory().add(tempItems.get(i));
-                p.chargeMoney(tempItems.get(i).getCost());
-                money = p.getMoney();
-                i--;
-            }
+        tempItems.sort(Comparator.comparingInt(Item::getCost));
+        int i = 0;
+        while (tempItems.stream().allMatch(o1 -> o1.getCost() <= p.getMoney())) {
+            int index = i % tempItems.size();
+            buyItem(player, tempItems.get(index));
+            i++;
         }
+
     }
+
 
     @Override
     public String getName() {
@@ -98,9 +66,9 @@ public class Shop extends Interactable {
 
         //sort the list items by cost descending
         try {
-            List<Item> items = getItems(Main.player);
+            List<Item> items = getItems(player);
             for (Item item : items) {
-                if (Main.player.getMoney() >= item.getCost()) {
+                if (player.getMoney() >= item.getCost()) {
                     return Colors.GREEN + "Shop" + Colors.PURPLE;
                 }
             }
@@ -163,15 +131,21 @@ public class Shop extends Interactable {
                 System.out.println(Colors.CLEAR);
             } else {
                 Item i = items.get(choice - 4);
-                if (i.getCost() > player.getMoney()) {
-                    System.out.println("Not enough money");
-                } else {
-                    player.getInventory().add(i);
-                    player.chargeMoney(i.getCost());
-                    System.out.println(
-                            "Bought " + i.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
-                }
+                buyItem(player, i);
             }
+        }
+    }
+
+    private static void buyItem(Player player, Item i) {
+        if (i.getCost() > player.getMoney()) {
+            System.out.println("Not enough money");
+        } else {
+            Item give = i.randTier();
+
+            player.getInventory().add(give);
+            player.chargeMoney(i.getCost());
+            System.out.println(
+                    "Bought " + give.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
         }
     }
 

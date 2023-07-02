@@ -354,6 +354,7 @@ public class Inventory extends Interactable {
         if (totalHealVariance != 0) {
             inventoryDisplay += (" + " + totalHealVariance + " healing variance (Contributes to " + Math.round((totalHealVariance / ((float) tempMaxHealVar)) * 10000) / 100f + "%) of total healing variance \n");
         }
+        inventoryDisplay += ("\nTotal Items: " + Main.player.getInventory().size());
         System.out.println(inventoryDisplay);
 
         return printItems;

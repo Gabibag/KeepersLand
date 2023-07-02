@@ -17,7 +17,7 @@ public class GateKeepers extends Enemy {
     @Override
     public void setBaseStats() {
         this.baseHp = 10;
-        this.damage = 0;
+        this.damage = 5;
         this.xp = 20;
         this.name = "Gate Defenders";
         this.battleHp = baseHp;
@@ -33,12 +33,12 @@ public class GateKeepers extends Enemy {
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
-        int dmg = (int) Helper.getScaleFactor(1, this) * 5;
+        int dmg = (int) Helper.getScaleFactor(1, this);
         System.out.println("The Gate Defender" + Colors.RED + " steals" + Colors.RESET + " your health!");
         for (Enemy e : allies) {
-            e.setBattleHp(e.getBattleHp() + (dmg * ((allies.size()-1) / 2)));
+            e.setBattleHp(e.getBattleHp() + dmg / 3);
         }
-        p.setBattleHp(p.getBattleHp() - dmg * (allies.size()-1)/2);
+        p.setBattleHp(p.getBattleHp() - dmg);
         return 0;
     }
 }

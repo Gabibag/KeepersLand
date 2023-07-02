@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static KeeperLand.Interacts.Inventory.isNot0;
+import static KeeperLand.Main.r;
 
 public class Item {
     public static List<Item> allPool = new ArrayList<>();
@@ -115,6 +116,7 @@ public class Item {
 
         return displayItem(this);
     }
+
     private static String displayItem(Item item) {
         //sort items by cost descending
 
@@ -136,18 +138,17 @@ public class Item {
 
 
         try {
-            StringBuilder spaceCount = new StringBuilder();
             StringBuilder variCount = new StringBuilder();
             StringBuilder hpCount = new StringBuilder();
             StringBuilder healCount = new StringBuilder();
             StringBuilder dmgCount = new StringBuilder();
             StringBuilder tierCount = new StringBuilder();
-            spaceCount.append(" ".repeat(Math.max(0, maxNameLength - item.getName().length() + 2)));
+            String spaceCount = " ".repeat(Math.max(0, maxNameLength - item.getName().length() + 2));
             variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealVariance()).length())));
             hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHpIncr()).length())));
             healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealIncrease()).length())));
             dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getDmgIncr()).length())));
-            tierCount.append(" ".repeat(Math.max(0, maxColLength -item.getStrTier().length()) + 8));
+            tierCount.append(" ".repeat(Math.max(0, maxColLength - item.getStrTier().length()) + 8));
             String col = Colors.PURPLE;
 
             return (
@@ -240,8 +241,8 @@ public class Item {
     public int getTier() {
         return tier;
     }
-    public String getStrTier()
-    {
+
+    public String getStrTier() {
         String romanNumeral = getNumeral();
 
         return "Type " + romanNumeral;
@@ -260,7 +261,7 @@ public class Item {
         };
     }
 
-    public  String getColTier(){
+    public String getColTier() {
         String col = switch (this.tier) {
             case 2 -> Colors.GREEN;
             case 3 -> Colors.BLUE;
@@ -271,16 +272,42 @@ public class Item {
         };
         return col;
     }
+
     public void setTier(int tier) {
-        this.setHealIncrease((int) (this.getHealIncrease() * ((tier*0.4) +1)));
-        this.setDmgIncr((int) (this.getDmgIncr() * ((tier*0.4) +1)));
-        this.setHpIncr((int) (this.getHpIncr() * ((tier*0.4) +1)));
-        this.setCost((int) (this.getCost() * ((tier*0.4) +1)));
-        this.setHealVariance((int) (this.getHealVariance() * ((tier *0.7))));
+        this.setHealIncrease((int) (this.getHealIncrease() * ((tier * 0.4) + 1)));
+        this.setDmgIncr((int) (this.getDmgIncr() * ((tier * 0.4) + 1)));
+        this.setHpIncr((int) (this.getHpIncr() * ((tier * 0.4) + 1)));
+        this.setCost((int) (this.getCost() * ((tier * 0.4) + 1)));
+        this.setHealVariance((int) (this.getHealVariance() * ((tier * 0.7))));
         this.tier = tier;
     }
 
-
+    public Item randTier() {
+        /*generates tier 1-6.
+        1 = Type 1 50% chance
+        2 = Type 2 25% chance
+        3 = Type 3 Rare 15% chance
+        4 = Type 4 7% chance
+        5 = Type 5 2.5% chance
+        6 = Type 6 0.5% chance
+        */
+        int tier = 1;
+        int rand = r.nextInt(1000);
+        if (rand > 500 && rand <= 750) {
+            tier = 2;
+        } else if (rand > 750 && rand <= 900) {
+            tier = 3;
+        } else if (rand > 900 && rand <= 970) {
+            tier = 4;
+        } else if (rand > 970 && rand <= 995) {
+            tier = 5;
+        } else if (rand > 995) {
+            tier = 6;
+        }
+        Item newItem = new Item(this);
+        newItem.setTier(tier);
+        return newItem;
+    }
 
 
     //Items

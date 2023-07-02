@@ -114,7 +114,8 @@ public class Main {
             System.out.println("sussy");
             Main.currentPlace = new LavaZone();
         } else if (player.getName().contains("runThrough") || player.getName().contains("rtest")) {
-            int lvl = Helper.getInput("What level would you like to be at?", 99999999);
+            System.out.println(Integer.MAX_VALUE);
+            int lvl = Helper.getInput("What level would you like to be at?", Integer.MAX_VALUE);
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < lvl; i++) {
@@ -125,9 +126,8 @@ public class Main {
                     e.randDrops(player, e);
                 }
 
-                if (player.getStageNum() % 9 == 0) {
-                    Shop.superBuy(player);
-                }
+//                Shop.statBuy(player);
+
                 player.incStageNum(1);
                 getNewPlace();
             }

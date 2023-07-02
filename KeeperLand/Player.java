@@ -78,7 +78,7 @@ public class Player {
                 is.setRarity(r.nextInt());
                 p.inventory.add(is);*/
 
-                
+
                 String name = r.nextLine();
                 int tier = Integer.parseInt(r.nextLine().trim());
 
@@ -91,6 +91,7 @@ public class Player {
                     }
                 }
             }
+            
             r.close();
             return p;
         } catch (NumberFormatException e) {

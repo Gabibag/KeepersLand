@@ -30,7 +30,8 @@ public abstract class Enemy {
     public Mutations getMutate() {
         return mutate;
     }
-    public boolean isBoss(){
+
+    public boolean isBoss() {
         return false;
     }
 
@@ -41,17 +42,18 @@ public abstract class Enemy {
     protected Mutations mutate;
     Random r = Main.r;
     public static boolean loaded = false;
+
     public Enemy() {
         this.setBaseStats();
         try {
             int rand = r.nextInt(100);
-            if (rand == 99){
+            if (rand == 99) {
                 rand = 3;
             } else if (rand >= 90) {
                 rand = 2;
-            }else if (rand >=75){
+            } else if (rand >= 75) {
                 rand = 1;
-            }else{
+            } else {
                 rand = 0;
             }
             rand *= r.nextBoolean() ? 1 : -1;
@@ -83,9 +85,6 @@ public abstract class Enemy {
     public void setLevel(int level) {
         this.level = level;
     }
-
-
-
 
 
     //create a get type method that returns the string "Enemy"
@@ -182,7 +181,7 @@ public abstract class Enemy {
         //by default, just gives xp and money
         if (mutate != null) {
             mutate.onDeath(allies, self);
-        }else {
+        } else {
             String drops = randDrops(p, this);
             /*if( drops != null){
                 System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
@@ -191,7 +190,7 @@ public abstract class Enemy {
                 System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
                         Colors.RESET + ")");
             }*/
-            String out= "You killed " + isAn(name) + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" +
+            String out = "You killed " + isAn(name) + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" +
                     Colors.RESET + ")";
             if (drops != null) {
                 out += " and got " + isAn(drops) + Colors.YELLOW + drops + Colors.RESET + "!";
@@ -203,7 +202,8 @@ public abstract class Enemy {
         p.addXp(xp);
 
     }
-    public static String isAn(String str){
+
+    public static String isAn(String str) {
         return (str.matches("^[aeiou].*") ? "an " : "a ");
     }
 
@@ -230,31 +230,10 @@ public abstract class Enemy {
         if (item == null) {
             return null;
         }
-        /*generates tier 1-6.
-        1 = Type 1 50% chance
-        2 = Type 2 25% chance
-        3 = Type 3 Rare 15% chance
-        4 = Type 4 7% chance
-        5 = Type 5 2.5% chance
-        6 = Type 6 0.5% chance
-        */
 
-        int tier = 1;
-        int rand = r.nextInt(1000);
-        if (rand >500 && rand <= 750){
-            tier = 2;
-        }else if (rand > 750 && rand <= 900){
-            tier = 3;
-        }else if (rand > 900 && rand <= 970){
-            tier = 4;
-        }else if (rand > 970 && rand <= 995){
-            tier = 5;
-        }else if (rand > 995){
-            tier = 6;
-        }
+
         //copy over stats from the item to another one
-        Item newItem = new Item(item);
-        newItem.setTier(tier);
+        Item newItem = item.randTier();
 
         p.addInventory(newItem);
         return newItem.getStrTier() + " " + newItem.getName();

@@ -8,6 +8,7 @@ import KeeperLand.Enviroments.KeepersLand;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import static KeeperLand.Interacts.Battle.*;
@@ -24,7 +25,16 @@ public class BossFight extends Interactable {
             ArrayList<Item> inventoryTrunk = new ArrayList<>(Main.player.getInventory());
             inventoryTrunk.removeIf(item -> !item.getName().contains("Shard"));
             int shardCounter = 0;
-            for (int j = inventoryTrunk.size() - 1; j >= 0; ) {
+            List<Item> e = new ArrayList<>(Main.player.getInventory().stream().filter(o1 -> o1.getName().contains("Shard")).toList());
+            for (int i = e.size() - 1; i >= 0; i--) {
+                Item saved = e.get(i);
+                int sub = e.size();
+                e.removeIf(o1 -> o1.getName().equals(saved.getName()));
+                shardCounter++;
+                i -= sub - e.size() + 1;
+                if (shardCounter >= 6) return "Boss Fight";
+            }
+            /*for (int j = inventoryTrunk.size() - 1; j >= 0; ) {
                 Item item = inventoryTrunk.get(j);
                 for (int i = 0; i < inventoryTrunk.size(); i++) {
                     //check if item1's name is the same as item's name, if it is, remove it
@@ -37,17 +47,16 @@ public class BossFight extends Interactable {
                 }
                 shardCounter++;
                 if (shardCounter >= 6) break;
-            }
-            return shardCounter == 6 ? "Boss Fight" : "Locked";
+            }*/
+            return "Locked";
         }
         return "Locked";
     }
 
 
-
     @Override
     public void onChoose(Player p) { //yeah same exact thing. Just some sliiiight tweaks.
-        if(getName() == "Locked") {
+        if (Objects.equals(getName(), "Locked")) {
             System.out.println("You need 6 shards to enter the boss fight.");
             Helper.continuePrompt();
             return;

@@ -64,7 +64,7 @@ public class StarterLand extends Enviorment {
     @Override
     public int modifyEnemyDamage(int preChange) {
         if (Main.player.getBattleHp() <= preChange) {
-            System.out.println((survival <= 20 ? "You are protected from damage by the land" : "You can't be this bad at the game."));
+            System.out.println((survival <= 10 ? "You almost died, but you were saved by a mysterious force (its the tutorial)" : "You can't be this bad at the game."));
             survival++;
             return 0;
         }
