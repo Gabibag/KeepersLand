@@ -6,6 +6,8 @@ import KeeperLand.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.stream.IntStream.range;
+
 public class Shop extends Interactable {
     public static void quickBuy(Player p, List<Item> items) {
         int money = p.getMoney();
@@ -31,7 +33,7 @@ public class Shop extends Interactable {
         int money = p.getMoney();
         List<Item> tempItems = new ArrayList<>();
         for (int i = 0; i < Main.currentPlace.getShopItems().size(); i++) {
-            if(!Main.currentPlace.getShopItems().get(i).getName().equalsIgnoreCase("dull skull")){
+            if (!Main.currentPlace.getShopItems().get(i).getName().equalsIgnoreCase("dull skull")) {
                 tempItems.add(Main.currentPlace.getShopItems().get(i));
             }
 
@@ -59,6 +61,35 @@ public class Shop extends Interactable {
             }
         }
         System.out.println("Bought all items you could afford");
+    }
+
+    public static void statBuy(Player p) {
+        int money = p.getMoney();
+        List<Item> tempItems = new ArrayList<>();
+        for (int i = 0; i < Main.currentPlace.getShopItems().size(); i++) {
+            if (!Main.currentPlace.getShopItems().get(i).getName().equalsIgnoreCase("dull skull")) {
+                tempItems.add(Main.currentPlace.getShopItems().get(i));
+            }
+
+
+        }
+
+
+        //sort items by cost ascending
+        range(0, tempItems.size()).flatMap(i -> range(0, tempItems.size() - 1)).filter(j -> tempItems.get(j).getCost() > tempItems.get(j + 1).getCost()).forEachOrdered(j -> {
+            Item temp = tempItems.get(j);
+            tempItems.set(j, tempItems.get(j + 1));
+            tempItems.set(j + 1, temp);
+        });
+
+        for (int i = 0; i < tempItems.size(); i++) {
+            if (tempItems.get(i).getCost() <= money) {
+                p.getInventory().add(tempItems.get(i));
+                p.chargeMoney(tempItems.get(i).getCost());
+                money = p.getMoney();
+                i--;
+            }
+        }
     }
 
     @Override
@@ -145,7 +176,6 @@ public class Shop extends Interactable {
     }
 
 
-
     private static void displayList(List<Item> items) {
         //sort items by cost descending
         for (int i = 0; i < items.size(); i++) {
@@ -181,23 +211,22 @@ public class Shop extends Interactable {
         }
         try {
             for (int i = 0; i < items.size(); i++) {
-                StringBuilder spaceCount = new StringBuilder();
                 StringBuilder variCount = new StringBuilder();
                 StringBuilder hpCount = new StringBuilder();
                 StringBuilder healCount = new StringBuilder();
                 StringBuilder dmgCount = new StringBuilder();
-                spaceCount.append(" ".repeat(Math.max(0, maxNameLength - items.get(i).getName().length() + 2)));
+                String spaceCount = " ".repeat(Math.max(0, maxNameLength - items.get(i).getName().length() + 2));
                 variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getHealVariance()).length())));
                 hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getHpIncr()).length())));
                 healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getHealIncrease()).length())));
                 dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getDmgIncr()).length())));
                 String col = Colors.PURPLE;
-                if (items.get(i).getCost()<= player.getMoney()){
+                if (items.get(i).getCost() <= player.getMoney()) {
                     col = Colors.GREEN;
                 }
                 System.out.println(
-                        Colors.CYAN+"[" + (i + 4) +"] " +  col + items.get(i).getName() + spaceCount +
-                                Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + items.get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + items.get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + items.get(i).getHealVariance() + variCount + Colors.CYAN + " ◊" + items.get(i).getCost() + Colors.RESET+ (Helper.moreShopInfo ? Colors.RESET + " (" + items.get(i).getDescription() + ")" : "") + Colors.RESET);
+                        Colors.CYAN + "[" + (i + 4) + "] " + col + items.get(i).getName() + spaceCount +
+                                Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + items.get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + items.get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + items.get(i).getHealVariance() + variCount + Colors.CYAN + " ◊" + items.get(i).getCost() + Colors.RESET + (Helper.moreShopInfo ? Colors.RESET + " (" + items.get(i).getDescription() + ")" : "") + Colors.RESET);
             }
         } catch (Exception e) {
             //items.add(Item.empty);

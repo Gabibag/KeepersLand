@@ -6,6 +6,7 @@ import KeeperLand.Enviroments.LavaZone;
 import KeeperLand.Enviroments.NullZone;
 import KeeperLand.Enviroments.StarterLand;
 import KeeperLand.Interacts.Battle;
+import KeeperLand.Interacts.Inventory;
 import KeeperLand.Interacts.LevelUp;
 import KeeperLand.Interacts.Shop;
 
@@ -51,9 +52,8 @@ public class Main {
             for (int i = 0; i < saveList.size(); i++) {
                 System.out.println("[" + i + "] " + saveList.get(i).substring(0, saveList.get(i).length() - 4));
             }
-            saves = Helper.getInput( "",-1, saveList.size() - 1);
-        }
-        else{
+            saves = Helper.getInput("", -1, saveList.size() - 1);
+        } else {
             saves = -1;
         }
         if (saves > -1) {
@@ -125,7 +125,7 @@ public class Main {
                     e.randDrops(player, e);
                 }
 
-                if (player.getStageNum()%9 == 0){
+                if (player.getStageNum() % 9 == 0) {
                     Shop.superBuy(player);
                 }
                 player.incStageNum(1);
@@ -135,7 +135,7 @@ public class Main {
                 System.out.println("[" + i + "] " + allPlaces.get(i).getName());
             }
 
-            int location = Helper.getInput("What location would you like to be at?", allPlaces.size());
+            int location = Helper.getInput("What location would you like to be at?", 0, allPlaces.size());
 
             try {
                 Main.currentPlace = allPlaces.get(location - 1).getClass().getDeclaredConstructor().newInstance();
@@ -195,9 +195,8 @@ public class Main {
                 for (Enemy e : tempenemies) {
                     e.randDrops(player, e);
                 }
-                /*if (player.getStageNum()%9 == 0){
-                    Shop.superBuy(player);
-                }*/
+                Shop.statBuy(player);
+
                 getNewPlace();
                 player.incStageNum(1);
             }
@@ -207,28 +206,29 @@ public class Main {
             a.onChoose(player);
 
             System.out.println(player);
-            System.out.println("amogsus");
+            Inventory i = new Inventory();
+            i.inventory(player);
             System.exit(0);
         }
         //endregion
         for (int i = allInteracts.size() - 2; i >= 0; i--) {
-            if (allInteracts.get(i).getName().contains("Quit")){
-                Interactable inter = allInteracts.get(allInteracts.size()-1);
-                allInteracts.set(allInteracts.size()-1, allInteracts.get(i));
+            if (allInteracts.get(i).getName().contains("Quit")) {
+                Interactable inter = allInteracts.get(allInteracts.size() - 1);
+                allInteracts.set(allInteracts.size() - 1, allInteracts.get(i));
                 allInteracts.set(i, inter);
-            }else if (allInteracts.get(i).getName().contains("Battle")){
+            } else if (allInteracts.get(i).getName().contains("Battle")) {
                 Interactable inter = allInteracts.get(0);
                 allInteracts.set(0, allInteracts.get(i));
                 allInteracts.set(i, inter);
-            }else if (allInteracts.get(i).getName().contains("Shop")){
+            } else if (allInteracts.get(i).getName().contains("Shop")) {
                 Interactable inter = allInteracts.get(2);
                 allInteracts.set(2, allInteracts.get(i));
                 allInteracts.set(i, inter);
-            }else if (allInteracts.get(i).getName().contains("Settings")){
-                Interactable inter = allInteracts.get(allInteracts.size()-2);
-                allInteracts.set(allInteracts.size()-2, allInteracts.get(i));
+            } else if (allInteracts.get(i).getName().contains("Settings")) {
+                Interactable inter = allInteracts.get(allInteracts.size() - 2);
+                allInteracts.set(allInteracts.size() - 2, allInteracts.get(i));
                 allInteracts.set(i, inter);
-            }else if (allInteracts.get(i).getName().contains("Level Up")){
+            } else if (allInteracts.get(i).getName().contains("Level Up")) {
                 Interactable inter = allInteracts.get(1);
                 allInteracts.set(1, allInteracts.get(i));
                 allInteracts.set(i, inter);
