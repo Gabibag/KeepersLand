@@ -145,7 +145,7 @@ public class Shop extends Interactable {
             player.getInventory().add(give);
             player.chargeMoney(i.getCost());
             System.out.println(
-                    "Bought " + give.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
+                    "Bought " + give.getColTier() + give.getStrTier() + " " + Colors.RESET + give.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
         }
     }
 
