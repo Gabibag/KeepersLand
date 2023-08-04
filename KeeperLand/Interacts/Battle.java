@@ -26,20 +26,8 @@ public class Battle extends Interactable {
         while (spawns.size() < 3) {
             spawns = getEnemies(p);
             //check if spawns contains duplicates, if it does, remove it
-            for (int i = spawns.size() - 1; i >= 0; i--) {
-                for (int j = spawns.size() - 1; j >= i + 1; j--) {
-                    try {
-                        if (spawns.get(i).getName().equalsIgnoreCase(spawns.get(j).getName())) {
-                            spawns.remove(j);
-                        }
-                        if (spawns.get(i).getName().contains("Sprite") && spawns.get(j).getName().contains("Sprite")) {
-                            spawns.remove(j);
-                        }
-                    } catch (Exception ignored) {
-
-                    }
-                }
-            }
+            List<Enemy> finalSpawns = spawns;
+            spawns.removeIf(e -> finalSpawns.stream().filter(e2 -> e2.getClass().equals(e.getClass())).count() > 1);
         }
         List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
 
@@ -494,25 +482,21 @@ public class Battle extends Interactable {
         }
 
         int max = (int) (p.getHp() + p.getHp() * 0.2); //allows a slight over heal
-        for (Item i : p.getInventory()) {
-            max += (i.getHpIncr());
-        }
+        max += p.getInventory().stream().mapToInt(Item::getHpIncr).sum();
         if (p.getBattleHp() >= max) {
             System.out.println("You are already at full health!");
             Helper.continuePrompt();
             return;
         }
-        double h = (double) p.getBattleHp() / (double) max; // heals less the lower your health is.
-
-        int healAmount =
-                (int) ((p.getHealAmount()) * Math.min(h, 0.5));
-        int variance = (r.nextInt((p.getHealVariance() << 1)) - p.getHealVariance());
+        double h = Math.max((p.getBattleHp() / (double) max), 0.5); // heals less the lower your health is.
+        int healAmount = p.getInventory().stream().mapToInt(Item::getHealIncrease).sum() + p.getHealAmount();
+        healAmount *= (int) h;
+        int variance = p.getInventory().stream().mapToInt(Item::getHealVariance).sum() + p.getHealVariance();
+        variance = (r.nextInt((variance << 1)) - variance);
         if (variance > 0) {
-            variance *= h;
+            variance *= (int) h;
         }
         healAmount += variance;
-
-
         if (healAmount < 0) {
             healAmount = 0;
         } else if (healAmount + p.getBattleHp() >= max) {
@@ -520,6 +504,9 @@ public class Battle extends Interactable {
             System.out.println("You healed to" + Colors.RED + " full" + Colors.RESET + " health!");
             for (Enemy e : mutated) {
                 e.getMutate().onHeal(enemies, healAmount, e);
+            }
+            for (StatusEffects s : p.getStatusEffects()) {
+                s.tickEffect(p, null, enemies, "playerHeal", healAmount);
             }
             return;
         }

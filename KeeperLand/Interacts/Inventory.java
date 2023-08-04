@@ -200,7 +200,7 @@ public class Inventory extends Interactable {
         System.out.println("Current Balance " + Colors.CYAN + p.getMoney() + "◊");
         System.out.println("⚔ = Damage, ❤ = Health, ✧ = Heal, ⚕ = Heal Variance");
 
-        if (!inventoryDisplay.equals("")) {
+        if (!inventoryDisplay.isEmpty()) {
             System.out.println(inventoryDisplay);
             return printItems;
         }
@@ -213,13 +213,11 @@ public class Inventory extends Interactable {
         }
         List<Item> printItems = new ArrayList<>();
         List<Item> it = new ArrayList<>(p.getInventory());
-
-        for (int i = it.size() - 1; i >= 0; i--) {
-            Item saved = it.get(i);
-            int sub = it.size();
-            it.removeIf(o1 -> o1.getName().equals(saved.getName()));
-            printItems.add(saved);
-            i -= sub - it.size() + 1;
+        //add one of each item to the list
+        for (Item value : it) {
+            if (printItems.stream().noneMatch(i -> i.getName().equals(value.getName()))) {
+                printItems.add(value);
+            }
         }
         /*List<Item> printItems = new ArrayList<>(p.getInventory());
         for (int i = 0; i < printItems.size(); i++) {

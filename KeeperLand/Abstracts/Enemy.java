@@ -59,7 +59,6 @@ public abstract class Enemy {
             rand *= r.nextBoolean() ? 1 : -1;
 
             this.level = Main.player.getStageNum() + rand;
-            System.out.println();
             if (this.level < 1) this.level = 1;
         } catch (Exception e) {
             this.level = 1;
@@ -73,7 +72,7 @@ public abstract class Enemy {
         this.drops = new ArrayList<>(this.drops);
         this.drops.add(ItemData.OmegaShard);
         //random 1 in 20 chance to mutate
-        if (r.nextInt(10) == 0) {
+        if (r.nextInt(20) == 0) {
             this.mutate = allMutations.get(r.nextInt(allMutations.size()));
         }
     }

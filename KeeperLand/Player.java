@@ -51,7 +51,7 @@ public class Player {
     public static Player loadFromFile(String file) {
         try {
             File f = new File(file);
-            if (f.length() > 1000) System.out.println("Large save file detected, this may take a while.");
+            if (f.length() > 100_000_000) System.out.println("Large save file detected, this may take a while.");
             Scanner r = new Scanner(f);
             Player p = new Player(r.nextLine(), r.nextInt(), r.nextInt(), new ArrayList<>());
             p.setMoney(r.nextInt());
@@ -81,17 +81,29 @@ public class Player {
 
                 String name = r.nextLine();
                 int tier = Integer.parseInt(r.nextLine().trim());
-
                 for (Item item : Main.allItem) {
-                    if (item.getName().equalsIgnoreCase(name)) {
-                        Item invItem = new Item(item);
+                    if (!item.getName().equalsIgnoreCase(name)) {
+                        continue;
+                    }
+                    Item invItem = new Item(item);
+                    if (tier != 7) {
                         invItem.setTier(tier);
                         p.inventory.add(invItem);
                         break;
                     }
+                    System.out.println("found tier 7 item, " + name);
+                    invItem.setDmgIncr(Integer.parseInt(r.nextLine().trim()));
+                    invItem.setHealIncrease(Integer.parseInt(r.nextLine().trim()));
+                    invItem.setHealVariance(Integer.parseInt(r.nextLine().trim()));
+                    invItem.setHpIncr(Integer.parseInt(r.nextLine().trim()));
+                    invItem.setCost(Integer.parseInt(r.nextLine().trim()));
+                    invItem.setTier(7);
+                    System.out.println(invItem);
+                    p.inventory.add(invItem);
+                    break;
                 }
             }
-            
+
             r.close();
             return p;
         } catch (NumberFormatException e) {
@@ -147,6 +159,15 @@ public class Player {
             for (Item item : inventory) {
                 f.write(item.getName() + "\n");
                 f.write(item.getTier() + "\n");
+
+                if (item.getTier() == 7) {
+                    f.write(item.getDmgIncr() + "\n");
+                    f.write(item.getHealIncrease() + "\n");
+                    f.write(item.getHealVariance() + "\n");
+                    f.write(item.getHpIncr() + "\n");
+                    f.write(item.getCost() + "\n");
+                }
+
             }
             f.close();
 
@@ -296,12 +317,10 @@ public class Player {
         int tempDmg = this.dmg;
         int tempHeal = this.healAmount;
         int tempHealVar = this.healVariance;
-        for (Item i : inventory) {
-            tempHp += i.getHpIncr();
-            tempDmg += i.getDmgIncr();
-            tempHeal += i.getHealIncrease();
-            tempHealVar += i.getHealVariance();
-        }
+        tempHp += inventory.stream().mapToInt(Item::getHpIncr).sum();
+        tempDmg += inventory.stream().mapToInt(Item::getDmgIncr).sum();
+        tempHeal += inventory.stream().mapToInt(Item::getHealIncrease).sum();
+        tempHealVar += inventory.stream().mapToInt(Item::getHealVariance).sum();
         String c = Colors.PURPLE;
         String r = Colors.RESET;
         String s = Colors.RED;

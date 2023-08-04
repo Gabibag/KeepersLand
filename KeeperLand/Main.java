@@ -116,40 +116,41 @@ public class Main {
         } else if (player.getName().contains("runThrough") || player.getName().contains("rtest")) {
             System.out.println(Integer.MAX_VALUE);
             int lvl = Helper.getInput("What level would you like to be at?", Integer.MAX_VALUE);
+            int divs = Math.max(lvl / 10, 1);
+
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < lvl; i++) {
                 spawns = Battle.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
-
                 for (Enemy e : tempenemies) {
                     e.randDrops(player, e);
                 }
-
-//                Shop.statBuy(player);
-
+                Shop.statBuy(player);
                 player.incStageNum(1);
                 getNewPlace();
-            }
-            for (int i = 0; i < allPlaces.size(); i++) {
-                System.out.println("[" + i + "] " + allPlaces.get(i).getName());
-            }
-
-            int location = Helper.getInput("What location would you like to be at?", 0, allPlaces.size());
-
-            try {
-                Main.currentPlace = allPlaces.get(location - 1).getClass().getDeclaredConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                     NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-            currentPlace = allPlaces.get(location);
-            //add all items that have the word "shard" in them from the list allItems
-            for (Item i : allItem) {
-                if (i.getName().toLowerCase().contains("shard") && !i.getName().toLowerCase().contains("keeper")) {
-                    player.addInventory(i);
+                if (i % divs == 0) {
+                    System.out.println("Player is at level " + player.getStageNum() + "/" + lvl + " (" + (int) (100.0 * i / lvl) + "%)");
+                    Helper.checkForComplexCreation(Main.allItem);
                 }
             }
+            currentPlace = new NullZone();
+            if (lvl > 99_999) {
+                for (int i = 0; i < allPlaces.size(); i++) {
+                    System.out.println("[" + i + "] " + allPlaces.get(i).getName());
+                }
+                int location = Helper.getInput("What location would you like to be at?", 0, allPlaces.size());
+
+                try {
+                    Main.currentPlace = allPlaces.get(location - 1).getClass().getDeclaredConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                         NoSuchMethodException e) {
+                    throw new RuntimeException(e);
+                }
+                currentPlace = allPlaces.get(location);
+            }
+            //add all items that have the word "shard" in them from the list allItems
+            allItem.stream().filter(i -> i.getName().toLowerCase().contains("shard") && !i.getName().toLowerCase().contains("keeper")).forEach(i -> player.addInventory(i));
 
             System.out.println("amogus");
         } else if (player.getName().equalsIgnoreCase("bossTest") || player.getName().equalsIgnoreCase("btest")) {

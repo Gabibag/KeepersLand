@@ -257,6 +257,7 @@ public class Item {
             case 4 -> "IV";
             case 5 -> "V";
             case 6 -> "Z";
+            case 7 -> "Complex";
             default -> "I";
         };
     }
@@ -267,19 +268,40 @@ public class Item {
             case 3 -> Colors.BLUE;
             case 4 -> Colors.PURPLE;
             case 5 -> Colors.YELLOW;
-            case 6 -> Colors.CYAN;
+            case 6, 7 -> Colors.CYAN;
             default -> Colors.WHITE;
         };
         return col;
     }
 
     public void setTier(int tier) {
+        if (tier == 7) {
+            return;
+        }
         this.setHealIncrease((int) (this.getHealIncrease() * ((tier * 0.4) + 1)));
         this.setDmgIncr((int) (this.getDmgIncr() * ((tier * 0.4) + 1)));
         this.setHpIncr((int) (this.getHpIncr() * ((tier * 0.4) + 1)));
         this.setCost((int) (this.getCost() * ((tier * 0.4) + 1)));
         this.setHealVariance((int) (this.getHealVariance() * ((tier * 0.7))));
         this.tier = tier;
+    }
+
+    public void createComplexItem() {
+        List<Item> items = Main.player.getInventory().stream().filter(item -> item.getName().equals(this.getName())).toList();
+        for (int i = items.size() - 1; i >= 0; i--) {
+            Item item = items.get(i);
+            if (item == this) continue;
+            this.setDmgIncr(this.getDmgIncr() + item.getDmgIncr());
+            this.setHpIncr(this.getHpIncr() + item.getHpIncr());
+            this.setHealIncrease(this.getHealIncrease() + item.getHealIncrease());
+            this.setHealVariance(this.getHealVariance() + item.getHealVariance());
+            Main.player.getInventory().removeIf(item1 -> item1 != this);
+        }
+        //check if the item is in the player's inventory. If it isn't, add it
+        if (!Main.player.getInventory().contains(this)) {
+            Main.player.getInventory().add(this);
+        }
+        System.out.println("Complex item created, item " + this.getName() + " has been upgraded to tier 7. Combined " + items.size() + " items.");
     }
 
     public Item randTier() {

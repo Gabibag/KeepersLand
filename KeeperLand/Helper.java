@@ -18,6 +18,17 @@ public class Helper {
     public static boolean moreShopInfo = false;
     static Scanner s = new Scanner(System.in);
 
+    public static void checkForComplexCreation(List<Item> complexChecks) {
+        List<Item> items = player.getInventory();
+        for (Item i : complexChecks) {
+            if (items.stream().filter(item -> i.getName().equals(item.getName()) && item.getTier() != 7).toList().size() > 30_000) {
+                i.setTier(7);
+                i.createComplexItem();
+            }
+        }
+
+    }
+
     /**
      * Dont do it
      *
@@ -39,8 +50,9 @@ public class Helper {
 
     /**
      * returns the scale factor
+     *
      * @param type 0 for hp, 1 for damage, 2 for coins, Enemy e
-     *             @return the scale factor proportional to the level of the enemy
+     * @return the scale factor proportional to the level of the enemy
      */
 
     public static float getScaleFactor(int type, Enemy e) {
@@ -56,37 +68,30 @@ public class Helper {
             tempHp += i.getHpIncr();
             tempDmg += i.getDmgIncr();
         }
-        float multi = level/5f + 1;
+        float multi = level / 5f + 1;
 
         if (type == 0) {
-            float num = (multi*  2) + (multi*0.2f);
+            float num = (multi * 2) + (multi * 0.2f);
             return (num) <= 1 ? 1 : (num);
-        }
-        else if (type == 1) {
-            float num = (multi*  2) + (tempHp *0.05f) ;
-            if (e.getLevel() >= 20 && e.getLevel() < 30 ) {
-                num = (multi*  2) + (tempHp*0.1f) ;
-            }else if (e.getLevel() >= 30 && e.getLevel() < 40 ) {
-                num = (multi*  2) + (tempHp*0.2f) ;
+        } else if (type == 1) {
+            float num = (multi * 2) + (tempHp * 0.05f);
+            if (e.getLevel() >= 20 && e.getLevel() < 30) {
+                num = (multi * 2) + (tempHp * 0.1f);
+            } else if (e.getLevel() >= 30 && e.getLevel() < 40) {
+                num = (multi * 2) + (tempHp * 0.2f);
             } else if (e.getLevel() >= 40) {
-                num = (multi*  2) + (tempHp * 0.3f);
+                num = (multi * 2) + (tempHp * 0.3f);
 
             }
-            return Math.max((num/e.getDamage()), 1);
-        }
-        else if (type == 2) {
+            return Math.max((num / e.getDamage()), 1);
+        } else if (type == 2) {
             float num = level / 40f;
             return (num) <= 1 ? 1 : (num); //coins scale
         }
 
         return 1 + (level / 5f); //just in case
     }
-    public static int intendedHitsTaken(Enemy e){
-        return e.getBaseHp()/5;
-    }
-    public static int intendedHitsDealt(Enemy e){
-        return 40/e.getDamage();
-    }
+
 
     /**
      * Sends a message, then returns the next line
@@ -151,7 +156,7 @@ public class Helper {
      * @param <T>    type of objects in the array
      * @param list   the list to choose from
      * @param amount the size of the returned array
-     * @return       list of random entities given in list
+     * @return list of random entities given in list
      */
     public static <T> List<T> getRandomElements(List<T> list, int amount) {
         List<T> r = new ArrayList<>();
@@ -228,7 +233,6 @@ public class Helper {
      * @param msg    what to ask
      * @param bottom lowest valid value
      * @param top    highest valid value
-     * @return
      */
     public static int getInput(String msg, int bottom, int top) {
         try {

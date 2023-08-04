@@ -39,7 +39,7 @@ public class Shop extends Interactable {
         while (tempItems.stream().anyMatch(o1 -> o1.getCost() <= p.getMoney())) {
             if (tempItems.get(i).getCost() > p.getMoney()) continue;
             int index = i % tempItems.size();
-            buyItem(player, tempItems.get(index));
+            buyItem(player, tempItems.get(index), true);
             i++;
         }
         System.out.println("Bought all items you could afford");
@@ -48,14 +48,15 @@ public class Shop extends Interactable {
     public static void statBuy(Player p) {
         if (Main.currentPlace.getShopItems().size() == 0) return;
         List<Item> tempItems = new ArrayList<>(Main.currentPlace.getShopItems().stream().filter(o1 -> !o1.getName().equalsIgnoreCase("dull skull")).toList());
-        //sort items by cost ascending
         tempItems.sort(Comparator.comparingInt(Item::getCost));
         int i = 0;
-        while (tempItems.stream().allMatch(o1 -> o1.getCost() <= p.getMoney())) {
-            int index = i % tempItems.size();
-            buyItem(player, tempItems.get(index));
+        while (tempItems.get(i % tempItems.size()).getCost() <= p.getMoney()) {
+            Item it = tempItems.get(i % tempItems.size());
+            int num = p.getMoney() / it.getCost();
+            buyMultipleItems(it, num, false);
             i++;
         }
+        Helper.checkForComplexCreation(Main.currentPlace.getShopItems());
 
     }
 
@@ -131,12 +132,12 @@ public class Shop extends Interactable {
                 System.out.println(Colors.CLEAR);
             } else {
                 Item i = items.get(choice - 4);
-                buyItem(player, i);
+                buyItem(player, i, true);
             }
         }
     }
 
-    private static void buyItem(Player player, Item i) {
+    private static void buyItem(Player player, Item i, Boolean announcePurchase) {
         if (i.getCost() > player.getMoney()) {
             System.out.println("Not enough money");
         } else {
@@ -144,8 +145,25 @@ public class Shop extends Interactable {
 
             player.getInventory().add(give);
             player.chargeMoney(i.getCost());
+            if (announcePurchase) {
+                System.out.println(
+                        "Bought " + give.getColTier() + give.getStrTier() + " " + Colors.RESET + give.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
+            }
+        }
+    }
+
+    private static void buyMultipleItems(Item i, int count, Boolean announcePurchase) {
+        if (i.getCost() * count > player.getMoney()) {
+            System.out.println("Not enough money");
+        } else {
+            for (int j = 0; j < count; j++) {
+                Item give = i.randTier();
+                player.getInventory().add(give);
+            }
+            player.chargeMoney(i.getCost() * count);
+            if (!announcePurchase) return;
             System.out.println(
-                    "Bought " + give.getColTier() + give.getStrTier() + " " + Colors.RESET + give.getName() + " for " + i.getCost() + " \nNew balance: " + player.getMoney());
+                    "Bought " + count + " " + i.getColTier() + i.getStrTier() + " " + Colors.RESET + i.getName() + " for " + i.getCost() * count + " \nNew balance: " + player.getMoney());
         }
     }
 
