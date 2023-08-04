@@ -304,15 +304,17 @@ public class Item {
         System.out.println("Complex item created, item " + this.getName() + " has been upgraded to tier 7. Combined " + items.size() + " items.");
     }
 
+    /**
+     * @implNote Generates a random tier 1-6. <br>
+     * 1 = Type 1 50% chance<br>
+     * 2 = Type 2 25% chance<br>
+     * 3 = Type 3 Rare 15% chance<br>
+     * 4 = Type 4 7% chance<br>
+     * 5 = Type 5 2.5% chance<br>
+     * 6 = Type 6 0.5% chance<br>
+     */
     public Item randTier() {
-        /*generates tier 1-6.
-        1 = Type 1 50% chance
-        2 = Type 2 25% chance
-        3 = Type 3 Rare 15% chance
-        4 = Type 4 7% chance
-        5 = Type 5 2.5% chance
-        6 = Type 6 0.5% chance
-        */
+
         int tier = 1;
         int rand = r.nextInt(1000);
         if (rand > 500 && rand <= 750) {

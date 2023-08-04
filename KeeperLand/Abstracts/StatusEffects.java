@@ -37,8 +37,9 @@ public abstract class StatusEffects { //basically does something each turn
      * @param p        the player
      * @param e        the enemy (can be null)
      * @param enemies  the list of enemies
-     * @param turnType the type of turn (playerAttack, enemyAttack, playerHeal, turnEnd
+     * @param turnType the type of turn (playerAttack, enemyAttack, playerHeal, turnEnd)
      * @param num      is either the player's attack damage, enemy's attack damage, or the amount healed
+     * @implNote Tick duration is not decreased in super.
      */
     public void tickEffect(Player p, Enemy e, List<Enemy> enemies, String turnType, int num) {
         if (this.duration == 0) {

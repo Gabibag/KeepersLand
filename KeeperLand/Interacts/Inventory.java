@@ -219,15 +219,7 @@ public class Inventory extends Interactable {
                 printItems.add(value);
             }
         }
-        /*List<Item> printItems = new ArrayList<>(p.getInventory());
-        for (int i = 0; i < printItems.size(); i++) {
-            for (int j = i + 1; j < printItems.size(); j++) {
-                if (printItems.get(i).getName().equals(printItems.get(j).getName())) {
-                    printItems.remove(j);
-                    j--;
-                }
-            }
-        }*/
+
         int maxTotalDmg = 0;
         int maxTotalHp = 0;
         int maxTotalHeal = 0;
