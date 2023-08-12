@@ -8,7 +8,7 @@ import KeeperLand.Player;
 import java.util.Random;
 
 public class Overlord extends Enemy {
-    Random r = Main.r;
+    final Random r = Main.r;
 
     public void setBaseStats() {
         this.baseHp = Integer.MAX_VALUE / 10000;

@@ -1,6 +1,7 @@
 <!-- TOC -->
 
 * [Installation](#installation)
+* [How to Play](#how-to-play)
 * [Full Game Wiki](#full-game-wiki)
     * [Battles](#battles)
     * [Shops](#shops)

@@ -370,6 +370,8 @@ public class Player {
 
     }
 
+
+
     public int getBattleDamage() {
         return battleDamage;
     }

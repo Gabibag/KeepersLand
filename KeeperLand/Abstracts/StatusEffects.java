@@ -5,7 +5,33 @@ import KeeperLand.Player;
 
 import java.util.List;
 
-public abstract class StatusEffects { //basically does something each turn
+public abstract class StatusEffects {
+    protected String effectColor;
+    protected String effectName;
+    protected int duration = 0;
+    private boolean isBad = true; //basically does something each turn
+
+    public StatusEffects(String col, int duration) {
+        Main.allStatusEffects.add(this);
+        this.duration = duration;
+        effectColor = col;
+    }
+
+    public StatusEffects(String col, int duration, boolean isBad) {
+        Main.allStatusEffects.add(this);
+        this.duration = duration;
+        effectColor = col;
+        this.isBad = isBad;
+    }
+
+    public boolean isBad() {
+        return isBad;
+    }
+
+    public void setBad(boolean bad) {
+        isBad = bad;
+    }
+
     public String getEffectColor() {
         return effectColor;
     }
@@ -14,23 +40,12 @@ public abstract class StatusEffects { //basically does something each turn
         this.effectColor = effectColor;
     }
 
-    protected String effectColor;
-
     public String getEffectName() {
         return effectName;
     }
 
     public void setEffectName(String effectName) {
         this.effectName = effectName;
-    }
-
-    protected String effectName;
-    protected int duration = 0;
-
-    public StatusEffects(String col, int duration) {
-        Main.allStatusEffects.add(this);
-        this.duration = duration;
-        effectColor = col;
     }
 
     /**

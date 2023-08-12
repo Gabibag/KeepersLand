@@ -20,18 +20,18 @@ import java.util.jar.JarInputStream;
 
 
 public class Main {
-    public static List<Enviorment> allPlaces = new ArrayList<>();
+    public static final List<Enviorment> allPlaces = new ArrayList<>();
     public static Enviorment currentPlace;
-    public static List<Enemy> allEnemies = new ArrayList<>();
-    public static List<Item> allItem = new ArrayList<>();
-    public static List<Mutations> allMutations = new ArrayList<>();
-    public static List<StatusEffects> allStatusEffects = new ArrayList<>();
+    public static final List<Enemy> allEnemies = new ArrayList<>();
+    public static final List<Item> allItem = new ArrayList<>();
+    public static final List<Mutations> allMutations = new ArrayList<>();
+    public static final List<StatusEffects> allStatusEffects = new ArrayList<>();
 
-    public static List<Sprite> allSprites = new ArrayList<>();
+    public static final List<Sprite> allSprites = new ArrayList<>();
 
-    public static List<Boss> allBosses = new ArrayList<>();
+    public static final List<Boss> allBosses = new ArrayList<>();
     public static Random r;
-    public static List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
+    public static final List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
     public static Player player;
     public static Scanner s;
 

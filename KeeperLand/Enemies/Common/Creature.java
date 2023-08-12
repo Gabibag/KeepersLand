@@ -1,27 +1,29 @@
 package KeeperLand.Enemies.Common;
 
+
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.Random;
 
-public class Giant extends Enemy {
-    Random r = Main.r;
+public class Creature extends Enemy {
+    Random r = new Random();
 
+
+    @Override
     public void setBaseStats() {
-        this.baseHp = 50;
-        this.damage = 4;
+        this.baseHp = 20;
+        this.damage = 8;
         this.xp = 20;
-        this.name = "Giant";
-        this.coins = 15;
+        this.name = "Creature";
+        this.coins = 3;
     }
-
 
     @Override
     public boolean canSpawn(Player p) {
 
-        return Main.r.nextInt(20) == 2; // 0.05% chance of spawning
+        return Main.r.nextInt(4) == 0;
 
     }
 }

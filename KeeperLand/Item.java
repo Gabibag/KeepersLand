@@ -10,7 +10,7 @@ import static KeeperLand.Interacts.Inventory.isNot0;
 import static KeeperLand.Main.r;
 
 public class Item {
-    public static List<Item> allPool = new ArrayList<>();
+    public static final List<Item> allPool = new ArrayList<>();
     private int healIncrease = 0;
     private int dmgIncr;
     private int hpIncr;
@@ -263,7 +263,7 @@ public class Item {
     }
 
     public String getColTier() {
-        String col = switch (this.tier) {
+        return switch (this.tier) {
             case 2 -> Colors.GREEN;
             case 3 -> Colors.BLUE;
             case 4 -> Colors.PURPLE;
@@ -271,7 +271,6 @@ public class Item {
             case 6, 7 -> Colors.CYAN;
             default -> Colors.WHITE;
         };
-        return col;
     }
 
     public void setTier(int tier) {

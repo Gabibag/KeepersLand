@@ -5,10 +5,7 @@ import KeeperLand.Enemies.Common.Archer;
 import KeeperLand.Enemies.Common.Goblin;
 import KeeperLand.Enemies.Common.Warrior;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 import static KeeperLand.Main.player;
@@ -16,7 +13,7 @@ import static KeeperLand.Main.player;
 public class Helper {
     public static boolean speedMode = false;
     public static boolean moreShopInfo = false;
-    static Scanner s = new Scanner(System.in);
+    static final Scanner s = new Scanner(System.in);
 
     public static void checkForComplexCreation(List<Item> complexChecks) {
         List<Item> items = player.getInventory();
@@ -254,5 +251,24 @@ public class Helper {
     public static String RandomColor() {
         List<String> colors = Arrays.asList(Colors.RED, Colors.GREEN, Colors.YELLOW);
         return Helper.getRandomElements(colors, 1).get(0);
+    }
+
+    public static int getMaxHealth(Player p) {
+        int max = (int) (p.getHp() + p.getHp() * 0.2); //allows a slight over heal
+        max += p.getInventory().stream().mapToInt(Item::getHpIncr).sum();
+        return max;
+    }
+
+    public static int getFullHealAmount(Player p, Random r, double max) {
+        double h = Math.max((p.getBattleHp() / max), 0.5); // heals less the lower your health is.
+        int healAmount = p.getInventory().stream().mapToInt(Item::getHealIncrease).sum() + p.getHealAmount();
+        healAmount *= (int) h;
+        int variance = p.getInventory().stream().mapToInt(Item::getHealVariance).sum() + p.getHealVariance();
+        variance = (r.nextInt((variance << 1)) - variance);
+        if (variance > 0) {
+            variance *= (int) h;
+        }
+        healAmount += variance;
+        return healAmount;
     }
 }

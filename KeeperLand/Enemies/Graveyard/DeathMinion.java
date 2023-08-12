@@ -9,7 +9,7 @@ import KeeperLand.Player;
 import java.util.Random;
 
 public class DeathMinion extends Enemy {
-    Random r = Main.r;
+    final Random r = Main.r;
 
     public void setBaseStats() {
         this.baseHp = 20;

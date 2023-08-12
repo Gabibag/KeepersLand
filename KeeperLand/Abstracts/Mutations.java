@@ -6,7 +6,7 @@ import java.util.List;
 
 public abstract class Mutations {
     protected String mutationType;
-    protected String color;
+    protected final String color;
 
     public Mutations(String type, String c) {
         Main.allMutations.add(this);
