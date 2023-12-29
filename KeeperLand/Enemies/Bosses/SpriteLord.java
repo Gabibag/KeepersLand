@@ -20,7 +20,7 @@ public class SpriteLord extends Boss {
 
     @Override
     public boolean canSpawn(Player p) {
-        return (Main.r.nextBoolean() || Main.r.nextBoolean()); //75% spawn chance
+        return true; //75% spawn chance
     }
 
     @Override
@@ -51,7 +51,8 @@ public class SpriteLord extends Boss {
             Enemy e = null;
             try {
                 e = Main.allSprites.get(Main.r.nextInt(0, Main.allSprites.size() - 1)).getClass().getDeclaredConstructor().newInstance();
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException ex) {
                 throw new RuntimeException(ex);
             }
             e.setLevel(this.getLevel());

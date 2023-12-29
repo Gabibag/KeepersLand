@@ -45,6 +45,11 @@ public class Helper {
         }
     }
 
+    public static void Sleep(double s, boolean force) {
+        s = (speedMode ? 0 : s);
+
+    }
+
     /**
      * returns the scale factor
      *
@@ -68,16 +73,17 @@ public class Helper {
         float multi = level / 5f + 1;
 
         if (type == 0) {
-            float num = (multi * 2) + (multi * 0.2f);
+            float num = (multi * 3) + (multi * 0.5f);
+//            num = num + (tempHp * 0.01f);
             return (num) <= 1 ? 1 : (num);
         } else if (type == 1) {
-            float num = (multi * 2) + (tempHp * 0.05f);
-            if (e.getLevel() >= 20 && e.getLevel() < 30) {
-                num = (multi * 2) + (tempHp * 0.1f);
-            } else if (e.getLevel() >= 30 && e.getLevel() < 40) {
-                num = (multi * 2) + (tempHp * 0.2f);
-            } else if (e.getLevel() >= 40) {
-                num = (multi * 2) + (tempHp * 0.3f);
+            float num = (multi * 2) + (tempHp * 0.005f);
+            if (e.getLevel() >= 5 && e.getLevel() < 8) {
+                num = (multi * 2.1f) + (tempHp * 0.01f);
+            } else if (e.getLevel() >= 8 && e.getLevel() < 12) {
+                num = (multi * 2.2f) + (tempHp * 0.015f);
+            } else if (e.getLevel() >= 12) {
+                num = (multi * 2.5f) + (tempHp * 0.02f);
 
             }
             return Math.max((num / e.getDamage()), 1);

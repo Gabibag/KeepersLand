@@ -73,7 +73,6 @@ public class Battle extends Interactable {
         if (p.getLevel() % 5 == 0) return;
         for (Enemy enemy : enemies) {
             if (enemy.getDamage() > 0 || !(enemy.getMutate() instanceof None || enemy.getMutate() == null) || enemy instanceof Boss || enemy instanceof HelperSprite) {
-
                 return;
             }
         }

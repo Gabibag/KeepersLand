@@ -316,15 +316,15 @@ public class Item {
 
         int tier = 1;
         int rand = r.nextInt(1000);
-        if (rand > 500 && rand <= 750) {
+        if (rand > 700 && rand <= 900) {
             tier = 2;
-        } else if (rand > 750 && rand <= 900) {
+        } else if (rand > 900 && rand <= 975) {
             tier = 3;
-        } else if (rand > 900 && rand <= 970) {
+        } else if (rand > 975 && rand <= 990) {
             tier = 4;
-        } else if (rand > 970 && rand <= 995) {
+        } else if (rand > 990 && rand <= 999) {
             tier = 5;
-        } else if (rand > 995) {
+        } else if (rand > 999) {
             tier = 6;
         }
         Item newItem = new Item(this);

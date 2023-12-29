@@ -7,6 +7,7 @@ import java.util.List;
 
 public abstract class Boss extends Enemy {
     protected int tokens;
+    
 
     public Boss() {
         if (!Main.allBosses.contains(this))
@@ -18,7 +19,7 @@ public abstract class Boss extends Enemy {
         return "Boss";
     }
 
-    public abstract void bossOnSpawn(List<Enemy> enemies) ;
+    public abstract void bossOnSpawn(List<Enemy> enemies);
 
     @Override
     public boolean isBoss() {
