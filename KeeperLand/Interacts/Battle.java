@@ -22,13 +22,10 @@ public class Battle extends Interactable {
         p.setBattleHp(p.getHp());
         p.setBattleDamage(p.getDamage());
         updateItems(p, 1);
-        Random r = Main.r;
         int Actions = p.getActionAmount();
         List<Enemy> spawns = getEnemies(p);
         while (spawns.size() < 3) {
             spawns = getEnemies(p);
-            //check if spawns contains duplicates, if it does, remove it
-            List<Enemy> finalSpawns = spawns;
             for (int i = 0; i < spawns.size(); i++) {
                 Enemy e = spawns.get(i);
                 while (spawns.stream().filter(x -> x.getName().equals(e.getName())).count() > 1) {
@@ -56,11 +53,7 @@ public class Battle extends Interactable {
         Helper.Sleep(1);
         System.out.print(Colors.CLEAR);
         if ((p.getStageNum() % 5 == 0)) {
-            try {
-                ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
         }
         Main.currentPlace.BattleStart(p, enemies);
         whileAlive(enemies);
@@ -99,7 +92,7 @@ public class Battle extends Interactable {
         }
     }
 
-    static void updateItems(Player p, int battleEnd) {
+    static void updateItems(Player p, int battleEnd) { // we load the items each frame
 
         if (battleEnd == 1) {
             for (Item i : p.getInventory()) {
@@ -125,18 +118,11 @@ public class Battle extends Interactable {
 
         List<Enemy> returned = new ArrayList<>();
         for (Enemy e : Main.allEnemies) {
-            if (!e.canSpawn(p)) {
-                continue;
-            }
-            if (p.getStageNum() % 5 == 0) {
-                if (e instanceof Boss) {
-                    returned.add(e);
-                }
+            if ((p.getStageNum() % 5 == 0) && (e.canSpawn(p)) && (e instanceof Boss)) {
+                returned.add(e);
             } else if (!(e instanceof Boss)) {
                 returned.add((e));
             }
-
-
         }
 
         return returned;
@@ -154,8 +140,7 @@ public class Battle extends Interactable {
 
     //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
 
-    public static void inv(List<Enemy> enemies) {
-
+    public static void displayInv(List<Enemy> enemies) {
         System.out.println(Colors.PURPLE + "[0] Go Back");
         for (int i = 0; i < enemies.size(); i++) {
             System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
@@ -188,7 +173,7 @@ public class Battle extends Interactable {
                             + Colors.RESET);
         }
         Helper.continuePrompt();
-        inv(enemies);
+        displayInv(enemies);
 
     }  //TODO get location + opponent info
 
@@ -427,7 +412,7 @@ public class Battle extends Interactable {
                         }
                     }
                     case 2 -> healPlayer(p, r, enemies);
-                    case 3 -> inv(enemies);
+                    case 3 -> displayInv(enemies);
 
                 }
                 Main.currentPlace.playerAction(p, enemies);

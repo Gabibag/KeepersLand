@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static KeeperLand.Main.allMutations;
-import static KeeperLand.Main.player;
+import static KeeperLand.Main.*;
 
 public abstract class Enemy {
     protected int damage;
@@ -181,13 +180,6 @@ public abstract class Enemy {
             mutate.onDeath(allies, self);
         } else {
             String drops = randDrops(p, this);
-            /*if( drops != null){
-                System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
-                        Colors.RESET + ") and got a " + Colors.CYAN + drops + Colors.CYAN+ "!");
-            }else {
-                System.out.println("You killed a " + name + "! (" + self.getCoins() + Colors.CYAN + "◊" +
-                        Colors.RESET + ")");
-            }*/
             String out = "You killed " + isAn(name) + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" +
                     Colors.RESET + ")";
             if (drops != null) {
@@ -208,32 +200,16 @@ public abstract class Enemy {
     public String randDrops(Player p, Enemy e) {
         p.addMoney(e.getCoins());
         p.addXp(e.xp);
-        Item item = null;
-        if (r.nextInt(1, 2) == 1) {
-            for (Item drop : this.drops) {
-                if (r.nextInt(drop.getRarity()) == 1) {
-                    item = drop;
-                    break;
-                }
-            }
+        Item item;
+        if (e.getDrops().isEmpty() && r.nextInt(4) == 1) {
+            item = allItem.get(r.nextInt(allItem.size()) - 1);
         } else {
-            for (Item drop : Item.allPool) {
-                if (r.nextInt(drop.getRarity()) == 1) {
-                    item = drop;
-                    break;
-                }
-            }
+            item = e.getDrops().get(r.nextInt(e.getDrops().size()));
         }
-
         if (item == null) {
             return null;
         }
-
-
-        //copy over stats from the item to another one
-        Item newItem = item.randTier();
-
-        p.addInventory(newItem);
-        return newItem.getStrTier() + " " + newItem.getName();
+        p.addInventory(item);
+        return item.getName();
     }
 }

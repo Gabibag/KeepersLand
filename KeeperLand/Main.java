@@ -47,14 +47,14 @@ public class Main {
         //defaults for player
         List<String> saveList = allPlayerFiles();
         int saves = 0;
-        if (saveList.size() != 0) {
+        if (saveList.isEmpty()) {
+            saves = -1;
+        } else {
             System.out.println("[-1] New Save");
             for (int i = 0; i < saveList.size(); i++) {
                 System.out.println("[" + i + "] " + saveList.get(i).substring(0, saveList.get(i).length() - 4));
             }
             saves = Helper.getInput("", -1, saveList.size() - 1);
-        } else {
-            saves = -1;
         }
         if (saves > -1) {
             try {
@@ -73,7 +73,8 @@ public class Main {
             List<String> takenNames = allPlayerFiles();
             takenNames.replaceAll(s1 -> s1.substring(0, s1.length() - 4));
             String name = Helper.Prompt(Colors.CYAN + "Welcome \nEnter your player's name: " + Colors.RESET);
-            while (takenNames.contains(name)) {
+            List<String> invalidChars = Arrays.asList(":", "/", "\\", "?", "<", ">", "*", "|", "\"", " ");
+            while (takenNames.contains(name) || invalidChars.stream().anyMatch(name::contains)) {
                 name = Helper.Prompt(
                         Colors.RED + "That name is already taken, please enter a new name: " + Colors.RESET);
             }
