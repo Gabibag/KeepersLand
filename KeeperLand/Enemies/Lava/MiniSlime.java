@@ -4,6 +4,10 @@ import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Player;
 
 public class MiniSlime extends Enemy {
+    public MiniSlime() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public boolean canSpawn(Player p) {
         return false;
     }

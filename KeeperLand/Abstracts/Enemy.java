@@ -24,6 +24,7 @@ public abstract class Enemy {
     protected int coins;
     protected int tokens;
     protected int level;
+    protected String description;
 
 
     public Mutations getMutate() {
@@ -42,7 +43,25 @@ public abstract class Enemy {
     final Random r = Main.r;
     public static boolean loaded = false;
 
-    public Enemy() {
+    public String getDescription() {
+//        check if description does not end in puncation, add a period
+        ArrayList<Character> punctuation = new ArrayList<>();
+        punctuation.add('.');
+        punctuation.add('!');
+        punctuation.add('?');
+        if (punctuation.contains(description.charAt(description.length() - 1))) {
+            return description;
+        } else {
+            return description + ".";
+        }
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Enemy(String desrc) {
+        this.description = desrc;
         this.setBaseStats();
         try {
             int rand = r.nextInt(100);
@@ -57,24 +76,27 @@ public abstract class Enemy {
             }
             rand *= r.nextBoolean() ? 1 : -1;
 
-            this.level = Main.player.getStageNum() + rand;
+            this.level = player.getStageNum() + rand;
             if (this.level < 1) this.level = 1;
         } catch (Exception e) {
             this.level = 1;
         }
         scaleStats();
-        if (!Main.allEnemies.contains(this)) {
-            Main.allEnemies.add((this)); //adds all enemies to a list
+        if (!allEnemies.contains(this)) {
+            allEnemies.add((this)); //adds all enemies to a list
         }
         this.battleHp = this.baseHp;
         //to prevent errors with the list being static sized
         this.drops = new ArrayList<>(this.drops);
-        this.drops.add(ItemData.OmegaShard);
+        if (player.getStageNum() > 10) {
+            this.drops.add(ItemData.OmegaShard);
+        }
         //random 1 in 20 chance to mutate
         if (r.nextInt(20) == 0) {
             this.mutate = allMutations.get(r.nextInt(allMutations.size()));
         }
     }
+
 
     public int getLevel() {
         return level;
@@ -200,10 +222,9 @@ public abstract class Enemy {
     public String randDrops(Player p, Enemy e) {
         p.addMoney(e.getCoins());
         p.addXp(e.xp);
-        Item item;
-        if (e.getDrops().isEmpty() && r.nextInt(4) == 1) {
-            item = allItem.get(r.nextInt(allItem.size()) - 1);
-        } else {
+        Item item = null;
+
+        if (!e.getDrops().isEmpty()) {
             item = e.getDrops().get(r.nextInt(e.getDrops().size()));
         }
         if (item == null) {

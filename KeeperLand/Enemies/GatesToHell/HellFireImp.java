@@ -10,6 +10,10 @@ import java.util.List;
 
 public class HellFireImp extends Enemy {
 
+    public HellFireImp() {
+        super("Throws fireballs at you");
+    }
+
     @Override
     public void setBaseStats() {
         this.baseHp = 15;

@@ -58,8 +58,6 @@ public class Helper {
      */
 
     public static float getScaleFactor(int type, Enemy e) {
-//        System.out.println("Scaling " + e.getName() + " Type:  " + type);
-        //type 0 = hp, 1 = damage, 2 = coins
         int level = e.getLevel();
         if (player == null) {
             return 1;
@@ -70,22 +68,13 @@ public class Helper {
             tempHp += i.getHpIncr();
             tempDmg += i.getDmgIncr();
         }
-        float multi = level / 5f + 1;
+        float multi = (level / 5f) + 1;
 
         if (type == 0) {
-            float num = (multi * 3) + (multi * 0.5f);
-//            num = num + (tempHp * 0.01f);
+            float num = (multi * 0.5f) + (tempDmg * 0.01f);
             return (num) <= 1 ? 1 : (num);
         } else if (type == 1) {
-            float num = (multi * 2) + (tempHp * 0.005f);
-            if (e.getLevel() >= 5 && e.getLevel() < 8) {
-                num = (multi * 2.1f) + (tempHp * 0.01f);
-            } else if (e.getLevel() >= 8 && e.getLevel() < 12) {
-                num = (multi * 2.2f) + (tempHp * 0.015f);
-            } else if (e.getLevel() >= 12) {
-                num = (multi * 2.5f) + (tempHp * 0.02f);
-
-            }
+            float num = (multi * 0.5f) + (tempHp * 0.01f);
             return Math.max((num / e.getDamage()), 1);
         } else if (type == 2) {
             float num = level / 40f;

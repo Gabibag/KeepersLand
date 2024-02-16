@@ -11,6 +11,10 @@ import java.util.Random;
 public class Gargoyle extends Enemy {
     final Random r = Main.r;
 
+    public Gargoyle() {
+        super("He's a clumsy little guy, he might miss or deal extra damage to you!");
+    }
+
 
     @Override
     public void setBaseStats() {

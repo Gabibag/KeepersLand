@@ -165,9 +165,6 @@ public class Main {
                     e.randDrops(player, e);
                 }
 
-                /*if (player.getStageNum()%9 == 0){
-                    Shop.superBuy(player);
-                }*/
                 player.incStageNum(1);
                 getNewPlace();
             }
@@ -276,7 +273,10 @@ public class Main {
 
     public static void getNewPlace() {
         try {
-            currentPlace = allPlaces.get(r.nextInt(allPlaces.size())).getClass().getDeclaredConstructor().newInstance();
+
+            do {
+                currentPlace = allPlaces.get(r.nextInt(allPlaces.size())).getClass().getDeclaredConstructor().newInstance();
+            } while (currentPlace.getName().equalsIgnoreCase("keeper's land") || currentPlace.getName().equalsIgnoreCase("starter land"));
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
                  | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             e.printStackTrace();

@@ -4,7 +4,8 @@ import KeeperLand.Main;
 import KeeperLand.Player;
 
 public abstract class Sprite extends Enemy {
-    public Sprite() {
+    public Sprite(String description) {
+        super(description);
         this.setBaseStats();
 //        this.scaleStats();
         if (!Main.allSprites.contains(this)) {

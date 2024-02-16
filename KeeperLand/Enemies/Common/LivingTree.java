@@ -11,6 +11,10 @@ import java.util.Random;
 public class LivingTree extends Enemy {
     final Random r = new Random();
 
+    public LivingTree() {
+        super("A basic monster, what you see is what you get!");
+    }
+
 
     @Override
     public void setBaseStats() {

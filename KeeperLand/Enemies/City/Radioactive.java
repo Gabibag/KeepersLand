@@ -7,17 +7,20 @@ import KeeperLand.ItemData;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Radioactive extends Enemy {
+    public Radioactive() {
+        super("Spawns a Mini Radioactive Slime");
+    }
+
     public void setBaseStats() {
         this.baseHp = 17;
         this.damage = 3;
         this.coins = 4;
         this.xp = 4;
         this.dodgeRate = 1;
-        this.drops = Arrays.asList(ItemData.RadiationSuit);
+        this.drops = List.of(ItemData.RadiationSuit);
         this.name = "Radioactive Slime";
     }
 

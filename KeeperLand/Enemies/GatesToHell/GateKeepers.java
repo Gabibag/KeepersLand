@@ -13,6 +13,10 @@ import java.util.Random;
 public class GateKeepers extends Enemy {
     Random r = Main.r;
 
+    public GateKeepers() {
+        super("Steals some of your health and redistributes it to its friends.");
+    }
+
 
     @Override
     public void setBaseStats() {

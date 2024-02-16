@@ -8,6 +8,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class WindSprite extends Sprite {
+    public WindSprite() {
+        super("Increases the dodge rate of its friends.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 5;
         this.coins = 5;

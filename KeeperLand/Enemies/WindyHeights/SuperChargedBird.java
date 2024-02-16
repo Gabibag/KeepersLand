@@ -12,6 +12,10 @@ public class SuperChargedBird extends Enemy {
 
     int turnsTillAttack = 3;
 
+    public SuperChargedBird() {
+        super("Charges its attack.");
+    }
+
     @Override
     public void setBaseStats() {
         this.baseHp = 15;

@@ -9,6 +9,10 @@ import java.util.Random;
 public class Archer extends Enemy {
     Random r = Main.r;
 
+    public Archer() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 5;
         this.damage = 10;

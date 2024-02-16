@@ -9,6 +9,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class DivisorSprite extends Sprite {
+    public DivisorSprite() {
+        super("Halves your health. Good luck.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;

@@ -10,6 +10,10 @@ import java.util.Random;
 public class Assassin extends Enemy {
     final Random r = Main.r;
 
+    public Assassin() {
+        super("Hard to hit.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 1;
         this.damage = 10;

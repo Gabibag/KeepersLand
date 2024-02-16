@@ -7,6 +7,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class DeathSprite extends Sprite {
+    public DeathSprite() {
+        super("Will kill you in 10 hits.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 5;
         this.coins = 5;

@@ -8,6 +8,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class DebuffSprite extends Sprite {
+    public DebuffSprite() {
+        super("Slows you down, you only have one turn now.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;

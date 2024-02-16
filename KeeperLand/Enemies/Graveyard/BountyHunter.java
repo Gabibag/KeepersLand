@@ -9,6 +9,10 @@ import KeeperLand.Player;
 
 public class BountyHunter extends Enemy {
 
+    public BountyHunter() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 20;
         this.damage = 3;

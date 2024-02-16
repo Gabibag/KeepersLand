@@ -11,6 +11,10 @@ import java.util.Random;
 public class DeathMinion extends Enemy {
     final Random r = Main.r;
 
+    public DeathMinion() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 20;
         this.damage = 3;

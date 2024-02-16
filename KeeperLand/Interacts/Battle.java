@@ -140,7 +140,7 @@ public class Battle extends Interactable {
 
     //create a static method that removes all enemies in the list given that has a battleHp that is less than 0
 
-    public static void displayInv(List<Enemy> enemies) {
+    public static void displayInfo(List<Enemy> enemies) {
         System.out.println(Colors.PURPLE + "[0] Go Back");
         for (int i = 0; i < enemies.size(); i++) {
             System.out.println("[" + (i + 1) + "] Inspect " + enemies.get((i)).getName());
@@ -152,6 +152,7 @@ public class Battle extends Interactable {
         int choiceInfo = Helper.getInput("", 0, enemies.size() + 3);
 
         if (choiceInfo == 0) return;
+
         else if (choiceInfo == (enemies.size() + 1)) {
             System.out.println(
                     "Current Location: " + Main.currentPlace.getName() + "\n" + Main.currentPlace.getDescription());
@@ -171,9 +172,10 @@ public class Battle extends Interactable {
             System.out.println(
                     Colors.RED_BRIGHT + "Dodge Rate: " + e.getDodgeRate()
                             + Colors.RESET);
+            System.out.println(Colors.YELLOW + "About: " + Colors.RESET + e.getDescription());
         }
         Helper.continuePrompt();
-        displayInv(enemies);
+        displayInfo(enemies);
 
     }  //TODO get location + opponent info
 
@@ -377,7 +379,7 @@ public class Battle extends Interactable {
             //tell user their stage number and environment
             while (Actions > 0) {
                 String col = Colors.RESET;
-                if (player.getStatusEffects().size() != 0) {
+                if (!player.getStatusEffects().isEmpty()) {
                     col = player.getStatusEffects().get(player.getStatusEffects().size() - 1).getEffectColor();
                 }
                 System.out.print("You are in the " + Main.currentPlace.getName() + Colors.RESET);
@@ -410,13 +412,17 @@ public class Battle extends Interactable {
                             System.out.println(enemies.get(choice - 1).getName() + enemies.get(choice - 1).getDodgeText());
                             Helper.Sleep(1.5);
                         }
+                        Actions--;
                     }
-                    case 2 -> healPlayer(p, r, enemies);
-                    case 3 -> displayInv(enemies);
+                    case 2 -> {
+                        healPlayer(p, r, enemies);
+                        Actions--;
+                    }
+                    case 3 -> displayInfo(enemies);
 
                 }
                 Main.currentPlace.playerAction(p, enemies);
-                if (enemies.size() > 0) Actions--;
+                if (!enemies.isEmpty()) Actions--;
                 else {
                     p.setActionAmount(2);
                     break;
@@ -425,7 +431,7 @@ public class Battle extends Interactable {
             }
             printHealth(enemies);//print out a ui to make it look like its just changing stuff. Idk looks cool
             String col = Colors.RESET;
-            if (player.getStatusEffects().size() != 0) {
+            if (!player.getStatusEffects().isEmpty()) {
                 col = player.getStatusEffects().get(player.getStatusEffects().size() - 1).getEffectColor();
             }
             System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);

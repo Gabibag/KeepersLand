@@ -8,7 +8,11 @@ import KeeperLand.Player;
 
 import java.util.List;
 
-public class ShockZombie extends Enemy {
+public class ElectricMutant extends Enemy {
+
+    public ElectricMutant() {
+        super("Deals damage to everything, including its friends.");
+    }
 
     @Override
     public void setBaseStats() {

@@ -8,6 +8,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class HealingSprite extends Sprite {
+    public HealingSprite() {
+        super("Heals its friends.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 7;
         this.coins = 5;

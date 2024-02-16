@@ -11,6 +11,10 @@ import java.util.Random;
 public class Cloud extends Enemy {
     final Random r = Main.r;
 
+    public Cloud() {
+        super("Sometimes deals less damage");
+    }
+
 
     @Override
     public void setBaseStats() {

@@ -10,6 +10,10 @@ import java.util.Random;
 public class Overlord extends Enemy {
     final Random r = Main.r;
 
+    public Overlord() {
+        super("Run.");
+    }
+
     public void setBaseStats() {
         this.baseHp = Integer.MAX_VALUE / 10000;
         this.damage = Integer.MAX_VALUE / 10000;

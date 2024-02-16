@@ -10,6 +10,10 @@ import java.util.Random;
 public class Vulture extends Enemy {
     Random r = Main.r;
 
+    public Vulture() {
+        super("A basic monster, what you see is what you get!");
+    }
+
 
     @Override
     public void setBaseStats() {

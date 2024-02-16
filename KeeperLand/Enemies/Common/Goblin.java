@@ -10,6 +10,10 @@ import java.util.Random;
 public class Goblin extends Enemy {
     Random r = Main.r;
 
+    public Goblin() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 10;
         this.damage = 7;
