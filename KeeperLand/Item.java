@@ -1,7 +1,6 @@
 package KeeperLand;
 
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -247,8 +246,6 @@ public class Item {
 
         return "Type " + romanNumeral;
     }
-
-    @NotNull
     public String getNumeral() {
         return switch (this.tier) {
             case 1 -> "I";
