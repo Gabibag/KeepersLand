@@ -10,6 +10,10 @@ import java.util.Random;
 public class DerelictWizard extends Enemy {
     final Random r = new Random();
 
+    public DerelictWizard() {
+        super("A basic monster, what you see is what you get!");
+    }
+
 
     @Override
     public void setBaseStats() {

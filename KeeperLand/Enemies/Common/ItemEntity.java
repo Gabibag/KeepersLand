@@ -10,6 +10,10 @@ public class ItemEntity extends Enemy {
     Random r = Main.r;
     private int count = 1;
 
+    public ItemEntity() {
+        super("A reanimated weapon");
+    }
+
     public int getCount() {
         return count;
     }

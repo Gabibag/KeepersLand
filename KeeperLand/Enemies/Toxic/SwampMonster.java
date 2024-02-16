@@ -8,6 +8,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class SwampMonster extends Enemy {
+    public SwampMonster() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 12;
         this.damage = 8;
@@ -18,7 +22,7 @@ public class SwampMonster extends Enemy {
     }
 
     public int Attack(Player p, List<Enemy> allies) {
-        //TODO make this gimmick do more hp the more your missing
+        //TODO make this gimmick deal more damage the more you lose your health
         return this.damage;
     }
 

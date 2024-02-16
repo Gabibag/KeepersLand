@@ -10,6 +10,10 @@ import java.util.Random;
 public class Creature extends Enemy {
     Random r = new Random();
 
+    public Creature() {
+        super("A basic monster, what you see is what you get!");
+    }
+
 
     @Override
     public void setBaseStats() {

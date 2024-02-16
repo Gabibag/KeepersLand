@@ -10,6 +10,10 @@ import java.util.Random;
 public class Ninja extends Enemy {
     Random r = Main.r;
 
+    public Ninja() {
+        super("Kinda hard to hit.");
+    }
+
 
     @Override
     public void setBaseStats() {

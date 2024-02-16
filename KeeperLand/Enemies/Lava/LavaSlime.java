@@ -8,6 +8,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class LavaSlime extends Enemy {
+    public LavaSlime() {
+        super("Splits into mini slimes on death.");
+    }
+
     public void setBaseStats() {
         this.damage = 3;
         this.baseHp = this.battleHp = 8;

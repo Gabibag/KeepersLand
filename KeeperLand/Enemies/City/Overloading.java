@@ -12,6 +12,10 @@ public class Overloading extends Enemy {
 
     int chargeLeft = 3;
 
+    public Overloading() {
+        super("Charges up and deals a lot of damage, killing itself in the process.");
+    }
+
     @Override
     public void setBaseStats() {
         this.baseHp = 10;

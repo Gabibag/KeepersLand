@@ -9,6 +9,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class Snake extends Enemy {
+    public Snake() {
+        super("Deals a percentage of damage to you.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 15;
         this.damage = 8;

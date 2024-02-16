@@ -10,6 +10,10 @@ import java.util.Random;
 public class Ogre extends Enemy {
     Random r = Main.r;
 
+    public Ogre() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 40;
         this.damage = 5;

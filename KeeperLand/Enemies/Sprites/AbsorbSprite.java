@@ -17,6 +17,9 @@ public class AbsorbSprite extends Sprite {
         this.damage = 1;
     }
 
+    public AbsorbSprite() {
+        super("Copies some of its friend's health to itself.");
+    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

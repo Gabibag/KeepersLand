@@ -8,6 +8,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class SwapSprite extends Sprite {
+    public SwapSprite() {
+        super("Randomizes the health of its friends.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;

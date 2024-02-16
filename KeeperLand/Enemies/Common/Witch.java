@@ -13,6 +13,10 @@ import java.util.Random;
 public class Witch extends Enemy {
     final Random r = new Random();
 
+    public Witch() {
+        super("Gives you a random negative potion effect.");
+    }
+
 
     @Override
     public void setBaseStats() {

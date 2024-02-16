@@ -8,6 +8,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class TankSprite extends Sprite {
+    public TankSprite() {
+        super("Will heal its friends to its health");
+    }
+
     public void setBaseStats() {
         this.baseHp = 15;
         this.coins = 5;
@@ -23,7 +27,7 @@ public class TankSprite extends Sprite {
         for (Enemy e : allies) {
             if (e.getBattleHp() < this.getBattleHp()) {
                 e.setBattleHp(this.getBattleHp());
-                System.out.print("The Tank Sprite has "+ Colors.BLACK + "resets" + Colors.RESET + " the battle hp of " + Colors.RED + e.getName() + Colors.RESET + " to " + Colors.RED + this.getBattleHp());
+                System.out.print("The Tank Sprite has " + Colors.BLACK + "resets" + Colors.RESET + " the battle hp of " + Colors.RED + e.getName() + Colors.RESET + " to " + Colors.RED + this.getBattleHp());
                 System.out.println(", you must kill the Tank Sprite first");
             }
         }

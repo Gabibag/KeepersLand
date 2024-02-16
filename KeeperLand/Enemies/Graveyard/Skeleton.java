@@ -11,6 +11,10 @@ import java.util.Random;
 public class Skeleton extends Enemy {
     Random r = Main.r;
 
+    public Skeleton() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 30;
         this.damage = 2;

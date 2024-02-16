@@ -8,6 +8,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class BuffSprite extends Sprite {
+    public BuffSprite() {
+        super("Increases its friend's damage by 10%");
+    }
+
     public void setBaseStats() {
         this.baseHp = 40;
         this.coins = 5;

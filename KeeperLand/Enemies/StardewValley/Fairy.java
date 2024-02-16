@@ -12,6 +12,10 @@ import java.util.Random;
 public class Fairy extends Enemy {
     final Random r = Main.r;
 
+    public Fairy() {
+        super("Has some spells to help its friends.");
+    }
+
 
     @Override
     public void setBaseStats() {

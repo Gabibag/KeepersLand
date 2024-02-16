@@ -4,6 +4,10 @@ import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Player;
 
 public class SkeletonHand extends Enemy {
+    public SkeletonHand() {
+        super("Rises from the ground, watch out, they are quite strong.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 1;
         this.battleHp = this.baseHp;

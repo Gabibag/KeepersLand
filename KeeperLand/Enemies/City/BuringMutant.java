@@ -10,6 +10,10 @@ import java.util.List;
 
 public class BuringMutant extends Enemy {
 
+    public BuringMutant() {
+        super("Burns itself when attacking you.");
+    }
+
     @Override
     public void setBaseStats() {
         this.baseHp = 25;

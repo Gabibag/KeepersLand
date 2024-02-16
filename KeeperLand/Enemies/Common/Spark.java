@@ -10,6 +10,10 @@ import java.util.Random;
 public class Spark extends Enemy {
     Random r = new Random();
 
+    public Spark() {
+        super("A basic monster, what you see is what you get!");
+    }
+
 
     @Override
     public void setBaseStats() {

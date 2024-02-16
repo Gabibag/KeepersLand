@@ -8,6 +8,10 @@ import KeeperLand.Player;
 
 public class Slime extends Enemy {
 
+    public Slime() {
+        super("A basic monster, what you see is what you get!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 25;
         this.damage = 2;

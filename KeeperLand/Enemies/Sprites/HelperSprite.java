@@ -9,6 +9,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class HelperSprite extends Sprite {
+    public HelperSprite() {
+        super("He's just trying to help!");
+    }
+
     public void setBaseStats() {
         this.baseHp = 10;
         this.coins = 5;
