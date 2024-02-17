@@ -4,7 +4,6 @@ import KeeperLand.Abstracts.*;
 import KeeperLand.*;
 import KeeperLand.Enemies.Sprites.HelperSprite;
 import KeeperLand.Mutations.None;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -297,7 +296,7 @@ public class Battle extends Interactable {
 
     }
 
-    private static void printHealth(@NotNull List<Enemy> enemies) {
+    private static void printHealth(List<Enemy> enemies) {
         StringBuilder Names = new StringBuilder();
         StringBuilder HpAmounts = new StringBuilder();
         StringBuilder hpBars = new StringBuilder();

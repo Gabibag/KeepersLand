@@ -2,8 +2,6 @@ package KeeperLand.Interacts;
 
 import KeeperLand.Abstracts.Interactable;
 import KeeperLand.*;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -195,7 +193,7 @@ public class Inventory extends Interactable {
         player.getInventory().remove(item);
     }
 
-    private static @NotNull List<Item> displayList(Player p) {
+    private static List<Item> displayList(Player p) {
         System.out.println(p.getName() + "'s inventory: ");
         System.out.println("Current Balance " + Colors.CYAN + p.getMoney() + "◊");
         System.out.println("⚔ = Damage, ❤ = Health, ✧ = Heal, ⚕ = Heal Variance");
