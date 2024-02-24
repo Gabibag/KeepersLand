@@ -9,13 +9,10 @@ import java.util.Random;
 import static KeeperLand.Main.*;
 
 public abstract class Enemy {
+    public static boolean loaded = false;
+    final Random r = Main.r;
     protected int damage;
     protected int baseHp;
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     protected String name;
     protected int dodgeRate = 1;
     protected int xp;
@@ -25,40 +22,7 @@ public abstract class Enemy {
     protected int tokens;
     protected int level;
     protected String description;
-
-
-    public Mutations getMutate() {
-        return mutate;
-    }
-
-    public boolean isBoss() {
-        return false;
-    }
-
-    public void setMutate(Mutations mutate) {
-        this.mutate = mutate;
-    }
-
     protected Mutations mutate;
-    final Random r = Main.r;
-    public static boolean loaded = false;
-
-    public String getDescription() {
-//        check if description does not end in puncation, add a period
-        ArrayList<Character> punctuation = new ArrayList<>();
-        punctuation.add('.');
-        punctuation.add('!');
-        punctuation.add('?');
-        if (punctuation.contains(description.charAt(description.length() - 1))) {
-            return description;
-        } else {
-            return description + ".";
-        }
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Enemy(String desrc) {
         this.description = desrc;
@@ -97,6 +61,45 @@ public abstract class Enemy {
         }
     }
 
+    public static String isAn(String str) {
+        return (str.matches("^[aeiou].*") ? "an " : "a ");
+    }
+
+    /**
+     * @return true if the enemy is not a basic enemy and has some kind of modifier to its attack
+     */
+    public boolean isSpecial() {
+        return this.description != "Has no extra abilities, what you see is what you get!";
+    }
+
+    public Mutations getMutate() {
+        return mutate;
+    }
+
+    public void setMutate(Mutations mutate) {
+        this.mutate = mutate;
+    }
+
+    public boolean isBoss() {
+        return false;
+    }
+
+    public String getDescription() {
+//        check if description does not end in puncation, add a period
+        ArrayList<Character> punctuation = new ArrayList<>();
+        punctuation.add('.');
+        punctuation.add('!');
+        punctuation.add('?');
+        if (punctuation.contains(description.charAt(description.length() - 1))) {
+            return description;
+        } else {
+            return description + ".";
+        }
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getLevel() {
         return level;
@@ -105,7 +108,6 @@ public abstract class Enemy {
     public void setLevel(int level) {
         this.level = level;
     }
-
 
     //create a get type method that returns the string "Enemy"
     public String getType() {
@@ -145,6 +147,10 @@ public abstract class Enemy {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getDodgeRate() {
         return dodgeRate;
     }
@@ -179,9 +185,9 @@ public abstract class Enemy {
 
     public void scaleStats() {
         Enemy e = this;
-        e.setBaseHp((int) (e.getBaseHp() * Helper.getScaleFactor(0, e)));
-        e.setDamage((int) (e.getDamage() * Helper.getScaleFactor(1, e)));
-        e.setCoins((int) (e.getCoins() * Helper.getScaleFactor(2, e)));
+        e.setBaseHp((int) (e.getBaseHp() * Helper.getScaleFactor(0, e.level)));
+        e.setDamage((int) (e.getDamage() * Helper.getScaleFactor(1, e.level)));
+        e.setCoins((int) (e.getCoins() * Helper.getScaleFactor(2, e.level)));
 
 //        this.xp *= Helper.getScaleFactor();
     }
@@ -202,8 +208,7 @@ public abstract class Enemy {
             mutate.onDeath(allies, self);
         } else {
             String drops = randDrops(p, this);
-            String out = "You killed " + isAn(name) + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" +
-                    Colors.RESET + ")";
+            String out = "You killed " + isAn(name) + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" + Colors.RESET + ")";
             if (drops != null) {
                 out += " and got " + isAn(drops) + Colors.YELLOW + drops + Colors.RESET + "!";
             }
@@ -213,10 +218,6 @@ public abstract class Enemy {
         player.addMoney(self.getCoins());
         p.addXp(xp);
 
-    }
-
-    public static String isAn(String str) {
-        return (str.matches("^[aeiou].*") ? "an " : "a ");
     }
 
     public String randDrops(Player p, Enemy e) {
@@ -232,5 +233,23 @@ public abstract class Enemy {
         }
         p.addInventory(item);
         return item.getName();
+    }
+
+    @Override
+    public String toString() {
+        return "Enemy{" +
+                "damage=" + damage +
+                ", baseHp=" + baseHp +
+                ", name='" + name + '\'' +
+                ", dodgeRate=" + dodgeRate +
+                ", xp=" + xp +
+                ", drops=" + drops +
+                ", battleHp=" + battleHp +
+                ", coins=" + coins +
+                ", tokens=" + tokens +
+                ", level=" + level +
+                ", description='" + description + '\'' +
+                ", mutate=" + mutate +
+                '}';
     }
 }

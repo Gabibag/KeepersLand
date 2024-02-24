@@ -13,7 +13,7 @@ import java.util.List;
 public class MutatedZombie extends Enemy {
 
     public MutatedZombie() {
-        super("Damage increases each turn");
+        super("Increases its damage each turn");
     }
 
     @Override

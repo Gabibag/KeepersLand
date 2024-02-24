@@ -6,8 +6,8 @@ import KeeperLand.Player;
 
 import java.util.List;
 
-public abstract class Enviorment {
-    public Enviorment() {
+public abstract class Environment {
+    public Environment() {
         if (!Main.allPlaces.contains(this) && !this.getName().equalsIgnoreCase("starter land") /*Hard coding cuz im stupid*/) {
             Main.allPlaces.add((this));
         }
@@ -16,7 +16,7 @@ public abstract class Enviorment {
     @Override
     public boolean equals(Object obj) {
         try {
-            Enviorment e = (Enviorment) obj;
+            Environment e = (Environment) obj;
             return e.getName().equals(this.getName());
         } catch (Exception e) {
             return super.equals(obj);

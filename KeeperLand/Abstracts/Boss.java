@@ -8,11 +8,15 @@ import java.util.List;
 public abstract class Boss extends Enemy {
     protected int tokens;
 
-
-    public Boss() {
-        super("A basic monster, what you see is what you get!");
+    public Boss(String description) {
+        super(description);
         if (!Main.allBosses.contains(this))
             Main.allBosses.add((this));
+    }
+
+    @Override
+    public boolean isSpecial() {
+        return true;
     }
 
     @Override

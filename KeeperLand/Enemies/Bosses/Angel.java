@@ -9,6 +9,10 @@ import KeeperLand.Enemies.Sprites.HealingSprite;
 import java.util.List;
 
 public class Angel extends Boss {
+    public Angel() {
+        super("Drops a healing shard. Brings in a cute surprise on death.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 50;
         this.damage = 3;

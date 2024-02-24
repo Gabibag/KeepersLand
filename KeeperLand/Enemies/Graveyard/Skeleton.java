@@ -12,7 +12,7 @@ public class Skeleton extends Enemy {
     Random r = Main.r;
 
     public Skeleton() {
-        super("A basic monster, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!");
     }
 
     public void setBaseStats() {

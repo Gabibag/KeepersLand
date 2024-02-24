@@ -1,14 +1,14 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
-public class Luck extends Enviorment {
+public class Luck extends Environment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.Clover, ItemData.Charm, ItemData.Grass);

@@ -1,7 +1,7 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
@@ -9,7 +9,7 @@ import KeeperLand.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public class CherryBlossoms extends Enviorment {
+public class CherryBlossoms extends Environment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.Petal, ItemData.CherryBlossom, ItemData.CherryBark);

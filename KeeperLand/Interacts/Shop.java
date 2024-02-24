@@ -46,15 +46,12 @@ public class Shop extends Interactable {
     }
 
     public static void statBuy(Player p) {
-        if (Main.currentPlace.getShopItems().size() == 0) return;
+        if (Main.currentPlace.getShopItems().isEmpty()) return;
         List<Item> tempItems = new ArrayList<>(Main.currentPlace.getShopItems().stream().filter(o1 -> !o1.getName().equalsIgnoreCase("dull skull")).toList());
         tempItems.sort(Comparator.comparingInt(Item::getCost));
-        int i = 0;
-        while (tempItems.get(i % tempItems.size()).getCost() <= p.getMoney()) {
-            Item it = tempItems.get(i % tempItems.size());
-            int num = p.getMoney() / it.getCost();
-            buyMultipleItems(it, num, false);
-            i++;
+        for (Item item : tempItems) {
+            if (item.getCost() > p.getMoney()) continue;
+            buyItem(player, item, false);
         }
         Helper.checkForComplexCreation(Main.currentPlace.getShopItems());
 
@@ -138,7 +135,7 @@ public class Shop extends Interactable {
     }
 
     private static void buyItem(Player player, Item i, Boolean announcePurchase) {
-        if (i.getCost() > player.getMoney()) {
+        if (i.getCost() > player.getMoney() && announcePurchase) {
             System.out.println("Not enough money");
         } else {
             Item give = i.randTier();
@@ -154,7 +151,9 @@ public class Shop extends Interactable {
 
     private static void buyMultipleItems(Item i, int count, Boolean announcePurchase) {
         if (i.getCost() * count > player.getMoney()) {
-            System.out.println("Not enough money");
+            if (announcePurchase) {
+                System.out.println("Not enough money");
+            }
         } else {
             for (int j = 0; j < count; j++) {
                 Item give = i.randTier();
@@ -188,11 +187,11 @@ public class Shop extends Interactable {
         }
         int maxColLength = 0;
         for (Item item : items) {
-            if (String.valueOf(item.getHealVariance()).length() > maxColLength) {
-                maxColLength = String.valueOf(item.getHealVariance()).length();
+            if (String.valueOf(item.getHealVarIncr()).length() > maxColLength) {
+                maxColLength = String.valueOf(item.getHealVarIncr()).length();
             }
-            if (String.valueOf(item.getHealIncrease()).length() > maxColLength) {
-                maxColLength = String.valueOf(item.getHealIncrease()).length();
+            if (String.valueOf(item.getHealIncr()).length() > maxColLength) {
+                maxColLength = String.valueOf(item.getHealIncr()).length();
             }
             if (String.valueOf(item.getHpIncr()).length() > maxColLength) {
                 maxColLength = String.valueOf(item.getHpIncr()).length();
@@ -208,9 +207,9 @@ public class Shop extends Interactable {
                 StringBuilder healCount = new StringBuilder();
                 StringBuilder dmgCount = new StringBuilder();
                 String spaceCount = " ".repeat(Math.max(0, maxNameLength - items.get(i).getName().length() + 2));
-                variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getHealVariance()).length())));
+                variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getHealVarIncr()).length())));
                 hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getHpIncr()).length())));
-                healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getHealIncrease()).length())));
+                healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getHealIncr()).length())));
                 dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(items.get(i).getDmgIncr()).length())));
                 String col = Colors.PURPLE;
                 if (items.get(i).getCost() <= player.getMoney()) {
@@ -218,7 +217,7 @@ public class Shop extends Interactable {
                 }
                 System.out.println(
                         Colors.CYAN + "[" + (i + 4) + "] " + col + items.get(i).getName() + spaceCount +
-                                Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + items.get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + items.get(i).getHealIncrease() + healCount + Colors.PURPLE + " ⚕" + items.get(i).getHealVariance() + variCount + Colors.CYAN + " ◊" + items.get(i).getCost() + Colors.RESET + (Helper.moreShopInfo ? Colors.RESET + " (" + items.get(i).getDescription() + ")" : "") + Colors.RESET);
+                                Colors.RED + " ⚔" + items.get(i).getDmgIncr() + dmgCount + Colors.GREEN + " ❤" + items.get(i).getHpIncr() + hpCount + Colors.YELLOW + " ✧" + items.get(i).getHealIncr() + healCount + Colors.PURPLE + " ⚕" + items.get(i).getHealVarIncr() + variCount + Colors.CYAN + " ◊" + items.get(i).getCost() + Colors.RESET + (Helper.moreShopInfo ? Colors.RESET + " (" + items.get(i).getDescription() + ")" : "") + Colors.RESET);
             }
         } catch (Exception e) {
             //items.add(Item.empty);

@@ -1,14 +1,14 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
-public class AbandonedCity extends Enviorment {
+public class AbandonedCity extends Environment {
 
     @Override
     public String getDescription() {

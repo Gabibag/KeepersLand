@@ -5,13 +5,10 @@ import KeeperLand.Enviroments.Graveyard;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
-import java.util.Random;
-
 public class Zombie extends Enemy {
-    final Random r = Main.r;
 
     public Zombie() {
-        super("A basic monster, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!");
     }
 
     public void setBaseStats() {
@@ -26,7 +23,7 @@ public class Zombie extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(4) == 2 && Main.currentPlace instanceof Graveyard; //(r.nextInt([spawnchance]) == 2)
+        return Main.r.nextInt(4) == 2 && Main.currentPlace instanceof Graveyard; //(r.nextInt([spawnchance]) == 2)
 
     }
 }

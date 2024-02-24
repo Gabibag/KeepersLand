@@ -37,7 +37,7 @@ public class GateKeepers extends Enemy {
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
-        int dmg = (int) Helper.getScaleFactor(1, this);
+        int dmg = (int) Helper.getScaleFactor(1, this.level);
         System.out.println("The Gate Defender" + Colors.RED + " steals" + Colors.RESET + " your health!");
         for (Enemy e : allies) {
             e.setBattleHp(e.getBattleHp() + dmg / 3);

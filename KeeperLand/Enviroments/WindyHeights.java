@@ -1,7 +1,7 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
@@ -9,7 +9,7 @@ import KeeperLand.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public class WindyHeights extends Enviorment {
+public class WindyHeights extends Environment {
     private int turn = 0;
 
     @Override

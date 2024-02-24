@@ -1,13 +1,16 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
-import KeeperLand.*;
+import KeeperLand.Abstracts.Environment;
+import KeeperLand.Colors;
+import KeeperLand.Item;
+import KeeperLand.ItemData;
+import KeeperLand.Player;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class LavaZone extends Enviorment {
+public class LavaZone extends Environment {
     int turnsTillLava = 4;
 
     @Override

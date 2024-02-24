@@ -1,14 +1,16 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
-import KeeperLand.*;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.Enemies.GatesToHell.GateKeepers;
+import KeeperLand.Item;
+import KeeperLand.ItemData;
+import KeeperLand.Player;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class GatesToHell extends Enviorment {
+public class GatesToHell extends Environment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.barFromHell,

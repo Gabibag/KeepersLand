@@ -1,13 +1,13 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class ToxicEnv extends Enviorment {
+public class ToxicEnv extends Environment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.toxicFang,
@@ -24,7 +24,7 @@ public class ToxicEnv extends Enviorment {
     }
 
     public int modifyPlayerDamage(int preChange) {
-        int dmgInc = Main.r.nextInt(3) * Main.player.getStageNum()/2;
+        int dmgInc = Main.r.nextInt(3) * Main.player.getStageNum() / 2;
         if (dmgInc == 0) {
             return preChange;
         }
@@ -42,7 +42,7 @@ public class ToxicEnv extends Enviorment {
     }
 
     public int modifyEnemyDamage(int preChange) {
-        int dmgInc = Main.r.nextInt(3 * Main.player.getStageNum()/2);
+        int dmgInc = Main.r.nextInt(3 * Main.player.getStageNum() / 2);
         if ((dmgInc == 0) || (preChange == 0)) {
             return preChange;
         }

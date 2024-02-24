@@ -1,13 +1,13 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class StarterLand extends Enviorment {
+public class StarterLand extends Environment {
     private int survival = 0;
 
     public StarterLand() {

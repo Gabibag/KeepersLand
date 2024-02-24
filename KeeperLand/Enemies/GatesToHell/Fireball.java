@@ -11,7 +11,7 @@ public class Fireball extends Enemy {
     int numTurns = 1;
 
     public Fireball() {
-        super("Summoned by a monster, explodes on impact after flying towards you, damaging you and killing itself.");
+        super("Explodes on impact after flying towards you, damaging you and killing itself.");
     }
 
     public void setBaseStats() {

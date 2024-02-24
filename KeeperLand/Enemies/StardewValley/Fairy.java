@@ -7,10 +7,8 @@ import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
-import java.util.Random;
 
 public class Fairy extends Enemy {
-    final Random r = Main.r;
 
     public Fairy() {
         super("Has some spells to help its friends.");
@@ -29,20 +27,20 @@ public class Fairy extends Enemy {
 
     @Override
     public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof StardewValley && r.nextBoolean();
+        return Main.currentPlace instanceof StardewValley && Main.r.nextBoolean();
     }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
         //1 in 10 chance of healing itself, or healing an ally, or dealing 1.2x damage, or delaing 0.8x damge
-        int rand = r.nextInt(10);
+        int rand = Main.r.nextInt(10);
         if (rand == 0) {
             System.out.println(name + " heals itself for " + Colors.GREEN + damage + Colors.RESET + "hp! ");
             battleHp += damage;
             return 0;
         } else if (rand == 1) {
             if (allies.size() > 0) {
-                int randAlly = r.nextInt(allies.size());
+                int randAlly = Main.r.nextInt(allies.size());
                 System.out.println(name + " heals " + allies.get(randAlly).getName() + " for " + Colors.GREEN + damage + Colors.RESET + " damage");
                 allies.get(randAlly).setBattleHp(allies.get(randAlly).getBattleHp() + damage);
                 return 0;

@@ -11,7 +11,7 @@ public class Ninja extends Enemy {
     Random r = Main.r;
 
     public Ninja() {
-        super("Kinda hard to hit.");
+        super("Dodges your attacks.");
     }
 
 

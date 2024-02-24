@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HelperSprite extends Sprite {
     public HelperSprite() {
-        super("He's just trying to help!");
+        super("Is just trying to help!");
     }
 
     public void setBaseStats() {

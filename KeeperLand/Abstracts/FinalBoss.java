@@ -3,6 +3,10 @@ package KeeperLand.Abstracts;
 public abstract class FinalBoss extends Boss {
     protected int bossStage = 1;
 
+    public FinalBoss() {
+        super("The final boss of the game.");
+    }
+
     public int getBossStage() {
         return bossStage;
     }

@@ -1,7 +1,7 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Main;
@@ -10,7 +10,7 @@ import KeeperLand.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public class StardewValley extends Enviorment {
+public class StardewValley extends Environment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.DullSkull,

@@ -12,6 +12,10 @@ import java.util.concurrent.*;
 public class Death extends Boss {
     protected static boolean End;
 
+    public Death() {
+        super("Drops a death shard. Summons minions on escape.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 100;
         this.damage = 10;
@@ -37,9 +41,9 @@ public class Death extends Boss {
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         Helper.Sleep(1);
         System.out.println("Death escapes and summons its minions to kill you");
-        for (int i = 0; i < Main.r.nextInt(2, 3) ; i++) {
+        for (int i = 0; i < Main.r.nextInt(2, 3); i++) {
             DeathMinion d = new DeathMinion();
-            d.setMutate(Main.allMutations.get(Main.r.nextInt(Main.allMutations.size()-1)));
+            d.setMutate(Main.allMutations.get(Main.r.nextInt(Main.allMutations.size() - 1)));
             allies.add(d);
         }
         Helper.continuePrompt();

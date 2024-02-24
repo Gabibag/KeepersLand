@@ -2,13 +2,11 @@ package KeeperLand.Enemies.Lava;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Enviroments.LavaZone;
+import KeeperLand.Enviroments.StarterLand;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
-import java.util.Random;
-
 public class Overlord extends Enemy {
-    final Random r = Main.r;
 
     public Overlord() {
         super("Run.");
@@ -26,7 +24,7 @@ public class Overlord extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(50) == 2 && Main.currentPlace instanceof LavaZone; //(r.nextInt([spawnchance]) == 2)
+        return !(Main.currentPlace instanceof StarterLand) && (Main.r.nextInt(50) == 2 && Main.currentPlace instanceof LavaZone); //(r.nextInt([spawnchance]) == 2)
 
     }
 }

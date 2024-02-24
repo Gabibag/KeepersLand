@@ -6,7 +6,7 @@ import KeeperLand.Player;
 public class MiniRadioSlime extends Enemy {
 
     public MiniRadioSlime() {
-        super("A basic monster, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!");
     }
 
     @Override

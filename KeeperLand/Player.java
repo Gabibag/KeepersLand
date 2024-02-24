@@ -1,5 +1,6 @@
 package KeeperLand;
 
+import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.StatusEffects;
 
 import java.io.File;
@@ -27,6 +28,7 @@ public class Player {
     private int tokens = 0;
     private boolean isDead = false;
     private final List<StatusEffects> statusEffects = new ArrayList<>();
+    private final ArrayList<Enemy> enemiesSeen = new ArrayList<>();
 
     public Player(String name, int hp, int dmg, List<Item> inventory) {
         this.name = name;
@@ -36,6 +38,7 @@ public class Player {
         this.inventory = inventory;
         this.battleHp = hp;
         this.stageNum = 1;
+
 
     }
 
@@ -162,8 +165,8 @@ public class Player {
 
                 if (item.getTier() == 7) {
                     f.write(item.getDmgIncr() + "\n");
-                    f.write(item.getHealIncrease() + "\n");
-                    f.write(item.getHealVariance() + "\n");
+                    f.write(item.getHealIncr() + "\n");
+                    f.write(item.getHealVarIncr() + "\n");
                     f.write(item.getHpIncr() + "\n");
                     f.write(item.getCost() + "\n");
                 }
@@ -319,8 +322,8 @@ public class Player {
         int tempHealVar = this.healVariance;
         tempHp += inventory.stream().mapToInt(Item::getHpIncr).sum();
         tempDmg += inventory.stream().mapToInt(Item::getDmgIncr).sum();
-        tempHeal += inventory.stream().mapToInt(Item::getHealIncrease).sum();
-        tempHealVar += inventory.stream().mapToInt(Item::getHealVariance).sum();
+        tempHeal += inventory.stream().mapToInt(Item::getHealIncr).sum();
+        tempHealVar += inventory.stream().mapToInt(Item::getHealVarIncr).sum();
         String c = Colors.PURPLE;
         String r = Colors.RESET;
         String s = Colors.RED;
@@ -370,7 +373,14 @@ public class Player {
 
     }
 
+    public boolean hasSeenEnemy(Enemy e) {
 
+        if (!enemiesSeen.stream().anyMatch(enemy -> enemy.getName().equals(e.getName())) && e.isSpecial()) {
+            enemiesSeen.add(e);
+            return false;
+        }
+        return true;
+    }
 
     public int getBattleDamage() {
         return battleDamage;

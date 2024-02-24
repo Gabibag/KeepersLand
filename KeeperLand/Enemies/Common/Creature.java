@@ -11,7 +11,7 @@ public class Creature extends Enemy {
     Random r = new Random();
 
     public Creature() {
-        super("A basic monster, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!");
     }
 
 

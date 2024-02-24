@@ -1,14 +1,14 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.*;
 import KeeperLand.Enemies.Graveyard.SkeletonHand;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Graveyard extends Enviorment {
+public class Graveyard extends Environment {
 
     @Override
     public String getDescription() {

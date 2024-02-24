@@ -1,6 +1,5 @@
 package KeeperLand;
 
-import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Enemies.Common.Archer;
 import KeeperLand.Enemies.Common.Goblin;
 import KeeperLand.Enemies.Common.Warrior;
@@ -162,6 +161,9 @@ public class Helper {
 
             }
         }
+        if (r.size() <= 3) {
+            return r;
+        }
         //check for duplicates, if there are any, replace them with a random element
         for (int i = 0; i < r.size(); i++) {
             for (int j = 0; j < r.size(); j++) {
@@ -256,9 +258,9 @@ public class Helper {
 
     public static int getFullHealAmount(Player p, Random r, double max) {
         double h = Math.max((p.getBattleHp() / max), 0.5); // heals less the lower your health is.
-        int healAmount = p.getInventory().stream().mapToInt(Item::getHealIncrease).sum() + p.getHealAmount();
+        int healAmount = p.getInventory().stream().mapToInt(Item::getHealIncr).sum() + p.getHealAmount();
         healAmount *= (int) h;
-        int variance = p.getInventory().stream().mapToInt(Item::getHealVariance).sum() + p.getHealVariance();
+        int variance = p.getInventory().stream().mapToInt(Item::getHealVarIncr).sum() + p.getHealVariance();
         variance = (r.nextInt((variance << 1)) - variance);
         if (variance > 0) {
             variance *= (int) h;

@@ -1,7 +1,7 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
@@ -9,7 +9,7 @@ import KeeperLand.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public class SubSpace extends Enviorment {
+public class SubSpace extends Environment {
     @Override
     public List<Item> getShopItems() {
         return Arrays.asList(ItemData.starDust, ItemData.SubspaceOrb);
@@ -31,7 +31,7 @@ public class SubSpace extends Enviorment {
 
     public void playerAction(Player p, List<Enemy> enemies) {
         int min = p.getBattleHp() * (p.getStageNum() / 5);
-        if (min <= 100){
+        if (min <= 100) {
             min = 100;
         }
         if (p.getBattleHp() > min) {

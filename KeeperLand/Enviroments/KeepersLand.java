@@ -1,7 +1,7 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Main;
@@ -10,7 +10,7 @@ import KeeperLand.Player;
 import java.util.Collections;
 import java.util.List;
 
-public class KeepersLand extends Enviorment {
+public class KeepersLand extends Environment {
 
     @Override
     public String getDescription() {
@@ -49,7 +49,7 @@ public class KeepersLand extends Enviorment {
         Player p = Main.player;
         //check if player will die from the attack. if it can, check if the damage doubles the overkill. if it does, kill the player, if not, set their health to 1
         if (p.getBattleHp() << 1 >= preChange && preChange >= p.getBattleHp()) {
-            preChange = p.getBattleHp() -1;
+            preChange = p.getBattleHp() - 1;
         }
 
         return preChange;

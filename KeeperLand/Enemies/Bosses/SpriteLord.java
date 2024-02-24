@@ -8,6 +8,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class SpriteLord extends Boss {
+    public SpriteLord() {
+        super("Drops a Sprite Shard. Creates 5 random sprites on death.");
+    }
+
     public void setBaseStats() {
         this.baseHp = 25;
         this.damage = 4;

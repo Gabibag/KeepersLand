@@ -5,13 +5,10 @@ import KeeperLand.Enviroments.ToxicEnv;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
-import java.util.Random;
-
 public class Assassin extends Enemy {
-    final Random r = Main.r;
 
     public Assassin() {
-        super("Hard to hit.");
+        super("Dodges your attacks.");
     }
 
     public void setBaseStats() {
@@ -27,7 +24,7 @@ public class Assassin extends Enemy {
     @Override
     public boolean canSpawn(Player p) {
 
-        return r.nextInt(10) == 2 && Main.currentPlace instanceof ToxicEnv; //10% spawn chance
+        return Main.r.nextInt(10) == 2 && Main.currentPlace instanceof ToxicEnv; //10% spawn chance
 
     }
 }

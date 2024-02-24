@@ -60,10 +60,10 @@ public class ItemData {
     public static final Item KeeperShard = new Item(0, 1000, "Keeper Shard", "Powerful. But if you live, you won't be needing it.", 0, 0, Integer.MIN_VALUE / 1000, 0);
     public static final Item LockedItem = new Item(0, 0, "Locked Item", "Sorry, you can't buy this yet.", 0, 0);
     public static final Item SubspaceOrb = new Item(1, 1, "Subspace Orb", "Kinda small don't you think? Wait, you can't see it yet.", 1, 0, true);
-    public static Item glitch = new Item(-2, 4, "Glitch", "DO NOT USE.", -5, 99, true);
-    public static Item unstableSword = new Item((int) (Math.random() * 15) - 5, 0, "Unstable Sword", "Maybe reload your game?", 0, 0, true);
-    public static Item unstableRing = new Item(0, (int) (Math.random() * 20) - 7, "Unstable Ring", "Maybe reload your game?", -5, 0, true);
-    public static final Item starterWeapon = new Item(6, 0, "Starter Weapon", "Kinda useful I guess.", 0, 0, false);
+    public static final Item glitch = new Item(-2, 4, "Glitch", "DO NOT USE.", -5, 99, true);
+    public static final Item unstableSword = new Item((int) (Math.random() * 15) - 5, 0, "Unstable Sword", "Maybe reload your game?", 0, 0, true);
+    public static final Item unstableRing = new Item(0, (int) (Math.random() * 20) - 7, "Unstable Ring", "Maybe reload your game?", -5, 0, true);
+    public static final Item starterWeapon = new Item(3, 0, "Starter Weapon", "Kinda useful I guess.", 0, 0, false);
 
     public ItemData() throws Exception {
         throw new Exception("Do not create objects of data classes");

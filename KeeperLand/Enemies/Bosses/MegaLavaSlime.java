@@ -11,6 +11,10 @@ import KeeperLand.Player;
 import java.util.List;
 
 public class MegaLavaSlime extends Boss {
+    public MegaLavaSlime() {
+        super("Drops Shattered Shard. Splits into 3 Lava Slimes");
+    }
+
     public void setBaseStats() {
         this.baseHp = 20;
         this.damage = 4;

@@ -1,13 +1,13 @@
 package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Abstracts.Enviorment;
+import KeeperLand.Abstracts.Environment;
 import KeeperLand.Item;
 import KeeperLand.Player;
 
 import java.util.List;
 
-public class NullZone extends Enviorment {
+public class NullZone extends Environment {
     @Override
     public List<Item> getShopItems() {
         return List.of();

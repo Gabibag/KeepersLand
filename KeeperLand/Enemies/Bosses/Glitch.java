@@ -12,6 +12,10 @@ import java.util.concurrent.*;
 public class Glitch extends Boss {
     protected static boolean End;
 
+    public Glitch() {
+        super("");
+    }
+
     public void setBaseStats() {
         this.baseHp = 50;
         this.damage = 5;

@@ -1,8 +1,8 @@
 package KeeperLand.Enemies.Bosses;
 
-import KeeperLand.*;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.FinalBoss;
+import KeeperLand.*;
 import KeeperLand.Enemies.Common.ItemEntity;
 import KeeperLand.Mutations.None;
 
@@ -36,7 +36,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
         System.out.println(Colors.CLEAR);
         System.out.println("You defeated the Keeper and found a" + Colors.YELLOW + " Keeper Shard" + Colors.RESET + "!");
         p.addInventory(new Item(ItemData.KeeperShard));
-        p.setBattleHp( p.getBattleDamage() + ItemData.KeeperShard.getHpIncr());
+        p.setBattleHp(p.getBattleDamage() + ItemData.KeeperShard.getHpIncr());
 
         if (allies.size() > 0) {
             allies.subList(0, allies.size()).clear();
@@ -68,7 +68,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
             Item item = inventory.get(i);
             ItemEntity temp = new ItemEntity();
             int costReformatted = item.getCost() / (item.getDmgIncr() + 1);
-            temp.setBaseStats(item.getHpIncr() + item.getHealIncrease() + costReformatted, (int) (item.getDmgIncr() + item.getHealVariance()), "Animated " + item.getName());
+            temp.setBaseStats(item.getHpIncr() + item.getHealIncr() + costReformatted, item.getDmgIncr() + item.getHealVarIncr(), "Animated " + item.getName());
             if (temp.getBaseHp() != 0 && item.getDmgIncr() != 0) {
                 enemies.add(temp);
             }
@@ -103,7 +103,6 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
                 }
             }
         }
-
 
 
     }

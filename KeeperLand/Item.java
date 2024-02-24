@@ -1,7 +1,6 @@
 package KeeperLand;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,8 +103,8 @@ public class Item {
         this.description = i.getDescription();
         this.cost = i.getCost();
         this.rarity = i.getRarity();
-        this.healIncrease = i.getHealIncrease();
-        this.HealVariance = i.getHealVariance();
+        this.healIncrease = i.getHealIncr();
+        this.HealVariance = i.getHealVarIncr();
         this.tokenCost = i.getTokenCost();
         this.tier = i.getTier();
     }
@@ -122,11 +121,11 @@ public class Item {
         Player player = Main.player;
         int maxNameLength = item.getName().length();
         int maxColLength = 8;
-        if (String.valueOf(item.getHealVariance()).length() > maxColLength) {
-            maxColLength = String.valueOf(item.getHealVariance()).length();
+        if (String.valueOf(item.getHealVarIncr()).length() > maxColLength) {
+            maxColLength = String.valueOf(item.getHealVarIncr()).length();
         }
-        if (String.valueOf(item.getHealIncrease()).length() > maxColLength) {
-            maxColLength = String.valueOf(item.getHealIncrease()).length();
+        if (String.valueOf(item.getHealIncr()).length() > maxColLength) {
+            maxColLength = String.valueOf(item.getHealIncr()).length();
         }
         if (String.valueOf(item.getHpIncr()).length() > maxColLength) {
             maxColLength = String.valueOf(item.getHpIncr()).length();
@@ -143,9 +142,9 @@ public class Item {
             StringBuilder dmgCount = new StringBuilder();
             StringBuilder tierCount = new StringBuilder();
             String spaceCount = " ".repeat(Math.max(0, maxNameLength - item.getName().length() + 2));
-            variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealVariance()).length())));
+            variCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealVarIncr()).length())));
             hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHpIncr()).length())));
-            healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealIncrease()).length())));
+            healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getHealIncr()).length())));
             dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(item.getDmgIncr()).length())));
             tierCount.append(" ".repeat(Math.max(0, maxColLength - item.getStrTier().length()) + 8));
             String col = Colors.PURPLE;
@@ -154,8 +153,8 @@ public class Item {
                     col + item.getName() + spaceCount +
                             isNot0(Colors.RED, item.getDmgIncr()) + " ⚔" + item.getDmgIncr() + dmgCount +
                             isNot0(Colors.GREEN, item.getHpIncr()) + " ❤" + item.getHpIncr() + hpCount +
-                            isNot0(Colors.YELLOW, item.getHealIncrease()) + " ✧" + item.getHealIncrease() + healCount +
-                            isNot0(Colors.PURPLE, item.getHealVariance()) + " ⚕" + item.getHealVariance() + variCount +
+                            isNot0(Colors.YELLOW, item.getHealIncr()) + " ✧" + item.getHealIncr() + healCount +
+                            isNot0(Colors.PURPLE, item.getHealVarIncr()) + " ⚕" + item.getHealVarIncr() + variCount +
                             item.getColTier() + item.getStrTier() + tierCount + Colors.CYAN + " ◊" + item.getCost());
 
 
@@ -165,7 +164,7 @@ public class Item {
         return "Error displaying item";
     }
 
-    public int getHealVariance() {
+    public int getHealVarIncr() {
         return HealVariance;
     }
 
@@ -173,7 +172,7 @@ public class Item {
         HealVariance = v;
     }
 
-    public int getHealIncrease() {
+    public int getHealIncr() {
         return this.healIncrease;
     }
 
@@ -246,6 +245,7 @@ public class Item {
 
         return "Type " + romanNumeral;
     }
+
     public String getNumeral() {
         return switch (this.tier) {
             case 1 -> "I";
@@ -274,11 +274,11 @@ public class Item {
         if (tier == 7) {
             return;
         }
-        this.setHealIncrease((int) (this.getHealIncrease() * ((tier * 0.4) + 1)));
+        this.setHealIncrease((int) (this.getHealIncr() * ((tier * 0.4) + 1)));
         this.setDmgIncr((int) (this.getDmgIncr() * ((tier * 0.4) + 1)));
         this.setHpIncr((int) (this.getHpIncr() * ((tier * 0.4) + 1)));
         this.setCost((int) (this.getCost() * ((tier * 0.4) + 1)));
-        this.setHealVariance((int) (this.getHealVariance() * ((tier * 0.7))));
+        this.setHealVariance((int) (this.getHealVarIncr() * ((tier * 0.7))));
         this.tier = tier;
     }
 
@@ -289,8 +289,8 @@ public class Item {
             if (item == this) continue;
             this.setDmgIncr(this.getDmgIncr() + item.getDmgIncr());
             this.setHpIncr(this.getHpIncr() + item.getHpIncr());
-            this.setHealIncrease(this.getHealIncrease() + item.getHealIncrease());
-            this.setHealVariance(this.getHealVariance() + item.getHealVariance());
+            this.setHealIncrease(this.getHealIncr() + item.getHealIncr());
+            this.setHealVariance(this.getHealVarIncr() + item.getHealVarIncr());
             Main.player.getInventory().removeIf(item1 -> item1 != this);
         }
         //check if the item is in the player's inventory. If it isn't, add it
