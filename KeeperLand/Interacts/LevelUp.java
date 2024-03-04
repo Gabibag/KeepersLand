@@ -23,15 +23,7 @@ public class LevelUp extends Interactable {
             int hp = p.getHp();
             int damage = p.getDamage();
             int healAmount = p.getHealAmount();
-            while (p.getXp() >= p.getXpToLevel()) {
-                p.setLevel(p.getLevel() + 1);
-                p.setXp(p.getXp() - p.getXpToLevel());
-                p.setXpToLevel((int) (p.getXpToLevel() + Math.max(p.getXpToLevel() * 0.05, 20)));
-                p.setHp(p.getHp() + Math.max(p.getLevel() << 1, 3));
-                p.setDamage((int) (p.getDamage() + Math.max(p.getLevel() * 0.5f, 2)));
-                p.setHealAmount(p.getHealAmount() + Math.max(p.getLevel(), 1));
-
-            }
+            levelPlayer(p);
             System.out.println("You leveled up! You are now level " + p.getLevel() + "!");
             System.out.println("Base Health: " + hp + " -> " + p.getHp());
             System.out.println("Base Damage: " + damage + " -> " + p.getDamage());
@@ -40,5 +32,17 @@ public class LevelUp extends Interactable {
             System.out.println("You don't have enough xp to level up!");
         }
         Helper.continuePrompt();
+    }
+
+    public void levelPlayer(Player p) {
+        while (p.getXp() >= p.getXpToLevel()) {
+            p.setLevel(p.getLevel() + 1);
+            p.setXp(p.getXp() - p.getXpToLevel());
+            p.setXpToLevel((int) (p.getXpToLevel() + Math.max(p.getXpToLevel() * 0.2, 20)));
+            p.setHp((int) (p.getHp() + Math.max(p.getLevel() * 0.1f, 1)));
+            p.setDamage((int) (p.getDamage() + Math.max(p.getLevel() * 0.1f, 1)));
+            p.setHealAmount((int) (p.getHealAmount() + Math.max(p.getLevel() * 0.1f, 1)));
+
+        }
     }
 }

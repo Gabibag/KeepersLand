@@ -18,6 +18,7 @@ public class Item {
     private int rarity;
     private int tier = 1;
     private int tokenCost = 0;
+    private final int DROP_RATE = 1;
     /*make this a number from 1-1000, for drop chance, also doubles as epic, common, etc.
     1-10  - common
     10-20 - uncommon

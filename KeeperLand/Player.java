@@ -69,19 +69,6 @@ public class Player {
             r.nextLine();//idk why this is needed but item breaks if you remove it soooo
             //cuz next int doesn't move to next line
             for (int i = 0; i < invSize; i++) {
-                /*String name = r.nextLine();
-                int cost = Integer.parseInt(r.nextLine());
-                Item is = new Item(0, 0, name, null, 0, cost);
-                is.setDmgIncr(r.nextInt());
-                r.nextLine(); //again, don't ask me :)
-                is.setDescription(r.nextLine().replace("*n", "\n"));
-                is.setHealIncrease(r.nextInt());
-                is.setHealVariance(r.nextInt());
-                is.setHpIncr(r.nextInt());
-                is.setRarity(r.nextInt());
-                p.inventory.add(is);*/
-
-
                 String name = r.nextLine();
                 int tier = Integer.parseInt(r.nextLine().trim());
                 for (Item item : Main.allItem) {
@@ -121,6 +108,16 @@ public class Player {
             return null;
         }
 
+    }
+
+    public static String formattedInventory(Player p) {
+        List<Item> inv = p.inventory;
+        StringBuilder ret = new StringBuilder("Inventory {" + inv.size() + "\n");
+        for (Item i : inv) {
+            ret.append(i.toString()).append("\n");
+        }
+        ret.append("}");
+        return ret.toString();
     }
 
     public boolean isDead() {

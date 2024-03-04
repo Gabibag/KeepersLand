@@ -1,6 +1,7 @@
 package KeeperLand;
 
 import KeeperLand.Abstracts.*;
+import KeeperLand.Enemies.Common.Warrior;
 import KeeperLand.Enviroments.GatesToHell;
 import KeeperLand.Enviroments.LavaZone;
 import KeeperLand.Enviroments.NullZone;
@@ -12,6 +13,7 @@ import KeeperLand.Interacts.Shop;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -20,22 +22,21 @@ import java.util.jar.JarInputStream;
 
 
 public class Main {
-    public static final List<Enviorment> allPlaces = new ArrayList<>();
-    public static Enviorment currentPlace;
+    public static final List<Environment> allPlaces = new ArrayList<>();
+    public static final List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
     public static final List<Enemy> allEnemies = new ArrayList<>();
     public static final List<Item> allItem = new ArrayList<>();
     public static final List<Mutations> allMutations = new ArrayList<>();
     public static final List<StatusEffects> allStatusEffects = new ArrayList<>();
-
     public static final List<Sprite> allSprites = new ArrayList<>();
-
     public static final List<Boss> allBosses = new ArrayList<>();
+    public static Environment currentPlace;
     public static Random r;
-    public static final List<Interactable> allInteracts = new ArrayList<>(); //adds everything that can be talked to(interacted) to an arraylist
     public static Player player;
     public static Scanner s;
+    static FileWriter fw;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         s = new Scanner(System.in);
         r = new Random();
@@ -209,6 +210,168 @@ public class Main {
             i.inventory(player);
             System.exit(0);
         }
+
+        if (player.getName().equalsIgnoreCase("sampleTest")) {
+//            Basically just run through the game up to the level given, then reset. Do this 10 times, average out the stats, then display
+            int lvl = Helper.getInput("What level would you like to be at?", 1000);
+            int runs = Helper.getInput("How many runs would you like to do?", Integer.MAX_VALUE);
+            String mainDir = "./tests";
+            if (!new File(mainDir).exists()) {
+                new File(mainDir).mkdir();
+            }
+            String dirName = "/sampleTestData_";
+            int fileSuffix = 1;
+
+            while (new File(mainDir + dirName + fileSuffix + "/data.txt").exists()) {
+                fileSuffix++;
+            }
+            String dataFile = mainDir + dirName + fileSuffix + "/data.txt";
+            String avgFile = mainDir + dirName + fileSuffix + "/avg.txt";
+            new File(mainDir + dirName + fileSuffix).mkdir();
+            File f = new File(dataFile);
+            File avgF = new File(avgFile);
+            try {
+                f.createNewFile();
+                avgF.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating file, aborting.");
+                System.exit(1);
+            }
+            fw = new FileWriter(f, true);
+
+
+            for (int i = 0; i < runs; i++) {
+                ArrayList<Item> tempInv = new ArrayList<>();
+                tempInv.add(ItemData.starterWeapon);
+                Player p = new Player("sampleTest", 40, 5, tempInv);
+                List<Enemy> spawns;
+                List<Enemy> tempenemies;
+                for (int j = 0; j < lvl; j++) {
+                    spawns = Battle.getEnemies(p);
+                    tempenemies = Helper.getRandomElements(spawns, 3);
+
+                    for (Enemy e : tempenemies) {
+                        e.randDrops(p, e);
+                    }
+                    Shop.statBuy(p);
+                    if (p.getXp() >= p.getXpToLevel()) {
+                        LevelUp a = new LevelUp();
+                        a.levelPlayer(p);
+                    }
+                    getNewPlace();
+                    p.incStageNum(1);
+                }
+                if (i % (runs / 10) == 0) {
+                    System.out.println("Run " + i + " completed");
+                }
+
+                try {
+                    writeToFile(i, p, f);
+//                    fw.close();
+                } catch (IOException e) {
+                    System.out.println("Error writing to file, aborting.");
+                    System.out.println();
+                    System.exit(1);
+                }
+
+            }
+
+            System.out.println("All runs completed, calculating average stats");
+            Player p = null;
+            try {
+                Scanner sc = new Scanner(f);
+                int[] stats = new int[9];
+                int count = 0;
+                while (sc.hasNext()) {
+                    try {
+                        String line = sc.nextLine();
+                        if (line.contains("Run")) {
+                            count++;
+                        } else if (line.contains("Health")) {
+                            stats[0] += Integer.parseInt(line.split(": ")[1]);
+                        } else if (line.contains("Damage")) {
+                            stats[1] += Integer.parseInt(line.split(": ")[1]);
+                        } else if (line.contains("Heal Amount")) {
+                            stats[2] += Integer.parseInt(line.split(": ")[1]);
+                        } else if (line.contains("Heal Variance")) {
+                            stats[3] += Integer.parseInt(line.split(": ")[1]);
+                        } else if (line.contains("Money")) {
+                            stats[4] += Integer.parseInt(line.split(": ")[1]);
+                        } else if (line.contains("Stage")) {
+                            stats[5] += Integer.parseInt(line.split(": ")[1]);
+                        } else if (line.contains("XP")) {
+                            stats[6] += Integer.parseInt(line.split(": ")[1]);
+                        } else if (line.contains("Level")) {
+                            stats[7] += Integer.parseInt(line.split(": ")[1]);
+                        } else if (line.contains("XP to Level")) {
+                            stats[8] += Integer.parseInt(line.split(": ")[1]);
+                        }
+                    } catch (Exception ignored) {
+
+                    }
+                }
+                sc.close();
+                for (int i = 0; i < stats.length; i++) {
+                    stats[i] /= count;
+                }
+                ArrayList<Item> tempInv = new ArrayList<>();
+                tempInv.add(ItemData.starterWeapon);
+                p = new Player("sampleTest", stats[0], stats[1], tempInv);
+                p.setHealAmount(stats[2]);
+                p.setHealVariance(stats[3]);
+                p.setMoney(stats[4]);
+                p.setStageNum(stats[5]);
+                p.setXp(stats[6]);
+                p.setLevel(stats[7]);
+                p.setXpToLevel(stats[8]);
+                String avgStats = averageFile(stats);
+                try {
+                    FileWriter fw = new FileWriter(avgF, true);
+                    fw.write("\n" + avgStats);
+                    fw.close();
+                } catch (IOException e) {
+                    System.out.println("Error writing to file, aborting.");
+                    System.exit(1);
+                }
+
+            } catch (IOException e) {
+                System.out.println("Error reading from file, aborting.");
+                System.exit(1);
+            }
+//            Get approximate scale values of entities
+            String dmgScale = "Damage scale attribute: " + Helper.getScaleFactor(1, lvl);
+            String hpScale = "Health scale attribute: " + Helper.getScaleFactor(0, lvl);
+            String coinScale = "Coin scale attribute: " + Helper.getScaleFactor(2, lvl);
+            Enemy temp = new Warrior();
+            temp.setBaseStats();
+            temp.setLevel(lvl);
+            temp.scaleStats();
+            String approxEnemy = "Approximate stats for a level " + lvl + " enemy: " + temp;
+            String relativeValues = "For an enemy scaled to " + lvl + ", you would...\n" + values(temp, p);
+            Enemy temp2 = new Warrior();
+            temp2.setBaseStats();
+            ArrayList<Item> tempInv = new ArrayList<>();
+            tempInv.add(ItemData.starterWeapon);
+
+            String baseRelativeValues = "For a base enemy, you would... \n" + values(temp2, new Player("sampleTest", 40, 5, tempInv));
+
+
+            try {
+                FileWriter fw = new FileWriter(avgF, true);
+                fw.write("\n" + dmgScale + "\n" + hpScale + "\n" + coinScale + "\n" + approxEnemy + "\n" + relativeValues + "\n" + baseRelativeValues);
+                fw.close();
+            } catch (IOException e) {
+                System.out.println("Error writing to file, aborting.");
+                System.exit(1);
+            }
+
+
+            System.out.printf("Stats for %d runs have been written at %s\n", runs, f.getAbsolutePath());
+            fw.close();
+            System.exit(0);
+
+
+        }
         //endregion
         for (int i = allInteracts.size() - 2; i >= 0; i--) {
             if (allInteracts.get(i).getName().contains("Quit")) {
@@ -246,6 +409,74 @@ public class Main {
             allInteracts.get(choice).onChoose(player);
 
         }
+    }
+
+    private static String values(Enemy temp, Player p) {
+        String relativeValues;
+//            How many hits it would take to kill the enemy, and how many hits it would take for the enemy to kill the player
+        int dmg = p.getDamage();
+        int hp = p.getHp();
+        for (Item i : p.getInventory()) {
+            dmg += i.getDmgIncr();
+            hp += i.getHpIncr();
+        }
+        int hitsToKill = (int) Math.ceil((double) temp.getBattleHp() / (p.getDamage()));
+        int hitsToDie = (int) Math.ceil((double) p.getHp() / (temp.getDamage()));
+        if (hitsToKill == 0) {
+            relativeValues = "You would one-shot the enemy";
+        } else if (hitsToKill == 1) {
+            relativeValues = "You would kill the enemy in one hit";
+        } else {
+            relativeValues = "It would take " + hitsToKill + " hits to kill the enemy";
+        }
+        if (hitsToDie == 0) {
+            relativeValues += "\nYou would be one-shot by the enemy";
+        } else if (hitsToDie == 1) {
+            relativeValues += "\nYou would die in one hit";
+        } else {
+            relativeValues += "\nYou would take " + hitsToDie + " hits to die.";
+        }
+        return relativeValues;
+    }
+
+    private static String averageFile(int[] stats) {
+        String avgStats = "Average Stats:\n";
+        avgStats += "Health: " + stats[0] + "\n";
+        avgStats += "Damage: " + stats[1] + "\n";
+        avgStats += "Heal Amount: " + stats[2] + "\n";
+        avgStats += "Heal Variance: " + stats[3] + "\n";
+        avgStats += "Money: " + stats[4] + "\n";
+        avgStats += "Stage: " + stats[5] + "\n";
+        avgStats += "XP: " + stats[6] + "\n";
+        avgStats += "Level: " + stats[7] + "\n";
+        avgStats += "XP to Level: " + stats[7] + "\n";
+        return avgStats;
+    }
+
+    private static void writeToFile(int i, Player p, File f) throws IOException {
+        int realHealth = p.getHp();
+        int realDamage = p.getDamage();
+        int realHealAmount = p.getHealAmount();
+        int realHealVariance = p.getHealVariance();
+
+        for (Item item : p.getInventory()) {
+            realHealth += item.getHpIncr();
+            realDamage += item.getDmgIncr();
+            realHealAmount += item.getHealIncr();
+            realHealVariance += item.getHealVarIncr();
+        }
+        String stats = "Run " + (i + 1) + ":\n";
+        stats += "Health: " + realHealth + "\n";
+        stats += "Damage: " + realDamage + "\n";
+        stats += "Heal Amount: " + realHealAmount + "\n";
+        stats += "Heal Variance: " + realHealVariance + "\n";
+        stats += "Money: " + p.getMoney() + "\n";
+        stats += "Stage: " + p.getStageNum() + "\n";
+        stats += "XP: " + p.getXp() + "\n";
+        stats += "Level: " + p.getLevel() + "\n";
+        stats += "XP to Level: " + p.getXpToLevel() + "\n";
+
+        fw.write("\n" + stats);
     }
 
     public static List<String> allPlayerFiles() {
@@ -318,7 +549,7 @@ public class Main {
             // TODO Auto-generated catch block
             // e.printStackTrace();
         }
-        //if it didnt work, we are not from  a .jar and can use the old method. We will know by checking if allInteracts is empty
+        //if it didn't work, we are not from  a .jar and can use the old method. We will know by checking if allInteracts is empty
         if (allInteracts.size() > 0) {
             System.out.println("Loaded types from .jar");
             return;

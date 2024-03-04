@@ -50,34 +50,23 @@ public class Helper {
     }
 
     /**
-     * returns the scale factor
+     * Returns the scale factor based on the level of the enemy
      *
-     * @param type 0 for hp, 1 for damage, 2 for coins, Enemy e
+     * @param type  0 for hp, 1 for damage, 2 for coins, Enemy e
+     * @param level level of the enemy
      * @return the scale factor proportional to the level of the enemy
      */
-
-    public static float getScaleFactor(int type, Enemy e) {
-        int level = e.getLevel();
-        if (player == null) {
-            return 1;
-        }
-        int tempHp = player.getHp();
-        int tempDmg = player.getDamage();
-        for (Item i : player.getInventory()) {
-            tempHp += i.getHpIncr();
-            tempDmg += i.getDmgIncr();
-        }
+    public static float getScaleFactor(int type, int level) {
         float multi = (level / 5f) + 1;
-
         if (type == 0) {
-            float num = (multi * 0.5f) + (tempDmg * 0.01f);
-            return (num) <= 1 ? 1 : (num);
+            float num = (multi * 10f);
+            return Math.max((num), 1);
         } else if (type == 1) {
-            float num = (multi * 0.5f) + (tempHp * 0.01f);
-            return Math.max((num / e.getDamage()), 1);
+            float num = (multi * 3f);
+            return Math.max((num), 1);
         } else if (type == 2) {
-            float num = level / 40f;
-            return (num) <= 1 ? 1 : (num); //coins scale
+            float num = level / 80f;
+            return (num) <= 1 ? 1 : (num);
         }
 
         return 1 + (level / 5f); //just in case

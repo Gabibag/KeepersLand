@@ -1,3 +1,7 @@
 .devcontainer/devcontainer.json
 *.plr
+/META-INF/
 .github/dependabot.yml
+*.txt
+/tests/
+.idea/

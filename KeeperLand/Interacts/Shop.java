@@ -53,7 +53,7 @@ public class Shop extends Interactable {
             if (item.getCost() > p.getMoney()) continue;
             buyItem(player, item, false);
         }
-        Helper.checkForComplexCreation(Main.currentPlace.getShopItems());
+//        Helper.checkForComplexCreation(Main.currentPlace.getShopItems());
 
     }
 

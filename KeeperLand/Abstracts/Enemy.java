@@ -206,7 +206,7 @@ public abstract class Enemy {
         //by default, just gives xp and money
         if (mutate != null) {
             mutate.onDeath(allies, self);
-        } else {
+        } else if (r.nextInt(10) == 0) {
             String drops = randDrops(p, this);
             String out = "You killed " + isAn(name) + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" + Colors.RESET + ")";
             if (drops != null) {
@@ -238,18 +238,15 @@ public abstract class Enemy {
     @Override
     public String toString() {
         return "Enemy{" +
-                "damage=" + damage +
-                ", baseHp=" + baseHp +
-                ", name='" + name + '\'' +
-                ", dodgeRate=" + dodgeRate +
-                ", xp=" + xp +
-                ", drops=" + drops +
-                ", battleHp=" + battleHp +
-                ", coins=" + coins +
-                ", tokens=" + tokens +
-                ", level=" + level +
-                ", description='" + description + '\'' +
-                ", mutate=" + mutate +
-                '}';
+                "\ndamage=" + damage +
+                ",\nbaseHp=" + baseHp +
+                ",\nname='" + name + '\'' +
+                ",\ndodgeRate=" + dodgeRate +
+                ",\nxp=" + xp +
+                ",\nbattleHp=" + battleHp +
+                ",\ncoins=" + coins +
+                ",\ntokens=" + tokens +
+                ",\nlevel=" + level +
+                "\n}";
     }
 }

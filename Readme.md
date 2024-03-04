@@ -2,6 +2,10 @@
 
 * [About](#about)
 * [Images](#images)
+    * [Main Screen](#main-screen)
+    * [Battle Screen](#battle-screen)
+    * [Shop](#shop)
+    * [Settings](#settings)
 * [Installation](#installation)
 * [How to Play](#how-to-play)
 * [Full Game Wiki](#full-game-wiki)
@@ -15,24 +19,33 @@
     * [Final Boss - The Keeper](#final-boss---the-keeper)
 
 <!-- TOC -->
+
 # About
-This was originally a school assignment in high school for me, and since then I've been coming back to this and seeing if I can improve it in any way. This is my way of gauging how much I've grown as a programmer. The game isn't necessarily fun, per se, but it is interesting to look at some statistics. If you want to see statistics too, set your name as `rtest` when creating a save to choose a level to be at. The charecter will scale itself accordingly, in a relatively fast manner. My main goal recently has been attempting to optimize the game for extremely high levels, for when inventory sizes are in the tens of thousands, and I think I have excelled in my goal.
+
+This was originally a school assignment in high school for me, and since then I've been coming back to this and seeing
+if I can improve it in any way. This is my way of gauging how much I've grown as a programmer. The game isn't
+necessarily fun, per se, but it is interesting to look at some statistics. If you want to see statistics too, set your
+name as `rtest` when creating a save to choose a level to be at. The charecter will scale itself accordingly, in a
+relatively fast manner. My main goal recently has been attempting to optimize the game for extremely high levels, for
+when inventory sizes are in the tens of thousands, and I think I have excelled in my goal.
 
 # Images
+
 ## Main Screen
+
 <img width="682" alt="image" src="https://github.com/Gabibag/KeepersLand/assets/97263038/739815a2-1b0e-41bc-8fbf-126d133a5801">
 
 ## Battle Screen
+
 <img width="682" alt="image" src="https://github.com/Gabibag/KeepersLand/assets/97263038/8a66a821-9842-46c7-b3a2-8896ad74d2f2">
 
 ## Shop
+
 <img width="682" alt="image" src="https://github.com/Gabibag/KeepersLand/assets/97263038/35c44f64-faec-40d3-9493-aa554be1b10c">
 
 ## Settings
+
 <img width="682" alt="image" src="https://github.com/Gabibag/KeepersLand/assets/97263038/83043a9e-de00-4c9c-a563-20c8923ff7fe">
-
-
-
 
 # Installation
 
