@@ -90,7 +90,7 @@ If you need more or specific information, check out the full game wiki.
 - The player has 2 actions, with the available actions being:
     - Attack
     - Heal
-- There is a small chance for the enemies to dodge your attack, meaning they take 0 damage (5% chance).
+- There is a small chancex for the enemies to dodge your attack, meaning they take 0 damage (5% chance).
     - The player cannot dodge attacks.
 - If an enemy dies, it has a chance to drop an item, which will automatically be added to the player's inventory.
     - Items can be of a random Tier from 1 to 6, with the drop chances being exponentially higher. Stats and cost are

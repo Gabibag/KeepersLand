@@ -10,7 +10,8 @@ import java.util.List;
 
 public class Angel extends Boss {
     public Angel() {
-        super("Drops a healing shard. Brings in a cute surprise on death.");
+        super("Drops a Healing Shard. Brings in a cute surprise on death.");
+
     }
 
     public void setBaseStats() {
@@ -23,11 +24,6 @@ public class Angel extends Boss {
         this.drops.add(ItemData.HealingShard);
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return true; //75% spawn chance
-//        return false;
-    }
 
     @Override
     public String getDodgeText() {

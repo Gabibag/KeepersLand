@@ -2,8 +2,6 @@ package KeeperLand.Enemies.City;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.AbandonedCity;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -11,7 +9,7 @@ import java.util.List;
 public class BuringMutant extends Enemy {
 
     public BuringMutant() {
-        super("Burns itself when attacking you.");
+        super("Burns itself when attacking you.", false);
     }
 
     @Override
@@ -30,9 +28,5 @@ public class BuringMutant extends Enemy {
         return this.damage;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof AbandonedCity;
-    }
 
 }

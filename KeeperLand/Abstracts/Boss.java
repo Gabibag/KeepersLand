@@ -1,17 +1,19 @@
 package KeeperLand.Abstracts;
 
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
+
+import static KeeperLand.Main.allBosses;
 
 public abstract class Boss extends Enemy {
     protected int tokens;
 
     public Boss(String description) {
-        super(description);
-        if (!Main.allBosses.contains(this))
-            Main.allBosses.add((this));
+        super(description, false);
+        if (!allBosses.contains(this)) {
+            allBosses.add((this));
+        }
     }
 
     @Override

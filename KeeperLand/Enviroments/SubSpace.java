@@ -2,10 +2,12 @@ package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Environment;
+import KeeperLand.Enemies.SubSpace.SubSpaceBird;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,5 +49,12 @@ public class SubSpace extends Environment {
 
     public int modifyEnemyDamage(int preChange) {
         return Math.min(preChange, 80);
+    }
+
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new SubSpaceBird());
+        return enemies;
     }
 }

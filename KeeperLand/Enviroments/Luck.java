@@ -5,6 +5,7 @@ import KeeperLand.Abstracts.Environment;
 import KeeperLand.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,6 +60,13 @@ public class Luck extends Environment {
             System.out.println("Your damage has " + Colors.RED + "increased by 10%!" + Colors.RESET);
         }
 
+    }
+
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.addAll(Main.allSprites);
+        return enemies;
     }
 
     public void turnEnd(Player p, List<Enemy> enemies) {

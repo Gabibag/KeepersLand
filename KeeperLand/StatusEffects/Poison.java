@@ -11,7 +11,7 @@ import static KeeperLand.Main.r;
 
 public class Poison extends StatusEffects {
     public Poison() {
-        super(Colors.GREEN, 3);
+        super(Colors.GREEN, 3, true, "poison");
     }
 
     @Override
@@ -21,7 +21,7 @@ public class Poison extends StatusEffects {
             this.duration--;
         } else if (turnType.equals("playerHeal")) {
             double rand = r.nextDouble(0.1, 0.3);
-            System.out.println("Your poison effect reduces your healing by " + (int) (rand * 100) + "% (" + (num + "->" + (int)(num - (num * rand)) + ")"));
+            System.out.println("Your poison effect reduces your healing by " + (int) (rand * 100) + "% (" + (num + "->" + (int) (num - (num * rand)) + ")"));
             p.setBattleHp((int) (p.getBattleHp() - num * rand));
         }
         super.tickEffect(p, e, enemies, turnType, num);

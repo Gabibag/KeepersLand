@@ -1,14 +1,12 @@
 package KeeperLand.Enemies.Toxic;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.ToxicEnv;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 public class Assassin extends Enemy {
 
     public Assassin() {
-        super("Dodges your attacks.");
+        super("Dodges your attacks.", false);
     }
 
     public void setBaseStats() {
@@ -22,9 +20,9 @@ public class Assassin extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return Main.r.nextInt(10) == 2 && Main.currentPlace instanceof ToxicEnv; //10% spawn chance
+        return Main.r.nextInt(10) == 2; //10% spawn chance
 
     }
 }

@@ -4,15 +4,24 @@ import KeeperLand.Item;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Environment {
+    protected ArrayList<Enemy> allowedEnemies = new ArrayList<>();
+
     public Environment() {
         if (!Main.allPlaces.contains(this) && !this.getName().equalsIgnoreCase("starter land") /*Hard coding cuz im stupid*/) {
             Main.allPlaces.add((this));
         }
     }
 
+    /**
+     * Overrides the equals method to instead compare the names of the environments
+     *
+     * @param obj the environment to compare to
+     * @return true if the names are the same, false otherwise
+     */
     @Override
     public boolean equals(Object obj) {
         try {
@@ -24,16 +33,38 @@ public abstract class Environment {
         //return super.equals(obj);
     }
 
+    /**
+     * An effect that occurs BEFORE the battle even begins, meaning no enemies are present. Currently only used to
+     * display an intro message to the player in StarterLand
+     *
+     * @param p      the player
+     * @param allies the enemies
+     */
     public void BattleStart(Player p, List<Enemy> allies) {
 
     }
 
+    /**
+     * Returns a description of the environment
+     *
+     * @return a string description of the environment
+     */
     public abstract String getDescription();
 
+    /**
+     * Returns a list of items that can be bought in the shop
+     *
+     * @return a list of items
+     */
     public abstract List<Item> getShopItems();
 
-    public boolean isValid(Player p) {
-        return true;
+    /**
+     * Returns a list of enemies that can be fought in the environment. By default, returns those in the common enemies list
+     *
+     * @return an ArrayList of enemies
+     */
+    public ArrayList<Enemy> allowedEnemies() {
+        return new ArrayList<>(Main.commonEnemies);
     }
 
     public abstract String getName();
@@ -68,4 +99,5 @@ public abstract class Environment {
      * @return the new damage to be delt
      */
     public abstract int modifyEnemyDamage(int preChange);
+
 }

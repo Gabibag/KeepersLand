@@ -2,7 +2,6 @@ package KeeperLand.Enemies.GatesToHell;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.GatesToHell;
 import KeeperLand.Helper;
 import KeeperLand.Main;
 import KeeperLand.Player;
@@ -14,7 +13,7 @@ public class GateKeepers extends Enemy {
     Random r = Main.r;
 
     public GateKeepers() {
-        super("Steals some of your health and redistributes it to its friends.");
+        super("Steals some of your health and redistributes it to its friends.", false);
     }
 
 
@@ -28,12 +27,6 @@ public class GateKeepers extends Enemy {
         this.coins = 3;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-
-        return Main.currentPlace instanceof GatesToHell; //(r.nextInt([spawnchance]) == 2)
-
-    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

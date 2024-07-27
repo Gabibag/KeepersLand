@@ -1,16 +1,13 @@
 package KeeperLand.Enemies.Graveyard;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.Graveyard;
 import KeeperLand.ItemData;
-import KeeperLand.Main;
-import KeeperLand.Player;
 
 
 public class BountyHunter extends Enemy {
 
     public BountyHunter() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", false);
     }
 
     public void setBaseStats() {
@@ -21,11 +18,6 @@ public class BountyHunter extends Enemy {
         this.drops.add(ItemData.bountyHunterSword);
         this.drops.add(ItemData.woodenSword);
         this.coins = 2;
-    }
-
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof Graveyard;
     }
 
 

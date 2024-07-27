@@ -1,11 +1,10 @@
 package KeeperLand.Enemies.Graveyard;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Player;
 
 public class SkeletonHand extends Enemy {
     public SkeletonHand() {
-        super("Rises from the ground, watch out, they are quite strong.");
+        super("Rises from the ground, watch out, they are quite strong.", false);
     }
 
     public void setBaseStats() {
@@ -19,7 +18,7 @@ public class SkeletonHand extends Enemy {
 
     }
 
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return false;
     }
 

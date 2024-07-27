@@ -1,12 +1,11 @@
 package KeeperLand.Enemies.City;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Player;
 
 public class MiniRadioSlime extends Enemy {
 
     public MiniRadioSlime() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", false);
     }
 
     @Override
@@ -20,7 +19,7 @@ public class MiniRadioSlime extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return false;
     }
 

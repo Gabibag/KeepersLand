@@ -193,7 +193,6 @@ public class Player {
     public void takeDamage(int a) {
         this.battleHp -= a;
     }
-    //set can be down via the get, since its a refrence type
 
     public int getHealAmount() {
         return healAmount;

@@ -22,138 +22,9 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
         this.bossStage = 2;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return false;
-    }
-
-    @Override
-    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
-        p.addMoney(allies.get(0).getCoins());
-        System.out.println(
-                "You gained " + allies.get(0).getCoins() + Colors.CYAN + "◊" +
-                        Colors.RESET);
-        allies.remove(0);
-        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "Oh. So I have been defeated.");
-        Helper.Sleep(1);
-        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "I am sure you think you have won.");
-        Helper.Sleep(1);
-        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "But I have merely been killed. But you? You have become the thing you have sworn to kill.");
-        Helper.Sleep(1);
-        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "I must pass on my power to some creature. And you are the only one who seems fit.");
-        Helper.Sleep(1);
-        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "Keep the world safe. Let the creatures live.");
-        Helper.Sleep(1);
-        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "I will make sure you " + Colors.RED + "will not disappoint" + Colors.RESET + ".");
-        Helper.Sleep(1);
-        Helper.continuePrompt();
-        System.out.println(Colors.CLEAR + "To be continued in...");
-        Helper.Sleep(1);
-        System.out.println("\n" +
-                " ________ __                       __    __                                           __                           __                                \n" +
-                "|        |  \\                     |  \\  /  \\                                         |  \\                         |  \\                               \n" +
-                " \\$$$$$$$| $$____   ______        | $$ /  $$______   ______   ______   ______   _____| $$_______         _______ _| $$_    ______   ______  __    __ \n" +
-                "   | $$  | $$    \\ /      \\       | $$/  $$/      \\ /      \\ /      \\ /      \\ /      \\$/       \\       /       |   $$ \\  /      \\ /      \\|  \\  |  \\\n" +
-                "   | $$  | $$$$$$$|  $$$$$$\\      | $$  $$|  $$$$$$|  $$$$$$|  $$$$$$|  $$$$$$|  $$$$$$|  $$$$$$$      |  $$$$$$$\\$$$$$$ |  $$$$$$|  $$$$$$| $$  | $$\n" +
-                "   | $$  | $$  | $| $$    $$      | $$$$$\\| $$    $| $$    $| $$  | $| $$    $| $$   \\$$\\$$    \\        \\$$    \\  | $$ __| $$  | $| $$   \\$| $$  | $$\n" +
-                "   | $$  | $$  | $| $$$$$$$$      | $$ \\$$| $$$$$$$| $$$$$$$| $$__/ $| $$$$$$$| $$      _\\$$$$$$\\       _\\$$$$$$\\ | $$|  | $$__/ $| $$     | $$__/ $$\n" +
-                "   | $$  | $$  | $$\\$$     \\      | $$  \\$$\\$$     \\\\$$     | $$    $$\\$$     | $$     |       $$      |       $$  \\$$  $$\\$$    $| $$      \\$$    $$\n" +
-                "    \\$$   \\$$   \\$$ \\$$$$$$$       \\$$   \\$$\\$$$$$$$ \\$$$$$$| $$$$$$$  \\$$$$$$$\\$$      \\$$$$$$$        \\$$$$$$$    \\$$$$  \\$$$$$$ \\$$      _\\$$$$$$$\n" +
-                "                                                            | $$                                                                           |  \\__| $$\n" +
-                "                                                            | $$                                                                            \\$$    $$\n" +
-                "                                                             \\$$                                                                             \\$$$$$$ ");
-        Helper.Sleep(1);
-        Helper.continuePrompt();
-        System.out.println(Colors.CLEAR + "Thank you for playing!");
-        Helper.continuePrompt();
-        System.out.println(Colors.CLEAR);
-    }
-
-
-    @Override
-    public String getDodgeText() {
-        return " decides your attack is insignificant and deletes it.";
-    }
-
-    @Override
-    public int Attack(Player p, List<Enemy> allies) {
-        //make the keeper add 2 more enemies to the list of allies if allies has 0 enemies other than itself
-        if (allies.size() <=1) {
-            List<Enemy> temp = new ArrayList<>(Main.allEnemies);
-            try {
-                for (int i = 0; i < 2; i++) {
-                    Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
-                    while (e instanceof FinalBoss || e instanceof ItemEntity || e.isBoss()) {
-                        e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
-                    }
-                    if (e.getLevel()> 20){
-                        e.setLevel(e.getLevel() - 20);
-                    }
-                    e.scaleStats();
-                    allies.add(e);
-                }
-
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                     NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("The Keeper " + Colors.RED + "summons" + Colors.RESET + " " +checkIfaN(allies.get(1).getName()) + " " + allies.get(1).getName() + " and "+   checkIfaN(allies.get(2).getName())+ " " + allies.get(2).getName() +   " to fight for him!");
-        }
-        return 0;
-    }
-    public String checkIfaN(String str){
-        if (str.startsWith("a") || str.startsWith("e") || str.startsWith("i") || str.startsWith("o") || str.startsWith("u")) {
-            return "an";
-        }
-        return "a";
-    }
-
-    @Override
-    public void bossOnSpawn(List<Enemy> enemies) {
-//        enemies.add(this);
-        this.mutate = new None();
-        //for drops in TheKeeper, create a new enemy with the same stats as the drop
-        //then add it to the list of enemies
-        List<Item> tempItems = new ArrayList<>();
-        displayBossSpawnMessage();
-        System.out.println(Colors.CLEAR);
-        List<Enemy> temp = new ArrayList<>(Main.allEnemies);
-        /*for (int i = 0; i < temp.size(); i++) {
-            if (temp.get(i).getName().equalsIgnoreCase("Invalid") || temp.get(i).getName().equalsIgnoreCase("Severed Skeleton Hand") || temp.get(i).getName().equals("The Keeper")) {
-                temp.remove(i);
-                i--;
-            }
-        }*/
-        //remove all ItemEntity s in the list of enemies
-        for (int i = temp.size() - 1; i >= 0; i--) {
-            if (temp.get(i) instanceof ItemEntity) {
-                temp.remove(i);
-                i--;
-            }
-        }
-
-        try {
-            for (int i = 0; i < 2; i++) {
-                Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
-                while (e instanceof FinalBoss || e instanceof ItemEntity || e.isBoss()) {
-                    e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
-                }
-                if (e.getLevel()> 20){
-                    e.setLevel(e.getLevel() - 20);
-                }
-                e.scaleStats();
-                enemies.add(e);
-            }
-
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                 NoSuchMethodException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static void displayBossSpawnMessage() {
-        //tell the user that they're going to die in a threatning paragraph
-        int essay = Main.r.nextInt(10);
+    private static void displayBossSpawnMessage() { //all chatgpt
+        //todo damn rework ts i was such a freshman when i made this
+        /*int essay = Main.r.nextInt(10);
         if (essay == 2) {
             System.out.println(Colors.RED + "The Keeper:" + Colors.RESET + " So, you've finally made it to my final stage. How brave of you. ");
             Helper.Sleep(2.5);
@@ -257,6 +128,137 @@ public class TheKeeper3 extends FinalBoss {//stage 2 of finalBoss
             System.out.println(" are just a mere player");
             Helper.Sleep(1);
             Helper.continuePrompt();
+        }*/
+    }
+
+    @Override
+    public boolean canSpawn() {
+        return false;
+    }
+
+    @Override
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
+        p.addMoney(allies.get(0).getCoins());
+        System.out.println(
+                "You gained " + allies.get(0).getCoins() + Colors.CYAN + "◊" +
+                        Colors.RESET);
+        allies.remove(0);
+        //todo rework the ending tf
+        /*System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "Oh. So I have been defeated.");
+        Helper.Sleep(1);
+        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "I am sure you think you have won.");
+        Helper.Sleep(1);
+        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "But I have merely been killed. But you? You have become the thing you have sworn to kill.");
+        Helper.Sleep(1);
+        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "I must pass on my power to some creature. And you are the only one who seems fit.");
+        Helper.Sleep(1);
+        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "Keep the world safe. Let the creatures live.");
+        Helper.Sleep(1);
+        System.out.println(Colors.RED + "The Keeper: " + Colors.RESET + "I will make sure you " + Colors.RED + "will not disappoint" + Colors.RESET + ".");
+        Helper.Sleep(1);
+        Helper.continuePrompt();
+        System.out.println(Colors.CLEAR + "To be continued in...");
+        Helper.Sleep(1);
+        System.out.println("\n" +
+                " ________ __                       __    __                                           __                           __                                \n" +
+                "|        |  \\                     |  \\  /  \\                                         |  \\                         |  \\                               \n" +
+                " \\$$$$$$$| $$____   ______        | $$ /  $$______   ______   ______   ______   _____| $$_______         _______ _| $$_    ______   ______  __    __ \n" +
+                "   | $$  | $$    \\ /      \\       | $$/  $$/      \\ /      \\ /      \\ /      \\ /      \\$/       \\       /       |   $$ \\  /      \\ /      \\|  \\  |  \\\n" +
+                "   | $$  | $$$$$$$|  $$$$$$\\      | $$  $$|  $$$$$$|  $$$$$$|  $$$$$$|  $$$$$$|  $$$$$$|  $$$$$$$      |  $$$$$$$\\$$$$$$ |  $$$$$$|  $$$$$$| $$  | $$\n" +
+                "   | $$  | $$  | $| $$    $$      | $$$$$\\| $$    $| $$    $| $$  | $| $$    $| $$   \\$$\\$$    \\        \\$$    \\  | $$ __| $$  | $| $$   \\$| $$  | $$\n" +
+                "   | $$  | $$  | $| $$$$$$$$      | $$ \\$$| $$$$$$$| $$$$$$$| $$__/ $| $$$$$$$| $$      _\\$$$$$$\\       _\\$$$$$$\\ | $$|  | $$__/ $| $$     | $$__/ $$\n" +
+                "   | $$  | $$  | $$\\$$     \\      | $$  \\$$\\$$     \\\\$$     | $$    $$\\$$     | $$     |       $$      |       $$  \\$$  $$\\$$    $| $$      \\$$    $$\n" +
+                "    \\$$   \\$$   \\$$ \\$$$$$$$       \\$$   \\$$\\$$$$$$$ \\$$$$$$| $$$$$$$  \\$$$$$$$\\$$      \\$$$$$$$        \\$$$$$$$    \\$$$$  \\$$$$$$ \\$$      _\\$$$$$$$\n" +
+                "                                                            | $$                                                                           |  \\__| $$\n" +
+                "                                                            | $$                                                                            \\$$    $$\n" +
+                "                                                             \\$$                                                                             \\$$$$$$ ");
+        Helper.Sleep(1);
+        Helper.continuePrompt();*/
+
+        System.out.println(Colors.CLEAR + "Thank you for playing!");
+        Helper.continuePrompt();
+        System.out.println(Colors.CLEAR);
+    }
+
+    @Override
+    public String getDodgeText() {
+        return " ignores your attack.";
+    }
+
+    @Override
+    public int Attack(Player p, List<Enemy> allies) {
+        //make the keeper add 2 more enemies to the list of allies if allies has 0 enemies other than itself
+        if (allies.size() <= 1) {
+            List<Enemy> temp = new ArrayList<>(Main.allEnemies);
+            try {
+                for (int i = 0; i < 2; i++) {
+                    Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
+                    while (e instanceof FinalBoss || e instanceof ItemEntity || e.isBoss()) {
+                        e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
+                    }
+                    if (e.getLevel() > 20) {
+                        e.setLevel(e.getLevel() - 20);
+                    }
+                    e.scaleStats();
+                    allies.add(e);
+                }
+
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                     NoSuchMethodException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("The Keeper " + Colors.RED + "summons" + Colors.RESET + " " + checkIfaN(allies.get(1).getName()) + " " + allies.get(1).getName() + " and " + checkIfaN(allies.get(2).getName()) + " " + allies.get(2).getName() + " to fight for him!");
+        }
+        return 0;
+    }
+
+    public String checkIfaN(String str) {
+        if (str.startsWith("a") || str.startsWith("e") || str.startsWith("i") || str.startsWith("o") || str.startsWith("u")) {
+            return "an";
+        }
+        return "a";
+    }
+
+    @Override
+    public void bossOnSpawn(List<Enemy> enemies) {
+//        enemies.add(this);
+        this.mutate = new None();
+        //for drops in TheKeeper, create a new enemy with the same stats as the drop
+        //then add it to the list of enemies
+        List<Item> tempItems = new ArrayList<>();
+        displayBossSpawnMessage();
+        System.out.println(Colors.CLEAR);
+        List<Enemy> temp = new ArrayList<>(Main.allEnemies);
+        /*for (int i = 0; i < temp.size(); i++) {
+            if (temp.get(i).getName().equalsIgnoreCase("Invalid") || temp.get(i).getName().equalsIgnoreCase("Severed Skeleton Hand") || temp.get(i).getName().equals("The Keeper")) {
+                temp.remove(i);
+                i--;
+            }
+        }*/
+        //remove all ItemEntity s in the list of enemies
+        for (int i = temp.size() - 1; i >= 0; i--) {
+            if (temp.get(i) instanceof ItemEntity) {
+                temp.remove(i);
+                i--;
+            }
+        }
+
+        try {
+            for (int i = 0; i < 2; i++) {
+                Enemy e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
+                while (e instanceof FinalBoss || e instanceof ItemEntity || e.isBoss()) {
+                    e = temp.get((Main.r.nextInt(temp.size() - 1))).getClass().getConstructor().newInstance();
+                }
+                if (e.getLevel() > 20) {
+                    e.setLevel(e.getLevel() - 20);
+                }
+                e.scaleStats();
+                enemies.add(e);
+            }
+
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
     }
 

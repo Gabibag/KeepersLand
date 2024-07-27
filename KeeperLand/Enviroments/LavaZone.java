@@ -3,10 +3,15 @@ package KeeperLand.Enviroments;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Environment;
 import KeeperLand.Colors;
+import KeeperLand.Enemies.Lava.Demon;
+import KeeperLand.Enemies.Lava.LavaSlime;
+import KeeperLand.Enemies.Lava.Ogre;
+import KeeperLand.Enemies.Lava.Overlord;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,6 +52,17 @@ public class LavaZone extends Environment {
 
     public int modifyPlayerDamage(int preChange) {
         return preChange;
+    }
+
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new Demon());
+        enemies.add(new LavaSlime());
+        enemies.add(new Ogre());
+        enemies.add(new Overlord());
+
+        return enemies;
     }
 
     public String getDescription() {

@@ -3,7 +3,6 @@ package KeeperLand.Enemies.Bosses;
 import KeeperLand.Abstracts.Boss;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.*;
-import KeeperLand.Interacts.Battle;
 
 import java.util.Arrays;
 import java.util.List;
@@ -13,7 +12,8 @@ public class Glitch extends Boss {
     protected static boolean End;
 
     public Glitch() {
-        super("");
+        super("Drops a glitched Shard");
+
     }
 
     public void setBaseStats() {
@@ -27,7 +27,7 @@ public class Glitch extends Boss {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return true; //75% spawn chance
 //        return false;
     }
@@ -40,7 +40,7 @@ public class Glitch extends Boss {
     @Override
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         p.setStageNum(p.getStageNum() - 1);
-        List<Enemy> spawns = Battle.getEnemies(p);
+        List<Enemy> spawns = Helper.getEnemies(p);
         p.setStageNum(p.getStageNum() + 1);
         spawns = Helper.getRandomElements(spawns, 3);
 

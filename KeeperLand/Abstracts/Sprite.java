@@ -1,7 +1,6 @@
 package KeeperLand.Abstracts;
 
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 public abstract class Sprite extends Enemy {
     @Override
@@ -10,7 +9,7 @@ public abstract class Sprite extends Enemy {
     }
 
     public Sprite(String description) {
-        super(description);
+        super(description, false);
         this.setBaseStats();
         if (!Main.allSprites.contains(this)) {
             Main.allSprites.add((this)); //adds all enemies to a list
@@ -19,7 +18,7 @@ public abstract class Sprite extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return (Main.r.nextInt(30) == 2);
     }
 }

@@ -2,7 +2,6 @@ package KeeperLand.Enemies.Common;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 import java.util.Random;
 
@@ -11,7 +10,7 @@ public class ItemEntity extends Enemy {
     private int count = 1;
 
     public ItemEntity() {
-        super("A reanimated weapon");
+        super("A reanimated weapon", false);
     }
 
     public int getCount() {
@@ -46,9 +45,9 @@ public class ItemEntity extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return false; //(r.nextInt([spawnchance]) == 2)
+        return false;
 
     }
 }

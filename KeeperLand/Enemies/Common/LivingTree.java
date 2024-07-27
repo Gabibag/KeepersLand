@@ -2,9 +2,7 @@ package KeeperLand.Enemies.Common;
 
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Main;
 import KeeperLand.Mutations.Defensive;
-import KeeperLand.Player;
 
 import java.util.Random;
 
@@ -12,7 +10,7 @@ public class LivingTree extends Enemy {
     final Random r = new Random();
 
     public LivingTree() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", true);
     }
 
 
@@ -27,9 +25,9 @@ public class LivingTree extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return Main.r.nextInt(5) == 0;
+        return true;
 
     }
 

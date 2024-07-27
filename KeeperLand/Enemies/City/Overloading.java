@@ -2,8 +2,6 @@ package KeeperLand.Enemies.City;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.AbandonedCity;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -13,7 +11,7 @@ public class Overloading extends Enemy {
     int chargeLeft = 3;
 
     public Overloading() {
-        super("Charges up and deals a lot of damage, killing itself in the process.");
+        super("Charges up and deals a lot of damage, killing itself in the process.", false);
     }
 
     @Override
@@ -37,9 +35,5 @@ public class Overloading extends Enemy {
         return 0;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof AbandonedCity;
-    }
 
 }

@@ -2,11 +2,15 @@ package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Environment;
+import KeeperLand.Enemies.StardewValley.Cloud;
+import KeeperLand.Enemies.StardewValley.Fairy;
+import KeeperLand.Enemies.StardewValley.StarCreature;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +29,15 @@ public class StardewValley extends Environment {
     public String getName() {
         return "Stardew Valley";
 
+    }
+
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new Fairy());
+        enemies.add(new Cloud());
+        enemies.add(new StarCreature());
+        return enemies;
     }
 
     public int modifyPlayerDamage(int preChange) {

@@ -1,7 +1,6 @@
 package KeeperLand.Enemies.GatesToHell;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.GatesToHell;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
@@ -10,7 +9,7 @@ import java.util.List;
 public class Gargoyle extends Enemy {
 
     public Gargoyle() {
-        super("Might miss or deal extra damage to you!");
+        super("Might miss or deal extra damage to you!", false);
     }
 
 
@@ -24,12 +23,6 @@ public class Gargoyle extends Enemy {
         this.coins = 3;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-
-        return Main.currentPlace instanceof GatesToHell; //(r.nextInt([spawnchance]) == 2)
-
-    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

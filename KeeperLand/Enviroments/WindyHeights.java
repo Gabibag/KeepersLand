@@ -2,10 +2,14 @@ package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Environment;
+import KeeperLand.Enemies.WindyHeights.Ninja;
+import KeeperLand.Enemies.WindyHeights.SuperChargedBird;
+import KeeperLand.Enemies.WindyHeights.Vulture;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +35,15 @@ public class WindyHeights extends Environment {
 
     public void playerAction(Player p, List<Enemy> enemies) {
 
+    }
+
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new Ninja());
+        enemies.add(new SuperChargedBird());
+        enemies.add(new Vulture());
+        return enemies;
     }
 
     public void turnEnd(Player p, List<Enemy> enemies) {

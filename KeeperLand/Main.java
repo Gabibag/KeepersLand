@@ -1,12 +1,12 @@
 package KeeperLand;
 
 import KeeperLand.Abstracts.*;
+import KeeperLand.Enemies.Bosses.*;
 import KeeperLand.Enemies.Common.Warrior;
 import KeeperLand.Enviroments.GatesToHell;
 import KeeperLand.Enviroments.LavaZone;
 import KeeperLand.Enviroments.NullZone;
 import KeeperLand.Enviroments.StarterLand;
-import KeeperLand.Interacts.Battle;
 import KeeperLand.Interacts.Inventory;
 import KeeperLand.Interacts.LevelUp;
 import KeeperLand.Interacts.Shop;
@@ -30,6 +30,7 @@ public class Main {
     public static final List<StatusEffects> allStatusEffects = new ArrayList<>();
     public static final List<Sprite> allSprites = new ArrayList<>();
     public static final List<Boss> allBosses = new ArrayList<>();
+    public static final List<Enemy> commonEnemies = new ArrayList<>();
     public static Environment currentPlace;
     public static Random r;
     public static Player player;
@@ -37,17 +38,17 @@ public class Main {
     static FileWriter fw;
 
     public static void main(String[] args) throws IOException {
-
         s = new Scanner(System.in);
         r = new Random();
 
+
         initTypes();
         Enemy.loaded = true;
-        System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
+//        System.out.println(Colors.CLEAR + "Press ctrl + c to quit ;)");
 
         //defaults for player
         List<String> saveList = allPlayerFiles();
-        int saves = 0;
+        int saves;
         if (saveList.isEmpty()) {
             saves = -1;
         } else {
@@ -104,7 +105,7 @@ public class Main {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < 19; i++) {
-                spawns = Battle.getEnemies(player);
+                spawns = Helper.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
 
                 for (Enemy e : tempenemies) {
@@ -113,7 +114,6 @@ public class Main {
                 getNewPlace();
             }
             player.incStageNum(19);
-            System.out.println("sussy");
             Main.currentPlace = new LavaZone();
         } else if (player.getName().contains("runThrough") || player.getName().contains("rtest")) {
             System.out.println(Integer.MAX_VALUE);
@@ -123,7 +123,7 @@ public class Main {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < lvl; i++) {
-                spawns = Battle.getEnemies(player);
+                spawns = Helper.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
                 for (Enemy e : tempenemies) {
                     e.randDrops(player, e);
@@ -159,7 +159,7 @@ public class Main {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < 40; i++) {
-                spawns = Battle.getEnemies(player);
+                spawns = Helper.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
 
                 for (Enemy e : tempenemies) {
@@ -189,7 +189,7 @@ public class Main {
             List<Enemy> spawns;
             List<Enemy> tempenemies;
             for (int i = 0; i < lvl; i++) {
-                spawns = Battle.getEnemies(player);
+                spawns = Helper.getEnemies(player);
                 tempenemies = Helper.getRandomElements(spawns, 3);
 
                 for (Enemy e : tempenemies) {
@@ -247,7 +247,7 @@ public class Main {
                 List<Enemy> spawns;
                 List<Enemy> tempenemies;
                 for (int j = 0; j < lvl; j++) {
-                    spawns = Battle.getEnemies(p);
+                    spawns = Helper.getEnemies(p);
                     tempenemies = Helper.getRandomElements(spawns, 3);
 
                     for (Enemy e : tempenemies) {
@@ -373,13 +373,14 @@ public class Main {
 
         }
         //endregion
+
         for (int i = allInteracts.size() - 2; i >= 0; i--) {
             if (allInteracts.get(i).getName().contains("Quit")) {
-                Interactable inter = allInteracts.get(allInteracts.size() - 1);
+                Interactable inter = allInteracts.getLast();
                 allInteracts.set(allInteracts.size() - 1, allInteracts.get(i));
                 allInteracts.set(i, inter);
             } else if (allInteracts.get(i).getName().contains("Battle")) {
-                Interactable inter = allInteracts.get(0);
+                Interactable inter = allInteracts.getFirst();
                 allInteracts.set(0, allInteracts.get(i));
                 allInteracts.set(i, inter);
             } else if (allInteracts.get(i).getName().contains("Shop")) {
@@ -396,6 +397,12 @@ public class Main {
                 allInteracts.set(i, inter);
             }
         }
+        new Angel();
+        new Death();
+        new DemonLord();
+        new Glitch();
+        new MegaLavaSlime();
+        new SpriteLord();
         while (true) {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(
@@ -515,11 +522,12 @@ public class Main {
     }
 
     /**
-     * peforms black magic to get all the types
+     * performs black magic to get all the types
      **/
     public static void initTypes() {
+
         try {
-            for (String classpathEntry : System.getProperty("java.class.path").split(System.getProperty("path.separator"))) {
+            for (String classpathEntry : System.getProperty("java.class.path").split(File.pathSeparator)) {
                 System.out.println("Entry " + classpathEntry);
                 // System.out.println("first loop");
                 if (classpathEntry.endsWith(".jar")) {
@@ -550,7 +558,7 @@ public class Main {
             // e.printStackTrace();
         }
         //if it didn't work, we are not from  a .jar and can use the old method. We will know by checking if allInteracts is empty
-        if (allInteracts.size() > 0) {
+        if (!allInteracts.isEmpty()) {
             System.out.println("Loaded types from .jar");
             return;
         }

@@ -1,13 +1,15 @@
 package KeeperLand;
 
-import KeeperLand.Enemies.Common.Archer;
-import KeeperLand.Enemies.Common.Goblin;
-import KeeperLand.Enemies.Common.Warrior;
+import KeeperLand.Abstracts.Enemy;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
-import static KeeperLand.Main.player;
+import static KeeperLand.Main.*;
 
 public class Helper {
     public static boolean speedMode = false;
@@ -44,9 +46,12 @@ public class Helper {
         }
     }
 
-    public static void Sleep(double s, boolean force) {
-        s = (speedMode ? 0 : s);
-
+    public static void forceSleep(double s) {
+        try {
+            TimeUnit.MILLISECONDS.sleep((long) (s * 1000));
+        } catch (InterruptedException e) {
+            System.out.println(Colors.RED_BOLD + "You cannot quit at this time." + Colors.RESET);
+        }
     }
 
     /**
@@ -57,19 +62,16 @@ public class Helper {
      * @return the scale factor proportional to the level of the enemy
      */
     public static float getScaleFactor(int type, int level) {
-        float multi = (level / 5f) + 1;
-        if (type == 0) {
-            float num = (multi * 10f);
-            return Math.max((num), 1);
-        } else if (type == 1) {
-            float num = (multi * 3f);
-            return Math.max((num), 1);
-        } else if (type == 2) {
-            float num = level / 80f;
-            return (num) <= 1 ? 1 : (num);
+        int multi = level / 2;
+        if (level <= 3) {
+            return 1;
         }
-
-        return 1 + (level / 5f); //just in case
+        return switch (type) {
+            case 0 -> 1 + (multi * 0.1f);
+            case 1 -> 1 + (multi * 0.1f);
+            case 2 -> 1 + (multi / 20f);
+            default -> multi + 1;
+        };
     }
 
 
@@ -83,10 +85,6 @@ public class Helper {
         System.out.print(Colors.PURPLE + msg + Colors.RESET);
         return s.nextLine();
 
-    }
-
-    public static <t> void AddArrayToList(List<t> add, t[] added) {
-        add.addAll(Arrays.asList(added));
     }
 
     public static void continuePrompt() {
@@ -130,6 +128,7 @@ public class Helper {
         }
     }
 
+
     /**
      * gets some random elements from an list. Can get the same thing more than one time.
      *
@@ -139,30 +138,12 @@ public class Helper {
      * @return list of random entities given in list
      */
     public static <T> List<T> getRandomElements(List<T> list, int amount) {
+        if (list.isEmpty()) throw new IllegalArgumentException("Provided list is empty");
+        if (list.size() < amount) throw new IllegalArgumentException("List is too small");
         List<T> r = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
-            try {
-                r.add(list.get(Main.r.nextInt(list.size())));
-            } catch (Exception e) {
-                r.add((T) new Goblin());
-                r.add((T) new Archer());
-                r.add((T) new Warrior());
-
-            }
+            r.add(list.get(Main.r.nextInt(list.size())));
         }
-        if (r.size() <= 3) {
-            return r;
-        }
-        //check for duplicates, if there are any, replace them with a random element
-        for (int i = 0; i < r.size(); i++) {
-            for (int j = 0; j < r.size(); j++) {
-                if (i != j && r.get(i).equals(r.get(j))) {
-                    r.set(i, list.get(Main.r.nextInt(list.size())));
-                }
-            }
-        }
-
-
         return r;
     }
 
@@ -192,6 +173,15 @@ public class Helper {
 
     }
 
+    /**
+     * Similar to get input, but if no input is given, returns the default value
+     * Prompts the user with a message then gets the next int they type, as long as its 1-top (inclusive both ways)
+     *
+     * @param msg what to ask
+     * @param top max(inclusive) val for a input
+     * @param def default value
+     * @return the first valid int typed
+     */
     public static int getInputDefault(String msg, int top, int def) {
         try {
             System.out.println(msg);
@@ -234,18 +224,37 @@ public class Helper {
 
     }
 
+    /**
+     * Returns a random color from the list of colors
+     *
+     * @return Escaped color code
+     */
     public static String RandomColor() {
         List<String> colors = Arrays.asList(Colors.RED, Colors.GREEN, Colors.YELLOW);
         return Helper.getRandomElements(colors, 1).get(0);
     }
 
+    /**
+     * Determines the initial health the player entered the battle with
+     *
+     * @param p player
+     * @return max player health
+     */
     public static int getMaxHealth(Player p) {
         int max = (int) (p.getHp() + p.getHp() * 0.2); //allows a slight over heal
         max += p.getInventory().stream().mapToInt(Item::getHpIncr).sum();
         return max;
     }
 
-    public static int getFullHealAmount(Player p, Random r, double max) {
+    /**
+     * The calculation for healing in battle
+     *
+     * @param p   player
+     * @param max max health
+     * @return the amount to heal
+     */
+    public static int getFullHealAmount(Player p, double max) {
+
         double h = Math.max((p.getBattleHp() / max), 0.5); // heals less the lower your health is.
         int healAmount = p.getInventory().stream().mapToInt(Item::getHealIncr).sum() + p.getHealAmount();
         healAmount *= (int) h;
@@ -256,5 +265,25 @@ public class Helper {
         }
         healAmount += variance;
         return healAmount;
+    }
+
+    /**
+     * Returns a list of enemies that the player can fight given the location they are in
+     *
+     * @param p player
+     * @return an ArrayList of enemies
+     */
+    public static List<Enemy> getEnemies(Player p) {
+        if (p.getStageNum() % 5 == 0) {
+            return getRandomElements(new ArrayList<Enemy>(allBosses), 1);
+        }
+        ArrayList<Enemy> enemies = Main.currentPlace.allowedEnemies().stream().filter(Enemy::canSpawn).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Enemy> ret = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            int rand = r.nextInt(enemies.size());
+            ret.add(enemies.get(rand));
+            enemies.remove(rand);
+        }
+        return ret;
     }
 }

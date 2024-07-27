@@ -1,15 +1,12 @@
 package KeeperLand.Enemies.Toxic;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.ToxicEnv;
 import KeeperLand.ItemData;
-import KeeperLand.Main;
-import KeeperLand.Player;
 
 public class Slime extends Enemy {
 
     public Slime() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", false);
     }
 
     public void setBaseStats() {
@@ -22,8 +19,5 @@ public class Slime extends Enemy {
         this.coins = 2;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof ToxicEnv;
-    }
+
 }

@@ -3,7 +3,6 @@ package KeeperLand.Enemies.Common;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 import java.util.Random;
 
@@ -11,7 +10,7 @@ public class CrazyChicken extends Enemy {
     Random r = new Random();
 
     public CrazyChicken() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", true);
     }
 
 
@@ -25,7 +24,7 @@ public class CrazyChicken extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
         return Main.r.nextInt(10) == 0;
 

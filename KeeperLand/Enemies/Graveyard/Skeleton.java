@@ -1,10 +1,8 @@
 package KeeperLand.Enemies.Graveyard;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.Graveyard;
 import KeeperLand.ItemData;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 import java.util.Random;
 
@@ -12,7 +10,7 @@ public class Skeleton extends Enemy {
     Random r = Main.r;
 
     public Skeleton() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", false);
     }
 
     public void setBaseStats() {
@@ -25,10 +23,5 @@ public class Skeleton extends Enemy {
         drops.add(ItemData.skeletonBone);
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
 
-        return (Main.currentPlace instanceof Graveyard);
-
-    }
 }

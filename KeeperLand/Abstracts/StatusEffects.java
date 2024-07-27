@@ -11,18 +11,15 @@ public abstract class StatusEffects {
     protected int duration = 0;
     private boolean isBad = true; //basically does something each turn
 
-    public StatusEffects(String col, int duration) {
-        Main.allStatusEffects.add(this);
-        this.duration = duration;
-        effectColor = col;
-    }
 
-    public StatusEffects(String col, int duration, boolean isBad) {
+    public StatusEffects(String col, int duration, boolean isBad, String name) {
         Main.allStatusEffects.add(this);
         this.duration = duration;
         effectColor = col;
         this.isBad = isBad;
+        this.effectName = name;
     }
+
 
     public boolean isBad() {
         return isBad;

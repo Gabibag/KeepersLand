@@ -21,7 +21,7 @@ public class TheKeeper extends FinalBoss {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return false; //75% spawn chance
     }
 
@@ -55,7 +55,7 @@ public class TheKeeper extends FinalBoss {
 
     @Override
     public String getDodgeText() {
-        return " defies your attack.";
+        return " is not affected by your attack.";
     }
 
 
@@ -65,7 +65,8 @@ public class TheKeeper extends FinalBoss {
         flashText();
         this.mutate = new None();
     }
-    private void flashText(){
+
+    private void flashText() {
         for (int i = 0; i < 3; i++) {
             bossText();
             Helper.Sleep(0.5);
@@ -74,7 +75,7 @@ public class TheKeeper extends FinalBoss {
         }
     }
 
-    private void bossText(){
+    private void bossText() {
         System.out.println("""
                 ██████╗  ██████╗ ███████╗███████╗    ███████╗██╗ ██████╗ ██╗  ██╗████████╗██╗
                 ██╔══██╗██╔═══██╗██╔════╝██╔════╝    ██╔════╝██║██╔════╝ ██║  ██║╚══██╔══╝██║

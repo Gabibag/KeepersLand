@@ -2,9 +2,7 @@ package KeeperLand.Enemies.City;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.AbandonedCity;
 import KeeperLand.ItemData;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.Collections;
@@ -13,7 +11,7 @@ import java.util.List;
 public class MutatedZombie extends Enemy {
 
     public MutatedZombie() {
-        super("Increases its damage each turn");
+        super("Increases its damage each turn", false);
     }
 
     @Override
@@ -24,11 +22,6 @@ public class MutatedZombie extends Enemy {
         this.name = "Mutated Zombie";
         this.coins = 4;
         this.drops = Collections.singletonList(ItemData.RadiationSuit);
-    }
-
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof AbandonedCity;
     }
 
     public int Attack(Player p, List<Enemy> allies) {

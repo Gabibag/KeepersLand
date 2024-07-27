@@ -1,13 +1,10 @@
 package KeeperLand.Enemies.Toxic;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.ToxicEnv;
-import KeeperLand.Main;
-import KeeperLand.Player;
 
 public class Basilisk extends Enemy {
     public Basilisk() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", false);
     }
 
     public void setBaseStats() {
@@ -19,10 +16,5 @@ public class Basilisk extends Enemy {
         this.coins = 3;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
 
-        return Main.currentPlace instanceof ToxicEnv; //(r.nextInt([spawnchance]) == 2)
-
-    }
 }

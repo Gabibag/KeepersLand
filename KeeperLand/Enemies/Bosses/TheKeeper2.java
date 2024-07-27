@@ -12,7 +12,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
 
     @Override
     public String getDodgeText() {
-        return " ignores your attack.";
+        return " brushes off your attack.";
     }
 
     public void setBaseStats() {
@@ -26,7 +26,7 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return false;
     }
 

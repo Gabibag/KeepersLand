@@ -10,8 +10,8 @@ import java.util.List;
 import static KeeperLand.Main.r;
 
 public class Confusion extends StatusEffects {
-    public Confusion(String col, int duration) {
-        super(Colors.CYAN, 3);
+    public Confusion() {
+        super(Colors.CYAN, 3, true, "confusion");
     }
 
     @Override

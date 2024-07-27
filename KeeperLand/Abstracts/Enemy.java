@@ -21,10 +21,11 @@ public abstract class Enemy {
     protected int coins;
     protected int tokens;
     protected int level;
+    protected boolean isCommon = false;
     protected String description;
     protected Mutations mutate;
 
-    public Enemy(String desrc) {
+    public Enemy(String desrc, Boolean isCommon) {
         this.description = desrc;
         this.setBaseStats();
         try {
@@ -49,6 +50,11 @@ public abstract class Enemy {
         if (!allEnemies.contains(this)) {
             allEnemies.add((this)); //adds all enemies to a list
         }
+        if (!desrc.contains("shard"))
+            if (!commonEnemies.contains(this) && isCommon) {
+                commonEnemies.add((this)); //adds common enemies to a list
+                isCommon = true;
+            }
         this.battleHp = this.baseHp;
         //to prevent errors with the list being static sized
         this.drops = new ArrayList<>(this.drops);
@@ -56,7 +62,7 @@ public abstract class Enemy {
             this.drops.add(ItemData.OmegaShard);
         }
         //random 1 in 20 chance to mutate
-        if (r.nextInt(20) == 0) {
+        if (r.nextInt(20 - (isCommon ? 5 : 0)) == 1) {
             this.mutate = allMutations.get(r.nextInt(allMutations.size()));
         }
     }
@@ -74,6 +80,10 @@ public abstract class Enemy {
 
     public Mutations getMutate() {
         return mutate;
+    }
+
+    public boolean isCommon() {
+        return this.isCommon;
     }
 
     public void setMutate(Mutations mutate) {
@@ -194,7 +204,9 @@ public abstract class Enemy {
 
     public abstract void setBaseStats();
 
-    public abstract boolean canSpawn(Player p);
+    public boolean canSpawn() {
+        return true;
+    }
 
     public int Attack(Player p, List<Enemy> allies) {
         //by default, just hits for its damage

@@ -3,7 +3,9 @@ package KeeperLand.Enviroments;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Environment;
 import KeeperLand.*;
+import KeeperLand.Enemies.Toxic.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,6 +41,17 @@ public class ToxicEnv extends Environment {
 
     public void turnEnd(Player p, List<Enemy> enemies) {
 
+    }
+
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new Assassin());
+        enemies.add(new Basilisk());
+        enemies.add(new Slime());
+        enemies.add(new Snake());
+        enemies.add(new SwampMonster());
+        return enemies;
     }
 
     public int modifyEnemyDamage(int preChange) {

@@ -12,7 +12,8 @@ public class DemonLord extends Boss {
     public static boolean End = false;
 
     public DemonLord() {
-        super("Drops a hell shard. Has a number of defensive abilities.");
+        super("Drops a Hell Shard. Has a number of defensive abilities.");
+
     }
 
     public void setBaseStats() {
@@ -26,7 +27,7 @@ public class DemonLord extends Boss {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return true;
 //        return false;
     }

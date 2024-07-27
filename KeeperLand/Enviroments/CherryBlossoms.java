@@ -6,6 +6,7 @@ import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,6 +34,14 @@ public class CherryBlossoms extends Environment {
 
     }
 
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        if (!this.allowedEnemies.isEmpty()) return this.allowedEnemies;
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new KeeperLand.Enemies.StardewValley.Fairy());
+        return enemies;
+    }
+
     public void turnEnd(Player p, List<Enemy> enemies) {
         //heal players and enemies for 10% of its current hp
         p.setBattleHp(p.getBattleHp() + (int) (p.getBattleHp() * 0.05) + 1);
@@ -45,4 +54,6 @@ public class CherryBlossoms extends Environment {
     public int modifyEnemyDamage(int preChange) {
         return preChange;
     }
+
+
 }

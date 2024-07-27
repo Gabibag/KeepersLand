@@ -1,14 +1,12 @@
 package KeeperLand.Enemies.Graveyard;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.Graveyard;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 public class Zombie extends Enemy {
 
     public Zombie() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", false);
     }
 
     public void setBaseStats() {
@@ -21,9 +19,9 @@ public class Zombie extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return Main.r.nextInt(4) == 2 && Main.currentPlace instanceof Graveyard; //(r.nextInt([spawnchance]) == 2)
+        return Main.r.nextInt(4) == 2;
 
     }
 }

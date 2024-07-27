@@ -2,8 +2,6 @@ package KeeperLand.Enemies.City;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.AbandonedCity;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -11,7 +9,7 @@ import java.util.List;
 public class ElectricMutant extends Enemy {
 
     public ElectricMutant() {
-        super("Deals damage to everything, including its friends.");
+        super("Deals damage to everything, including its friends.", false);
     }
 
     @Override
@@ -24,10 +22,6 @@ public class ElectricMutant extends Enemy {
 
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof AbandonedCity;
-    }
 
     public int Attack(Player p, List<Enemy> allies) {
         System.out.println("The mutant " + Colors.YELLOW + "shocks " + Colors.RESET + "everything around it" + "[" + Colors.RED + (this.damage / 3) + Colors.RESET + "]");

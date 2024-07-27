@@ -2,7 +2,6 @@ package KeeperLand.Enemies.GatesToHell;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.GatesToHell;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
@@ -11,7 +10,7 @@ import java.util.List;
 public class HellFireImp extends Enemy {
 
     public HellFireImp() {
-        super("Throws fireballs at you");
+        super("Throws fireballs at you", false);
     }
 
     @Override
@@ -36,9 +35,5 @@ public class HellFireImp extends Enemy {
 
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof GatesToHell;
-    }
 
 }

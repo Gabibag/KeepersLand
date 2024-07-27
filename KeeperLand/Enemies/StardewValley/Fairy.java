@@ -2,7 +2,6 @@ package KeeperLand.Enemies.StardewValley;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.StardewValley;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
@@ -11,7 +10,7 @@ import java.util.List;
 public class Fairy extends Enemy {
 
     public Fairy() {
-        super("Has some spells to help its friends.");
+        super("Has some spells to help its friends.", false);
     }
 
 
@@ -26,8 +25,8 @@ public class Fairy extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof StardewValley && Main.r.nextBoolean();
+    public boolean canSpawn() {
+        return Main.r.nextBoolean();
     }
 
     @Override

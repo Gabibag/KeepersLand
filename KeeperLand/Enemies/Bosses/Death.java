@@ -13,7 +13,8 @@ public class Death extends Boss {
     protected static boolean End;
 
     public Death() {
-        super("Drops a death shard. Summons minions on escape.");
+        super("Drops a Death Shard. Summons minions on escape.");
+
     }
 
     public void setBaseStats() {
@@ -27,7 +28,7 @@ public class Death extends Boss {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return true;
 //        return false;
     }

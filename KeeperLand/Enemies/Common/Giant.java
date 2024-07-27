@@ -2,7 +2,6 @@ package KeeperLand.Enemies.Common;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 import java.util.Random;
 
@@ -10,7 +9,7 @@ public class Giant extends Enemy {
     Random r = Main.r;
 
     public Giant() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", true);
     }
 
     public void setBaseStats() {
@@ -23,9 +22,9 @@ public class Giant extends Enemy {
 
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return Main.r.nextInt(20) == 2; // 0.05% chance of spawning
+        return Main.r.nextInt(4) == 2;
 
     }
 }

@@ -3,7 +3,6 @@ package KeeperLand.Enemies.Common;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.ItemData;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 import java.util.Random;
 
@@ -11,7 +10,7 @@ public class Warrior extends Enemy {
     Random r = Main.r;
 
     public Warrior() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", true);
     }
 
     public void setBaseStats() {
@@ -24,9 +23,9 @@ public class Warrior extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return Main.r.nextBoolean();
+        return true;
 
     }
 }

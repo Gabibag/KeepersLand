@@ -2,7 +2,6 @@ package KeeperLand.Enemies.Toxic;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.ToxicEnv;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class Snake extends Enemy {
     public Snake() {
-        super("Deals a percentage of damage to you.");
+        super("Deals a percentage of damage to you instead of a solid number.", false);
     }
 
     public void setBaseStats() {
@@ -32,11 +31,5 @@ public class Snake extends Enemy {
         return (int) (Main.player.getHp() * (8f / 100));
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-
-        return Main.currentPlace instanceof ToxicEnv; //(r.nextInt([spawnchance]) == 2)
-
-    }
 
 }

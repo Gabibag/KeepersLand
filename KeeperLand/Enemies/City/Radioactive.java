@@ -2,7 +2,6 @@ package KeeperLand.Enemies.City;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Enemies.Lava.MiniSlime;
-import KeeperLand.Enviroments.AbandonedCity;
 import KeeperLand.ItemData;
 import KeeperLand.Main;
 import KeeperLand.Player;
@@ -11,7 +10,7 @@ import java.util.List;
 
 public class Radioactive extends Enemy {
     public Radioactive() {
-        super("Spawns a Mini Radioactive Slime");
+        super("Spawns a Mini Radioactive Slime", false);
     }
 
     public void setBaseStats() {
@@ -24,10 +23,6 @@ public class Radioactive extends Enemy {
         this.name = "Radioactive Slime";
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof AbandonedCity;
-    }
 
     public int Attack(Player p, List<Enemy> allies) {
         if (Main.r.nextFloat() > 0.5f) {

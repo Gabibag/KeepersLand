@@ -1,14 +1,13 @@
 package KeeperLand.Enemies.Lava;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Player;
 
 public class MiniSlime extends Enemy {
     public MiniSlime() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", false);
     }
 
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return false;
     }
 

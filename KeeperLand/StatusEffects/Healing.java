@@ -11,7 +11,7 @@ import static KeeperLand.Main.r;
 
 public class Healing extends StatusEffects {
     public Healing(String col, int duration, boolean isBad) {
-        super(Colors.YELLOW, 5, true);
+        super(Colors.YELLOW, 5, false, "healing");
     }
 
     @Override

@@ -22,7 +22,7 @@ public class DivisorSprite extends Sprite {
         this.name = "Divisor Sprite";
     }
 
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return Main.r.nextInt(1, 40) == 2;
     }
 

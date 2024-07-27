@@ -3,10 +3,12 @@ package KeeperLand.Enviroments;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Environment;
 import KeeperLand.Colors;
+import KeeperLand.Enemies.City.*;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +27,21 @@ public class WasteLand extends Environment {
     public String getName() {
         return "Waste Land";
 
+    }
+
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new BuringMutant());
+        enemies.add(new ElectricMutant());
+        enemies.add(new MiniRadioSlime());
+        enemies.add(new MutatedZombie());
+        enemies.add(new MiniRadioSlime());
+        enemies.add(new Overloading());
+        enemies.add(new Radioactive());
+
+
+        return enemies;
     }
 
     public int modifyPlayerDamage(int preChange) {

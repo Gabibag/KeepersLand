@@ -30,10 +30,6 @@ public class StarterLand extends Environment {
         return "A place to start your journey";
     }
 
-    @Override
-    public boolean isValid(Player p) {
-        return false;
-    }
 
     @Override
     public java.lang.String getName() {

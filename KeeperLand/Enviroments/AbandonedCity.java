@@ -5,6 +5,7 @@ import KeeperLand.Abstracts.Environment;
 import KeeperLand.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -51,6 +52,18 @@ public class AbandonedCity extends Environment {
         }
     }
 
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        if (!this.allowedEnemies.isEmpty()) return this.allowedEnemies;
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new KeeperLand.Enemies.Toxic.Snake());
+        enemies.add(new KeeperLand.Enemies.Toxic.Assassin());
+        enemies.add(new KeeperLand.Enemies.Toxic.SwampMonster());
+        enemies.add(new KeeperLand.Enemies.Toxic.Slime());
+        enemies.add(new KeeperLand.Enemies.Toxic.Basilisk());
+        this.allowedEnemies = enemies;
+        return enemies;
+    }
 
     @Override
     public int modifyPlayerDamage(int preChange) {

@@ -1,15 +1,12 @@
 package KeeperLand.Enemies.Lava;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.LavaZone;
-import KeeperLand.Enviroments.StarterLand;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 public class Overlord extends Enemy {
 
     public Overlord() {
-        super("Run.");
+        super("Run.", false);
     }
 
     public void setBaseStats() {
@@ -22,9 +19,9 @@ public class Overlord extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return !(Main.currentPlace instanceof StarterLand) && (Main.r.nextInt(50) == 2 && Main.currentPlace instanceof LavaZone); //(r.nextInt([spawnchance]) == 2)
+        return Main.r.nextInt(100) == 2;
 
     }
 }

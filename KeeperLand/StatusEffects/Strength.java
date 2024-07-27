@@ -13,7 +13,7 @@ public class Strength extends StatusEffects {
 
 
     public Strength(String col, int duration, boolean isBad) {
-        super(Colors.RED, 5, false);
+        super(Colors.RED, 5, false, "strength");
     }
 
     @Override

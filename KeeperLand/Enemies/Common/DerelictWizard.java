@@ -3,7 +3,6 @@ package KeeperLand.Enemies.Common;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 import java.util.Random;
 
@@ -11,9 +10,8 @@ public class DerelictWizard extends Enemy {
     final Random r = new Random();
 
     public DerelictWizard() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Almost always mutated!", true);
     }
-
 
     @Override
     public void setBaseStats() {
@@ -26,9 +24,9 @@ public class DerelictWizard extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return Main.r.nextInt(4) == 0;
+        return Main.r.nextInt(3) == 0;
 
     }
 }

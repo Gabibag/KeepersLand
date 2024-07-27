@@ -2,8 +2,6 @@ package KeeperLand.Enemies.WindyHeights;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Colors;
-import KeeperLand.Enviroments.WindyHeights;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -13,7 +11,7 @@ public class SuperChargedBird extends Enemy {
     int turnsTillAttack = 3;
 
     public SuperChargedBird() {
-        super("Charges its attack.");
+        super("Charges its attack.", false);
     }
 
     @Override
@@ -44,10 +42,5 @@ public class SuperChargedBird extends Enemy {
         return turnsTillAttack == 3 ? " begins to " + Colors.YELLOW + "glow." + Colors.RESET : turnsTillAttack == 2 ? Colors.YELLOW + " glows" + Colors.RESET + " even brighter" : turnsTillAttack == 1 ? " is going to " + Colors.RED + "nuke" + Colors.RESET + " you next turn" : "";
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-
-        return Main.currentPlace instanceof WindyHeights;
-    }
 
 }

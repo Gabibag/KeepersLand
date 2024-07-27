@@ -1,7 +1,6 @@
 package KeeperLand.Enemies.StardewValley;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.StardewValley;
 import KeeperLand.Main;
 import KeeperLand.Player;
 
@@ -12,7 +11,7 @@ public class Cloud extends Enemy {
     final Random r = Main.r;
 
     public Cloud() {
-        super("Sometimes deals less damage");
+        super("Sometimes deals less damage", false);
     }
 
 
@@ -27,12 +26,6 @@ public class Cloud extends Enemy {
         this.dodgeRate = 2;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-
-        return Main.currentPlace instanceof StardewValley; //(r.nextInt([spawnchance]) == 2)
-
-    }
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {

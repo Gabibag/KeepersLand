@@ -8,9 +8,7 @@ import KeeperLand.Mutations.None;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static KeeperLand.Helper.getFullHealAmount;
 import static KeeperLand.Helper.getMaxHealth;
@@ -69,27 +67,6 @@ public class Battle extends Interactable {
                 }
             }
         }
-    }
-
-    public static List<Enemy> getEnemies(Player p) {
-
-        /*for (Enemy e : Main.allEnemies) {
-            if ((p.getStageNum() % 5 == 0) && (e.canSpawn(p)) && (e instanceof Boss)) {
-                returned.add(e);
-            } else if (!(e instanceof Boss) && e.canSpawn(p)) {
-                returned.add((e));
-            }
-        }*/
-        List<Enemy> returned = new ArrayList<>(Main.allEnemies);
-//        returned.removeIf(e -> !e.canSpawn(p));
-//        returned = returned.stream().filter(e -> e == null || !e.canSpawn(p));
-        // store returned.stream().filter(e -> e == null || !e.canSpawn(p)) as a stream
-        Stream<Enemy> stream = returned.stream().filter(e -> e == null || !e.canSpawn(p));
-        if (p.getStageNum() % 5 == 0) {
-            return stream.filter(e -> e instanceof Boss).collect(Collectors.toList());
-        }
-        return stream.filter(e -> !(e instanceof Boss)).collect(Collectors.toList());
-
     }
 
     public static void removeDead(List<Enemy> enemies) {
@@ -425,66 +402,11 @@ public class Battle extends Interactable {
         Helper.Sleep(1);
     }
 
-    @Override
-    public void onChoose(Player p) {
-        p.setBattleHp(p.getHp());
-        p.setBattleDamage(p.getDamage());
-        updateItems(p, 1);
-        int Actions = p.getActionAmount();
-        List<Enemy> spawns = getEnemies(p);
-        while (spawns.size() < 3) {
-            spawns = getEnemies(p);
-            for (int i = 0; i < spawns.size(); i++) {
-                Enemy e = spawns.get(i);
-                while (spawns.stream().filter(x -> x.getName().equals(e.getName())).count() > 1) {
-                    spawns.remove(e);
-                }
-            }
-        }
-        List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
-        try {
-            for (int i = 0; i < enemies.size(); i++) {
-                enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
-            }
-        } catch (Exception e) {
-            System.out.println("Failed to create a new enemy object, check your cnstr type:");
-            e.printStackTrace();
-        }
-        System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
+    private static void encounterEnemy(Enemy e) {
+        System.out.println("You encountered a " + e.getName() + " for the first time!");
+        String descr = String.valueOf((e.getDescription().charAt(0))).toLowerCase();
+        System.out.println("The " + e.getName() + " " + descr + e.getDescription().substring(1));
         Helper.Sleep(1);
-        System.out.print(Colors.CLEAR);
-//        Go through the enemies in the list and check if they have been seen before
-        for (Enemy e : enemies) {
-            if (p.hasSeenEnemy(e)) {
-                continue;
-            }
-            System.out.println("You encountered a " + e.getName() + " for the first time!");
-            String descr = String.valueOf((e.getDescription().charAt(0))).toLowerCase();
-            System.out.println("The " + e.getName() + " " + descr + e.getDescription().substring(1));
-            Helper.Sleep(1);
-
-        }
-
-        if ((p.getStageNum() % 5 == 0)) {
-            ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
-        }
-        Main.currentPlace.BattleStart(p, enemies);
-        whileAlive(enemies);
-        battleEnd(enemies);
-
-    }
-
-    public static void printActions(int Actions) {
-        System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
-        System.out.println(Colors.PURPLE +
-                "[1] Attack");
-        System.out.println("[2] Heal");
-        System.out.println("[3] Info" + Colors.RESET);
-    }
-
-    @Override
-    public String getName() {
-        return "Battle";
     }
 
     static void healPlayer(Player p, Random r, List<Enemy> enemies) {
@@ -502,7 +424,7 @@ public class Battle extends Interactable {
             Helper.continuePrompt();
             return;
         }
-        int healAmount = getFullHealAmount(p, r, max);
+        int healAmount = getFullHealAmount(p, max);
         if (healAmount < 0) {
             healAmount = 0;
         } else if (healAmount + p.getBattleHp() >= max) {
@@ -530,6 +452,67 @@ public class Battle extends Interactable {
         for (StatusEffects s : p.getStatusEffects()) {
             s.tickEffect(p, null, enemies, "playerHeal", healAmount);
         }
+
+    }
+
+    public static void printActions(int Actions) {
+        System.out.println(Colors.CYAN + "\nActions left:" + Actions + Colors.RESET);
+        System.out.println(Colors.PURPLE +
+                "[1] Attack");
+        System.out.println("[2] Heal");
+        System.out.println("[3] Info" + Colors.RESET);
+    }
+
+    @Override
+    public String getName() {
+        return "Battle";
+    }
+
+    @Override
+    public void onChoose(Player p) {
+        p.setBattleHp(p.getHp());
+        p.setBattleDamage(p.getDamage());
+        updateItems(p, 1);
+        int Actions = p.getActionAmount();
+        List<Enemy> enemies = Helper.getEnemies(p);
+        int temp = 0;
+        int enemyCount = (player.getStageNum() % 5 == 0) ? 1 : 3;
+        while (enemies.size() < enemyCount) {
+            enemies = Helper.getEnemies(p);
+
+            if (temp > 10) {
+                throw new RuntimeException("Failed to get enemies");
+            }
+            temp++;
+        }
+//        List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
+        try {
+            for (int i = 0; i < enemies.size(); i++) {
+                enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to create a new enemy object, check your cnstr type:");
+            e.printStackTrace();
+        }
+        System.out.println(Colors.RED + "A battle is starting!" + Colors.RESET);
+        Helper.Sleep(1);
+        System.out.print(Colors.CLEAR);
+//        Go through the enemies in the list and check if they have been seen before
+        enemies.stream().filter(e -> !p.hasSeenEnemy(e)).forEach(Battle::encounterEnemy);
+        /*for (Enemy e : enemies) {
+            if (p.hasSeenEnemy(e)) {
+                continue;
+            }
+            encounterEnemy(e);
+
+        }*/
+
+        if ((p.getStageNum() % 5 == 0)) {
+            ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
+        }
+        Main.currentPlace.BattleStart(p, enemies);
+        whileAlive(enemies);
+        battleEnd(enemies);
 
     }
 

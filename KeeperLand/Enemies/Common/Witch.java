@@ -14,7 +14,7 @@ public class Witch extends Enemy {
     final Random r = new Random();
 
     public Witch() {
-        super("Gives you a random negative potion effect.");
+        super("Gives you a random negative potion effect.", true);
     }
 
 
@@ -28,9 +28,9 @@ public class Witch extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
 
-        return Main.r.nextInt(10) == 0;
+        return Main.r.nextInt(4) == 0;
 
     }
 
@@ -38,14 +38,13 @@ public class Witch extends Enemy {
     public int Attack(Player p, List<Enemy> allies) {
         int rand = r.nextInt(3);
         if (rand == 0) {
-            //get random status effect
             StatusEffects effect = Main.allStatusEffects.get(r.nextInt(Main.allStatusEffects.size()));
             //if the effect is bad, apply it to the player
             if (effect.isBad()) {
                 p.addStatusEffects(effect);
                 System.out.println("The " + this.name + " casted " + effect.getEffectColor() + effect.getEffectName() + Colors.RESET + " on you!");
             }
-
+            return 0;
         }
 
         return super.Attack(p, allies);

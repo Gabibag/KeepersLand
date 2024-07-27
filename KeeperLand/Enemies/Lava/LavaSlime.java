@@ -1,15 +1,13 @@
 package KeeperLand.Enemies.Lava;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.LavaZone;
-import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
 
 public class LavaSlime extends Enemy {
     public LavaSlime() {
-        super("Splits into mini slimes on death.");
+        super("Splits into mini slimes on death.", false);
     }
 
     public void setBaseStats() {
@@ -32,7 +30,4 @@ public class LavaSlime extends Enemy {
         }
     }
 
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof LavaZone;
-    }
 }

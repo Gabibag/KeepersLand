@@ -1,9 +1,7 @@
 package KeeperLand.Enemies.WindyHeights;
 
 import KeeperLand.Abstracts.Enemy;
-import KeeperLand.Enviroments.WindyHeights;
 import KeeperLand.Main;
-import KeeperLand.Player;
 
 import java.util.Random;
 
@@ -11,7 +9,7 @@ public class Vulture extends Enemy {
     Random r = Main.r;
 
     public Vulture() {
-        super("Has no extra abilities, what you see is what you get!");
+        super("Has no extra abilities, what you see is what you get!", false);
     }
 
 
@@ -26,8 +24,5 @@ public class Vulture extends Enemy {
         this.dodgeRate = 5;
     }
 
-    @Override
-    public boolean canSpawn(Player p) {
-        return Main.currentPlace instanceof WindyHeights; //(r.nextInt([spawnchance]) == 2)
-    }
+
 }

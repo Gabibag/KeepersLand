@@ -23,7 +23,7 @@ public class HelperSprite extends Sprite {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return Main.r.nextInt(1, 100) == 2;
     }
 

@@ -10,6 +10,7 @@ import java.util.List;
 public class SpriteLord extends Boss {
     public SpriteLord() {
         super("Drops a Sprite Shard. Creates 5 random sprites on death.");
+
     }
 
     public void setBaseStats() {
@@ -23,7 +24,7 @@ public class SpriteLord extends Boss {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return true; //75% spawn chance
     }
 

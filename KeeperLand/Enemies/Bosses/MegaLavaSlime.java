@@ -13,6 +13,7 @@ import java.util.List;
 public class MegaLavaSlime extends Boss {
     public MegaLavaSlime() {
         super("Drops Shattered Shard. Splits into 3 Lava Slimes");
+
     }
 
     public void setBaseStats() {
@@ -26,7 +27,7 @@ public class MegaLavaSlime extends Boss {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return true;
 //        return false;
     }

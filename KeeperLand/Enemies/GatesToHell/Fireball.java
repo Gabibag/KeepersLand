@@ -11,7 +11,7 @@ public class Fireball extends Enemy {
     int numTurns = 1;
 
     public Fireball() {
-        super("Explodes on impact after flying towards you, damaging you and killing itself.");
+        super("Explodes on impact after flying towards you, damaging you and killing itself.", false);
     }
 
     public void setBaseStats() {
@@ -36,7 +36,7 @@ public class Fireball extends Enemy {
     }
 
     @Override
-    public boolean canSpawn(Player p) {
+    public boolean canSpawn() {
         return false;
     }
 

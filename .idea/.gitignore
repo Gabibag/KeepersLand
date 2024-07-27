@@ -9,4 +9,5 @@
 *.class
 *.replit
 *.breakpoints
-*.nix
+*.nix# GitHub Copilot persisted chat sessions
+/copilot/chatSessions

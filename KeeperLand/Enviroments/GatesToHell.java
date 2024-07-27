@@ -2,11 +2,16 @@ package KeeperLand.Enviroments;
 
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Abstracts.Environment;
+import KeeperLand.Enemies.GatesToHell.CaveDweller;
+import KeeperLand.Enemies.GatesToHell.Gargoyle;
 import KeeperLand.Enemies.GatesToHell.GateKeepers;
+import KeeperLand.Enemies.GatesToHell.HellFireImp;
+import KeeperLand.Enemies.Lava.Demon;
 import KeeperLand.Item;
 import KeeperLand.ItemData;
 import KeeperLand.Player;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,6 +48,19 @@ public class GatesToHell extends Environment {
         }
 
         System.out.println("The gates to hell hurt you for " + (int) (p.getBattleHp() * 0.02 < 1 ? 1 : p.getBattleHp() * 0.02) + " damage!");
+    }
+
+    @Override
+    public ArrayList<Enemy> allowedEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>(super.allowedEnemies());
+        enemies.add(new GateKeepers());
+        enemies.add(new CaveDweller());
+        enemies.add(new Gargoyle());
+        enemies.add(new HellFireImp());
+        enemies.add(new Demon());
+
+
+        return enemies;
     }
 
     public void turnEnd(Player p, List<Enemy> enemies) {
