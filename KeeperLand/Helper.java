@@ -241,9 +241,7 @@ public class Helper {
      * @return max player health
      */
     public static int getMaxHealth(Player p) {
-        int max = (int) (p.getHp() + p.getHp() * 0.2); //allows a slight over heal
-        max += p.getInventory().stream().mapToInt(Item::getHpIncr).sum();
-        return max;
+        return (int) ((p.getInventory().stream().mapToInt(Item::getHpIncr).sum() + p.getHp()) * 1.2);
     }
 
     /**
@@ -255,14 +253,13 @@ public class Helper {
      */
     public static int getFullHealAmount(Player p, double max) {
 
-        double h = Math.max((p.getBattleHp() / max), 0.5); // heals less the lower your health is.
+        double h = Math.max(0.4, Math.max((p.getBattleHp() / (max / 1.2)), Math.random()));
+        // heals less the lower your health is.
         int healAmount = p.getInventory().stream().mapToInt(Item::getHealIncr).sum() + p.getHealAmount();
-        healAmount *= (int) h;
+        healAmount = (int) (healAmount * h);
         int variance = p.getInventory().stream().mapToInt(Item::getHealVarIncr).sum() + p.getHealVariance();
-        variance = (r.nextInt((variance << 1)) - variance);
-        if (variance > 0) {
-            variance *= (int) h;
-        }
+        variance = (int) ((r.nextInt((variance << 1)) - variance) * h);
+
         healAmount += variance;
         return healAmount;
     }

@@ -126,7 +126,7 @@ public class Battle extends Interactable {
                         Actions--;
                     }
                     case 2 -> {
-                        healPlayer(p, r, enemies);
+                        healPlayer(p, enemies);
                         Actions--;
                     }
                     case 3 -> displayInfo(enemies);
@@ -409,43 +409,27 @@ public class Battle extends Interactable {
         Helper.Sleep(1);
     }
 
-    static void healPlayer(Player p, Random r, List<Enemy> enemies) {
+    static void healPlayer(Player p, List<Enemy> enemies) {
         ArrayList<Enemy> mutated = new ArrayList<>();
         for (Enemy e : enemies) {
             if (e.getMutate() == null) {
                 continue;
             }
             mutated.add(e);
-        }
-
+        } // some mutated enemies have effects on heal
         int max = getMaxHealth(p);
         if (p.getBattleHp() >= max) {
             System.out.println("You are already at full health!");
+
             Helper.continuePrompt();
             return;
         }
         int healAmount = getFullHealAmount(p, max);
-        if (healAmount < 0) {
-            healAmount = 0;
-        } else if (healAmount + p.getBattleHp() >= max) {
-            p.setBattleHp(max);
-            System.out.println("You healed to" + Colors.RED + " full" + Colors.RESET + " health!");
-            for (Enemy e : mutated) {
-                e.getMutate().onHeal(enemies, healAmount, e);
-            }
-            for (StatusEffects s : p.getStatusEffects()) {
-                s.tickEffect(p, null, enemies, "playerHeal", healAmount);
-            }
-            return;
-        }
-        if (healAmount == 0) {
-            healAmount = 1;
-        }
-        p.setBattleHp(p.getBattleHp() + healAmount);
-        System.out.println(Colors.RED + ((healAmount + p.getBattleHp() ==
-                max) ? "You healed to full health" :
-                "You healed " + healAmount + " health") + Colors.RESET);
+        healAmount = Math.max(0, healAmount);
+        healAmount = Math.min(max - p.getBattleHp(), healAmount);
 
+        p.setBattleHp(p.getBattleHp() + healAmount);
+        System.out.println(Colors.RED + "You healed " + healAmount + " health" + Colors.RESET);
         for (Enemy e : mutated) {
             e.getMutate().onHeal(enemies, healAmount, e);
         }

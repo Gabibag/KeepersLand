@@ -18,8 +18,7 @@ public class Inventory extends Interactable {
         System.out.println("[2] Stats" + Colors.RESET);
         int c = Helper.getInput("", 0, 2);
         //if c is 1, show inventory, case c is 2, print player p
-        if (c == 0) {
-        } else if (c == 1) {
+        if (c == 1) {
             inventory(p);
         } else if (c == 2) {
             System.out.println(p);
@@ -49,8 +48,6 @@ public class Inventory extends Interactable {
 
     private static List<Item> displayList(Player p) {
         System.out.println(returnDisplayableInventory(p));
-
-
         return printItems;
     }
 
@@ -350,7 +347,6 @@ public class Inventory extends Interactable {
             inventory(p);
         }
         inventoryDisplay = "";
-        printItems = null;
     }
 
     public static String isNot0(String col, int stat) {
