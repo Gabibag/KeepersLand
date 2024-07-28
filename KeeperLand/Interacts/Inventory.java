@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Inventory extends Interactable {
-    static List<Item> printItems = null;
+    static List<Item> printItems = new ArrayList<>();
     static String inventoryDisplay = "";
 
     public void onChoose(Player p) {
@@ -23,9 +23,6 @@ public class Inventory extends Interactable {
         } else if (c == 2) {
             System.out.println(p);
             Helper.continuePrompt();
-        } else {
-            System.out.println("Invalid input");
-            onChoose(p);
         }
 
     }
@@ -67,7 +64,6 @@ public class Inventory extends Interactable {
             String name = i.getName();
             iCount.put(name, iCount.containsKey(name) ? iCount.get(name) + 1 : 1);
         }
-        List<Item> printItems = new ArrayList<>();
         List<Item> it = new ArrayList<>(p.getInventory());
         //add one of each item to the list
         for (Item value : it) {
@@ -123,7 +119,7 @@ public class Inventory extends Interactable {
             if (printItems.get(i).getName().toLowerCase().contains("shard")) {
                 Item temp = printItems.get(i);
                 printItems.remove(i);
-                printItems.add(0, temp);
+                printItems.addFirst(temp);
             }
         }
         //number of unique items
@@ -160,7 +156,7 @@ public class Inventory extends Interactable {
             dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(totalDmg).length())));
             countString.append(" ".repeat(Math.max(0, (maxColLength + 3) - String.valueOf(iCount.get(itemType)).length())));
 
-            returnString += Colors.CYAN + "[" + (count) + "] " + col + items.getName() + spaceCount +
+            inventoryDisplay += Colors.CYAN + "[" + (count) + "] " + col + items.getName() + spaceCount +
                     isNot0(Colors.RED, totalDmg) + " ⚔" + totalDmg + dmgCount + isNot0(Colors.GREEN, totalHp) + " ❤" + totalHp + hpCount + isNot0(Colors.YELLOW, totalHeal) + " ✧" + totalHeal + healCount + isNot0(Colors.PURPLE, totalHealVariance) + " ⚕" + totalHealVariance + variCount + Colors.CYAN + " x" + iCount.get(itemType) + countString + (Colors.RESET + " " + (items).getDescription()) + Colors.RESET + "\n";
             count++;
         }
@@ -186,9 +182,9 @@ public class Inventory extends Interactable {
             totalHeal += i.getHealIncr();
             totalHealVariance += i.getHealVarIncr();
         }
-        returnString += "\n" + Colors.CYAN + "Total Benefits: \n" + Colors.RESET;
+        inventoryDisplay += "\n" + Colors.CYAN + "Total Benefits: \n" + Colors.RESET;
         if (totalDmg != 0) {
-            returnString += (" + " + totalDmg + " damage (Contributes to " + Math.round((totalDmg / ((float) tempMaxDmg)) * 10000) / 100f + "%) of total damage \n");
+            inventoryDisplay += (" + " + totalDmg + " damage (Contributes to " + Math.round((totalDmg / ((float) tempMaxDmg)) * 10000) / 100f + "%) of total damage \n");
         }
         if (totalHp != 0) {
             inventoryDisplay += (" + " + totalHp + " health (Contributes to " + Math.round((totalHp / ((float) tempMaxHealth)) * 10000) / 100f + "%) of total health \n");
@@ -199,8 +195,7 @@ public class Inventory extends Interactable {
         if (totalHealVariance != 0) {
             inventoryDisplay += (" + " + totalHealVariance + " healing variance (Contributes to " + Math.round((totalHealVariance / ((float) tempMaxHealVar)) * 10000) / 100f + "%) of total healing variance \n");
         }
-        returnString += ("\nTotal Items: " + Main.player.getInventory().size());
-        return returnString;
+        return returnString + inventoryDisplay + ("\nTotal Items: " + Main.player.getInventory().size());
     }
 
     private static void sellItems(Item item) {
@@ -294,16 +289,16 @@ public class Inventory extends Interactable {
             int totalHeal = inspect.getHealIncr() * totalItems;
             int totalHealVariance = inspect.getHealVarIncr() * totalItems;
             System.out.println("Total stats:");
-            if (inspectList.get(0).getDmgIncr() != 0) {
+            if (inspectList.getFirst().getDmgIncr() != 0) {
                 System.out.println(" + " + totalDmg + " damage (Contributes to " + Math.round((totalDmg / ((float) tempMaxDmg)) * 10000) / 100f + "%) of total damage");
             }
-            if (inspectList.get(0).getHpIncr() != 0) {
+            if (inspectList.getFirst().getHpIncr() != 0) {
                 System.out.println(" + " + totalHp + " health (Contributes to " + Math.round((totalHp / ((float) tempMaxHealth)) * 10000) / 100f + "%) of total health");
             }
-            if (inspectList.get(0).getHealIncr() != 0) {
+            if (inspectList.getFirst().getHealIncr() != 0) {
                 System.out.println(" + " + totalHeal + " healing (Contributes to " + Math.round((totalHeal / ((float) tempMaxHeal)) * 10000) / 100f + "%) of total healing");
             }
-            if (inspectList.get(0).getHealVarIncr() != 0) {
+            if (inspectList.getFirst().getHealVarIncr() != 0) {
                 System.out.println(" + " + totalHealVariance + " healing variance (Contributes to " + Math.round((totalHealVariance / ((float) tempMaxHealVar)) * 10000) / 100f + "%) of total healing variance");
             }
             System.out.println(Colors.RESET);
@@ -312,7 +307,7 @@ public class Inventory extends Interactable {
                 System.out.println(Colors.YELLOW + "[1]" + " Shatter" + Colors.RESET);
                 int c = Helper.getInput("", 0, 1);
                 if (c == 1) {
-                    System.out.println(Colors.YELLOW + "Shattered " + inspectList.get(0) + Colors.RESET);
+                    System.out.println(Colors.YELLOW + "Shattered " + inspectList.getFirst() + Colors.RESET);
                     p.getInventory().remove(inspect);
                     //random number between 1 and 3
                     int ran = (int) (Math.random() * 3) + 1;
