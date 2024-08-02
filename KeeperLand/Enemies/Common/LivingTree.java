@@ -2,12 +2,10 @@ package KeeperLand.Enemies.Common;
 
 
 import KeeperLand.Abstracts.Enemy;
+import KeeperLand.Main;
 import KeeperLand.Mutations.Defensive;
 
-import java.util.Random;
-
 public class LivingTree extends Enemy {
-    final Random r = new Random();
 
     public LivingTree() {
         super("Has no extra abilities, what you see is what you get!", true);
@@ -20,7 +18,7 @@ public class LivingTree extends Enemy {
         this.damage = 5;
         this.xp = 1;
         this.name = "Living Tree";
-        if (r.nextBoolean()) this.mutate = new Defensive();
+        if (Main.r.nextBoolean()) this.mutate = new Defensive();
         this.coins = 1;
     }
 

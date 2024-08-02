@@ -4,6 +4,7 @@ import KeeperLand.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import static KeeperLand.Main.*;
@@ -41,25 +42,33 @@ public abstract class Enemy {
             }
             rand *= r.nextBoolean() ? 1 : -1;
 
-            this.level = player.getStageNum() + rand;
+            try {
+                this.level = player.getStageNum() + rand;
+            } catch (Exception e) {
+                this.level = 1;
+            }
             if (this.level < 1) this.level = 1;
         } catch (Exception e) {
             this.level = 1;
         }
         scaleStats();
-        if (!allEnemies.contains(this)) {
+        if (commonEnemies.stream().noneMatch(e -> Objects.equals(e.getName(), this.getName())) && isCommon) {
+            commonEnemies.add((this)); //adds common enemies to a list
+            allEnemies.add(this);
+            this.isCommon = true;
+        } else if (allEnemies.stream().noneMatch(e -> Objects.equals(e.getName(), this.getName()))) {
             allEnemies.add((this)); //adds all enemies to a list
         }
-        if (!desrc.contains("shard"))
-            if (!commonEnemies.contains(this) && isCommon) {
-                commonEnemies.add((this)); //adds common enemies to a list
-                isCommon = true;
-            }
+
         this.battleHp = this.baseHp;
         //to prevent errors with the list being static sized
         this.drops = new ArrayList<>(this.drops);
-        if (player.getStageNum() > 10) {
-            this.drops.add(ItemData.OmegaShard);
+        try {
+            if (player.getStageNum() > 10) {
+                this.drops.add(ItemData.OmegaShard);
+            }
+        } catch (Exception ignored) {
+
         }
         //random 1 in 20 chance to mutate
         if (r.nextInt(20 - (isCommon ? 5 : 0)) == 1) {
@@ -216,25 +225,23 @@ public abstract class Enemy {
 
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         //by default, just gives xp and money
+        int c = (int) (self.getCoins() * Helper.getScaleFactor(2, this.level));
+        String out = "You killed " + isAn(name) + name + "! (" + c + Colors.YELLOW + "◊" + Colors.RESET + ")";
         if (mutate != null) {
             mutate.onDeath(allies, self);
-        } else if (r.nextInt(10) == 0) {
+        } else if (r.nextInt(5) == 0) {
             String drops = randDrops(p, this);
-            String out = "You killed " + isAn(name) + name + "! (" + self.getCoins() + Colors.YELLOW + "◊" + Colors.RESET + ")";
             if (drops != null) {
                 out += " and got " + isAn(drops) + Colors.YELLOW + drops + Colors.RESET + "!";
             }
-            System.out.println(out);
         }
-        p.addMoney(coins);
-        player.addMoney(self.getCoins());
+        System.out.println(out);
+        player.addMoney(c);
         p.addXp(xp);
 
     }
 
     public String randDrops(Player p, Enemy e) {
-        p.addMoney(e.getCoins());
-        p.addXp(e.xp);
         Item item = null;
 
         if (!e.getDrops().isEmpty()) {

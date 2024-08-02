@@ -4,10 +4,7 @@ package KeeperLand.Enemies.Common;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Main;
 
-import java.util.Random;
-
 public class DerelictWizard extends Enemy {
-    final Random r = new Random();
 
     public DerelictWizard() {
         super("Almost always mutated!", true);
@@ -20,7 +17,7 @@ public class DerelictWizard extends Enemy {
         this.xp = 20;
         this.name = "Derelict Wizard";
         this.coins = 3;
-        this.mutate = Main.allMutations.get(r.nextInt(Main.allMutations.size()));
+        this.mutate = Main.allMutations.get(Main.r.nextInt(Main.allMutations.size()));
     }
 
     @Override

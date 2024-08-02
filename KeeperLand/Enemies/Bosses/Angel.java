@@ -34,7 +34,6 @@ public class Angel extends Boss {
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         for (int i = 0; i < 3; i++) {
             allies.add(new HealingSprite());
-
         }
         allies.add(new DeathMinion()); //the bringer of light is not what it seems...
     }
@@ -88,7 +87,7 @@ public class Angel extends Boss {
             allies.add(new HealingSprite());
         } else if (r == 1) {
             System.out.println("The Angel " + Colors.YELLOW + "heals" + Colors.RESET + " itself for " + Colors.GREEN + (int) (this.battleHp * 0.2) + Colors.RESET + " health.");
-            this.battleHp += this.battleHp * 0.2;
+            this.battleHp += (int) (this.battleHp * 0.2);
 
         }
         return super.Attack(p, allies);

@@ -34,7 +34,7 @@ public class Item {
         this.hpIncr = hpIncr;
         this.name = name;
         this.description = description;
-        this.cost = (dmgIncr * 60) + (hpIncr * 25);
+        this.cost = itemCost(dmgIncr, hpIncr, 0, 0, 1);
 
         Main.allItem.add(this);
     }
@@ -45,14 +45,8 @@ public class Item {
         this.name = name;
         this.description = description;
 
-        int cost = (dmgIncr * 60) + (hpIncr * 25) + (heal * (heal <= 2 ? 20 : (heal <= 4 ? 30 : 40))) + (healvair * 5);
-        if (cost < 50) {
-            this.rarity = 2;
-            this.cost = cost;
-        } else {
-            this.rarity = (cost / 50) + 1;
-            this.cost = (int) (cost * 0.99);
-        }
+        this.cost = itemCost(dmgIncr, hpIncr, heal, healvair, 1);
+        this.rarity = determineRarity(cost);
 
         this.healIncrease = heal;
         this.HealVariance = healvair;
@@ -65,14 +59,8 @@ public class Item {
         this.name = name;
         this.description = description;
 
-        int cost = (dmgIncr * 60) + (hpIncr * 25) + (heal * (heal <= 2 ? 20 : (heal <= 4 ? 30 : 40))) + (healvair * 5);
-        if (cost < 50) {
-            this.rarity = 2;
-            this.cost = cost;
-        } else {
-            this.rarity = (cost / 50) + 1;
-            this.cost = (int) (cost * 0.99);
-        }
+        this.cost = itemCost(dmgIncr, hpIncr, heal, healvair, 1);
+        this.rarity = determineRarity(cost);
 
         this.healIncrease = heal;
         this.HealVariance = healvair;
@@ -89,13 +77,28 @@ public class Item {
         this.name = name;
         this.description = description;
 
-        cost = ((dmgIncr * 60) + (hpIncr * 25) + (heal * 60) + (healvair * 15)) * costMultiplier;
+        this.cost = itemCost(dmgIncr, hpIncr, heal, healvair, costMultiplier);
         this.tokenCost = 10;
         this.rarity = dropRate;
         this.healIncrease = heal;
         this.HealVariance = healvair;
         Main.allItem.add(this);
     }
+
+    public static int itemCost(int dmgIncr, int hpIncr, int heal, int healvair, int costMultiplier) {
+        int c = (int) ((dmgIncr * 6) + (hpIncr * 2.5) + (heal * 6) + (healvair * 1.5) * costMultiplier * 0.9);
+//        as c aproaches 2000, it gets harder to get more expensive
+        return Math.max(c, 30);
+    }
+
+    private static int determineRarity(int cost) {
+        if (cost < 50) {
+            return 2;
+        } else {
+            return (cost / 50) + 1;
+        }
+    }
+
 
     public Item(Item i) {
         this.dmgIncr = i.getDmgIncr();

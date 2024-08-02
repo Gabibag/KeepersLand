@@ -8,10 +8,8 @@ import KeeperLand.Main;
 import KeeperLand.Player;
 
 import java.util.List;
-import java.util.Random;
 
 public class Witch extends Enemy {
-    final Random r = new Random();
 
     public Witch() {
         super("Gives you a random negative potion effect.", true);
@@ -36,9 +34,9 @@ public class Witch extends Enemy {
 
     @Override
     public int Attack(Player p, List<Enemy> allies) {
-        int rand = r.nextInt(3);
+        int rand = Main.r.nextInt(3);
         if (rand == 0) {
-            StatusEffects effect = Main.allStatusEffects.get(r.nextInt(Main.allStatusEffects.size()));
+            StatusEffects effect = Main.allStatusEffects.get(Main.r.nextInt(Main.allStatusEffects.size()));
             //if the effect is bad, apply it to the player
             if (effect.isBad()) {
                 p.addStatusEffects(effect);

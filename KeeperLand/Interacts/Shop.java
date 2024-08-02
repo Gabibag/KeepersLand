@@ -31,7 +31,7 @@ public class Shop extends Interactable {
     }
 
     public static void superBuy(Player p) {
-        if (Main.currentPlace.getShopItems().size() == 0) return;
+        if (Main.currentPlace.getShopItems().isEmpty()) return;
         List<Item> tempItems = new ArrayList<>(Main.currentPlace.getShopItems().stream().filter(o1 -> !o1.getName().equalsIgnoreCase("dull skull")).toList());
         //sort items by cost ascending
         tempItems.sort(Comparator.comparingInt(Item::getCost));

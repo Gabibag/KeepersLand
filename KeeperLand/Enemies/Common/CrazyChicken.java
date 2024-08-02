@@ -4,10 +4,7 @@ package KeeperLand.Enemies.Common;
 import KeeperLand.Abstracts.Enemy;
 import KeeperLand.Main;
 
-import java.util.Random;
-
 public class CrazyChicken extends Enemy {
-    Random r = new Random();
 
     public CrazyChicken() {
         super("Has no extra abilities, what you see is what you get!", true);

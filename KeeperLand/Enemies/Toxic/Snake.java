@@ -28,6 +28,9 @@ public class Snake extends Enemy {
 
     @Override
     public int getDamage() {
+        if (Main.player == null) {
+            return damage;
+        }
         return (int) (Main.player.getHp() * (8f / 100));
     }
 

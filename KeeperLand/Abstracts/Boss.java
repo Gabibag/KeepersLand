@@ -1,5 +1,6 @@
 package KeeperLand.Abstracts;
 
+import KeeperLand.Colors;
 import KeeperLand.Player;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public abstract class Boss extends Enemy {
 
     public Boss(String description) {
         super(description, false);
-        if (!allBosses.contains(this)) {
+        if (!allBosses.contains(this) && !this.name.contains("Keeper")) {
             allBosses.add((this));
         }
     }
@@ -24,6 +25,14 @@ public abstract class Boss extends Enemy {
     @Override
     public String getType() {
         return "Boss";
+    }
+
+    @Override
+    public void onDeath(Player p, List<Enemy> allies, Enemy self) {
+        super.onDeath(p, allies, self);
+        int t = r.nextInt(1, 4);
+        p.setTokens(p.getTokens() + t);
+        System.out.println("You found " + Colors.CYAN + t + "◊" + Colors.RESET + " tokens");
     }
 
     public abstract void bossOnSpawn(List<Enemy> enemies);

@@ -63,15 +63,24 @@ public class Helper {
      */
     public static float getScaleFactor(int type, int level) {
         int multi = level / 2;
+
         if (level <= 3) {
             return 1;
         }
-        return switch (type) {
-            case 0 -> 1 + (multi * 0.1f);
-            case 1 -> 1 + (multi * 0.1f);
-            case 2 -> 1 + (multi / 20f);
-            default -> multi + 1;
-        };
+        float ret;
+        switch (type) {
+            case 0 -> { //hp
+                ret = 1 + (multi * 0.1f);
+            }
+            case 1 -> { //dmg
+                ret = 1 + (multi * 0.1f);
+            }
+            case 2 -> { //coins
+                ret = 2 + (multi / 20f);
+            }
+            default -> ret = multi + 1;
+        }
+        return ret;
     }
 
 
@@ -139,7 +148,8 @@ public class Helper {
      */
     public static <T> List<T> getRandomElements(List<T> list, int amount) {
         if (list.isEmpty()) throw new IllegalArgumentException("Provided list is empty");
-        if (list.size() < amount) throw new IllegalArgumentException("List is too small");
+        if (list.size() < amount)
+            throw new IllegalArgumentException("List is too small, " + list.size() + " < " + amount + ", " + list);
         List<T> r = new ArrayList<>();
         for (int i = 0; i < amount; i++) {
             r.add(list.get(Main.r.nextInt(list.size())));
@@ -281,6 +291,7 @@ public class Helper {
             ret.add(enemies.get(rand));
             enemies.remove(rand);
         }
+        enemies.clear();
         return ret;
     }
 }

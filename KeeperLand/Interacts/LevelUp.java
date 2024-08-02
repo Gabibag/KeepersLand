@@ -25,9 +25,10 @@ public class LevelUp extends Interactable {
             int healAmount = p.getHealAmount();
             levelPlayer(p);
             System.out.println("You leveled up! You are now level " + p.getLevel() + "!");
-            System.out.println("Base Health: " + hp + " -> " + p.getHp());
-            System.out.println("Base Damage: " + damage + " -> " + p.getDamage());
-            System.out.println("Base Healing: " + healAmount + " -> " + p.getHealAmount());
+            System.out.println(Colors.GREEN + "Base Health: " + hp + " -> " + p.getHp());
+            System.out.println(Colors.RED + "Base Damage: " + damage + " -> " + p.getDamage());
+            System.out.println(Colors.CYAN + "Base Healing: " + healAmount + " -> " + p.getHealAmount());
+
         } else {
             System.out.println("You don't have enough xp to level up!");
         }
