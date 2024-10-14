@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Player {
@@ -66,12 +67,14 @@ public class Player {
             p.setXp(r.nextInt());
             p.setXpToLevel(r.nextInt());
             int invSize = r.nextInt();
-            r.nextLine();//idk why this is needed but item breaks if you remove it soooo
-            //cuz next int doesn't move to next line
+            r.nextLine(); // do not delete is v important
             for (int i = 0; i < invSize; i++) {
-                String name = r.nextLine();
-                int tier = Integer.parseInt(r.nextLine().trim());
-                for (Item item : Main.allItem) {
+                String[] str = r.nextLine().split("–");
+                String name = str[0];
+                int count = Integer.parseInt(r.nextLine().trim());
+                Item tempItem = new Item(Main.allItem.stream().filter(item -> Objects.equals(item.getName(), name)).findFirst().get());
+                tempItem.setCount(count);
+                /*for (Item item : Main.allItem) {
                     if (!item.getName().equalsIgnoreCase(name)) {
                         continue;
                     }
@@ -91,7 +94,8 @@ public class Player {
                     System.out.println(invItem);
                     p.inventory.add(invItem);
                     break;
-                }
+                }*/
+                p.inventory.add(tempItem);
             }
 
             r.close();
@@ -106,6 +110,46 @@ public class Player {
 
             e.printStackTrace();
             return null;
+        }
+
+    }
+
+    public void Save(String file) {
+        //File f = new File(file);
+        try {
+            FileWriter f = new FileWriter(file);
+            f.write(this.name + "\n");
+            f.write(this.hp + "\n");
+            f.write(this.dmg + "\n");
+            f.write(this.money + "\n");
+            f.write(this.actionAmount + "\n");
+            f.write(this.healVariance + "\n");
+            f.write(this.healAmount + "\n");
+            f.write(this.level + "\n");
+            f.write(this.stageNum + "\n");
+            f.write(this.xp + "\n");
+            f.write(this.xpToLevel + "\n");
+
+            f.write(this.inventory.size() + "\n");
+            //count number of each items in the inventory and set it to a 2d array
+            for (Item item : inventory) {
+                f.write(item.getName() + "–" + item.getTier() + "\n");
+                f.write(item.getCount() + "\n");
+
+                if (item.getTier() == 7) {
+                    f.write(item.getDmgIncr() + "\n");
+                    f.write(item.getHealIncr() + "\n");
+                    f.write(item.getHealVarIncr() + "\n");
+                    f.write(item.getHpIncr() + "\n");
+                    f.write(item.getCost() + "\n");
+                }
+
+            }
+            f.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
     }
@@ -138,44 +182,6 @@ public class Player {
 
     public void removeStatusEffects(StatusEffects effect) {
         this.statusEffects.remove(effect);
-    }
-
-    public void Save(String file) {
-        //File f = new File(file);
-        try {
-            FileWriter f = new FileWriter(file);
-            f.write(this.name + "\n");
-            f.write(this.hp + "\n");
-            f.write(this.dmg + "\n");
-            f.write(this.money + "\n");
-            f.write(this.actionAmount + "\n");
-            f.write(this.healVariance + "\n");
-            f.write(this.healAmount + "\n");
-            f.write(this.level + "\n");
-            f.write(this.stageNum + "\n");
-            f.write(this.xp + "\n");
-            f.write(this.xpToLevel + "\n");
-            f.write(this.inventory.size() + "\n");
-            for (Item item : inventory) {
-                f.write(item.getName() + "\n");
-                f.write(item.getTier() + "\n");
-
-                if (item.getTier() == 7) {
-                    f.write(item.getDmgIncr() + "\n");
-                    f.write(item.getHealIncr() + "\n");
-                    f.write(item.getHealVarIncr() + "\n");
-                    f.write(item.getHpIncr() + "\n");
-                    f.write(item.getCost() + "\n");
-                }
-
-            }
-            f.close();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
     }
 
     public int getStageNum() {

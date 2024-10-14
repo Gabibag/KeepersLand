@@ -12,32 +12,15 @@ public class Item {
     private int healIncrease = 0;
     private int dmgIncr;
     private int hpIncr;
-    private int HealVariance = 0;
+    private int healVariance = 0;
     private String name;
     private String description;
     private int rarity;
     private int tier = 1;
     private int tokenCost = 0;
+    private int count = 1;
     private final int DROP_RATE = 1;
-    /*make this a number from 1-1000, for drop chance, also doubles as epic, common, etc.
-    1-10  - common
-    10-20 - uncommon
-    20-30 - rare
-    30-40 - not epic but still cool
-    40-60 - super cool
-    60-100 - legendary
-     */
     private int cost;
-
-    public Item(int dmgIncr, int hpIncr, String name, String description) {
-        this.dmgIncr = dmgIncr;
-        this.hpIncr = hpIncr;
-        this.name = name;
-        this.description = description;
-        this.cost = itemCost(dmgIncr, hpIncr, 0, 0, 1);
-
-        Main.allItem.add(this);
-    }
 
     public Item(int dmgIncr, int hpIncr, String name, String description, int heal, int healvair) {
         this.dmgIncr = dmgIncr;
@@ -49,7 +32,7 @@ public class Item {
         this.rarity = determineRarity(cost);
 
         this.healIncrease = heal;
-        this.HealVariance = healvair;
+        this.healVariance = healvair;
         Main.allItem.add(this);
     }
 
@@ -63,7 +46,7 @@ public class Item {
         this.rarity = determineRarity(cost);
 
         this.healIncrease = heal;
-        this.HealVariance = healvair;
+        this.healVariance = healvair;
         if (isAllPool) {
             allPool.add(this);
         } else {
@@ -81,8 +64,44 @@ public class Item {
         this.tokenCost = 10;
         this.rarity = dropRate;
         this.healIncrease = heal;
-        this.HealVariance = healvair;
+        this.healVariance = healvair;
         Main.allItem.add(this);
+    }
+
+    public Item(int dmgIncr, int hpIncr, String name, String description) {
+        this.dmgIncr = dmgIncr;
+        this.hpIncr = hpIncr;
+        this.name = name;
+        this.description = description;
+        this.cost = itemCost(dmgIncr, hpIncr, 0, 0, 1);
+
+        Main.allItem.add(this);
+    }
+
+    public Item(Item i) {
+        this.dmgIncr = i.getDmgIncr();
+        this.hpIncr = i.getHpIncr();
+        this.name = i.getName();
+        this.description = i.getDescription();
+        this.cost = i.getCost();
+        this.rarity = i.getRarity();
+        this.healIncrease = i.getHealIncr();
+        this.healVariance = i.getHealVarIncr();
+        this.tokenCost = i.getTokenCost();
+        this.tier = i.getTier();
+    }
+
+    private void resetCount() {
+        this.healIncrease /= count;
+        this.dmgIncr /= count;
+        this.hpIncr /= count;
+        this.healVariance /= count;
+        this.cost /= count;
+        this.count = 1;
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public static int itemCost(int dmgIncr, int hpIncr, int heal, int healvair, int costMultiplier) {
@@ -99,18 +118,21 @@ public class Item {
         }
     }
 
-
-    public Item(Item i) {
-        this.dmgIncr = i.getDmgIncr();
-        this.hpIncr = i.getHpIncr();
-        this.name = i.getName();
-        this.description = i.getDescription();
-        this.cost = i.getCost();
-        this.rarity = i.getRarity();
-        this.healIncrease = i.getHealIncr();
-        this.HealVariance = i.getHealVarIncr();
-        this.tokenCost = i.getTokenCost();
-        this.tier = i.getTier();
+    public void setCount(int newCount) {
+        if (newCount == 1) {
+            resetCount();
+            return;
+        }
+        //make sure count is 1, if not, divide all stats by current count
+        if (count != 1) {
+            resetCount();
+        }
+        this.healIncrease *= newCount;
+        this.dmgIncr *= newCount;
+        this.hpIncr *= newCount;
+        this.healVariance *= newCount;
+        this.cost *= newCount;
+        this.count = newCount;
     }
 
 
@@ -169,11 +191,11 @@ public class Item {
     }
 
     public int getHealVarIncr() {
-        return HealVariance;
+        return healVariance;
     }
 
     public void setHealVariance(int v) {
-        HealVariance = v;
+        healVariance = v;
     }
 
     public int getHealIncr() {
@@ -285,6 +307,7 @@ public class Item {
         this.setHealVariance((int) (this.getHealVarIncr() * ((tier * 0.7))));
         this.tier = tier;
     }
+
 
     public void createComplexItem() {
         List<Item> items = Main.player.getInventory().stream().filter(item -> item.getName().equals(this.getName())).toList();

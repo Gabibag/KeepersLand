@@ -62,7 +62,7 @@ public class Inventory extends Interactable {
         HashMap<String, Integer> iCount = new HashMap<>();
         for (Item i : p.getInventory()) {
             String name = i.getName();
-            iCount.put(name, iCount.containsKey(name) ? iCount.get(name) + 1 : 1);
+            iCount.put(name, i.getCount());
         }
         List<Item> it = new ArrayList<>(p.getInventory());
         //add one of each item to the list
