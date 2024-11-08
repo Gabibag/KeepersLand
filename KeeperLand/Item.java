@@ -105,7 +105,7 @@ public class Item {
     }
 
     public static int itemCost(int dmgIncr, int hpIncr, int heal, int healvair, int costMultiplier) {
-        int c = (int) ((dmgIncr * 6) + (hpIncr * 2.5) + (heal * 6) + (healvair * 1.5) * costMultiplier * 0.9);
+        int c = (int) ((dmgIncr * 12) + (hpIncr * 5) + (heal * 5) + (healvair * 1.5) * costMultiplier * 0.9);
 //        as c aproaches 2000, it gets harder to get more expensive
         return Math.max(c, 30);
     }

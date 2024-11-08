@@ -76,7 +76,7 @@ public class Helper {
                 ret = 1 + (multi * 0.1f);
             }
             case 2 -> { //coins
-                ret = 2 + (multi / 20f);
+                ret = (multi * 0.05f);
             }
             default -> ret = multi + 1;
         }

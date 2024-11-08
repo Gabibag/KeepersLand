@@ -226,7 +226,10 @@ public abstract class Enemy {
     public void onDeath(Player p, List<Enemy> allies, Enemy self) {
         //by default, just gives xp and money
         int c = (int) (self.getCoins() * Helper.getScaleFactor(2, this.level));
-        String out = "You killed " + isAn(name) + name + "! (" + c + Colors.YELLOW + "◊" + Colors.RESET + ")";
+        String out = "You killed " + isAn(name) + name + "!";
+        if (c > 0) {
+            out += "(" + c + Colors.YELLOW + "◊" + Colors.RESET + ")";
+        }
         if (mutate != null) {
             mutate.onDeath(allies, self);
         } else if (r.nextInt(5) == 0) {

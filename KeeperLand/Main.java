@@ -79,9 +79,9 @@ public class Main {
                 name = Helper.Prompt(
                         Colors.RED + "That name is already taken, please enter a new name: " + Colors.RESET);
             }
-            player = new Player(name, 40, 5,
+            player = new Player(name, 30, 5,
                     new ArrayList<>());
-            player.addMoney(50);
+            player.addMoney(10);
             player.setHealAmount(10);
             player.setHealVariance(1);
             player.addInventory(ItemData.starterWeapon);
