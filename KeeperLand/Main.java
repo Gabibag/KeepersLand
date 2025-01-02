@@ -84,7 +84,7 @@ public class Main {
             player.addMoney(10);
             player.setHealAmount(10);
             player.setHealVariance(1);
-            player.addInventory(ItemData.starterWeapon);
+            player.addToInventory(ItemData.starterWeapon);
 
             Main.currentPlace = new StarterLand();
         }
@@ -125,7 +125,7 @@ public class Main {
             List<Enemy> tempenemies;
             for (int i = 0; i < lvl; i++) {
                 spawns = Helper.getEnemies(player);
-                tempenemies = Helper.getRandomElements(spawns, (lvl % 5 == 4 ? 1 : 3));
+                tempenemies = Helper.getRandomElements(spawns, (lvl % Helper.BOSS_LEVELS == Helper.BOSS_LEVELS - 1 ? 1 : 3));
                 for (Enemy e : tempenemies) {
                     e.randDrops(player, e);
                 }
@@ -154,7 +154,7 @@ public class Main {
                 currentPlace = allPlaces.get(location);
             }
             //add all items that have the word "shard" in them from the list allItems
-            allItem.stream().filter(i -> i.getName().toLowerCase().contains("shard") && !i.getName().toLowerCase().contains("keeper")).forEach(i -> player.addInventory(i));
+            allItem.stream().filter(i -> i.getName().toLowerCase().contains("shard") && !i.getName().toLowerCase().contains("keeper")).forEach(i -> player.addToInventory(i));
 
             System.out.println("amogus");
         }
@@ -180,7 +180,7 @@ public class Main {
             //add all items that have the word "shard" in them from the list allItems
             for (Item i : allItem) {
                 if (i.getName().toLowerCase().contains("shard")) {
-                    player.addInventory(i);
+                    player.addToInventory(i);
                 }
             }
 //            player.setDamage(player.getDamage()*500);
@@ -194,7 +194,7 @@ public class Main {
             List<Enemy> tempenemies;
             for (int i = 0; i < lvl; i++) {
                 spawns = Helper.getEnemies(player);
-                tempenemies = Helper.getRandomElements(spawns, (lvl % 5 == 0 ? 1 : 3));
+                tempenemies = Helper.getRandomElements(spawns, (lvl % Helper.BOSS_LEVELS == 0 ? 1 : 3));
 
                 for (Enemy e : tempenemies) {
                     e.randDrops(player, e);
@@ -251,7 +251,7 @@ public class Main {
                 List<Enemy> tempenemies;
                 for (int j = 0; j < lvl; j++) {
                     spawns = Helper.getEnemies(p);
-                    tempenemies = Helper.getRandomElements(spawns, (lvl % 5 == 0 ? 1 : 3));
+                    tempenemies = Helper.getRandomElements(spawns, (lvl % Helper.BOSS_LEVELS == 0 ? 1 : 3));
                     for (Enemy e : tempenemies) {
                         e.randDrops(p, e);
                     }
@@ -415,7 +415,7 @@ public class Main {
                     List<Enemy> tempenemies;
                     for (int j = 0; j < lvlCap; j++) {
                         spawns = Helper.getEnemies(p);
-                        tempenemies = Helper.getRandomElements(spawns, (j % 5 == 4 ? 1 : 3));
+                        tempenemies = Helper.getRandomElements(spawns, (j % Helper.BOSS_LEVELS == Helper.BOSS_LEVELS - 1 ? 1 : 3));
                         for (Enemy e : tempenemies) {
                             e.randDrops(p, e);
                         }
@@ -567,7 +567,7 @@ public class Main {
             System.out.print(Colors.RESET + Colors.CLEAR);
             System.out.println(
                     "You are currently in the " + Colors.YELLOW + currentPlace.getName() + Colors.RESET + ", " +
-                            (player.getStageNum() % 5 == 0 ? Colors.RED_UNDERLINED + Colors.RED_BOLD + "on stage " + player.getStageNum() : "on stage " + player.getStageNum()) +
+                            (player.getStageNum() % Helper.BOSS_LEVELS == 0 ? Colors.RED_UNDERLINED + Colors.RED_BOLD + "on stage " + player.getStageNum() : "on stage " + player.getStageNum()) +
                             Colors.PURPLE);
             for (int i = 0; i < allInteracts.size(); i++) {
                 System.out.println("[" + (i + 1) + "] " + allInteracts.get(i).getName());

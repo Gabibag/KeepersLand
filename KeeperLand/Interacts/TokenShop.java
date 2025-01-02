@@ -25,6 +25,7 @@ public class TokenShop extends Interactable {
         }
         return "Locked";
     }
+
     @Override
     public void onChoose(Player player) {
         //if get name is locked tell the user they cant access this yet
@@ -39,7 +40,7 @@ public class TokenShop extends Interactable {
             for (int j = items.size() - 1; j >= 0; j--) {
                 Item i = items.get(j);
                 //if items' doesn't have shard in it or it's name is "shattered shard", remove it from items
-                if ((!i.getName().contains("Shard") || i.getName().equals("Shattered Shard") )) {
+                if ((!i.getName().contains("Shard") || i.getName().equals("Shattered Shard"))) {
                     items.remove(j);
                 }
             }
@@ -66,8 +67,7 @@ public class TokenShop extends Interactable {
             int choice = Helper.getInput("", 0, items.size() + 4);
             if (choice == 0) {
                 return;
-            }
-            else if (choice == 1) {
+            } else if (choice == 1) {
                 for (int i = 0; i < items.size(); i++)
                     System.out.println(
                             "[" + (i + 2) + "] " + items.get(i).getName() + Colors.GREEN_BOLD + " " + items.get(i).getTokenCost() +
@@ -82,7 +82,7 @@ public class TokenShop extends Interactable {
                     System.out.println("Not enough money");
                     Helper.Sleep(1);
                 } else {
-                    player.getInventory().add(i);
+                    player.addToInventory(i);
                     player.setTokens(player.getTokens() - i.getTokenCost());
                     System.out.println(
                             "Bought " + i.getName() + " for " + i.getTokenCost() + " \nNew balance: " + player.getTokens());

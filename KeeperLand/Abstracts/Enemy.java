@@ -253,7 +253,7 @@ public abstract class Enemy {
         if (item == null) {
             return null;
         }
-        p.addInventory(item);
+        p.addToInventory(item);
         return item.getName();
     }
 

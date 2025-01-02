@@ -40,7 +40,7 @@ public class Battle extends Interactable {
 
     private static void instaAttackMode(Player p, List<Enemy> enemies) {
         //check if enemies can deal damage
-        if (p.getLevel() % 5 == 0) return;
+        if (p.getLevel() % Helper.BOSS_LEVELS == 0) return;
         for (Enemy enemy : enemies) {
             if (enemy.getDamage() > 0 || !(enemy.getMutate() instanceof None || enemy.getMutate() == null) || enemy instanceof Boss || enemy instanceof HelperSprite) {
                 return;
@@ -291,7 +291,7 @@ public class Battle extends Interactable {
         IntStream.iterate(enemies.size() - 1, i -> i >= 0, i -> i - 1).forEach(
                 enemies::remove); //the magic of intellij
         p.Save(p.getName() + ".plr");
-        if ((p.getStageNum() % 5 == 0 || (p.getStageNum() - 1 % 5 == 0)) || (p.getStageNum() == 0 || p.getStageNum() == 1)) {
+        if ((p.getStageNum() % Helper.BOSS_LEVELS == 0 || (p.getStageNum() - 1 % Helper.BOSS_LEVELS == 0)) || (p.getStageNum() == 0 || p.getStageNum() == 1)) {
             p.setStageNum(p.getStageNum() - 1);
         }
 
@@ -460,7 +460,7 @@ public class Battle extends Interactable {
         int Actions = p.getActionAmount();
         List<Enemy> enemies = Helper.getEnemies(p);
         int temp = 0;
-        int enemyCount = (player.getStageNum() % 5 == 0) ? 1 : 3;
+        int enemyCount = (player.getStageNum() % Helper.BOSS_LEVELS == 0) ? 1 : 3;
         while (enemies.size() < enemyCount) {
             enemies = Helper.getEnemies(p);
 
@@ -469,7 +469,7 @@ public class Battle extends Interactable {
             }
             temp++;
         }
-//        List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % 5 == 0 ? 1 : 3)));//only spawns 1 boss
+//        List<Enemy> enemies = Helper.getRandomElements(spawns, ((p.getStageNum() % Helper.BOSS_LEVELS == 0 ? 1 : 3)));//only spawns 1 boss
         try {
             for (int i = 0; i < enemies.size(); i++) {
                 enemies.set(i, enemies.get(i).getClass().getDeclaredConstructor().newInstance());
@@ -491,7 +491,7 @@ public class Battle extends Interactable {
 
         }*/
 
-        if ((p.getStageNum() % 5 == 0)) {
+        if ((p.getStageNum() % Helper.BOSS_LEVELS == 0)) {
             ((Boss) (enemies.get(0))).bossOnSpawn(enemies);
         }
         Main.currentPlace.BattleStart(p, enemies);

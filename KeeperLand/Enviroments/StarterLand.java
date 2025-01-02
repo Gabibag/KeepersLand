@@ -17,10 +17,16 @@ public class StarterLand extends Environment {
 
     @Override
     public void BattleStart(Player p, List<Enemy> a) {
+        //TODO: make this a tutorial
         System.out.println("Welcome to your first battle!");
         Helper.continuePrompt();
         System.out.println(Colors.CLEAR + "When the battle starts, choose an option to preform an action.");
         System.out.println(Colors.RED + "[1] Attack" + Colors.RESET + " - choose an enemy to deal damage to \n" + Colors.RED + "[2] Heal" + Colors.YELLOW + " - heal some of your hp back. The lower you get, the less effective it is " + Colors.CYAN + "\n[3] Inspect " + Colors.RESET + "- this does not take an action, but allows you to get information on the player and it's mobs.");
+        System.out.println("As a general rule, the lower health an enemy has, the more damage they deal. Some enemies may have special abilities as their attack.");
+        Helper.continuePrompt();
+        System.out.printf(Colors.CLEAR);
+        System.out.println("Every " + Helper.BOSS_LEVELS + " levels, you will fight a boss. They are much stronger than normal enemies, but drop tokens that can be used to buy powerful shards.");
+
         Helper.continuePrompt();
         System.out.println(Colors.CLEAR);
     }

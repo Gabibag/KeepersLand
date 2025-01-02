@@ -24,7 +24,7 @@ public class Shop extends Interactable {
         Item item = items.get(i - 1);
         int numBuy = money / item.getCost();
         for (int j = 0; j < numBuy; j++) {
-            p.getInventory().add(item);
+            p.addToInventory(item);
             p.chargeMoney(item.getCost());
         }
         System.out.println("Bought " + numBuy + " " + item.getName() + "s for " + (numBuy * item.getCost()) + "◊");
@@ -140,7 +140,7 @@ public class Shop extends Interactable {
         } else {
             Item give = i.randTier();
 
-            player.getInventory().add(give);
+            player.addToInventory(give);
             player.chargeMoney(i.getCost());
             if (announcePurchase) {
                 System.out.println(
@@ -157,7 +157,7 @@ public class Shop extends Interactable {
         } else {
             for (int j = 0; j < count; j++) {
                 Item give = i.randTier();
-                player.getInventory().add(give);
+                player.addToInventory(give);
             }
             player.chargeMoney(i.getCost() * count);
             if (!announcePurchase) return;

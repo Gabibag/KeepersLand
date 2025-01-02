@@ -15,6 +15,7 @@ public class Helper {
     public static boolean speedMode = false;
     public static boolean moreShopInfo = false;
     static final Scanner s = new Scanner(System.in);
+    public static final int BOSS_LEVELS = 3;
 
     public static void checkForComplexCreation(List<Item> complexChecks) {
         List<Item> items = player.getInventory();
@@ -281,7 +282,7 @@ public class Helper {
      * @return an ArrayList of enemies
      */
     public static List<Enemy> getEnemies(Player p) {
-        if (p.getStageNum() % 5 == 0) {
+        if (p.getStageNum() % BOSS_LEVELS == 0) {
             return getRandomElements(new ArrayList<Enemy>(allBosses), 1);
         }
         ArrayList<Enemy> enemies = Main.currentPlace.allowedEnemies().stream().filter(Enemy::canSpawn).collect(Collectors.toCollection(ArrayList::new));

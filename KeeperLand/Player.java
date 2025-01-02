@@ -95,7 +95,7 @@ public class Player {
                     p.inventory.add(invItem);
                     break;
                 }*/
-                p.inventory.add(tempItem);
+                p.addToInventory(tempItem);
             }
 
             r.close();
@@ -114,8 +114,17 @@ public class Player {
 
     }
 
+    public void addToInventory(Item item) {
+        if (inventory.stream().anyMatch(i -> i.getName().equals(item.getName()))) {
+            Item item1 = inventory.stream().filter(i -> i.getName().equals(item.getName())).findFirst().get();
+            item1.setCount(item1.getCount() + item.getCount());
+            return;
+        }
+        this.inventory.add(item);
+    }
+
+
     public void Save(String file) {
-        //File f = new File(file);
         try {
             FileWriter f = new FileWriter(file);
             f.write(this.name + "\n");
@@ -129,21 +138,11 @@ public class Player {
             f.write(this.stageNum + "\n");
             f.write(this.xp + "\n");
             f.write(this.xpToLevel + "\n");
-
             f.write(this.inventory.size() + "\n");
             //count number of each items in the inventory and set it to a 2d array
             for (Item item : inventory) {
                 f.write(item.getName() + "–" + item.getTier() + "\n");
                 f.write(item.getCount() + "\n");
-
-                if (item.getTier() == 7) {
-                    f.write(item.getDmgIncr() + "\n");
-                    f.write(item.getHealIncr() + "\n");
-                    f.write(item.getHealVarIncr() + "\n");
-                    f.write(item.getHpIncr() + "\n");
-                    f.write(item.getCost() + "\n");
-                }
-
             }
             f.close();
 
@@ -292,10 +291,6 @@ public class Player {
         this.inventory = inventory;
     }
 
-
-    public void addInventory(Item item) {
-        this.inventory.add(item);
-    }
 
     public void removeInventory(Item item) {
         this.inventory.remove(item);

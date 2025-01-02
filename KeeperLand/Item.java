@@ -135,12 +135,6 @@ public class Item {
         this.count = newCount;
     }
 
-
-    public String toString() {
-
-        return displayItem(this);
-    }
-
     private static String displayItem(Item item) {
         //sort items by cost descending
 
@@ -181,13 +175,19 @@ public class Item {
                             isNot0(Colors.GREEN, item.getHpIncr()) + " ❤" + item.getHpIncr() + hpCount +
                             isNot0(Colors.YELLOW, item.getHealIncr()) + " ✧" + item.getHealIncr() + healCount +
                             isNot0(Colors.PURPLE, item.getHealVarIncr()) + " ⚕" + item.getHealVarIncr() + variCount +
-                            item.getColTier() + item.getStrTier() + tierCount + Colors.CYAN + " ◊" + item.getCost());
+                            item.getColTier() + item.getStrTier() + tierCount + Colors.CYAN + " ◊" + item.getCost() + Colors.RESET + " x" + item.getCount());
 
 
         } catch (Exception e) {
             //items.add(Item.empty);
         }
         return "Error displaying item";
+    }
+
+    public String toString() {
+
+
+        return displayItem(this);
     }
 
     public int getHealVarIncr() {
@@ -308,7 +308,6 @@ public class Item {
         this.tier = tier;
     }
 
-
     public void createComplexItem() {
         List<Item> items = Main.player.getInventory().stream().filter(item -> item.getName().equals(this.getName())).toList();
         for (int i = items.size() - 1; i >= 0; i--) {
@@ -322,7 +321,7 @@ public class Item {
         }
         //check if the item is in the player's inventory. If it isn't, add it
         if (!Main.player.getInventory().contains(this)) {
-            Main.player.getInventory().add(this);
+            Main.player.addToInventory(this);
         }
         System.out.println("Complex item created, item " + this.getName() + " has been upgraded to tier 7. Combined " + items.size() + " items.");
     }

@@ -59,18 +59,7 @@ public class Inventory extends Interactable {
         }
 
 
-        HashMap<String, Integer> iCount = new HashMap<>();
-        for (Item i : p.getInventory()) {
-            String name = i.getName();
-            iCount.put(name, i.getCount());
-        }
-        List<Item> it = new ArrayList<>(p.getInventory());
-        //add one of each item to the list
-        for (Item value : it) {
-            if (printItems.stream().noneMatch(i -> i.getName().equals(value.getName()))) {
-                printItems.add(value);
-            }
-        }
+        List<Item> printItems = new ArrayList<>(p.getInventory());
 
         int maxTotalDmg = 0;
         int maxTotalHp = 0;
@@ -112,8 +101,7 @@ public class Inventory extends Interactable {
         int count = 1;
 
         //sort list by count
-        printItems.sort((o1, o2) -> iCount.get(o2.getName()).compareTo(iCount.get(o1.getName())));
-
+        printItems.sort(Comparator.comparingInt(Item::getCount));
         //if the item in printItems is a shard, bring it to the top
         for (int i = 0; i < printItems.size(); i++) {
             if (printItems.get(i).getName().toLowerCase().contains("shard")) {
@@ -123,22 +111,22 @@ public class Inventory extends Interactable {
             }
         }
         //number of unique items
-        float avgPercent = printItems.size() / ((float) p.getInventory().size());
+        float avgPercent = printItems.size();
         for (Item items : printItems) {
 
             String itemType = items.getName();
-            int totalDmg = items.getDmgIncr() * iCount.get(itemType);
-            int totalHp = items.getHpIncr() * iCount.get(itemType);
-            int totalHeal = items.getHealIncr() * iCount.get(itemType);
-            int totalHealVariance = items.getHealVarIncr() * iCount.get(itemType);
-            float itemPercent = iCount.get(itemType) / ((float) p.getInventory().size());
+            int totalDmg = items.getDmgIncr() * items.getCount();
+            int totalHp = items.getHpIncr() * items.getCount();
+            int totalHeal = items.getHealIncr() * items.getCount();
+            int totalHealVariance = items.getHealVarIncr() * items.getCount();
+            float itemPercent = items.getCount() / ((float) p.getInventory().size());
             float diff = avgPercent - itemPercent;
             String col = Colors.RESET;
-            if (diff > 0.25 && iCount.get(itemType) > 40) {
+            if (diff > 0.25 && items.getCount() > 40) {
                 col = Colors.RED_BRIGHT;
-            } else if (diff > 0.1 && iCount.get(itemType) > 20) {
+            } else if (diff > 0.1 && items.getCount() > 20) {
                 col = Colors.RED;
-            } else if (diff > 0.05 && iCount.get(itemType) > 10) {
+            } else if (diff > 0.05 && items.getCount() > 10) {
                 col = Colors.YELLOW;
             }
             if (items.getName().toLowerCase().contains("shard")) {
@@ -154,10 +142,10 @@ public class Inventory extends Interactable {
             hpCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(totalHp).length())));
             healCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(totalHeal).length())));
             dmgCount.append(" ".repeat(Math.max(0, maxColLength - String.valueOf(totalDmg).length())));
-            countString.append(" ".repeat(Math.max(0, (maxColLength + 3) - String.valueOf(iCount.get(itemType)).length())));
+            countString.append(" ".repeat(Math.max(0, (maxColLength + 3) - String.valueOf(items.getCount()).length())));
 
             inventoryDisplay += Colors.CYAN + "[" + (count) + "] " + col + items.getName() + spaceCount +
-                    isNot0(Colors.RED, totalDmg) + " ⚔" + totalDmg + dmgCount + isNot0(Colors.GREEN, totalHp) + " ❤" + totalHp + hpCount + isNot0(Colors.YELLOW, totalHeal) + " ✧" + totalHeal + healCount + isNot0(Colors.PURPLE, totalHealVariance) + " ⚕" + totalHealVariance + variCount + Colors.CYAN + " x" + iCount.get(itemType) + countString + (Colors.RESET + " " + (items).getDescription()) + Colors.RESET + "\n";
+                    isNot0(Colors.RED, totalDmg) + " ⚔" + totalDmg + dmgCount + isNot0(Colors.GREEN, totalHp) + " ❤" + totalHp + hpCount + isNot0(Colors.YELLOW, totalHeal) + " ✧" + totalHeal + healCount + isNot0(Colors.PURPLE, totalHealVariance) + " ⚕" + totalHealVariance + variCount + Colors.CYAN + " x" + items.getCount() + countString + (Colors.RESET + " " + (items).getDescription()) + Colors.RESET + "\n";
             count++;
         }
 
@@ -182,6 +170,7 @@ public class Inventory extends Interactable {
             totalHeal += i.getHealIncr();
             totalHealVariance += i.getHealVarIncr();
         }
+
         inventoryDisplay += "\n" + Colors.CYAN + "Total Benefits: \n" + Colors.RESET;
         if (totalDmg != 0) {
             inventoryDisplay += (" + " + totalDmg + " damage (Contributes to " + Math.round((totalDmg / ((float) tempMaxDmg)) * 10000) / 100f + "%) of total damage \n");
@@ -249,56 +238,30 @@ public class Inventory extends Interactable {
 
 
             Item inspect = printItems.get(input - 1);
-            ArrayList<Item> inspectList = new ArrayList<>();
-            //go through the player's inventory and add all items with the same name as the inspected item to inspectList
-            for (Item item : p.getInventory()) {
-                if (item.getName().equalsIgnoreCase(inspect.getName())) {
-                    inspectList.add(item);
-                }
-            }
+
             //count the number of duplicate items with the same tier in inspectList
             HashMap<Integer, Integer> tierCount = new HashMap<>();
-            for (Item item : inspectList) {
-                if (tierCount.containsKey(item.getTier())) {
-                    tierCount.put(item.getTier(), tierCount.get(item.getTier()) + 1);
-                } else {
-                    tierCount.put(item.getTier(), 1);
-                }
-            }
-            int totalItems = inspectList.size();
-            for (int i = inspectList.size() - 1; i >= 0; i--) {
-                for (int j = inspectList.size() - 2; j >= 0; j--) {
-                    if ((inspectList.get(i).getTier() == inspectList.get(j).getTier()) && i != j) {
-                        inspectList.remove(j);
-                        break;
-                    }
-                }
-            }
+
 
             //sort items in inspectList by tier
-            inspectList.sort(Comparator.comparingInt(Item::getTier));
-            System.out.println(Colors.YELLOW + "You have " + tierCount.get(inspectList.get(0).getTier()) + " " + inspectList.get(0).getName() + "s" + Colors.RESET);
-            System.out.println(inspectList.get(0) + Colors.CYAN + " x" + tierCount.get(inspectList.get(0).getTier()) + Colors.RESET + "  " + inspectList.get(0).getDescription());
-            for (int i = 1; i < inspectList.size(); i++) {
-                Item item = inspectList.get(i);
-                System.out.println(item + Colors.CYAN + " x" + tierCount.get(item.getTier()) + Colors.RESET);
-            }
+            System.out.println(Colors.YELLOW + "You have " + inspect.getCount() + " " + inspect.getName() + "s" + Colors.RESET);
+            System.out.println(inspect + Colors.RESET + "  " + inspect.getDescription());
 
-            int totalDmg = inspect.getDmgIncr() * totalItems;
-            int totalHp = inspect.getHpIncr() * totalItems;
-            int totalHeal = inspect.getHealIncr() * totalItems;
-            int totalHealVariance = inspect.getHealVarIncr() * totalItems;
+            int totalDmg = inspect.getDmgIncr() * inspect.getCount();
+            int totalHp = inspect.getHpIncr() * inspect.getCount();
+            int totalHeal = inspect.getHealIncr() * inspect.getCount();
+            int totalHealVariance = inspect.getHealVarIncr() * inspect.getCount();
             System.out.println("Total stats:");
-            if (inspectList.getFirst().getDmgIncr() != 0) {
+            if (inspect.getDmgIncr() != 0) {
                 System.out.println(" + " + totalDmg + " damage (Contributes to " + Math.round((totalDmg / ((float) tempMaxDmg)) * 10000) / 100f + "%) of total damage");
             }
-            if (inspectList.getFirst().getHpIncr() != 0) {
+            if (inspect.getHpIncr() != 0) {
                 System.out.println(" + " + totalHp + " health (Contributes to " + Math.round((totalHp / ((float) tempMaxHealth)) * 10000) / 100f + "%) of total health");
             }
-            if (inspectList.getFirst().getHealIncr() != 0) {
+            if (inspect.getHealIncr() != 0) {
                 System.out.println(" + " + totalHeal + " healing (Contributes to " + Math.round((totalHeal / ((float) tempMaxHeal)) * 10000) / 100f + "%) of total healing");
             }
-            if (inspectList.getFirst().getHealVarIncr() != 0) {
+            if (inspect.getHealVarIncr() != 0) {
                 System.out.println(" + " + totalHealVariance + " healing variance (Contributes to " + Math.round((totalHealVariance / ((float) tempMaxHealVar)) * 10000) / 100f + "%) of total healing variance");
             }
             System.out.println(Colors.RESET);
@@ -307,7 +270,7 @@ public class Inventory extends Interactable {
                 System.out.println(Colors.YELLOW + "[1]" + " Shatter" + Colors.RESET);
                 int c = Helper.getInput("", 0, 1);
                 if (c == 1) {
-                    System.out.println(Colors.YELLOW + "Shattered " + inspectList.getFirst() + Colors.RESET);
+                    System.out.println(Colors.YELLOW + "Shattered " + inspect.getName() + Colors.RESET);
                     p.getInventory().remove(inspect);
                     //random number between 1 and 3
                     int ran = (int) (Math.random() * 3) + 1;
@@ -318,7 +281,7 @@ public class Inventory extends Interactable {
                             randomItem = Main.allItem.get((int) (Math.random() * Main.allItem.size()));
                         }
                         System.out.println(Colors.YELLOW + "You got a " + randomItem.getName() + Colors.RESET);
-                        p.getInventory().add(randomItem);
+                        p.addToInventory(randomItem);
                     } else {
                         //give back a percentage of the stats of the item to the player
                         p.setDamage(p.getDamage() + inspect.getDmgIncr() / 3);

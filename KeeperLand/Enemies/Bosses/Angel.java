@@ -35,7 +35,8 @@ public class Angel extends Boss {
         for (int i = 0; i < 3; i++) {
             allies.add(new HealingSprite());
         }
-        allies.add(new DeathMinion()); //the bringer of light is not what it seems...
+        allies.add(new DeathMinion());
+        p.addToInventory(ItemData.HealingShard);
     }
 
 

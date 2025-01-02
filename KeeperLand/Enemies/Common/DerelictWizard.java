@@ -7,7 +7,7 @@ import KeeperLand.Main;
 public class DerelictWizard extends Enemy {
 
     public DerelictWizard() {
-        super("Almost always mutated!", true);
+        super("Is almost always mutated!", true);
     }
 
     @Override

@@ -35,14 +35,14 @@ public class TheKeeper2 extends FinalBoss {//stage 2 of finalBoss
         allies.clear();
         System.out.println(Colors.CLEAR);
         System.out.println("You defeated the Keeper and found a" + Colors.YELLOW + " Keeper Shard" + Colors.RESET + "!");
-        p.addInventory(new Item(ItemData.KeeperShard));
+        p.addToInventory(new Item(ItemData.KeeperShard));
         p.setBattleHp(p.getBattleDamage() + ItemData.KeeperShard.getHpIncr());
 
         if (allies.size() > 0) {
             allies.subList(0, allies.size()).clear();
         }
         for (Item drop : this.getDrops()) {
-            Main.player.getInventory().add(drop);
+            Main.player.addToInventory(drop);
         }
         allies.add(new TheKeeper3());
         ((FinalBoss) allies.get(0)).bossOnSpawn(allies);
